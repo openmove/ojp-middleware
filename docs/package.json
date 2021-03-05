@@ -1,7 +1,7 @@
 {
-  "name": "xsd2json",
+  "name": "docs",
   "version": "1.0.0",
-  "description": "",
+  "description": "TODO documentation in markdowns",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

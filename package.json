@@ -6,5 +6,7 @@
   },
   "scritps": {
     "postinstall": "postinstall && node packages/ojp-xsd/download.sh"
-  }
+  },
+  "author": "Stefano Cudini stefano.cudini@gmail.com",
+  "license": "MIT"
 }

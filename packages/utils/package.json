@@ -1,7 +1,7 @@
 {
-  "name": "xsd2json",
+  "name": "utils",
   "version": "1.0.0",
-  "description": "",
+  "description": "modules nodejs shared with other modules",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

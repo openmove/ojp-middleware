@@ -1,0 +1,39 @@
+version: '3'
+
+networks:
+  default:
+    driver: bridge
+
+services:
+
+  ojp:
+    container_name: api-ojp
+    ports: ["8081:8081"]
+    image: openmove/api-ojp:latest
+    build:
+      context: ./packages/api-otp
+    environment:
+    # depends_on:
+    #   - ep-manager
+    #   - otp
+
+  otp:
+    container_name: api-otp
+    ports: ["8082:8082"]
+    image: openmove/api-otp:latest
+    build:
+      context: ./packages/api-otp
+
+  ep-manager:
+    container_name: api-otp
+    ports: ["8083:8083"]
+    image: openmove/ep-manager:latest
+    build:
+      context: ./packages/ep-manager
+  
+  xsd2json:
+    container_name: xsd2json
+    ports: ["8082:8082"]
+    image: openmove/xsd2json:latest
+    build:
+      context: ./packages/xsd2json
