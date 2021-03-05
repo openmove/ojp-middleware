@@ -5,7 +5,7 @@
     "lerna": "^3.22.1"
   },
   "scritps": {
-    "postinstall": "postinstall && node packages/ojp-xsd/download.sh"
+    "postinstall": "postinstall && node modules/ojp-xsd/download.sh"
   },
   "author": "Stefano Cudini stefano.cudini@gmail.com",
   "license": "MIT"

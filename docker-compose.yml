@@ -11,7 +11,7 @@ services:
     ports: ["8081:8081"]
     image: openmove/api-ojp:latest
     build:
-      context: ./packages/api-otp
+      context: ./modules/api-otp
     environment:
     # depends_on:
     #   - ep-manager
@@ -22,18 +22,18 @@ services:
     ports: ["8082:8082"]
     image: openmove/api-otp:latest
     build:
-      context: ./packages/api-otp
+      context: ./modules/api-otp
 
   ep-manager:
     container_name: api-otp
     ports: ["8083:8083"]
     image: openmove/ep-manager:latest
     build:
-      context: ./packages/ep-manager
+      context: ./modules/ep-manager
   
   xsd2json:
     container_name: xsd2json
     ports: ["8082:8082"]
     image: openmove/xsd2json:latest
     build:
-      context: ./packages/xsd2json
+      context: ./modules/xsd2json
