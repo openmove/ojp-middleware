@@ -1,10 +1,11 @@
 {
   "name": "exchangepoint-manager",
   "version": "1.0.0",
-  "description": "OJP exchangepoint mananger",
+  "description": "OJP exchangepoint mananger", 
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "download": "./download.sh",
+    "import": "./import.sh"
   },
   "author": "Stefano Cudini stefano.cudini@gmail.com",
   "license": "MIT",

@@ -4,11 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "download": "./download.sh"
+    "download": "./download.sh",
+    "import": "./import.sh"
   },
   "author": "Stefano Cudini stefano.cudini@gmail.com",
   "license": "MIT",
   "dependencies": {
+    
+    "xsd2json": "1.0.0",
+
     "axios": "^0.21.1"
   }
 }

@@ -3,5 +3,7 @@
 
 mongodb models to store ojp exchangepoints
 
-TODO include NETEXT IFOPT
+TODO download.sh script to download remote exchangepoint
+
+TODO maybe include NETEXT IFOPT
 https://github.com/NeTEx-CEN/NeTEx/blob/master/xsd/ifopt.xsd

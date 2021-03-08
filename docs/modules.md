@@ -8,13 +8,6 @@
 - utils
 - xsd2json
 
-## containers
-
-defined in *docker-compose.yml*
-
-
-
-
 ### api-ojp
 
 OJP entrypoint
@@ -36,6 +29,11 @@ exchange point collect stops
 auto download official OJP xsd files and sync
 
 
+### xsd2json
+
+traductor of XSD schema definitions into JSONschema or JSON for nodejs
+
+
 ### utils
 
 modules nodejs shared with other modules:
@@ -43,8 +41,4 @@ modules nodejs shared with other modules:
 - shared convertion funcions
 - db connections
 - validators OJP request/response 
-
-### xsd2json
-
-traductor of XSD schema definitions into JSONschema or JSON for nodejs
 
