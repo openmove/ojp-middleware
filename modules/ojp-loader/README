@@ -1,0 +1,12 @@
+
+
+# OJP loader
+
+this module depends from module xsd2json
+
+download OJP xsd defitions covert in json and load in shared Mongodb database
+
+
+## scripts
+
+```npm run download``` download last OJP xsd defintions

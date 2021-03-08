@@ -1,7 +1,7 @@
 
+# exchangepoint manager
 
-
-TODO mongodb models to store:
+mongodb models to store ojp exchangepoints
 
 TODO include NETEXT IFOPT
 https://github.com/NeTEx-CEN/NeTEx/blob/master/xsd/ifopt.xsd

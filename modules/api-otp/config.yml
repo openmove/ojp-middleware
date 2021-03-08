@@ -1,0 +1,12 @@
+server:
+  port: 8082
+  #TODO cache_ttl: 0
+
+endpoints:
+  default:
+    hostname: otp.example.com
+    path: /otp/routers/default
+    port: 443
+    headers:
+      User-Agent: ojp-middleware-client
+  
