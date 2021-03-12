@@ -1,3 +1,6 @@
+server:
+  port: 8080
+  #TODO cache_ttl: 0
 
 download:
   version: 0.1
