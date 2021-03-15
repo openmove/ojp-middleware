@@ -12,6 +12,14 @@
 
 OJP entrypoint
 
+implements this OJP entrypoints:
+
+- OJPLocationInformation
+- OJPTrip
+- OJPStopEvent
+- OJPTripInfo
+- OJPExchangePoints
+- OJPMultiPointTrip
 
 ### api-otp
 
