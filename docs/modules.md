@@ -39,14 +39,13 @@ auto download official OJP xsd files and sync
 this module depends from module xsd2json
 
 - download OJP xsd defitions covert in json
-- import in shared Mongodb database
-- notify other microservices to updated versions of ojp xsd
+- import in shared Mongodb database OR node cache
+- notify other microservices to updated versions of ojp xsd and reload its
 
-## npm scripts
-
-```npm run download``` download last OJP xsd defintions
+#### npm scripts
 
 ```npm run download``` download last OJP xsd defintions
+```npm run import``` download last OJP xsd defintions
 
 
 ### xsd2json
