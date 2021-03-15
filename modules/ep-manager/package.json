@@ -4,8 +4,8 @@
   "description": "OJP exchangepoint mananger", 
   "main": "index.js",
   "scripts": {
-    "download": "./download.sh",
-    "import": "./import.sh"
+    "download": "node ./download/index.js",
+    "import": "node ./import/index.js"
   },
   "author": "Stefano Cudini stefano.cudini@gmail.com",
   "license": "MIT",
