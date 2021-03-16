@@ -1,7 +1,7 @@
 
 //TODO 
 //
-//- downoad zip from github
+//- download zip from github
 //- unzip
 //- ecc
 //

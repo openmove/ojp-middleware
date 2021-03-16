@@ -1,8 +1,10 @@
 server:
   port: 8080
   #TODO cache_ttl: 0
+  path: ./xsd-schemas/
 
-download:
-  version: 0.1
+xsdsources:
+  version: 1.0
+  url: https://github.com/VDVde/OJP/archive/v1.0.zip
   #version: 1.0
   #version: 0.1
