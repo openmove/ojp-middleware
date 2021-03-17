@@ -16,7 +16,6 @@ const yaml = require('js-yaml');
 //TODO use for debug const dotenv = require('dotenv');
 dotenv.config();
 
-const CONFIGFILE = path.join(__dirname, 'config.yml');
 const ENV = process.env;
 
 function tmpl(str, data) {
@@ -30,45 +29,47 @@ function tmpl(str, data) {
 	});	
 }
 
-try {
-	const configFile = fs.readFileSync(CONFIGFILE, 'utf8');
-	
-	const configEnv = tmpl(configFile, ENV);
+function parseConfig(configFileYml) {
 
-	configYml = yaml.safeLoad(configEnv, {
-		schema: yaml.JSON_SCHEMA,
-		json: true
-	});
-}
-catch (e) {
-  console.log('Error: ',e.message);
-  process.exit(1)
-}
+	const conff = configFileYml || path.join(__dirname, 'config.yml');
 
-const defaultConfig = {
-	server: {
-		port: 8080
+	try {
+		const configFile = fs.readFileSync(conff, 'utf8');
+		
+		const configEnv = tmpl(configFile, ENV);
+
+		configYml = yaml.safeLoad(configEnv, {
+			schema: yaml.JSON_SCHEMA,
+			json: true
+		});
 	}
-};
+	catch (e) {
+	  console.log('Error: ',e.message);
+	  process.exit(1)
+	}
 
-var configYml = _.defaultsDeep(configYml, defaultConfig)
+	const defaultConfig = {
+		server: {
+			port: 8080
+		}
+	};
 
-if(process.env.PORT)
-	configYml.server.port = process.env.PORT;
+	var configYml = _.defaultsDeep(configYml, defaultConfig)
 
-//normalize defaults
-configYml.endpoints = _.mapValues(configYml.endpoints, (c) => {
-	
-	let val = _.defaults(c, configYml.endpoints.default),
-		u = url.parse(val.hostname);
+	if(process.env.PORT)
+		configYml.server.port = process.env.PORT;
+	/*
+	//normalize defaults
+	configYml.endpoints = _.mapValues(configYml.endpoints, (c) => {
+		
+		let val = _.defaults(c, configYml.endpoints.default),
+			u = url.parse(val.hostname);
 
-	val.hostname = u.hostname || val.hostname;
+		val.hostname = u.hostname || val.hostname;
 
-	return val;
-});
+		return val;
+	});*/
 
-delete configYml.endpoints.default;
+}
 
-console.log(configYml)
-
-module.exports = configYml;
+module.exports = parseConfig;
