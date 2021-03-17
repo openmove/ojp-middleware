@@ -1,3 +1,34 @@
 server:
   port: 8080
   #TODO cache_ttl: 0
+
+services:
+  OJPLocationInformation:
+    #Location information 
+    #OJP_Locations.xsd
+    enabled: true
+  
+  OJPStopEvent:
+    #Departure board 
+    ##OJP_StopEvents.xsd
+    enabled: false
+
+  OJPExchangePoints:
+    #Exchange points
+    #OJP_Locations.xsd
+    enabled: false
+  
+  OJPTrip:
+    #Trip request 
+    #OJP_Trips.xsd
+    enabled: false
+
+  OJPTripInfo:
+    #Trip/Vehicle information
+    ##OJP_TripInfo.xsd
+    enabled: false
+
+  OJPMultiPointTrip:
+    #Distributed journey planning
+    ##OJP_Trips.xsd
+    enabled: false

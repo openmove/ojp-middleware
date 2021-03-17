@@ -7,5 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Stefano Cudini stefano.cudini@gmail.com",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^8.2.0"
+  }
 }

@@ -1,7 +1,7 @@
 {
   "name": "exchangepoint-manager",
   "version": "1.0.0",
-  "description": "OJP exchangepoint mananger", 
+  "description": "OJP exchangepoint mananger",
   "main": "index.js",
   "scripts": {
     "download": "node ./download/index.js",
@@ -10,6 +10,7 @@
   "author": "Stefano Cudini stefano.cudini@gmail.com",
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "express": "^4.17.1"
   }
 }
