@@ -11,6 +11,9 @@
     "import": "lerna run import",
     "clean": "lerna clean"
   },
+  "engines": {
+    "node": "12.21.0"
+  },
   "author": "Stefano Cudini stefano.cudini@gmail.com",
   "license": "MIT"
 }

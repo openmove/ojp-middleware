@@ -1,11 +1,11 @@
 {
-  "name": "ojp-xsd",
+  "name": "ojp-loader",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "download": "node ./download/index.js",
-    "import": "node ./import/index.js"
+    "import ": "node ./import/index.js"
   },
   "author": "Stefano Cudini stefano.cudini@gmail.com",
   "license": "MIT",

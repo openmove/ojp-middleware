@@ -21,3 +21,11 @@ OJP standard:
 Open API XSD schemas:
 
 https://github.com/VDVde/OJP
+
+
+## setup
+
+```bash
+npm install
+lerna bootstrap
+```

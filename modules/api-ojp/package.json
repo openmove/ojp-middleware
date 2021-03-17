@@ -8,6 +8,9 @@
   },
   "author": "Stefano Cudini stefano.cudini@gmail.com",
   "license": "MIT",
+  "engines": {
+    "node": "12.21.0"
+  },
   "dependencies": {
     "express": "^4.17.1",
     "utils": "^1.0.0"
