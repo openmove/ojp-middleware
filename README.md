@@ -1,6 +1,6 @@
 # OJP middleware
 
-Open API for distributed Journey Planning to OpentripPlanner Middleware
+Open API for distributed Journey Planning to OpentripPlanner Middleware as a Passive System
 
 
 ## Structure
