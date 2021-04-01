@@ -22,7 +22,7 @@ Open API XSD schemas:
 https://github.com/VDVde/OJP
 
 
-## setup
+## Setup
 
 ```bash
 npm install
