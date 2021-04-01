@@ -2,11 +2,9 @@
 # OJP Middleware Documentation
 
 
-## [Modules](modules.md)
+## Modules
 
-all modules are single npm packages
-
-some are dependent on each other
+all modules are single npm packages some are dependent on each other
 
 - api-ojp
 - api-otp
@@ -15,8 +13,9 @@ some are dependent on each other
 - utils
 - xsd2json
 
+[learn more](modules.md)
 
-## [Services](services.md)
+## Services
 
 some of modules implement a Docker service running in individual container 
 and associated with a specific port to an Api REST interface.
@@ -29,6 +28,7 @@ and associated with a specific port to an Api REST interface.
 - ojp-loader
 - xsd2json
 
+[learn more](services.md)
 
 ## References
 
