@@ -3,6 +3,15 @@
 
 ## Structure
 
+Common structure for modules and services is:
+- config.yml
+- index.js
+- package.json
+
+and for services is:
+- Dockerfile
+- env.example(renamed to .env in dev environment)
+- 
 The basic structure of code:
 ```
 .
@@ -48,14 +57,6 @@ The basic structure of code:
 ├── docker-compose.yml
 └── package.json
 ```
-common files for modules and services is:
-- config.yml
-- index.js
-- package.json
-
-common files for services is:
-- Dockerfile
-- env.example(renamed to .env in dev environment)
 
 ## Modules
 
