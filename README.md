@@ -23,9 +23,20 @@ Open API XSD schemas:
 https://github.com/VDVde/OJP
 
 
-## setup
+## Setup
 
+### quick start
+
+download remote dependecies
 ```bash
 npm install
+```bash
+
+resolve and link internal dependecies
+```
 lerna bootstrap
 ```
+
+### updates
+
+...work in progress...
