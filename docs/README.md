@@ -2,6 +2,8 @@
 # OJP Middleware Documentation
 
 ## Structure
+
+The basic structure of code:
 ```
 .
 ├── modules
@@ -46,6 +48,14 @@
 ├── docker-compose.yml
 └── package.json
 ```
+common files for modules and services is:
+- config.yml
+- index.js
+- package.json
+
+common files for services is:
+- Dockerfile
+- env.example(renamed to .env in dev environment)
 
 ## Modules
 
