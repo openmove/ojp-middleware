@@ -24,7 +24,19 @@ https://github.com/VDVde/OJP
 
 ## Setup
 
+### quick start
+
+download remote dependecies
 ```bash
 npm install
+```bash
+
+resolve and link internal dependecies
+```
 lerna bootstrap
 ```
+
+### update commands
+
+...work in progress...
+
