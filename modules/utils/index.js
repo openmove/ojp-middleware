@@ -3,6 +3,9 @@ module.exports = {
 
 	dbconnect: () => {
 		//TODO mongodb connection
+		
+		//TODO
+		//copy methods and libs from @openmove/infrastructure
 	}
 
 	//TODO
