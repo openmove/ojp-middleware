@@ -1,6 +1,59 @@
 
 # OJP Middleware Documentation
 
+## Monorepo structure
+```
+.
+├── docs
+│   ├── modules.md
+│   ├── README.md
+│   └── services.md
+├── modules
+│   ├── api-ojp
+│   │   ├── config.yml
+│   │   ├── Dockerfile
+│   │   ├── env.example
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── services
+│   ├── api-otp
+│   │   ├── config.yml
+│   │   ├── Dockerfile
+│   │   ├── env.example
+│   │   └── package.json
+│   ├── ep-manager
+│   │   ├── config.yml
+│   │   ├── Dockerfile
+│   │   ├── download/
+│   │   ├── env.example
+│   │   ├── import/
+│   │   ├── package.json
+│   │   └── README
+│   ├── ojp-loader
+│   │   ├── config.yml
+│   │   ├── download/
+│   │   ├── env.example
+│   │   ├── import/
+│   │   ├── index.js
+│   │   ├── package.json
+│   │   └── xsd-schemas/
+│   ├── utils
+│   │   ├── config.js
+│   │   ├── index.js
+│   │   └── package.json
+│   └── xsd2json
+│       ├── config.yml
+│       ├── Dockerfile
+│       ├── env.example
+│       ├── index.js
+│       ├── package.json
+│       └── README
+├── tests/
+├── lerna.json
+├── docker-compose.yml
+├── package.json
+└── README.md
+```
 
 ## Modules
 
