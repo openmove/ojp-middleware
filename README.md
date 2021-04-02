@@ -2,11 +2,14 @@
 
 Open API for distributed Journey Planning to OpentripPlanner Middleware as a Passive System.
 
-The project is [structured](docs/README.md#structure) as a [Monorepo](https://codefresh.io/howtos/lerna-monorepo/) that contains NPM modules and Docker microservices
+The project is structured as a [Monorepo](https://codefresh.io/howtos/lerna-monorepo/) that contains NPM modules and Docker microservices
 
 ## Documentation
 
-[README](docs/README.md)
+[Main Docs](docs/README.md)
+- [Structure](docs/README.md#structure)
+- [Modules](docs/modules.md)
+- [Services](docs/services.md)
 
 ## References
 
