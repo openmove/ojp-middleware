@@ -29,10 +29,10 @@ https://github.com/VDVde/OJP
 download remote dependecies
 ```bash
 npm install
-```bash
+```
 
 resolve and link internal dependecies
-```
+```bash
 lerna bootstrap
 ```
 
