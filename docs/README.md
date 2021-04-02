@@ -11,7 +11,7 @@ Common structure for modules and services is:
 and for services is:
 - Dockerfile
 - env.example(renamed to .env in dev environment)
-- 
+
 The basic structure of code:
 ```
 .
