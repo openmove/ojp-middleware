@@ -7,60 +7,6 @@ Open API for distributed Journey Planning to OpentripPlanner Middleware as a Pas
 
 [Monorepo](https://codefresh.io/howtos/lerna-monorepo/) that contains NPM modules and Docker microservices
 
-```
-.
-├── docs
-│   ├── modules.md
-│   ├── README.md
-│   └── services.md
-├── modules
-│   ├── api-ojp
-│   │   ├── config.yml
-│   │   ├── Dockerfile
-│   │   ├── env.example
-│   │   ├── index.js
-│   │   ├── package.json
-│   │   └── services
-│   ├── api-otp
-│   │   ├── config.yml
-│   │   ├── Dockerfile
-│   │   ├── env.example
-│   │   ├── node_modules
-│   │   └── package.json
-│   ├── ep-manager
-│   │   ├── config.yml
-│   │   ├── Dockerfile
-│   │   ├── download/
-│   │   ├── env.example
-│   │   ├── import/
-│   │   ├── package.json
-│   │   └── README
-│   ├── ojp-loader
-│   │   ├── config.yml
-│   │   ├── download/
-│   │   ├── env.example
-│   │   ├── import/
-│   │   ├── index.js
-│   │   ├── package.json
-│   │   └── xsd-schemas/
-│   ├── utils
-│   │   ├── config.js
-│   │   ├── index.js
-│   │   └── package.json
-│   └── xsd2json
-│       ├── config.yml
-│       ├── Dockerfile
-│       ├── env.example
-│       ├── index.js
-│       ├── package.json
-│       └── README
-├── tests/
-├── lerna.json
-├── docker-compose.yml
-├── package.json
-└── README.md
-```
-
 ## Documentation
 
 [README](docs/README.md)
