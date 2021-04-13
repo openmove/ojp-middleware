@@ -11,6 +11,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "utils": "^1.0.0",
-    "xsd2jsonschema": "^0.3.7"
+    "xsd2jsonschema": "^0.3.7",
+    "xmldom": "~0.5.0"
   }
 }
