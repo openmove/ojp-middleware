@@ -1,0 +1,23 @@
+{
+  "name": "ojp-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "djvi": "0.0.2",
+    "express": "^4.17.1",
+    "express-xml-bodyparser": "^0.3.0",
+    "graphql": "^15.5.0",
+    "graphql-request": "^3.4.0",
+    "http": "0.0.1-security",
+    "https": "^1.0.0",
+    "xml2js": "^0.4.23",
+    "xmlbuilder": "^15.1.1",
+    "xsd2jsonschema": "^0.3.7"
+  }
+}
