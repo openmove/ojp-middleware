@@ -161,22 +161,23 @@ var returnStopLocation = function(res, {stops}, xmlOptions){
 
 app.post('/ojp/', (req, result) => {
 
-    console.log(req)
+    console.log(req.body)
 
 
     var res = result;
-    console.log(JSON.stringify(req.body));
+    //console.log(JSON.stringify(req.body));
     var xml = req.body;
 
     if(xml && xml.ojp 
 	&& xml.ojp.ojprequest 
 	&& xml.ojp.ojprequest[0] 
 	){
-	console.log(xml.ojp.ojprequest[0]);
+	//console.log(xml.ojp.ojprequest[0]);
 	if(xml.ojp.ojprequest[0]["servicerequest"][0]["ojp:ojplocationinformationrequest"]){
 		console.log("2");
 		for(const elem of xml.ojp.ojprequest[0]["servicerequest"][0]["ojp:ojplocationinformationrequest"]){
-		  if(elem["ojp:placeref"]){
+		  
+          if(elem["ojp:placeref"]){
 			var stopId = elem["ojp:placeref"][0]["ojp:stopplaceref"][0];
 			var resNr = 10;
 			 var type = elem["ojp:restrictions"][0]["ojp:type"][0];

@@ -17,7 +17,8 @@ textarea { font-size: 12px; }
 <div id="content">
 <label>REQUEST OJP:</label>
 <form id="sendform" action="/ojp/" method="post" enctype="application/x-www-form-urlencoded">
-<textarea id="xml_req" cols="90" rows="25">
+<textarea id="xml_req" type="text" contenteditable="true" cols="90" rows="20"> 
+<!--
 <?xml version="1.0" encoding="UTF-8"?>
 <OJP xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.siri.org.uk/siri" version="1.0" xmlns:ojp="http://www.vdv.de/ojp" xsi:schemaLocation="http://www.siri.org.uk/siri ../ojp-xsd-v1.0/OJP.xsd">
     <OJPRequest>
@@ -38,6 +39,7 @@ textarea { font-size: 12px; }
         </ServiceRequest>
     </OJPRequest>
 </OJP>
+-->
 </textarea>
 <br />
 <input type="submit" name="SEND REQUEST">
@@ -51,7 +53,6 @@ textarea { font-size: 12px; }
 </textarea>
 </form>
 </div>
-
 
 <script src="/jquery.min.js"></script>
 <script>
@@ -85,16 +86,29 @@ function formatXml(xml) {
 
     return formatted;
 }
+
+function uncomment(text) {
+    return text.replace("<!--",'').replace("-->",'');
+}
+
+var xmltext = uncomment($('#xml_req').val());
+
+$("#xml_req").on('keyup', function() {
+    xmltext = uncomment($(this).val());
+
+    console.log(xmltext)
+});
+
 $("#sendform").submit(function(e){
 
-	var formxml = $('#xml_req').text();
-	
+//var formxml = $('#xml_req').text();
+    console.log('SEND',xmltext)
+
 	$.ajax({
 		url: '/ojp/',
 		type: 'POST',
-		data: formxml,
+		data: xmltext,
 		contentType:"application/xml; charset=utf-8",
-		//dataType: "application/xml",
 		success: function(data){
 			console.log(data)
 
