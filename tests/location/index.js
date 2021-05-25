@@ -3,10 +3,13 @@ var parseString = require('xml2js').parseString;
 const express = require('express');
 var builder = require('xmlbuilder');
 const app = express()
-const port = 3000
+const port = 5000
 
 var xmlparser = require('express-xml-bodyparser');
+
 app.use(xmlparser());
+
+app.use(express.static('public'));
 
 const { request, GraphQLClient, gql } = require('graphql-request');
 
@@ -132,33 +135,35 @@ callback = function(response) {
 var returnStopLocation = function(res, {stops}, xmlOptions){
     var endDate = new Date();
     res.set('Content-Type', 'text/xml');
+    var obj = {
+      "siri:OJP": {
+        '@xmlns:siri': "http://www.siri.org.uk/siri",
+        '@xmlns:ojp' : "http://www.vdv.de/ojp",
+        '@version' : "1.0",
 
-
-var obj = {
-  "siri:OJP": {
-    '@xmlns:siri': "http://www.siri.org.uk/siri",
-    '@xmlns:ojp' : "http://www.vdv.de/ojp",
-    '@version' : "1.0",
-
-    "siri:OJPResponse": {
-      "siri:ServiceDelivery": {
-	"siri:ResponseTimestamp" : {
-	 "#text" : endDate.toISOString()
-	},
-        "siri:ProducerRef" : {"#text": "OPENMOVE"},
-        "siri:Status": {"#text": true},
-        "ojp:OJPLocationInformationDelivery": printLocations(stops, endDate, xmlOptions)
+        "siri:OJPResponse": {
+          "siri:ServiceDelivery": {
+    	"siri:ResponseTimestamp" : {
+    	 "#text" : endDate.toISOString()
+    	},
+            "siri:ProducerRef" : {"#text": "OPENMOVE"},
+            "siri:Status": {"#text": true},
+            "ojp:OJPLocationInformationDelivery": printLocations(stops, endDate, xmlOptions)
+          }
+        }
       }
-    }
-  }
-};
+    };
 
-var xml = builder.create(obj).end({ pretty: false});
+    var xml = builder.create(obj).end({ pretty: false});
 
-res.send(xml);
+    res.send(xml);
 }
 
 app.post('/ojp/', (req, result) => {
+
+    console.log(req)
+
+
     var res = result;
     console.log(JSON.stringify(req.body));
     var xml = req.body;
@@ -202,7 +207,13 @@ app.post('/ojp/', (req, result) => {
 
             clientQL.request(query, {})
                 .catch((err) => returnStopLocation(res, {stops: []}, {}))
-                .then((data) => returnStopLocation(res, {stops : [data.stop]}, xmlOptions));
+                .then((data) => {
+
+                    returnStopLocation(res, {stops : [data.stop]}, xmlOptions)
+
+                    console.log(data)
+
+                });
 			}
 		}
 	}

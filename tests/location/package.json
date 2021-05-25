@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postinstall": "cp node_modules/jquery/dist/jquery.min.js public/jquery.min.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
@@ -16,8 +18,12 @@
     "graphql-request": "^3.4.0",
     "http": "0.0.1-security",
     "https": "^1.0.0",
+    "jquery": "^3.6.0",
     "xml2js": "^0.4.23",
     "xmlbuilder": "^15.1.1",
     "xsd2jsonschema": "^0.3.7"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
   }
 }
