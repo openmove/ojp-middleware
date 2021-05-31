@@ -1,17 +1,19 @@
 server:
-  port: 8080
+  port: 8090
   #TODO cache_ttl: 0
 
 endpoints:
   default:
-    hostname: otp.example.com
-    path: /otp/routers/default
+    hostname: map.muoversinpiemonte.it
+    path: /otp/routers/mip
     port: 443
     headers:
       User-Agent: ojp-middleware-client
 
-  mip-rest:
-    path: 
+  rest:
+    path: /index
 
-  mip-graphql:
-    path:
+  graphql:
+    path: /index/graphql
+
+
