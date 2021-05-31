@@ -24,16 +24,14 @@ module.exports = {
                   lat
                   lon
                   wheelchairBoarding
-                  routes {
-                    mode
-                  }
+                  vehicleMode
                 }
               }`
   
     clientQL.request(query, {})
         .catch((err) => {
           console.log("error", err)
-          return []
+          return {stops: []}
         })
         .then((data) => {
 
