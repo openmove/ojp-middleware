@@ -1,9 +1,14 @@
 const express = require('express');
 const app = express()
 const config = require('config-yml');
-const {getStopById} = require('./stops');
+const {getStopById, searchByName, searchByBBox, searchByRadius} = require('./stops');
+const {getStopTimesById} = require('./stoptimes');
+const {planTrip} = require('./plan');
 const { request } = require('express');
 const port =  config.server.port || 5000;
+
+
+app.use(express.json())
 
 /**
  * OJPLocationInformationRequest
@@ -14,11 +19,9 @@ app.get('/stops/:id?', (req, result) => {
   //search a stop by id in PlaceRef
   //if id is undefined return all stops
   const extra = {
-    'mode': req.query.mode || false,
     'limit': req.query.limit || 10
   };
   const res = getStopById(config.endpoints, req.params.id, extra)
-  console.log("Done");
   result.send(res);
 });
 
@@ -29,15 +32,29 @@ app.post('/search/', (req, result) => {
 
   /**
    * {
-   *  name: XXXX
-   *  filter: {
-   *    type: 'bbox' || 'circle' || 'polygon'
-   *    value: [upper-left, lower-right] || radius || [...polyline]
-   *  }
+   *  type: 'name'||'bbox' || 'circle' || 'polygon'
+   *  value: string || [[upper-left: x1, y1], [lower-right: x2, y2]] || [x, y, radius] || [...polyline]
+   *  limit: integer
+   *  mode: string
    * }
-   * 
    */
-
+  const params = req.body;
+  const extra = {
+    'limit': params.limit || 10
+  };
+  let res = null;
+  switch(params.type){
+    case 'name': 
+      res = searchByName(config.endpoints, param.value, extra);
+      break;
+    case 'bbox':
+      res = searchByBBox(config.endpoints, params.value, extra);
+      break;
+    case 'circle':
+      res = searchByRadius(config.endpoints, params.value, extra);
+      break;
+  }
+  result.send(res);
 });
 
 /**
@@ -46,15 +63,12 @@ app.post('/search/', (req, result) => {
 
 app.get('/stops/:id/details', (req, result) => {
   //return stoptimes and other schedule details for stop
-
-});
-
-/**
- * OJPExchangePointsRequest
- */
-
- app.get('/exchange/:id', (req, result) => {
-  //return an exchange by id in PlaceRef
+  const extra = {
+    'limit': req.query.limit || 10,
+    'start': req.quey.start || new Date().getTime()
+  };
+  const res = getStopTimesById(config.endpoints, req.params.id, extra)
+  result.send(res);
 });
 
 /**
@@ -64,7 +78,13 @@ app.get('/stops/:id/details', (req, result) => {
  app.post('/plan/', (req, result) => {
   //search a trip with given parameters:
   //origin, destination, waypoints, no transfers at, ...
-
+  const params = req.body;
+  const extra = {
+    'limit': params.limit || 5,
+    'timezone': params.timezone
+  };
+  const res = planTrip(config.endpoints, params.origin, params.destination, params.date, extra)
+  result.send(res);
 });
 
 /**
