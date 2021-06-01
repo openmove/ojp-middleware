@@ -1,6 +1,13 @@
 
 # OJP Middleware Documentation
 
+## Architecture macro OJP
+
+![macro](images/OJP_Architecture_macro.png)
+
+## Architecture detail microservices
+![detail](images/OJP_Architecture_detail.png)
+
 ## Structure
 
 Common structure for modules and services is:
@@ -11,6 +18,7 @@ Common structure for modules and services is:
 and for services is:
 - Dockerfile
 - env.example(renamed to .env in dev environment)
+
 
 The basic structure of code:
 ```
