@@ -140,12 +140,51 @@ module.exports = {
   
         console.log(limit, ptModes);
         let data = null;
-        if(locationName){
-          data = JSON.stringify({
-            value: locationName,
-            limit: Number(limit) || 5
-          });
+        const params = {
+          value: locationName,
+          limit: Number(limit) || 5
+        };
+        
+
+
+        const restriction = queryNode(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:InitialInput']/*[name()='ojp:GeoRestriction']");
+  
+        if(restriction){
+          const rect = queryNode(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:InitialInput']/*[name()='ojp:GeoRestriction']/*[name()='ojp:Rectangle']");
+          const circle = queryNode(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:InitialInput']/*[name()='ojp:GeoRestriction']/*[name()='ojp:Circle']");
+          
+          if(rect){
+            const path = "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:InitialInput']/*[name()='ojp:GeoRestriction']/*[name()='ojp:Rectangle']"
+            const upperLat = queryText(doc, path+"/*[name()='ojp:UpperLeft']/*[name()=Latitude]");
+            const upperLon = queryText(doc, path+"/*[name()='ojp:UpperLeft']/*[name()=Logitude]");
+
+            const lowerLat = queryText(doc, path+"/*[name()='ojp:LowerRight']/*[name()=Latitude]");
+            const lowerLon = queryText(doc, path+"/*[name()='ojp:LowerRight']/*[name()=Logitude]");
+
+            //TODO check values and check if value maybe are expressed inside a Coordinates element
+
+            params.restrictionType = 'bbox';
+            params.restrictionValue= [[upperLon, upperLat],[lowerLon, lowerLat]];
+
+          }else if(circle){
+            const path = "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:InitialInput']/*[name()='ojp:GeoRestriction']/*[name()='ojp:Circle']"
+            const centerLat = queryText(doc, path+"/*[name()='ojp:Center']/*[name()=Latitude]");
+            const centerLon = queryText(doc, path+"/*[name()='ojp:Center']/*[name()=Logitude]");
+
+            //TODO check if value maybe are expressed inside a Coordinates element
+
+            const radius = queryText(doc, path+"/*[name()='ojp:Radius']");
+            params.restrictionType = 'circle';
+            params.restrictionValue= [centerLon, centerLat, radius];
+          }else{
+            throw new Error('Unrecognize Restriction');
+          }
         }
+
+        if(locationName){
+          data = JSON.stringify(params);
+        }
+
         const options = {
           host: `localhost`, //from environment variable
           path: `/search/`,

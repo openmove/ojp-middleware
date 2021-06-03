@@ -48,10 +48,10 @@ app.post('/search/', async (req, result) => {
     const resTmp = {stops: []};
     switch(params.restrictionType){
       case 'bbox':
-        resTmp = await searchByBBox(config.endpoints, params.value, extra);
+        resTmp = await searchByBBox(config.endpoints, params.restrictionValue, extra);
         break;
       case 'circle':
-        resTmp = await searchByRadius(config.endpoints, params.value, extra);
+        resTmp = await searchByRadius(config.endpoints, params.restrictionValue, extra);
         break;
     }
     const reg = new RegExp(`(/?i)\b${value}\b`);
