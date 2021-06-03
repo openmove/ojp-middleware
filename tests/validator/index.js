@@ -15,7 +15,7 @@ const port = 5000;
 app.use(bodyParser.text({ type: 'application/xml' }))
 //  http://expressjs.com/en/resources/middleware/body-parser.html#bodyparserrawoptions
 
-app.post('/OJPLocationInformationRequest/', (req, res) => {
+app.post('/', (req, res) => {
   
   console.log('REQUEST',req.body)
 
