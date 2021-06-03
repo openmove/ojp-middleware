@@ -1,11 +1,11 @@
 
 # OJP Middleware Documentation
 
-## Architecture macro OJP
+## OJP Passive System Architecture
 
 ![macro](images/OJP_Architecture_macro.png)
 
-## Architecture detail microservices
+## Microservices Architecture
 ![detail](images/OJP_Architecture_detail.png)
 
 ## Structure
