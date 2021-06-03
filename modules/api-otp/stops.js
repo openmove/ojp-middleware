@@ -2,7 +2,7 @@ const { request, GraphQLClient, gql } = require('graphql-request');
 const https = require('https');
 
 module.exports = {
-  'getStopById': (config, stopId, extra) => {
+  'getStopById': async (config, stopId, extra) => {
     const options = {
       host: config.default.hostname,
       path: config.default.path + config.graphql.path,
@@ -10,13 +10,12 @@ module.exports = {
     };
     const endpoint = `https://${options.host}${options.path}`;
     const clientQL = new GraphQLClient(endpoint, { headers: config.default.headers });
-    let filter = `stops (ids : ["${stopId}")`;
+    let filter = `stops (ids : ["${stopId}"])`;
     if(!stopId) {
       filter = `stops (maxResults: ${extra.limit || 10})`;
     }
     const query = gql`
-                {
-                ${filter} {
+                {${filter} {
                   gtfsId
                   name
                   code
@@ -27,22 +26,23 @@ module.exports = {
                 }
               }`
   
-    clientQL.request(query, {})
-        .catch((err) => {
-          console.log("error", err)
-          return {stops: []}
-        })
-        .then((data) => {
+    const data = await clientQL.request(query, {})
 
-          const res = {
-            stops : data.stops.slice(0, extra.limit || 10)
-          }
-          console.log("result", res);
-          return res;
-        });
+    if(data!= null && data.stops){
+      const res = {stops: []}
+      for(const stop of data.stops){
+        if(stop){
+          res.stops.push(stop);
+        }
+      }
+      return res;
+    }
+    return {
+      stops: []
+    }
   
   },
-  'searchByName': (config, name, extra) => {
+  'searchByName': async (config, name, extra) => {
     const options = {
       host: config.default.hostname,
       path: config.default.path + config.graphql.path,
@@ -53,7 +53,7 @@ module.exports = {
     
     const query = gql`
                 {
-                stopsByName (name : "${name}", maxResults: ${extra.limit || 10}) {
+                stopsByName (name: "${name}", maxResults: ${extra.limit || 10}) {
                   gtfsId
                   name
                   code
@@ -64,17 +64,24 @@ module.exports = {
                 }
               }`
   
-    clientQL.request(query, {})
-        .catch((err) => {
-          console.log("error", err)
-          return {stops: []}
-        })
-        .then((data) => {
-          return data;
-        });
+    console.log(query);
+    const data = await clientQL.request(query, {});
+    console.log(data);
+    if(data!= null && data.stopsByName){
+      const res = {stops: []}
+      for(const stop of data.stopsByName){
+        if(stop){
+          res.stops.push(stop);
+        }
+      }
+      return res;
+    }
+    return {
+      stops: []
+    }
   
   },
-  'searchByRadius': (config, params, extra) => {
+  'searchByRadius': async (config, params, extra) => {
     const options = {
       host: config.default.hostname,
       path: config.default.path + config.graphql.path,
@@ -101,25 +108,22 @@ module.exports = {
                   }
               }`
   
-    clientQL.request(query, {})
-        .catch((err) => {
-          console.log("error", err)
-          return {stops: []}
-        })
-        .then((data) => {
-          const res = {
-            stops : []
-          };
+    clientQL.request(query, {});
 
-          for(const {node} of data.stopsByRadius.edges){
-            if(res.stops.length < extra.limit){
-              res.stops.push(node.stop);
-            }else{
-              break;
-            }            
-          }
-          return res;
-        });
+    if(data!= null && data.stopsByRadius){
+      const res = {stops: []}
+      for(const stop of data.stopsByRadius){
+        if(stop){
+          res.stops.push(stop);
+        }else{
+          break;
+        }
+      }
+      return res;
+    }
+    return {
+      stops: []
+    }
   },
   'searchByBBox': (config, params, extra) => {
     const options = {
@@ -132,35 +136,37 @@ module.exports = {
     
     const query = gql`
                 {
-                  stopsByBbox (minLat : ${params[1][1]}, minLon : ${params[1][0]}, maxLat: ${params[0][1]}, maxLon: ${params[0][0]}) {
-                    gtfsId
-                    name
-                    code
-                    desc
-                    lat
-                    lon
-                    vehicleMode
+                  stopsByBbox (
+                    minLat : ${params[1][1]}, 
+                    minLon : ${params[1][0]}, 
+                    maxLat: ${params[0][1]}, 
+                    maxLon: ${params[0][0]}) {
+                      gtfsId
+                      name
+                      code
+                      desc
+                      lat
+                      lon
+                      vehicleMode
                   }
               }`
   
-    clientQL.request(query, {})
-        .catch((err) => {
-          console.log("error", err)
-          return {stops: []}
-        })
-        .then((data) => {
-          const res = {
-            stops : []
-          };
-          for(const stop of data.stopsByBbox){
-            if(res.stops.length < extra.limit){
-              res.stops.push(stop);
-            }else{
-              break;
-            }
-          }
-          return res;
-        });
+    clientQL.request(query, {});
+
+    if(data!= null && data.stopsByBbox){
+      const res = {stops: []}
+      for(const stop of data.stopsByBbox){
+        if(stop){
+          res.stops.push(stop);
+        }else{
+          break;
+        }
+      }
+      return res;
+    }
+    return {
+      stops: []
+    }
   
   }
 }

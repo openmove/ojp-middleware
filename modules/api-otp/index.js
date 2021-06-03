@@ -15,46 +15,61 @@ app.use(express.json())
  */
 
 
-app.get('/stops/:id?', (req, result) => {
+app.get('/stops/:id?', async (req, result) => {
   //search a stop by id in PlaceRef
   //if id is undefined return all stops
   const extra = {
     'limit': req.query.limit || 10
   };
-  const res = getStopById(config.endpoints, req.params.id, extra)
-  result.send(res);
+  const res = await getStopById(config.endpoints, req.params.id, extra)
+  result.json(res);
 });
 
-app.post('/search/', (req, result) => {
+app.post('/search/', async (req, result) => {
   //search stops with given name 
   //and filtered by:
   //1) bbox 2) circle 2) polygon
 
   /**
    * {
-   *  type: 'name'||'bbox' || 'circle' || 'polygon'
-   *  value: string || [[upper-left: x1, y1], [lower-right: x2, y2]] || [x, y, radius] || [...polyline]
+   *  value: 'XXXX'
+   *  restrictionType: 'bbox' || 'circle' || 'polygon'
+   *  restrictionValue: [[upper-left: x1, y1], [lower-right: x2, y2]] || [x, y, radius] || [...polyline]
    *  limit: integer
-   *  mode: string
    * }
    */
   const params = req.body;
+  console.log(params);
   const extra = {
     'limit': params.limit || 10
   };
-  let res = null;
-  switch(params.type){
-    case 'name': 
-      res = searchByName(config.endpoints, param.value, extra);
-      break;
-    case 'bbox':
-      res = searchByBBox(config.endpoints, params.value, extra);
-      break;
-    case 'circle':
-      res = searchByRadius(config.endpoints, params.value, extra);
-      break;
+  let res = {stops: []};
+  if(params.restrictionType && params.restrictionValue){
+    const resTmp = {stops: []};
+    switch(params.restrictionType){
+      case 'bbox':
+        resTmp = await searchByBBox(config.endpoints, params.value, extra);
+        break;
+      case 'circle':
+        resTmp = await searchByRadius(config.endpoints, params.value, extra);
+        break;
+    }
+    const reg = new RegExp(`(/?i)\b${value}\b`);
+    for(const tmpStop of resTmp.stops){
+      if(res.stops.length < params.limit){
+        if(tmpStop.name.test(reg)){
+          res.stops.push(tmpStop)
+        }
+      }else{
+        break;
+      }
+    }
+  }else{
+    res = await searchByName(config.endpoints, params.value, extra);
   }
-  result.send(res);
+  
+  console.log(res);
+  result.json(res);
 });
 
 /**

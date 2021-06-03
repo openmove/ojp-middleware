@@ -12,7 +12,14 @@
     "node": "12.21.0"
   },
   "dependencies": {
+    "config-yml": "^0.10.3",
     "express": "^4.17.1",
-    "utils": "^1.0.0"
+    "express-xml-bodyparser": "^0.3.0",
+    "http": "0.0.1-security",
+    "https": "^1.0.0",
+    "utils": "^1.0.0",
+    "xmlbuilder": "^15.1.1",
+    "xmldom": "^0.6.0",
+    "xpath": "0.0.32"
   }
 }
