@@ -19,6 +19,7 @@ module.exports = {
                   gtfsId
                   name
                   code
+                  zoneId
                   desc
                   lat
                   lon
@@ -57,6 +58,7 @@ module.exports = {
                   gtfsId
                   name
                   code
+                  zoneId
                   desc
                   lat
                   lon
@@ -99,6 +101,7 @@ module.exports = {
                         gtfsId
                         name
                         code
+                        zoneId
                         desc
                         lat
                         lon
@@ -144,6 +147,7 @@ module.exports = {
                       gtfsId
                       name
                       code
+                      zoneId
                       desc
                       lat
                       lon

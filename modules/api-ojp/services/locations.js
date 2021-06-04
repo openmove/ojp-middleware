@@ -72,14 +72,14 @@ const createLocationResponse = (stops, startTime, ptModes) => {
     const place = loc.ele('ojp:Location');
     const stopPlace = place.ele('ojp:StopPlace');
     stopPlace.ele('ojp:StopPlaceRef', stop.gtfsId);
-    stopPlace.ele('ojp:StopPlaceName').ele('ojp:Text', `${stop.name}${stop.desc ? ' - '+stop.desc : '' }`);
-    stopPlace.ele('ojp:TopographicPlaceRef', stop.code);
-    place.ele('ojp:LocationName').ele('ojp:Text', `${stop.name}${stop.desc ? ' - '+stop.desc : '' }`);
+    stopPlace.ele('ojp:StopPlaceName').ele('ojp:Text', `${stop.name}`);
+    stopPlace.ele('ojp:TopographicPlaceRef', stop.zoneId);
+    place.ele('ojp:LocationName').ele('ojp:Text', `${stop.name}`);
     const geo = place.ele('ojp:GeoPosition');
     geo.ele('siri:Longitude', stop.lon);
     geo.ele('siri:Latitude', stop.lat);
     loc.ele('ojp:Complete', true);
-    loc.ele('ojp:Probability', 1 / stops.length);
+    loc.ele('ojp:Probability', 1 / stops.length); //TODO: other criteria?
     if(ptModes === true){
       const mode = loc.ele('ojp:Mode');
       mode.ele('ojp:PtMode', stop.vehicleMode.toLowerCase());
@@ -135,6 +135,9 @@ module.exports = {
         return createLocationResponse(response.stops, startTime, ptModes === 'true');
       } else if(queryNodes(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:InitialInput']").length > 0){
         const locationName = queryText(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:InitialInput']/*[name()='ojp:LocationName']"); 
+        const locationPositionLat = queryText(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:InitialInput']/*[name()='ojp:GeoPosition']/*[name()=Latitude]"); 
+        const locationPositionLon = queryText(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:InitialInput']/*[name()='ojp:GeoPosition']/*[name()=Longitude]"); 
+        
         const ptModes = queryText(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:Restrictions']/*[name()='ojp:IncludePtModes']");
         const limit = queryText(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:Restrictions']/*[name()='ojp:NumberOfResults']");
   
@@ -142,11 +145,10 @@ module.exports = {
         let data = null;
         const params = {
           value: locationName,
+          position: [locationPositionLon, locationPositionLat],
           limit: Number(limit) || 5
         };
         
-
-
         const restriction = queryNode(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:InitialInput']/*[name()='ojp:GeoRestriction']");
   
         if(restriction){
@@ -181,7 +183,7 @@ module.exports = {
           }
         }
 
-        if(locationName){
+        if(locationName != null || (locationPositionLat != null && locationPositionLon != null) ){
           data = JSON.stringify(params);
         }
 

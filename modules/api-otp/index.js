@@ -32,7 +32,7 @@ app.post('/search/', async (req, result) => {
 
   /**
    * {
-   *  value: 'XXXX'
+   *  value: 'XXXX',
    *  restrictionType: 'bbox' || 'circle' || 'polygon'
    *  restrictionValue: [[upper-left: x1, y1], [lower-right: x2, y2]] || [x, y, radius] || [...polyline]
    *  limit: integer
@@ -44,29 +44,36 @@ app.post('/search/', async (req, result) => {
     'limit': params.limit || 10
   };
   let res = {stops: []};
-  if(params.restrictionType && params.restrictionValue){
-    const resTmp = {stops: []};
-    switch(params.restrictionType){
-      case 'bbox':
-        resTmp = await searchByBBox(config.endpoints, params.restrictionValue, extra);
-        break;
-      case 'circle':
-        resTmp = await searchByRadius(config.endpoints, params.restrictionValue, extra);
-        break;
-    }
-    const reg = new RegExp(`(/?i)\b${value}\b`);
-    for(const tmpStop of resTmp.stops){
-      if(res.stops.length < params.limit){
-        if(tmpStop.name.test(reg)){
-          res.stops.push(tmpStop)
-        }
-      }else{
-        break;
+  if(value != null){
+    if(params.restrictionType && params.restrictionValue){
+      const resTmp = {stops: []};
+      switch(params.restrictionType){
+        case 'bbox':
+          resTmp = await searchByBBox(config.endpoints, params.restrictionValue, extra);
+          break;
+        case 'circle':
+          resTmp = await searchByRadius(config.endpoints, params.restrictionValue, extra);
+          break;
       }
+      const reg = new RegExp(`(/?i)\b${value}\b`);
+      for(const tmpStop of resTmp.stops){
+        if(res.stops.length < params.limit){
+          if(tmpStop.name.test(reg)){
+            res.stops.push(tmpStop)
+          }
+        }else{
+          break;
+        }
+      }
+    }else{
+      res = await searchByName(config.endpoints, params.value, extra);
     }
+  }else if(position && position.length == 2){ //search at specific position (tricky: radius 1 meter)
+    res = await searchByRadius(config.endpoints, [...position,1], extra);
   }else{
-    res = await searchByName(config.endpoints, params.value, extra);
+    //TODO wrong request, manage this ?
   }
+  
   
   console.log(res);
   result.json(res);
@@ -76,14 +83,15 @@ app.post('/search/', async (req, result) => {
  * OJPStopEventRequest
  */
 
-app.get('/stops/:id/details', (req, result) => {
+app.get('/stops/:id/details', async (req, result) => {
   //return stoptimes and other schedule details for stop
   const extra = {
     'limit': req.query.limit || 10,
-    'start': req.quey.start || new Date().getTime()
+    'start': req.query.start || new Date().getTime()
   };
-  const res = getStopTimesById(config.endpoints, req.params.id, extra)
-  result.send(res);
+  const res = await getStopTimesById(config.endpoints, req.params.id, extra);
+  console.log(res);
+  result.json(res);
 });
 
 /**

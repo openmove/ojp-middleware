@@ -7,6 +7,7 @@ const express = require('express')
 , xmlbuilder = require('xmlbuilder')
 , xmlparser = require('express-xml-bodyparser')
 , {locationExecution} = require('./services/locations')
+, {eventExecution} = require('./services/stop-events');
 
 
 const mapNS = {
@@ -71,6 +72,11 @@ app.post('/ojp/', async (req, result) => {
   if(queryNode(doc, "//*[name()='ojp:OJPLocationInformationRequest']")){
     //elaborate OJPLocationInformationRequest
     xmlServiceResponse.importXMLBuilder(await locationExecution(doc, startTime));    
+  }
+
+  if(queryNode(doc, "//*[name()='ojp:OJPStopEventRequest']")){
+    //elaborate OJPLocationInformationRequest
+    xmlServiceResponse.importXMLBuilder(await eventExecution(doc, startTime));    
   }
 
   
