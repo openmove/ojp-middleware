@@ -181,7 +181,7 @@ module.exports = {
           isDeparture = false;
         }
         showRealtime = realtime === 'true';
-        return createEventResponse(response.stop, startTime, isDeparture, true);
+        return createEventResponse(response.stop, startTime, isDeparture, showRealtime);
       }else{
         return createEventErrorResponse('E0001', startTime);
       }
