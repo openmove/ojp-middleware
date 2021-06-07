@@ -3,7 +3,7 @@ const moment = require('moment-timezone');
 const https = require('https');
 
 module.exports = {
-  'planTrip': (config, origin, destination, date, extra) => {
+  'planTrip': async(config, origin, destination, date, extra) => {
     const options = {
       host: config.default.hostname,
       path: config.default.path + config.graphql.path,
@@ -11,13 +11,30 @@ module.exports = {
     };
     const endpoint = `https://${options.host}${options.path}`;
     const clientQL = new GraphQLClient(endpoint, { headers: config.default.headers });
+
+
+    let from = null
+    , to = null;
+
+    if(Array.isArray(origin)){
+      from = `from: {lat: ${origin[1]}, lon: ${origin[0]}}`;   
+    }else{
+      from = `fromPlace: "${origin}"`; 
+    }
+
+    if(Array.isArray(destination)){
+      to = `to: {lat: ${destination[1]}, lon: ${destination[0]}}`
+    }else{
+      to = `toPlace: "${destination}"`
+    }
+
     const query = gql`{
       plan(
-        from: {lat: ${origin[1]}, lon: ${origin[0]}}, 
-        to: {lat: ${destination[1]}, lon: ${destination[0]}}, 
-        numItineraries: ${extra.limit || 3},
-        date: ${moment(date).tz(extra.timezone || "Europe/Rome").format("YYYY-MM-DD")},
-        time: ${moment(date).tz(extra.timezone || "Europe/Rome").format("HH:mm:ss")},
+        ${from}, 
+        ${to}, 
+        numItineraries: ${extra.limit || 5},
+        date: "${moment(date).tz(extra.timezone || "Europe/Rome").format("YYYY-MM-DD")}",
+        time: "${moment(date).tz(extra.timezone || "Europe/Rome").format("HH:mm:ss")}",
         ){
         date
         from {
@@ -72,20 +89,57 @@ module.exports = {
               name
               lat
               lon
+              stop {
+                gtfsId
+                name
+                desc
+                lat
+                lon
+              }
             }
             to {
               name
               lat
               lon
-              
+              stop {
+                gtfsId
+                name
+                desc
+                lat
+                lon
+              }
             }
             route{
               gtfsId
               shortName
               longName
+              agency {
+                gtfsId
+                name
+                timezone
+              }
             }
             trip{
               gtfsId
+              directionId   
+              departureStoptime {
+                stop {
+                  gtfsId
+                  name
+                  desc
+                  lat
+                  lon
+                }
+              }
+              arrivalStoptime {
+                stop {
+                  gtfsId
+                  name
+                  desc
+                  lat
+                  lon
+                }
+              }   
             }
             serviceDate
             intermediatePlaces {
@@ -98,6 +152,8 @@ module.exports = {
                 gtfsId
                 name
                 desc
+                lat
+                lon
               }
             }
           }
@@ -105,15 +161,6 @@ module.exports = {
       }
     }`
   
-    clientQL.request(query, {})
-        .catch((err) => {
-          console.log("error", err)
-          return {stop: null}
-        })
-        .then((data) => {
-
-          return data;
-        });
-  
+    return await clientQL.request(query, {});
   }
 }

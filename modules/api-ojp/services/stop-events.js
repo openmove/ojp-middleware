@@ -61,7 +61,7 @@ const doRequest = (options, data) => {
   });
 }
 
-const createEventResponse = (stop, startTime, isDeparture, realtimeData) => {
+const createEventResponse = (stop, startTime, isDeparture, isArrival, realtimeData) => {
   const responseTimestamp = new Date().toISOString();
   const calcTime = (new Date().getTime()) - startTime
   const event = xmlbuilder.create('ojp:OJPStopEventDelivery');
@@ -100,7 +100,9 @@ const createEventResponse = (stop, startTime, isDeparture, realtimeData) => {
         if(realtimeData){
           dep.ele('ojp:EstimatedTime', moment((schedule.serviceDay + schedule.realtimeDeparture) * 1000).tz(schedule.trip.route.agency.timezone).toISOString());
         }
-      }else{
+      }
+      
+      if(isArrival){
         const arr = call.ele('ojp:ServiceArrival');
         arr.ele('ojp:TimetabledTime', moment((schedule.serviceDay + schedule.scheduledArrival) * 1000).tz(schedule.trip.route.agency.timezone).toISOString());
         if(realtimeData){
@@ -174,14 +176,21 @@ module.exports = {
         const response = await doRequest(options);
         
         let isDeparture = true;
+        let isArrival = false;
         let showRealtime = false;
         const eventType = queryText(doc, "//*[name()='ojp:OJPStopEventRequest']/*[name()='ojp:Params']/*[name()='ojp:StopEventType']");
         const realtime = queryText(doc, "//*[name()='ojp:OJPStopEventRequest']/*[name()='ojp:Params']/*[name()='ojp:IncludeRealtimeData']");
         if(eventType === 'arrival'){
           isDeparture = false;
+          isArrival = true;
+        }
+
+        if(eventType === 'both'){
+          isDeparture = true;
+          isArrival = true;
         }
         showRealtime = realtime === 'true';
-        return createEventResponse(response.stop, startTime, isDeparture, showRealtime);
+        return createEventResponse(response.stop, startTime, isDeparture, isArrival, showRealtime);
       }else{
         return createEventErrorResponse('E0001', startTime);
       }

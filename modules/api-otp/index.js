@@ -98,16 +98,17 @@ app.get('/stops/:id/details', async (req, result) => {
  * OJPTripRequest
  */
 
- app.post('/plan/', (req, result) => {
+ app.post('/plan/', async (req, result) => {
   //search a trip with given parameters:
   //origin, destination, waypoints, no transfers at, ...
   const params = req.body;
+  console.log(params);
   const extra = {
     'limit': params.limit || 5,
-    'timezone': params.timezone
+    'timezone': params.timezone || "Europe/Rome"
   };
-  const res = planTrip(config.endpoints, params.origin, params.destination, params.date, extra)
-  result.send(res);
+  const res = await planTrip(config.endpoints, params.origin, params.destination, params.date, extra)
+  result.json(res);
 });
 
 /**

@@ -7,7 +7,8 @@ const express = require('express')
 , xmlbuilder = require('xmlbuilder')
 , xmlparser = require('express-xml-bodyparser')
 , {locationExecution} = require('./services/locations')
-, {eventExecution} = require('./services/stop-events');
+, {eventExecution} = require('./services/stop-events')
+, {tripExecution} = require('./services/trips');
 
 
 const mapNS = {
@@ -75,9 +76,15 @@ app.post('/ojp/', async (req, result) => {
   }
 
   if(queryNode(doc, "//*[name()='ojp:OJPStopEventRequest']")){
-    //elaborate OJPLocationInformationRequest
+    //elaborate OJPStopEventRequest
     xmlServiceResponse.importXMLBuilder(await eventExecution(doc, startTime));    
   }
+
+  if(queryNode(doc, "//*[name()='ojp:OJPTripRequest']")){
+    //elaborate OJPTripRequest
+    xmlServiceResponse.importXMLBuilder(await tripExecution(doc, startTime));    
+  }
+
 
   
   //receive ojp requests in this order (?)
