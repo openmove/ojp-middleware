@@ -23,7 +23,7 @@ services:
       context: ./modules/api-otp
     ports:
       - "8081:8081"      
-    environment:
+    #environment:
     # depends_on:
     #   - ep-manager
     #   - otp
@@ -52,3 +52,12 @@ services:
     ports:
       - "8084:8084"      
 
+  db:
+    container_name: mongo
+    image: mongo:latest
+    ports:
+      - "8085:27017"
+    volumes:
+      - ./modules/db/data:/data/db
+    environment:
+      - MONGO_INITDB_DATABASE=ojp   

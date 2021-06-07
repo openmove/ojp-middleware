@@ -5,6 +5,8 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 
+modules/db/data
+
 *.pid
 *.seed
 *.pid.lock
