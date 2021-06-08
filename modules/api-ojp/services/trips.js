@@ -182,7 +182,7 @@ const createTripResponse = (itineraries, startTime, showIntermediates) => {
           service.ele('ojp:OriginStopPointRef', leg.trip.departureStoptime.stop.gtfsId);
           stops.push(leg.trip.departureStoptime.stop);
           service.ele('ojp:OriginText').ele('ojp:Text', `${leg.trip.departureStoptime.stop.name}`);
-          service.ele('ojp:ojp:DestinationStopPointRef', leg.trip.arrivalStoptime.stop.gtfsId);
+          service.ele('ojp:DestinationStopPointRef', leg.trip.arrivalStoptime.stop.gtfsId);
           stops.push(leg.trip.arrivalStoptime.stop);
           service.ele('ojp:DestinationText').ele('ojp:Text', `${leg.trip.arrivalStoptime.stop.name}`);
         }

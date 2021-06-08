@@ -127,7 +127,7 @@ const createEventResponse = (stop, startTime, isDeparture, isArrival, realtimeDa
       service.ele('ojp:OperatorRef', schedule.trip.route.agency.gtfsId);
       service.ele('ojp:OriginStopPointRef', schedule.trip.departureStoptime.stop.gtfsId);
       service.ele('ojp:OriginText').ele('ojp:Text', `${schedule.trip.departureStoptime.stop.name}`);
-      service.ele('ojp:ojp:DestinationStopPointRef', schedule.trip.arrivalStoptime.stop.gtfsId);
+      service.ele('ojp:DestinationStopPointRef', schedule.trip.arrivalStoptime.stop.gtfsId);
       service.ele('ojp:DestinationText').ele('ojp:Text', `${schedule.trip.arrivalStoptime.stop.name}`);
     }
   }
