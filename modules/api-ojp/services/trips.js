@@ -90,13 +90,14 @@ const createTripResponse = (itineraries, startTime, showIntermediates) => {
       trip.ele('ojp:StartTime', moment(itinerary.startTime).toISOString());
       trip.ele('ojp:EndTime', moment(itinerary.endTime).toISOString());
       trip.ele('ojp:Duration', moment.duration(itinerary.duration, 's').toISOString() )
-      //trip.ele('ojp:Distance');  //TODO: sum all legs distance
-      //trip.ele('ojp:Transfers'); //TODO: sum all modes !WALK -1
+      let tripDistance = 0;
+      let tripTransfers = 0;
       let legId = 0;
       for(const leg of itinerary.legs){
         legId += 1
         const tripLeg = trip.ele('ojp:TripLeg');
         tripLeg.ele('ojp:LegId', legId);
+        tripDistance += leg.distance;
         if(leg.transitLeg === false){
           if(leg.mode === 'WALK'){
             const transferLeg = tripLeg.ele('ojp:TransferLeg');
@@ -117,6 +118,7 @@ const createTripResponse = (itineraries, startTime, showIntermediates) => {
             transferLeg.ele('ojp:WalkDuration', moment.duration(leg.duration, 's').toISOString())
           }          
         }else{
+          tripTransfers += 1;
           let sequence = 1;
           const timedLeg = tripLeg.ele('ojp:TimedLeg');
           const board = timedLeg.ele('ojp:LegBoard');
@@ -185,6 +187,8 @@ const createTripResponse = (itineraries, startTime, showIntermediates) => {
           service.ele('ojp:DestinationText').ele('ojp:Text', `${leg.trip.arrivalStoptime.stop.name}`);
         }
       }
+      trip.ele('ojp:Distance', tripDistance.toFixed(0)); 
+      trip.ele('ojp:Transfers', tripTransfers -1 ); 
     }
     const places = context.ele('ojp:Places');
     const ids = [];
@@ -243,6 +247,10 @@ module.exports = {
         const destinationLat = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Destination']/*[name()='ojp:PlaceRef']/*[name()='ojp:GeoPosition']/*[name()='Latitude']"); 
         const destinationLon = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Destination']/*[name()='ojp:PlaceRef']/*[name()='ojp:GeoPosition']/*[name()='Longitude']"); 
         
+        const originName = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Origin']/*[name()='ojp:PlaceRef']/*[name()='ojp:LocationName']/*[name()='ojp:Text']"); 
+        const destinationName = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Destination']/*[name()='ojp:PlaceRef']/*[name()='ojp:LocationName']/*[name()='ojp:Text']"); 
+
+        const limitValue = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Params']/*[name()='ojp:NumberOfResults']");
 
         let date = new Date().getTime();
         let arrivedBy = false;
@@ -254,10 +262,11 @@ module.exports = {
         }
 
         const data = JSON.stringify({
-          origin: originId || [originLon, originLat],
-          destination: destinationId || [destinationLon, destinationLat],
+          origin: originId || [originLon, originLat, originName || "Origin"],
+          destination: destinationId || [destinationLon, destinationLat, destinationName || "Destination"],
           date,
-          limit: 1
+          limit: Number(limitValue) || 1,
+          arrivedBy
         });
         
         const options = {

@@ -17,13 +17,13 @@ module.exports = {
     , to = null;
 
     if(Array.isArray(origin)){
-      from = `from: {lat: ${origin[1]}, lon: ${origin[0]}}`;   
+      from = `from: {lat: ${origin[1]}, lon: ${origin[0]}, address: "${origin[2]}"}`;   
     }else{
       from = `fromPlace: "${origin}"`; 
     }
 
     if(Array.isArray(destination)){
-      to = `to: {lat: ${destination[1]}, lon: ${destination[0]}}`
+      to = `to: {lat: ${destination[1]}, lon: ${destination[0]}, address: "${destination[2]}"}`
     }else{
       to = `toPlace: "${destination}"`
     }
@@ -35,6 +35,7 @@ module.exports = {
         numItineraries: ${extra.limit || 5},
         date: "${moment(date).tz(extra.timezone || "Europe/Rome").format("YYYY-MM-DD")}",
         time: "${moment(date).tz(extra.timezone || "Europe/Rome").format("HH:mm:ss")}",
+        arriveBy: ${extra.arriveBy || false}
         ){
         date
         from {

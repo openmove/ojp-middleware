@@ -41,7 +41,8 @@ app.post('/search/', async (req, result) => {
   const params = req.body;
   console.log(params);
   const extra = {
-    'limit': params.limit || 10
+    'limit': params.limit || 10,
+    'arriveBy': params.arriveBy || false
   };
   let res = {stops: []};
   if(value != null){
