@@ -7,3 +7,12 @@ TODO download.sh script to download remote exchangepoint
 
 TODO maybe include NETEXT IFOPT
 https://github.com/NeTEx-CEN/NeTEx/blob/master/xsd/ifopt.xsd
+
+
+## usage
+
+```bash
+
+node import.js
+
+```
