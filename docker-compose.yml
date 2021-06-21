@@ -12,13 +12,13 @@ services:
   #TODO local testing instance of OpenTripPlanner
   # otp-test:
   #   container_name: otp-test
-  #   image: openmove/otp:latest
+  #   image: ojp/otp:latest
   #   ports:
   #     - "8080:8080"    
 
   api-ojp:
     container_name: api-ojp
-    image: openmove/api-ojp:latest
+    image: ojp/api-ojp:latest
     build:
       context: ./modules/api-otp
     ports:
@@ -30,7 +30,7 @@ services:
 
   api-otp:
     container_name: api-otp
-    image: openmove/api-otp:latest
+    image: ojp/api-otp:latest
     build:
       context: ./modules/api-otp
     ports: 
@@ -38,15 +38,19 @@ services:
 
   ep-manager:
     container_name: ep-manager
-    image: openmove/ep-manager:latest
+    image: ojp/ep-manager:latest
     build:
       context: ./modules/ep-manager
     ports:
       - "8083:8083"
+    volumes:
+      - ./csvs:/home/csvs
+    depends_on:
+      - db
 
   xsd2json:
     container_name: xsd2json
-    image: openmove/xsd2json:latest
+    image: ojp/xsd2json:latest
     build:
       context: ./modules/xsd2json
     ports:

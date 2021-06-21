@@ -5,19 +5,19 @@
   "main": "index.js",
   "scripts": {
     "download": "node ./download/index.js",
-    "import": "node ./import/index.js"
+    "import": "node ./import.js",
+    "start": "node ./index.js"
   },
   "author": "Stefano Cudini stefano.cudini@gmail.com",
   "license": "MIT",
   "engines": {
-    "node": "12.21.0"
+    "node": "14.16.0"
   },
   "dependencies": {
-    "config-yml": "0.10.3",
+    "config-yml": "^0.10.3",
     "csvtojson": "^2.0.10",
     "express": "^4.17.1",
-    "fast-csv": "^4.3.6",
-    "mongodb": "^3.6.9",
-    "utils": "^1.0.0"
+    "lodash": "4.17.21",
+    "mongodb": "^3.6.9"
   }
 }

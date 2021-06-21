@@ -9,10 +9,22 @@ TODO maybe include NETEXT IFOPT
 https://github.com/NeTEx-CEN/NeTEx/blob/master/xsd/ifopt.xsd
 
 
-## usage
+## dev mode
 
 ```bash
 
 node import.js
 
 ```
+
+## usage in docker
+
+```
+docker-compose up ep-manager
+```
+
+browse: http://localhost:8083/imported
+
+
+
+## TODO REST POST TO IMPORT NEW csv

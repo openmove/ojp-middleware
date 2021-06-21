@@ -1,15 +1,13 @@
+'use strict';
 
 const fs = require("fs");
 const path = require('path');
 //const fastcsv = require("fast-csv");
+const _ = require('lodash');
 const csvtojson = require('csvtojson');
 const mongoClient = require("mongodb").MongoClient;
 
 const config = require('config-yml');
-
-// let mongoUrl = "mongodb://username:password@db:8085/";
-let mongoUrl = "mongodb://db:8085/";
-
 
 const lastVersion = config.import.version
 
@@ -19,8 +17,10 @@ const files = fs.readdirSync(basepath);
 
 let csvFilePath = basepath;
 
-for(let i in files) {
-   if(path.extname(files[i]) === ".csv") {
+for (let i in files) {
+   if (path.extname(files[i]) === ".csv") {
+
+    if (_.isString(config.import.csvFile) && files[i]===config.import.csvFile)
       csvFilePath += files[i];
       break;
    }
@@ -55,7 +55,7 @@ csvtojson({
 
   //console.log(jsonObj);
 
-  /*mongoClient.connect(url, {
+  /*mongoClient.connect(config.db.uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   }, (err, client) => {
