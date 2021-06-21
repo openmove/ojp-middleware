@@ -23,7 +23,7 @@ node import.js
 docker-compose up ep-manager
 ```
 
-browse: http://localhost:8083/imported
+browse: http://localhost:8083/
 
 
 

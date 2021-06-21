@@ -7,7 +7,8 @@ const _ = require('lodash');
 const csvtojson = require('csvtojson');
 const mongoClient = require("mongodb").MongoClient;
 
-const config = require('config-yml');
+//const config = require('config-yml');
+const config = require('./config');
 
 const lastVersion = config.import.version
 
@@ -18,12 +19,16 @@ const files = fs.readdirSync(basepath);
 let csvFilePath = basepath;
 
 for (let i in files) {
-   if (path.extname(files[i]) === ".csv") {
+  if (path.extname(files[i]) === ".csv") {
 
-    if (_.isString(config.import.csvFile) && files[i]===config.import.csvFile)
+    if (!_.isEmpty(config.import.csvFile) && files[i]===config.import.csvFile) {
       csvFilePath += files[i];
-      break;
-   }
+    }
+    else {
+      csvFilePath += files[i];  //if csvFile not specified use the first .csv file
+      break;    
+    }
+  }
 }
 
 if (!fs.existsSync(csvFilePath)) {

@@ -3,9 +3,10 @@
 const express = require('express');
 const app = express();
 
-const config = require('config-yml');
-console.log(config)
-return
+//const config = require('config-yml');
+const config = require('./config');
+
+
 const mongoClient = require("mongodb").MongoClient;
 
 const port =  config.server.port || 5000;
@@ -21,7 +22,7 @@ app.use(express.json());
 //};
 //});
 
-app.get('/imported', async (req, getres) => {
+app.get('/', async (req, getres) => {
 
   mongoClient.connect(config.db.uri, {
     useNewUrlParser: true,
@@ -30,7 +31,7 @@ app.get('/imported', async (req, getres) => {
     if (err) throw err;
 
     client
-    .db(config.db.name)
+    .db('ojp')
     .collection(config.db.collection)
     .find({}).toArray(function(err, queryres) {
       if (err) {
