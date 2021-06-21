@@ -16,20 +16,23 @@ const basepath = __dirname+'/csvs/'+lastVersion+'/';
 
 const files = fs.readdirSync(basepath);
 
-let csvFilePath = basepath;
+let csvFilePath
+  , csvFile;
 
 for (let i in files) {
   if (path.extname(files[i]) === ".csv") {
 
     if (!_.isEmpty(config.import.csvFile) && files[i]===config.import.csvFile) {
-      csvFilePath += files[i];
+      csvFile = files[i];
     }
     else {
-      csvFilePath += files[i];  //if csvFile not specified use the first .csv file
+      csvFile = files[i];  //if csvFile not specified use the first .csv file
       break;    
     }
   }
 }
+
+csvFilePath = basepath + csvFile;
 
 if (!fs.existsSync(csvFilePath)) {
   
@@ -53,7 +56,7 @@ csvtojson({
   const jsonStr= data.toString('utf8')
 })*/
 .preRawData( raw => {
-  console.log('RAWWWWWWW',raw)
+  //console.log('RAWWWWWWW',raw)
   return raw.toString('utf8');
 })
 .then( jsonObj => {
