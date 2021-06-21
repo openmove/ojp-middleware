@@ -21,9 +21,9 @@ let csvFilePath
 
 for (let i in files) {
   if (path.extname(files[i]) === ".csv") {
-
     if (!_.isEmpty(config.import.csvFile) && files[i]===config.import.csvFile) {
       csvFile = files[i];
+      break;
     }
     else {
       csvFile = files[i];  //if csvFile not specified use the first .csv file
@@ -42,13 +42,19 @@ if (!fs.existsSync(csvFilePath)) {
 
   return;
 }
+else {
+  console.log('PARSING CSV', csvFilePath)
+}
 
 //TODO 
 const fields = config.import.fields
 
 
 csvtojson({
-  noheader: false
+  noheader: false,
+  checkType: true,
+  delimiter: ',',
+  headers: config.import.headers
 })
 .fromFile(csvFilePath)
 /*.on('data',(data)=>{
@@ -59,18 +65,18 @@ csvtojson({
   //console.log('RAWWWWWWW',raw)
   return raw.toString('utf8');
 })
-.then( jsonObj => {
+.then( arrayResult => {
 
-  //console.log(jsonObj);
+  console.log(arrayResult, csvFilePath);
 
-  mongoClient.connect(config.db.uri, {
+  /*mongoClient.connect(config.db.uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   }, (err, client) => {
     if (err) throw err;
 
     client.db(config.db.name).collection(config.db.collection)
-      .insertMany(jsonObj, (err, res) => {
+      .insertMany(arrayResult, (err, res) => {
         if (err) throw err;
 
         console.log(`Inserted: ${res.insertedCount} rows`);

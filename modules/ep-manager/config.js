@@ -12,6 +12,23 @@ module.exports = {
   },
   import: {
     version: '0.16',
-    csvFile: '5T.csv'
+    csvFile: '5T.csv',
+    headers: [
+      "NeTEx Id",
+      "GlobalID",
+      "MetaID",
+      "Name",
+      "Steward",
+      "Destination Systems",
+      "Crossborder",
+      "long",
+      "lat",
+      "Main Mode",
+      "epPrio",
+      "CheckIn",
+      "Checkout",
+      "Main Operator",
+      "Country"
+    ]
   }
 };

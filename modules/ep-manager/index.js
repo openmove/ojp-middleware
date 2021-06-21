@@ -23,6 +23,8 @@ app.use(express.json());
 //});
 
 app.get('/', async (req, getres) => {
+  
+  console.log('request GET /', new Date().toISOString());
 
   mongoClient.connect(config.db.uri, {
     useNewUrlParser: true,

@@ -10,7 +10,7 @@ db:
 import:
   version: 0.16
   csvFile: 5T.csv
-  # fields:
+  # headers:
   #   #TODO comment unuseful
   #   - NeTEx Id
   #   - GlobalID
