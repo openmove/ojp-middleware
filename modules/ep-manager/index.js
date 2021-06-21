@@ -46,6 +46,46 @@ app.get('/', async (req, getres) => {
       client.close();
     });
   });
+});
+
+app.get('/geojson', async (req, getres) => {
+  
+  console.log('request GET /geojson', new Date().toISOString());
+
+  mongoClient.connect(config.db.uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }, (err, client) => {
+    if (err) throw err;
+
+    client
+    .db('ojp')
+    .collection(config.db.collection)
+    .find({}).toArray(function(err, queryres) {
+      if (err) {
+        getres.send(err);
+        throw err;
+      }
+
+      const geo = {
+        "type": "featureCollection",
+        "features": queryres.map(e => {
+          return {
+            "type": "Feature",
+            "properties": e,
+            "geometry": {
+              "type": "Point",
+              "coordinates": [ Number(e.long), Number(e.lat) ]
+            }
+          }
+        })
+      };
+      
+      getres.json(geo);
+
+      client.close();
+    });
+  });
 
   
 });

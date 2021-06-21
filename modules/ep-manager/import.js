@@ -69,7 +69,7 @@ csvtojson({
 
   console.log(arrayResult, csvFilePath);
 
-  /*mongoClient.connect(config.db.uri, {
+  mongoClient.connect(config.db.uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   }, (err, client) => {
@@ -82,6 +82,6 @@ csvtojson({
         console.log(`Inserted: ${res.insertedCount} rows`);
         client.close();
       });
-  });//*/
+  });//
 
 });
