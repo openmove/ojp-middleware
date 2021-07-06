@@ -8,8 +8,8 @@ const express = require('express')
 , xmlparser = require('express-xml-bodyparser')
 , {locationExecution} = require('./services/locations')
 , {eventExecution} = require('./services/stop-events')
-, {tripExecution} = require('./services/trips');
-
+, {tripExecution} = require('./services/trips')
+, {exchangePointsExecution} = require('./services/exchange-points');
 
 const mapNS = {
   'siri' : 'http://www.siri.org.uk/siri',
@@ -85,8 +85,11 @@ app.post('/ojp/', async (req, result) => {
     xmlServiceResponse.importXMLBuilder(await tripExecution(doc, startTime));    
   }
 
+  if(queryNode(doc, "//*[name()='ojp:OJPExchangePointsRequest']")){
+    //elaborate OJPExchangePointsRequest
+    xmlServiceResponse.importXMLBuilder(await exchangePointsExecution(doc, startTime));    
+  }
 
-  
   //receive ojp requests in this order (?)
   /*
   OJPLocationInformation
