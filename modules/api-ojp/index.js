@@ -1,6 +1,7 @@
 const express = require('express')
 , app = express()
-, config = require('config-yml')
+//UNCOMMENT WHEN FIX BUG, config = require('config-yml')
+, config = require('./config')
 , port =  config.server.port || 5000
 , xpath = require('xpath')
 , dom = require('xmldom').DOMParser
@@ -50,6 +51,10 @@ const queryText = (doc, path) => {
 
 
 //Endpoint
+//
+app.get('/ojp/', async (req, result) => {
+  result.send({'status':'OK','description':'send POST data in /ojp/'});
+});
 
 app.post('/ojp/', async (req, result) => {
   const xml = req.rawBody;
@@ -110,5 +115,5 @@ app.post('/ojp/', async (req, result) => {
 });
 
 app.listen(port, () => {
-  console.log(`API OJP service running on port ${port}`)
+  console.log(`API OJP service running on http://localhost:${port}/ojp`)
 })

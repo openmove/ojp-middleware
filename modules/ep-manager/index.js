@@ -6,7 +6,6 @@ const app = express();
 //const config = require('config-yml');
 const config = require('./config');
 
-
 const mongoClient = require("mongodb").MongoClient;
 
 const port =  config.server.port || 5000;
@@ -47,6 +46,65 @@ app.get('/', async (req, getres) => {
     });
   });
 });
+
+app.get('/searchByName/:name', async (req, getres) => {
+  
+  console.log('request GET /searchByName', new Date().toISOString());
+
+  mongoClient.connect(config.db.uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }, (err, client) => {
+    if (err) throw err;
+
+    client
+    .db('ojp')
+    .collection(config.db.collection)
+    .find({
+      'Name': new RegExp(req.params.name, "i")
+    })
+    .limit( Number(req.query.limit) )
+    .toArray(function(err, queryres) {
+      if (err) {
+        getres.send(err);
+        throw err;
+      } 
+      
+      getres.json(queryres);
+
+      client.close();
+    });
+  });
+});
+
+app.get('/searchByNetexId/:id', async (req, getres) => {
+  
+  console.log('request GET /searchById', new Date().toISOString());
+
+  mongoClient.connect(config.db.uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }, (err, client) => {
+    if (err) throw err;
+
+    client
+    .db('ojp')
+    .collection(config.db.collection)
+    .find({
+      "NeTEx Id": req.params.id
+    }).toArray(function(err, queryres) {
+      if (err) {
+        getres.send(err);
+        throw err;
+      } 
+      
+      getres.json(queryres);
+
+      client.close();
+    });
+  });
+});
+
 
 app.get('/geojson', async (req, getres) => {
   

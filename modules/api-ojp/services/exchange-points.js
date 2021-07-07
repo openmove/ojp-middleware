@@ -1,9 +1,7 @@
 const xpath = require('xpath')
 , http = require('http')
 , dom = require('xmldom').DOMParser
-, xmlbuilder = require('xmlbuilder')
-, moment = require('moment-timezone')
-, { v4: uuidv4 } = require('uuid');
+, xmlbuilder = require('xmlbuilder');
 
 const mapNS = {
   'siri' : 'http://www.siri.org.uk/siri',
@@ -61,137 +59,151 @@ const doRequest = (options, data) => {
   });
 }
 
-const createExchangePointsResponse = (stop, startTime, isDeparture, isArrival, realtimeData) => {
+const createExchangePointsResponse = (stops, startTime, ptModes) => {
   const responseTimestamp = new Date().toISOString();
   const calcTime = (new Date().getTime()) - startTime
-  const event = xmlbuilder.create('ojp:OJPStopEventDelivery');
-  event.ele('siri:ResponseTimestamp', responseTimestamp);
-  
-  event.ele('ojp:CalcTime', calcTime);
-  
-  if(stop === null || stop.stoptimesWithoutPatterns.length === 0){
-    event.ele('siri:Status', false);
-    const err = event.ele('siri:ErrorCondition');
-    err.ele('siri:OtherError')
-    err.ele('siri:Description', 'STOPEVENT_LOCATIONUNSERVED');
-  } else {
-    event.ele('siri:Status', true);
-    const context = event.ele('ojp:StopEventResponseContext');
-    const loc = context.ele('ojp:Places');
+  const location = xmlbuilder.create('ojp:OJPExchangePointsDelivery');
+  location.ele('siri:ResponseTimestamp', responseTimestamp);
+  location.ele('siri:Status', stops.length === 0 ? false : true);
+  location.ele('ojp:CalcTime', calcTime);
+
+  for(const stop of stops){
+    const loc = location.ele('ojp:Location')
     const place = loc.ele('ojp:Location');
     const stopPlace = place.ele('ojp:StopPlace');
-    stopPlace.ele('ojp:StopPlaceRef', stop.gtfsId);
-    stopPlace.ele('ojp:StopPlaceName').ele('ojp:Text', `${stop.name}`);
+    stopPlace.ele('ojp:StopPlaceRef', stop['NeTEx Id']);
+    stopPlace.ele('ojp:StopPlaceName').ele('ojp:Text', `${stop.Name}`);
     stopPlace.ele('ojp:TopographicPlaceRef', stop.zoneId);
-    place.ele('ojp:LocationName').ele('ojp:Text', `${stop.name}`);
+    place.ele('ojp:LocationName').ele('ojp:Text', `${stop.Name}`);
     const geo = place.ele('ojp:GeoPosition');
-    geo.ele('siri:Longitude', stop.lon);
-    geo.ele('siri:Latitude', stop.lat);
-    for(const schedule of stop.stoptimesWithoutPatterns){
-      const eventresponse = event.ele('ojp:StopEventResult');
-      eventresponse.ele('ojp:ResultId', uuidv4())
-      const stopevent = eventresponse.ele('ojp:StopEvent');
-      const call = stopevent.ele('ojp:ThisCall').ele('ojp:CallAtStop');
-      call.ele('siri:StopPointRef', stop.gtfsId);
-      call.ele('ojp:StopPointName').ele('ojp:Text', `${stop.name}`);
-      if(isDeparture){
-        const dep = call.ele('ojp:ServiceDeparture');
-        dep.ele('ojp:TimetabledTime', moment((schedule.serviceDay + schedule.scheduledDeparture) * 1000).tz(schedule.trip.route.agency.timezone).toISOString());
-        if(realtimeData){
-          dep.ele('ojp:EstimatedTime', moment((schedule.serviceDay + schedule.realtimeDeparture) * 1000).tz(schedule.trip.route.agency.timezone).toISOString());
-        }
-      }
-      
-      if(isArrival){
-        const arr = call.ele('ojp:ServiceArrival');
-        arr.ele('ojp:TimetabledTime', moment((schedule.serviceDay + schedule.scheduledArrival) * 1000).tz(schedule.trip.route.agency.timezone).toISOString());
-        if(realtimeData){
-          arr.ele('ojp:EstimatedTime', moment((schedule.serviceDay + schedule.realtimeArrival) * 1000).tz(schedule.trip.route.agency.timezone).toISOString());
-        }
-      }
-      call.ele('ojp:Order', schedule.stopSequence)        
-      const service = stopevent.ele('ojp:Service');
-      service.ele('ojp:OperatingDayRef', moment(schedule.serviceDay * 1000).tz(schedule.trip.route.agency.timezone).format("YYYY-MM-DD"));
-      service.ele('ojp:JourneyRef', schedule.trip.gtfsId);
-      service.ele('siri:LineRef', schedule.trip.route.gtfsId);
-      const mode = service.ele('ojp:Mode');
-      mode.ele('ojp:PtMode', stop.vehicleMode.toLowerCase());
-      if(schedule.trip.route.mode === 'BUS'){
+    geo.ele('siri:Longitude', Number(stop['long']));
+    geo.ele('siri:Latitude', Number(stop['lat']));
+    loc.ele('ojp:Complete', true);
+    loc.ele('ojp:Probability', 1 / stops.length); //TODO: other criteria?
+    if(ptModes === true){
+      const mode = loc.ele('ojp:Mode');
+      mode.ele('ojp:PtMode', stop['Main Mode'].toLowerCase());  //TODO map mongodb field mode
+      if(stop['Main Mode'] === '~Bus~'){
         mode.ele('siri:BusSubmode', 'unknown')
       }
-      if(schedule.trip.route.mode === 'RAIL'){
+      if(stop['Main Mode'] === '~Train~'){
         mode.ele('siri:RailSubmode', 'unknown')
       }
-      service.ele('siri:DirectionRef', schedule.trip.directionId);
-      service.ele('ojp:PublishedLineName').ele('ojp:Text', schedule.trip.route.longName || schedule.trip.route.shortName || schedule.trip.route.gtfsId)
-      service.ele('ojp:OperatorRef', schedule.trip.route.agency.gtfsId);
-      service.ele('ojp:OriginStopPointRef', schedule.trip.departureStoptime.stop.gtfsId);
-      service.ele('ojp:OriginText').ele('ojp:Text', `${schedule.trip.departureStoptime.stop.name}`);
-      service.ele('ojp:DestinationStopPointRef', schedule.trip.arrivalStoptime.stop.gtfsId);
-      service.ele('ojp:DestinationText').ele('ojp:Text', `${schedule.trip.arrivalStoptime.stop.name}`);
     }
   }
 
-  return event;
+  if(stops.length === 0){
+    const err = location.ele('siri:ErrorCondition');
+    err.ele('siri:OtherError')
+    err.ele('siri:Description', 'LOCATION_NORESULTS');
+  }
+
+  return location;
 }
 
 const createExchangePointsErrorResponse = (errorCode, startTime) => {
   const responseTimestamp = new Date().toISOString();
   const calcTime = (new Date().getTime()) - startTime
-  const event = xmlbuilder.create('ojp:OJPStopEventDelivery');
-  event.ele('siri:ResponseTimestamp', responseTimestamp);
-  event.ele('siri:Status', false);
-  event.ele('ojp:CalcTime', calcTime);
+  const location = xmlbuilder.create('ojp:OJPExchangePointsDelivery');
+  location.ele('siri:ResponseTimestamp', responseTimestamp);
+  location.ele('siri:Status', false);
+  location.ele('ojp:CalcTime', calcTime);
 
-  const err = event.ele('siri:ErrorCondition');
+  const err = location.ele('siri:ErrorCondition');
   err.ele('siri:OtherError')
   err.ele('siri:Description', errorCode);
 
-  return event;
+  return location;
 }
 
 module.exports = {
   'exchangePointsExecution' : async (doc, startTime) => {
     try{
-      if(queryNodes(doc, "//*[name()='ojp:OJPStopEventRequest']/*[name()='ojp:Location']/*[name()='ojp:PlaceRef']").length > 0){
-        const text = queryText(doc, "//*[name()='ojp:OJPStopEventRequest']/*[name()='ojp:Location']/*[name()='ojp:PlaceRef']/*[name()='ojp:StopPlaceRef']"); 
+      if(queryNodes(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:PlaceRef']").length > 0){
+        const text = queryText(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:PlaceRef']/*[name()='ojp:StopPlaceRef']"); 
         console.log(text);
-        const date = queryText(doc, "//*[name()='ojp:OJPStopEventRequest']/*[name()='ojp:Location']/*[name()='ojp:DepArrTime']");
-        const limit = queryText(doc, "//*[name()='ojp:OJPStopEventRequest']/*[name()='ojp:Params']/*[name()='ojp:NumberOfResults']");
-        console.log(limit);
-        console.log(date);
-        let startDate = new Date().getTime();
-        if(date != null){
-          startDate = new Date(date).getTime();
-        }
-        
+        const ptModes = queryText(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:Restrictions/*[name()=ojp:IncludePtModes]']");
+        const limit = queryText(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:Restrictions/*[name()=ojp:NumberOfResults]']");
         const options = {
-          host: `localhost`, //from environment variable
-          path: `/stops/${text}/details?limit=${Number(limit) || 5}&start=${startDate}`,
-          port: 8090, //from environment variable
+          host: `0.0.0.0`, //from environment variable ep-manager service
+          path: `/searchByName/${text || ''}?limit=${limit || 5}`,
+          port: 8083, //from environment variable ep-manager api
           method: 'GET',
-          json:true
+          json: true
         };
-        console.log(options);
-        const response = await doRequest(options);
+        const response = await doRequest(options)   
+        return createExchangePointsResponse(response.stops, startTime, ptModes === 'true');
+      }
+      /*else if(queryNodes(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:InitialInput']").length > 0){
+        const locationName = queryText(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:InitialInput']/*[name()='ojp:LocationName']"); 
+        const locationPositionLat = queryText(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:InitialInput']/*[name()='ojp:GeoPosition']/*[name()=Latitude]"); 
+        const locationPositionLon = queryText(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:InitialInput']/*[name()='ojp:GeoPosition']/*[name()=Longitude]"); 
         
-        let isDeparture = true;
-        let isArrival = false;
-        let showRealtime = false;
-        const eventType = queryText(doc, "//*[name()='ojp:OJPStopEventRequest']/*[name()='ojp:Params']/*[name()='ojp:StopEventType']");
-        const realtime = queryText(doc, "//*[name()='ojp:OJPStopEventRequest']/*[name()='ojp:Params']/*[name()='ojp:IncludeRealtimeData']");
-        if(eventType === 'arrival'){
-          isDeparture = false;
-          isArrival = true;
+        const ptModes = queryText(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:Restrictions']/*[name()='ojp:IncludePtModes']");
+        const limit = queryText(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:Restrictions']/*[name()='ojp:NumberOfResults']");
+  
+        console.log(limit, ptModes);
+        let data = null;
+        const params = {
+          value: locationName,
+          position: [locationPositionLon, locationPositionLat],
+          limit: Number(limit) || 5
+        };
+        
+        const restriction = queryNode(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:InitialInput']/*[name()='ojp:GeoRestriction']");
+  
+        if(restriction){
+          const rect = queryNode(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:InitialInput']/*[name()='ojp:GeoRestriction']/*[name()='ojp:Rectangle']");
+          const circle = queryNode(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:InitialInput']/*[name()='ojp:GeoRestriction']/*[name()='ojp:Circle']");
+          
+          if(rect){
+            const path = "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:InitialInput']/*[name()='ojp:GeoRestriction']/*[name()='ojp:Rectangle']"
+            const upperLat = queryText(doc, path+"/*[name()='ojp:UpperLeft']/*[name()=Latitude]");
+            const upperLon = queryText(doc, path+"/*[name()='ojp:UpperLeft']/*[name()=Logitude]");
+
+            const lowerLat = queryText(doc, path+"/*[name()='ojp:LowerRight']/*[name()=Latitude]");
+            const lowerLon = queryText(doc, path+"/*[name()='ojp:LowerRight']/*[name()=Logitude]");
+
+            //TODO check values and check if value maybe are expressed inside a Coordinates element
+
+            params.restrictionType = 'bbox';
+            params.restrictionValue= [[upperLon, upperLat],[lowerLon, lowerLat]];
+
+          }else if(circle){
+            const path = "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:InitialInput']/*[name()='ojp:GeoRestriction']/*[name()='ojp:Circle']"
+            const centerLat = queryText(doc, path+"/*[name()='ojp:Center']/*[name()=Latitude]");
+            const centerLon = queryText(doc, path+"/*[name()='ojp:Center']/*[name()=Logitude]");
+
+            //TODO check if value maybe are expressed inside a Coordinates element
+
+            const radius = queryText(doc, path+"/*[name()='ojp:Radius']");
+            params.restrictionType = 'circle';
+            params.restrictionValue= [centerLon, centerLat, radius];
+          }else{
+            throw new Error('Unrecognize Restriction');
+          }
         }
 
-        if(eventType === 'both'){
-          isDeparture = true;
-          isArrival = true;
+        if(locationName != null || (locationPositionLat != null && locationPositionLon != null) ){
+          data = JSON.stringify(params);
         }
-        showRealtime = realtime === 'true';
-        return createExchangePointsResponse(response.stop, startTime, isDeparture, isArrival, showRealtime);
-      }else{
+
+        const options = {
+          host: `localhost`, //from environment variable
+          path: `/search/`,
+          port: 8090, //from environment variable
+          json:true,
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Content-Length': data.length,
+          }
+        }
+        const response = await doRequest(options, data)   
+        console.log(response)
+        return createExchangePointsResponse(response.stops, startTime, ptModes === 'true');
+      }*/
+      else {
         return createExchangePointsErrorResponse('E0001', startTime);
       }
     }catch(err){
