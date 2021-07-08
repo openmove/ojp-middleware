@@ -53,7 +53,7 @@ $.getJSON('/list.json', function( data ) {
 
 $("#sendform").submit(function(e){
     e.preventDefault();
-    $('#xml_res').text('').toggleClass('loading');
+    $('#xml_res').text('').addClass('loading');
     setTimeout(_=>{
 		$.ajax({
 			url: apiOjpUrl,
@@ -64,10 +64,10 @@ $("#sendform").submit(function(e){
 				$('#xml_res')
 				.scrollTop(0)
 				.text(formatXml(data))
-				.toggleClass('loading');
+				.removeClass('loading');
 			}
 		})
-	},1000);
+	},300);
 
 	return false;
 });
