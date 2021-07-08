@@ -4,7 +4,8 @@
   "description": "OJP entrypoint",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon --watch services index.js",
+    "start": "node index.js"
   },
   "author": "Stefano Cudini stefano.cudini@gmail.com",
   "license": "MIT",
@@ -24,5 +25,8 @@
     "xmlbuilder": "^15.1.1",
     "xmldom": "^0.6.0",
     "xpath": "0.0.32"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
   }
 }

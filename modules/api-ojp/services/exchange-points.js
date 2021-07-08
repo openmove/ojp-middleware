@@ -132,7 +132,7 @@ module.exports = {
           json: true
         };
         const response = await doRequest(options)   
-        return createExchangePointsResponse(response.stops, startTime, ptModes === 'true');
+        return createExchangePointsResponse(response, startTime, ptModes === 'true');
       }
       /*else if(queryNodes(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:InitialInput']").length > 0){
         const locationName = queryText(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:InitialInput']/*[name()='ojp:LocationName']"); 
