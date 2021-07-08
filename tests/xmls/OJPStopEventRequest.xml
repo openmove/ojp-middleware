@@ -4,19 +4,8 @@
         <ServiceRequest>
             <RequestTimestamp>2021-05-06T11:57:52.438Z</RequestTimestamp>
             <RequestorRef>API-Explorer</RequestorRef>
-            <ojp:OJPLocationInformationRequest>
-                <RequestTimestamp>2021-05-06T11:57:52.438Z</RequestTimestamp>
-                <ojp:PlaceRef>
-                    <ojp:StopPlaceRef>gtt:11592</ojp:StopPlaceRef>
-                </ojp:PlaceRef>
-                <ojp:Restrictions>
-                    <ojp:Type>stop</ojp:Type>
-                    <ojp:NumberOfResults>9</ojp:NumberOfResults>
-                    <ojp:IncludePtModes>false</ojp:IncludePtModes>
-                </ojp:Restrictions>
-            </ojp:OJPLocationInformationRequest>
             <ojp:OJPStopEventRequest>
-            <RequestTimestamp>2021-06-04T13:10:17.283Z</RequestTimestamp>
+                <RequestTimestamp>2021-06-04T13:10:17.283Z</RequestTimestamp>
                 <ojp:Location>
                     <ojp:PlaceRef>
                         <ojp:StopPlaceRef>5:5</ojp:StopPlaceRef>

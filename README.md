@@ -1,4 +1,4 @@
-# OJP middleware
+# OJP/OTP Middleware
 
 Open API for distributed Journey Planning to OpentripPlanner Middleware as a Passive System.
 

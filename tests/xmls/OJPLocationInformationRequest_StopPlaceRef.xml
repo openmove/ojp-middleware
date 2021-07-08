@@ -4,16 +4,17 @@
         <ServiceRequest>
             <RequestTimestamp>2021-05-06T11:57:52.438Z</RequestTimestamp>
             <RequestorRef>API-Explorer</RequestorRef>
-            <ojp:OJPExchangePointsRequest>
+            <ojp:OJPLocationInformationRequest>
                 <RequestTimestamp>2021-05-06T11:57:52.438Z</RequestTimestamp>
                 <ojp:PlaceRef>
                     <ojp:StopPlaceRef>1:1</ojp:StopPlaceRef>
                 </ojp:PlaceRef>
                 <ojp:Restrictions>
-                    <ojp:NumberOfResults>3</ojp:NumberOfResults>
-                    <ojp:IncludePtModes>true</ojp:IncludePtModes>
+                    <ojp:Type>stop</ojp:Type>
+                    <ojp:NumberOfResults>9</ojp:NumberOfResults>
+                    <ojp:IncludePtModes>false</ojp:IncludePtModes>
                 </ojp:Restrictions>
-            </ojp:OJPExchangePointsRequest>
+            </ojp:OJPLocationInformationRequest>
         </ServiceRequest>
     </OJPRequest>
 </OJP>

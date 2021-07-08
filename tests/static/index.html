@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+<title>OJP/OTP Middleware API tester</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<link href="main.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div id="content">
+<h2>OJP/OTP Middleware API tester</h2>
+<select id="xmls">
+    <option disabled selected value>select a request...</option>
+</select>
+<a href="/list.json">xmls requests example files</a>
+<br><br>
+<label>REQUEST OJP:</label>
+<br>
+<form id="sendform">
+<textarea id="xml_req" type="text" contenteditable="true" cols="90" rows="20"> 
+</textarea>
+<br />
+<input type="submit" name="SEND REQUEST">
+<br /><br />
+<label>RESPONSE OJP:</label>
+<br />
+<textarea id="xml_res" cols="90" rows="30">
+</textarea>
+</form>
+</div>
+
+<script src="/jquery.min.js"></script>
+<script src="/utils.js"></script>
+<script>
+const $list = $('#xmls');
+
+const apiOjpUrl = `${location.protocol}//${location.hostname}:8080/ojp/`;
+
+$.getJSON('/list.json', function( data ) {
+    $.each( data, function( key, val ) {
+        let name = val.replace('.xml','').replace('/xmls/','');
+        $(`<option value="${val}">${name}</option>`).appendTo($list);
+    });
+})
+.then(() => {
+    $list.on('change', e => {
+        e.preventDefault();
+        $.get(e.target.value, xmldata => {
+            $('#xml_req').text(comment(formatXml(xmldata)));
+        })
+    });
+});
+
+$("#sendform").submit(function(e){
+    e.preventDefault();
+	$.ajax({
+		url: apiOjpUrl,
+		type: 'POST',
+		data: uncomment($('#xml_req').val()),
+		contentType:"application/xml; charset=utf-8",
+		success: function(data){;
+			$('#xml_res').text(formatXml(data));
+            $('#xml_res').scrollTop(0);
+		}
+	});
+
+	return false;
+});
+</script> 
+
+</body>
+</html>

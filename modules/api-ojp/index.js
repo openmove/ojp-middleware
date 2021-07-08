@@ -22,7 +22,6 @@ const mapNS = {
 app.use(xmlparser());
 
 app.use(cors());
-//common Functions
 
 const queryNodes = (doc, path) => {
   const queryNS = xpath.useNamespaces(mapNS);

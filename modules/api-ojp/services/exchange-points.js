@@ -120,13 +120,16 @@ module.exports = {
   'exchangePointsExecution' : async (doc, startTime) => {
     try{
       if(queryNodes(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:PlaceRef']").length > 0){
-        const text = queryText(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:PlaceRef']/*[name()='ojp:StopPlaceRef']"); 
-        console.log(text);
+
+
+
+        const stopId = queryText(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:PlaceRef']/*[name()='ojp:StopPlaceRef']"); 
+        console.log(stopId);
         const ptModes = queryText(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:Restrictions/*[name()=ojp:IncludePtModes]']");
         const limit = queryText(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:Restrictions/*[name()=ojp:NumberOfResults]']");
         const options = {
           host: `localhost`, //from environment variable ep-manager service
-          path: `/searchByName/${text || ''}?limit=${limit || 5}`,
+          path: `/searchByName/${stopId || ''}?limit=${limit || 5}`,
           port: 8083, //from environment variable ep-manager api
           method: 'GET',
           json: true
