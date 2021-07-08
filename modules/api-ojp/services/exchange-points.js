@@ -81,7 +81,8 @@ const createExchangePointsResponse = (stops, startTime, ptModes) => {
     geo.ele('siri:Latitude', Number(stop['lat']));
     loc.ele('ojp:Complete', true);
     loc.ele('ojp:Probability', 1 / stops.length); //TODO: other criteria?
-    if(ptModes === true){
+    if(ptModes === true) {
+
       const mode = loc.ele('ojp:Mode');
       mode.ele('ojp:PtMode', stop['Main Mode'].toLowerCase());  //TODO map mongodb field mode
       if(stop['Main Mode'] === '~Bus~'){
@@ -122,19 +123,37 @@ module.exports = {
     try{
       if(queryNodes(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:PlaceRef']").length > 0){
 
-
-
         const stopId = queryText(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:PlaceRef']/*[name()='ojp:StopPlaceRef']"); 
-        console.log(stopId);
-        const ptModes = queryText(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:Restrictions/*[name()=ojp:IncludePtModes]']");
-        const limit = queryText(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:Restrictions/*[name()=ojp:NumberOfResults]']");
+        const pointId = queryText(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:PlaceRef']/*[name()='ojp:StopPointRef']"); 
+
+        const LocationName = queryText(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:PlaceRef']/*[name()='ojp:LocationName']/*[name()='ojp:Text']");
+
+        const ptModes = queryText(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:Restrictions/*[name()=ojp:IncludePtModes']");
+        
+        let limit = queryText(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:Restrictions/*[name()=ojp:NumberOfResults']");
+
+        limit = Number(limit) || 5;
+
+        let path;
+        if(LocationName) {
+          path = `/searchByName/${LocationName}`;
+        }
+        else if(stopId) {
+          path = `/searchByNetexId/${stopId}`;
+        }
+        else if(pointId) {
+          path = `/searchByNetexId/${pointId}`;
+        }
+        //todo point
+
         const options = {
           host: `localhost`, //from environment variable ep-manager service
-          path: `/searchByName/${stopId || ''}?limit=${limit || 5}`,
+          path: `${path}?limit=${limit}`,
           port: 8083, //from environment variable ep-manager api
           method: 'GET',
           json: true
         };
+        console.log(options)
         const response = await doRequest(options)   
         return createExchangePointsResponse(response, startTime, ptModes === 'true');
       }

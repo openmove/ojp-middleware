@@ -7,7 +7,7 @@
             <ojp:OJPExchangePointsRequest>
                 <RequestTimestamp>2021-05-06T11:57:52.438Z</RequestTimestamp>
                 <ojp:PlaceRef>
-                    <ojp:StopPlaceRef>Torino</ojp:StopPlaceRef>
+                    <ojp:StopPlaceRef>it:itc:StopPlace:ITRP-ST00108290038:</ojp:StopPlaceRef>
                 </ojp:PlaceRef>
                 <ojp:Restrictions>
                     <ojp:NumberOfResults>3</ojp:NumberOfResults>

@@ -4,17 +4,18 @@
         <ServiceRequest>
             <RequestTimestamp>2021-05-06T11:57:52.438Z</RequestTimestamp>
             <RequestorRef>OJP/OTP Middleware API Tester</RequestorRef>
-            <ojp:OJPLocationInformationRequest>
+            <ojp:OJPExchangePointsRequest>
                 <RequestTimestamp>2021-05-06T11:57:52.438Z</RequestTimestamp>
                 <ojp:PlaceRef>
-                    <ojp:StopPlaceRef>9:9</ojp:StopPlaceRef>
+                    <ojp:LocationName>
+                        <ojp:Text>Torino</ojp:Text>
+                    </ojp:LocationName>
                 </ojp:PlaceRef>
                 <ojp:Restrictions>
-                    <ojp:Type>stop</ojp:Type>
-                    <ojp:NumberOfResults>1</ojp:NumberOfResults>
-                    <ojp:IncludePtModes>false</ojp:IncludePtModes>
+                    <ojp:NumberOfResults>3</ojp:NumberOfResults>
+                    <ojp:IncludePtModes>true</ojp:IncludePtModes>
                 </ojp:Restrictions>
-            </ojp:OJPLocationInformationRequest>
+            </ojp:OJPExchangePointsRequest>
         </ServiceRequest>
     </OJPRequest>
 </OJP>

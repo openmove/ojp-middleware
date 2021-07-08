@@ -5,7 +5,7 @@ const {getStopById, searchByName, searchByBBox, searchByRadius} = require('./sto
 const {getStopTimesById} = require('./stoptimes');
 const {planTrip} = require('./plan');
 const { request } = require('express');
-const port =  config.server.port || 5000;
+const port =  config.server.port || 8090;
 
 
 app.use(express.json())

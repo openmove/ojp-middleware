@@ -53,7 +53,7 @@ app.get('/searchByName/', async (req, getres) => {
 
 app.get('/searchByName/:name', async (req, getres) => {
   
-  console.log('request GET /searchByName', new Date().toISOString());
+  console.log('request GET', req.url, new Date().toISOString());
 
   mongoClient.connect(config.db.uri, {
     useNewUrlParser: true,

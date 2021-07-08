@@ -59,6 +59,7 @@ app.get('/ojp/', async (req, result) => {
 
 app.post('/ojp/', async (req, result) => {
 
+  //console.log('request ',req.rawBody)
   const xml = req.rawBody;
   const doc = new dom().parseFromString(xml);
   const startTime = new Date().getTime();
@@ -78,39 +79,25 @@ app.post('/ojp/', async (req, result) => {
   xmlServiceResponse.ele('siri:Status', true);
 
   if(queryNode(doc, "//*[name()='ojp:OJPLocationInformationRequest']")){
-    //elaborate OJPLocationInformationRequest
     xmlServiceResponse.importXMLBuilder(await locationExecution(doc, startTime));    
   }
 
   if(queryNode(doc, "//*[name()='ojp:OJPStopEventRequest']")){
-    //elaborate OJPStopEventRequest
     xmlServiceResponse.importXMLBuilder(await eventExecution(doc, startTime));    
   }
 
   if(queryNode(doc, "//*[name()='ojp:OJPTripRequest']")){
-    //elaborate OJPTripRequest
     xmlServiceResponse.importXMLBuilder(await tripExecution(doc, startTime));    
   }
 
   if(queryNode(doc, "//*[name()='ojp:OJPExchangePointsRequest']")){
-    //elaborate OJPExchangePointsRequest
     xmlServiceResponse.importXMLBuilder(await exchangePointsExecution(doc, startTime));    
   }
-
-  //receive ojp requests in this order (?)
-  /*
-  OJPLocationInformation
-  OJPTrip
-  OJPStopEvent
-  OJPTripInfo
-  OJPExchangePoints
-  OJPMultiPointTrip
-  */
 
   const resXml = ojpXML.end({ pretty: true})
   result.set({
     'Content-Type': 'application/xml',
-    'Content-Length': resXml.lenght
+    'Content-Length': resXml.length
   })
   result.send(resXml);
 

@@ -141,7 +141,7 @@ module.exports = {
         const ptModes = queryText(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:Restrictions']/*[name()='ojp:IncludePtModes']");
         const limit = queryText(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:Restrictions']/*[name()='ojp:NumberOfResults']");
   
-        console.log(limit, ptModes);
+        
         let data = null;
         const params = {
           value: locationName,
