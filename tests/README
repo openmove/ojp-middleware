@@ -1,2 +1,11 @@
 
-# client tests api-ojp services
+# OJP/OTP Middleware API tester
+
+## Usage
+
+```bash
+npm install
+npm start
+```
+
+open: http://localhost:5000/

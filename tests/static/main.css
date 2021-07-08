@@ -1,5 +1,6 @@
 /*	@import url('style.css'); */
-#content {
-
+body {
+	background: #eee;
+	color: #00a;
 }
 textarea { font-size: 12px; }
