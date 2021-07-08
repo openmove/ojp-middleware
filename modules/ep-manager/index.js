@@ -144,10 +144,19 @@ app.get('/geojson', async (req, getres) => {
       client.close();
     });
   });
-
-  
 });
 
-app.listen(port, () => {
-  console.log(`EP MANAGER service running on port ${port}`)
-})
+mongoClient.connect(config.db.uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 100 //mseconds
+}, err => {
+  if (!err) {
+    app.listen(port, () => {
+      console.log(`ExchangePointsManager listening at http://localhost:${port}`)
+    });
+  }
+  else {
+    console.error(`MongoDb error ${err.message}`);
+  }
+});
