@@ -110,12 +110,13 @@ $("#sendform").submit(function(e){
 		data: xmltext,
 		contentType:"application/xml; charset=utf-8",
 		success: function(data){
-			console.log(data)
+			console.log(data);
+            $('#xml_res').scrollTop(0);
 
 			var serializer = new XMLSerializer(); 
 			var t = serializer.serializeToString(data);
 
-			$('#xml_res').text(formatXml(t))
+			$('#xml_res').text(formatXml(t));
 		}
 	});
 

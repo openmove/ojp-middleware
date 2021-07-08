@@ -5,10 +5,15 @@ networks:
     driver: bridge
 
 services:
-  #TODO shared mongodb instance
-  #mongodb:
-  #  image:
-  
+
+  tests:
+    container_name: mongo
+    image: mongo:latest
+    ports:
+      - "8085:27017"
+    volumes:
+      - ./modules/db/data:/data/db
+
   #TODO local testing instance of OpenTripPlanner
   # otp-test:
   #   container_name: otp-test
@@ -64,4 +69,4 @@ services:
     volumes:
       - ./modules/db/data:/data/db
     environment:
-      - MONGO_INITDB_DATABASE=ojp   
+      - MONGO_INITDB_DATABASE=ojp
