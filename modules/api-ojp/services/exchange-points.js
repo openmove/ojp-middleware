@@ -125,7 +125,7 @@ module.exports = {
         const ptModes = queryText(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:Restrictions/*[name()=ojp:IncludePtModes]']");
         const limit = queryText(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:Restrictions/*[name()=ojp:NumberOfResults]']");
         const options = {
-          host: `0.0.0.0`, //from environment variable ep-manager service
+          host: `localhost`, //from environment variable ep-manager service
           path: `/searchByName/${text || ''}?limit=${limit || 5}`,
           port: 8083, //from environment variable ep-manager api
           method: 'GET',

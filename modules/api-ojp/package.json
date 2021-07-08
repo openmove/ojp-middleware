@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "config-yml": "^0.10.3",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-xml-bodyparser": "^0.3.0",
     "http": "0.0.1-security",

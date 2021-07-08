@@ -12,6 +12,8 @@ const express = require('express')
 , {tripExecution} = require('./services/trips')
 , {exchangePointsExecution} = require('./services/exchange-points');
 
+const cors = require('cors');
+
 const mapNS = {
   'siri' : 'http://www.siri.org.uk/siri',
   'ojp': 'http://www.vdv.de/ojp',
@@ -19,7 +21,7 @@ const mapNS = {
 
 app.use(xmlparser());
 
-
+app.use(cors());
 //common Functions
 
 const queryNodes = (doc, path) => {
