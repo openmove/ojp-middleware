@@ -24,9 +24,10 @@
                     </ojp:PlaceRef>
                 </ojp:Destination>
                 <ojp:Params>
+                    <ojp:TransferLimit>0</ojp:TransferLimit>
                     <ojp:IncludeTrackSections>false</ojp:IncludeTrackSections>
                     <ojp:IncludeTurnDescription>false</ojp:IncludeTurnDescription>
-                    <ojp:IncludeIntermediateStops>true</ojp:IncludeIntermediateStops>
+                    <ojp:IncludeIntermediateStops>false</ojp:IncludeIntermediateStops>
                 </ojp:Params>
             </ojp:OJPTripRequest>
         </ServiceRequest>

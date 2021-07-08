@@ -28,6 +28,25 @@ module.exports = {
       to = `toPlace: "${destination}"`
     }
 
+    const intermediatePlacesStrings = [];
+    for(const iplace of extra.intermediatePlaces){
+      if(Array.isArray(iplace)){
+        intermediatePlacesStrings.push(`{lat: ${iplace[1]}, lon: ${iplace[0]}, address: "${iplace[2]}"}`);
+      }else{
+        const stopQuery =   gql`{
+          stop (id:"${iplace}"){
+            lat
+            lon
+            name
+          }
+        }`
+        const data = await clientQL.request(stopQuery, {});
+        if(data.stop != null){
+          intermediatePlacesStrings.push(`{lat: ${data.stop.lat}, lon: ${data.stop.lon}, address: "${data.stop.name}"}`);
+        }
+      }
+    }
+
     const query = gql`{
       plan(
         ${from}, 
@@ -35,7 +54,10 @@ module.exports = {
         numItineraries: ${extra.limit || 5},
         date: "${moment(date).tz(extra.timezone || "Europe/Rome").format("YYYY-MM-DD")}",
         time: "${moment(date).tz(extra.timezone || "Europe/Rome").format("HH:mm:ss")}",
-        arriveBy: ${extra.arriveBy || false}
+        arriveBy: ${extra.arriveBy || false},
+        maxTransfers: ${extra.transfers || 2},
+        wheelchair: ${extra.wheelchair || false},
+        intermediatePlaces: [${intermediatePlacesStrings.join(",")}]
         ){
         date
         from {

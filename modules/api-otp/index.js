@@ -104,11 +104,7 @@ app.get('/stops/:id/details', async (req, result) => {
   //origin, destination, waypoints, no transfers at, ...
   const params = req.body;
   console.log(params);
-  const extra = {
-    'limit': params.limit || 5,
-    'timezone': params.timezone || "Europe/Rome"
-  };
-  const res = await planTrip(config.endpoints, params.origin, params.destination, params.date, extra)
+  const res = await planTrip(config.endpoints, params.origin, params.destination, params.date, params)
   result.json(res);
 });
 

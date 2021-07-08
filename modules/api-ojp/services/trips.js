@@ -251,6 +251,10 @@ module.exports = {
         const destinationName = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Destination']/*[name()='ojp:PlaceRef']/*[name()='ojp:LocationName']/*[name()='ojp:Text']"); 
 
         const limitValue = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Params']/*[name()='ojp:NumberOfResults']");
+        const transfersValue = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Params']/*[name()='ojp:TransferLimit']");
+
+        const useWheelchair = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Params']/*[name()='ojp:IncludeAccessibility']");
+        
 
         let date = new Date().getTime();
         let arrivedBy = false;
@@ -266,7 +270,10 @@ module.exports = {
           destination: destinationId || [destinationLon, destinationLat, destinationName || "Destination"],
           date,
           limit: Number(limitValue) || 1,
-          arrivedBy
+          arrivedBy,
+          transfers: Number(transfersValue) || 2,
+          wheelchair: useWheelchair === 'true',
+          intermediatePlaces: []
         });
         
         const options = {
