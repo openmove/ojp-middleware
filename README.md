@@ -36,7 +36,6 @@ resolve and link internal dependecies
 lerna bootstrap
 ```
 
-### update commands
+### API tester
 
-...work in progress...
-
+Inside ```/tests``` a simple web application has been implemented which facilitates service testing process

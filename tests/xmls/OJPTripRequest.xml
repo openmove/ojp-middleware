@@ -3,7 +3,7 @@
     <OJPRequest>
         <ServiceRequest>
             <RequestTimestamp>2021-06-07T09:55:53.297Z</RequestTimestamp>
-            <RequestorRef>API-Explorer</RequestorRef>
+            <RequestorRef>OJP/OTP Middleware API Tester</RequestorRef>
             <ojp:OJPTripRequest>
                 <RequestTimestamp>2021-06-07T09:55:53.297Z</RequestTimestamp>
                 <ojp:Origin>

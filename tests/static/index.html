@@ -24,7 +24,7 @@
 <br /><br />
 <label>RESPONSE OJP:</label>
 <br />
-<textarea id="xml_res" cols="90" rows="30">
+<textarea id="xml_res" cols="90" rows="20">
 </textarea>
 </form>
 </div>
@@ -53,16 +53,21 @@ $.getJSON('/list.json', function( data ) {
 
 $("#sendform").submit(function(e){
     e.preventDefault();
-	$.ajax({
-		url: apiOjpUrl,
-		type: 'POST',
-		data: uncomment($('#xml_req').val()),
-		contentType:"application/xml; charset=utf-8",
-		success: function(data){;
-			$('#xml_res').text(formatXml(data));
-            $('#xml_res').scrollTop(0);
-		}
-	});
+    $('#xml_res').text('').toggleClass('loading');
+    setTimeout(_=>{
+		$.ajax({
+			url: apiOjpUrl,
+			type: 'POST',
+			data: uncomment($('#xml_req').val()),
+			contentType:"application/xml; charset=utf-8",
+			success: function(data){;
+				$('#xml_res')
+				.scrollTop(0)
+				.text(formatXml(data))
+				.toggleClass('loading');
+			}
+		})
+	},1000);
 
 	return false;
 });

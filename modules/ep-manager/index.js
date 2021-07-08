@@ -8,7 +8,7 @@ const config = require('./config');
 
 const mongoClient = require("mongodb").MongoClient;
 
-const port =  config.server.port || 5000;
+const port =  config.server.port || 8083;
 
 app.use(express.json());
 
@@ -47,6 +47,10 @@ app.get('/', async (req, getres) => {
   });
 });
 
+app.get('/searchByName/', async (req, getres) => {
+  getres.json([]);
+});
+
 app.get('/searchByName/:name', async (req, getres) => {
   
   console.log('request GET /searchByName', new Date().toISOString());
@@ -75,6 +79,10 @@ app.get('/searchByName/:name', async (req, getres) => {
       client.close();
     });
   });
+});
+
+app.get('/searchByNetexId/', async (req, getres) => {
+  getres.json([]);
 });
 
 app.get('/searchByNetexId/:id', async (req, getres) => {

@@ -46,6 +46,7 @@ const doRequest = (options, data) => {
       });
 
       res.on('end', () => {
+        console.log(responseBody)
         resolve(JSON.parse(responseBody));
       });
     });
