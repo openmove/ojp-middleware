@@ -9,7 +9,7 @@
   "author": "Stefano Cudini stefano.cudini@gmail.com",
   "license": "MIT",
   "engines": {
-    "node": "12.21.0"
+    "node": "14.16.0"
   },
   "dependencies": {
     "config-yml": "^0.10.3",

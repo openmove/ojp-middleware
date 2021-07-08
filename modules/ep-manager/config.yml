@@ -1,49 +1,57 @@
 server:
-  port: 8080
-  #TODO cache_ttl: 0
+  port: 8083
+
+db:
+  uri: mongodb://db:8085/
+  #uri: mongodb://0.0.0.0:8085/
+  name: ojp
+  collection: exchange_points
 
 import:
-  fields:
-  - NeTEx Id
-  - GlobalID
-  - MetaID
-  - Name
-  - Steward
-  - Destination Systems
-  - Crossborder
-  - long
-  - lat
-  - Main Mode
-  - epPrio
-  - CheckIn
-  - Checkout
-  - VAORemarks
-  - (ARIA only) Name as found in time tables
-  - (ARIA only) ARIA Name
-  - (ARIA only) ARIA Remarks
-  - (ARIA only) Answers / remarks SBB
-  - ARIA id
-  - Meta stop to bridge systems?
-  - STA Relevant?
-  - STA Id
-  - STA Remarks
-  - ARIA Relevant?
-  - ARIA Id
-  - ARIA Remarks
-  - 5T Relevant?
-  - 5T  Id
-  - 5T Remarks
-  - LUK Relevant?
-  - LUK Id
-  - LUK Remarks
-  - SBB Relevant
-  - SBB Id
-  - DiDok-ID
-  - LUR Id
-  - VAO Id (HAFAS ID)
-  - VAO Relevant?
-  - (EU Spirit only) Additional EPs
-  - Main Operator
-  - Country
-  - Remark
-  - TODO
+  version: 0.16
+  csvFile: 5T.csv
+  # headers:
+  #   #TODO comment unuseful
+  #   - NeTEx Id
+  #   - GlobalID
+  #   - MetaID
+  #   - Name
+  #   - Steward
+  #   - Destination Systems
+  #   - Crossborder
+  #   - long
+  #   - lat
+  #   - Main Mode
+  #   - epPrio
+  #   - CheckIn
+  #   - Checkout
+  #   - VAORemarks
+  #   - (ARIA only) Name as found in time tables
+  #   - (ARIA only) ARIA Name
+  #   - (ARIA only) ARIA Remarks
+  #   - (ARIA only) Answers / remarks SBB
+  #   - ARIA id
+  #   - Meta stop to bridge systems?
+  #   - STA Relevant?
+  #   - STA Id
+  #   - STA Remarks
+  #   - ARIA Relevant?
+  #   - ARIA Id
+  #   - ARIA Remarks
+  #   - 5T Relevant?
+  #   - 5T  Id
+  #   - 5T Remarks
+  #   - LUK Relevant?
+  #   - LUK Id
+  #   - LUK Remarks
+  #   - SBB Relevant
+  #   - SBB Id
+  #   - DiDok-ID
+  #   - LUR Id
+  #   - VAO Id (HAFAS ID)
+  #   - VAO Relevant?
+  #   - (EU Spirit only) Additional EPs
+  #   - Main Operator
+  #   - Country
+  #   - Remark
+  #   - TODO
