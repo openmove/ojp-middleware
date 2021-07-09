@@ -227,7 +227,7 @@ const createTripErrorResponse = (errorCode, startTime) => {
 }
 
 module.exports = {
-  'tripExecution' : async (doc, startTime) => {
+  'tripsExecution' : async (doc, startTime) => {
     try{
       if(
         queryNodes(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Origin']/*[name()='ojp:PlaceRef']").length > 0

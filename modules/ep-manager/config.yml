@@ -2,29 +2,28 @@ server:
   port: 8083
 
 db:
-  uri: mongodb://db:8085/
-  #uri: mongodb://0.0.0.0:8085/
+  #uri: mongodb://db/
+  uri: mongodb://0.0.0.0:8085/
   name: ojp
   collection: exchange_points
 
 import:
   version: 0.16
   csvFile: 5T.csv
-  # headers:
-  #   #TODO comment unuseful
-  #   - NeTEx Id
-  #   - GlobalID
-  #   - MetaID
-  #   - Name
-  #   - Steward
-  #   - Destination Systems
-  #   - Crossborder
-  #   - long
-  #   - lat
-  #   - Main Mode
-  #   - epPrio
-  #   - CheckIn
-  #   - Checkout
+  headers:
+     - NeTEx Id
+     - GlobalID
+     - MetaID
+     - Name
+     - Steward
+     - Destination Systems
+     - Crossborder
+     - long
+     - lat
+     - Main Mode
+     - epPrio
+     - CheckIn
+     - Checkout
   #   - VAORemarks
   #   - (ARIA only) Name as found in time tables
   #   - (ARIA only) ARIA Name
@@ -51,7 +50,7 @@ import:
   #   - VAO Id (HAFAS ID)
   #   - VAO Relevant?
   #   - (EU Spirit only) Additional EPs
-  #   - Main Operator
-  #   - Country
+     - Main Operator
+     - Country
   #   - Remark
   #   - TODO

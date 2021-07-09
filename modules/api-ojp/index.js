@@ -1,18 +1,21 @@
 const express = require('express')
 , app = express()
-//UNCOMMENT WHEN FIX BUG, config = require('config-yml')
-, config = require('./config')
-, port =  config.server.port || 5000
+, config = require('@stefcud/configyml')
 , xpath = require('xpath')
+, cors = require('cors')
 , dom = require('xmldom').DOMParser
 , xmlbuilder = require('xmlbuilder')
 , xmlparser = require('express-xml-bodyparser')
 , {locationExecution} = require('./services/locations')
 , {eventExecution} = require('./services/stop-events')
-, {tripExecution} = require('./services/trips')
+, {tripsExecution} = require('./services/trips')  //TODO rename in trip
+, {tripInfoExecution} = require('./services/trip-info')
+, {multipointTripExecution} = require('./services/multipoint-trip')
 , {exchangePointsExecution} = require('./services/exchange-points');
 
-const cors = require('cors');
+console.log(config);
+
+const port = config.server.port || 8080
 
 const mapNS = {
   'siri' : 'http://www.siri.org.uk/siri',
@@ -79,22 +82,60 @@ app.post('/ojp/', async (req, result) => {
   xmlServiceResponse.ele('siri:Status', true);
 
   if(queryNode(doc, "//*[name()='ojp:OJPLocationInformationRequest']")){
-    xmlServiceResponse.importXMLBuilder(await locationExecution(doc, startTime));    
+    if(!config.services.OJPLocationInformationRequest) {
+      console.warn('OJPLocationInformationRequest disabled by config')
+    }
+    else {
+      xmlServiceResponse.importXMLBuilder(await locationExecution(doc, startTime, config));
+    }
   }
 
   if(queryNode(doc, "//*[name()='ojp:OJPStopEventRequest']")){
-    xmlServiceResponse.importXMLBuilder(await eventExecution(doc, startTime));    
+    if(!config.services.OJPStopEventRequest) {
+      console.warn('OJPStopEventRequest disabled by config');
+    }
+    else {
+      xmlServiceResponse.importXMLBuilder(await eventExecution(doc, startTime, config));
+    }    
   }
 
   if(queryNode(doc, "//*[name()='ojp:OJPTripRequest']")){
-    xmlServiceResponse.importXMLBuilder(await tripExecution(doc, startTime));    
+    if(!config.services.OJPTripRequest) {
+      console.warn('OJPTripRequest disabled by config');
+    }
+    else {
+      xmlServiceResponse.importXMLBuilder(await tripsExecution(doc, startTime, config));
+    }  
+  }
+  
+  if(queryNode(doc, "//*[name()='ojp:OJPTripInfoRequest']")){
+    if(!config.services.OJPTripInfoRequest) {
+      console.warn('OJPTripInfoRequest disabled by config');
+    }
+    else {
+      xmlServiceResponse.importXMLBuilder(await tripInfoExecution(doc, startTime, config));
+    }  
   }
 
   if(queryNode(doc, "//*[name()='ojp:OJPExchangePointsRequest']")){
-    xmlServiceResponse.importXMLBuilder(await exchangePointsExecution(doc, startTime));    
+    if(!config.services.OJPExchangePointsRequest) {
+      console.warn('OJPExchangePointsRequest disabled by config');
+    }
+    else {
+      xmlServiceResponse.importXMLBuilder(await exchangePointsExecution(doc, startTime, config));
+    }
   }
 
-  const resXml = ojpXML.end({ pretty: true})
+  if(queryNode(doc, "//*[name()='ojp:OJPMultiPointTripRequest']")){
+    if(!config.services.OJPMultiPointTripRequest) {
+      console.warn('OJPMultiPointTripRequest disabled by config');
+    }
+    else {
+      xmlServiceResponse.importXMLBuilder(await multipointTripExecution(doc, startTime, config));
+    }
+  }
+
+  const resXml = ojpXML.end({ pretty: true});
   result.set({
     'Content-Type': 'application/xml',
     'Content-Length': resXml.length
@@ -104,5 +145,5 @@ app.post('/ojp/', async (req, result) => {
 });
 
 app.listen(port, () => {
-  console.log(`API OJP service running on http://localhost:${port}/ojp`)
+  console.log(`listening at http://localhost:${port}`)
 })

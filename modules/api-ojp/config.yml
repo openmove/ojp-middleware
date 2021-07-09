@@ -1,28 +1,26 @@
 server:
   port: 8080
-  #TODO cache_ttl: 0
+
+api-otp:
+  #host: api-otp  
+  host: localhost
+  port: 8082
+
+ep-manager:
+  #host: ep-manager  
+  host: localhost
+  port: 8083
 
 db:
-  uri: mongodb://db/
-  #uri: mongodb://0.0.0.0:8085/
+  #uri: mongodb://db/
+  uri: mongodb://0.0.0.0:8085/
   name: ojp
-  collection: exchange_points
+  collection: api_ojp
 
 services:
-  OJPLocationInformation:
-    enabled: true
-  
-  OJPStopEvent:
-    enabled: true
-
-  OJPExchangePoints:
-    enabled: true
-  
-  OJPTrip:
-    enabled: true
-
-  OJPTripInfo:
-    enabled: true
-
-  OJPMultiPointTrip:
-    enabled: true
+  OJPExchangePointsRequest: true
+  OJPLocationInformationRequest: true
+  OJPStopEventRequest: true
+  OJPTripRequest: true
+  #OJPMultiPointTripRequest: true
+  #OJPTripInfoRequest: true

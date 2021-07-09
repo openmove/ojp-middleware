@@ -3,15 +3,13 @@
 const express = require('express');
 const app = express();
 
-//const config = require('config-yml');
-const config = require('./config');
+const config = require('@stefcud/configyml');
 
 const mongoClient = require("mongodb").MongoClient;
 
 const port =  config.server.port || 8083;
 
 app.use(express.json());
-
 
 //TODO app.get('/point/:id?', async (req, getres) => {  
 //search a points by netextid
@@ -161,7 +159,7 @@ mongoClient.connect(config.db.uri, {
 }, err => {
   if (!err) {
     app.listen(port, () => {
-      console.log(`ExchangePointsManager listening at http://localhost:${port}`)
+      console.log(`listening at http://localhost:${port}`)
     });
   }
   else {
