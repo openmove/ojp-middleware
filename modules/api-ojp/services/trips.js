@@ -39,7 +39,7 @@ const queryText = (doc, path) => {
 }
 
 const doRequest = (options, data) => {
-  console.log(data);
+  //console.log(data);
   return new Promise((resolve, reject) => {
     const req = http.request(options, (res) => {
       res.setEncoding('utf8');
