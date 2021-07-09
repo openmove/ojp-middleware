@@ -12,14 +12,7 @@ services:
     ports:
       - "8085:5000"
     volumes:
-      - ./modules/db/data:/data/db
-
-  #TODO local testing instance of OpenTripPlanner
-  # otp-test:
-  #   container_name: otp-test
-  #   image: ojp/otp:latest
-  #   ports:
-  #     - "8080:8080"    
+      - ./modules/db/data:/data/db  
 
   api-ojp:
     container_name: api-ojp
@@ -29,9 +22,10 @@ services:
     ports:
       - "8081:8081"      
     #environment:
-    # depends_on:
-    #   - ep-manager
-    #   - otp
+    depends_on:
+      - ep-manager
+      - api-otp
+      - db
 
   api-otp:
     container_name: api-otp
@@ -53,14 +47,6 @@ services:
     depends_on:
       - db
 
-  xsd2json:
-    container_name: xsd2json
-    image: ojp/xsd2json:latest
-    build:
-      context: ./modules/xsd2json
-    ports:
-      - "8084:8084"      
-
   db:
     container_name: mongo
     image: mongo:latest
@@ -70,3 +56,18 @@ services:
       - ./modules/db/data:/data/db
     environment:
       - MONGO_INITDB_DATABASE=ojp
+
+  #TODO local testing instance of OpenTripPlanner
+  # otp-test:
+  #   container_name: otp-test
+  #   image: ojp/otp:latest
+  #   ports:
+  #     - "8080:8080"  
+  #
+  # xsd2json:
+  #   container_name: xsd2json
+  #   image: ojp/xsd2json:latest
+  #   build:
+  #     context: ./modules/xsd2json
+  #   ports:
+  #     - "8084:8084"      

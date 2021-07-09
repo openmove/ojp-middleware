@@ -3,38 +3,26 @@ server:
   #TODO cache_ttl: 0
 
 db:
-  uri: mongodb://db:8085/
+  uri: mongodb://db/
   #uri: mongodb://0.0.0.0:8085/
   name: ojp
   collection: exchange_points
 
 services:
   OJPLocationInformation:
-    #Location information 
-    #OJP_Locations.xsd
     enabled: true
   
   OJPStopEvent:
-    #Departure board 
-    ##OJP_StopEvents.xsd
-    enabled: false
+    enabled: true
 
   OJPExchangePoints:
-    #Exchange points
-    #OJP_Locations.xsd
-    enabled: false
+    enabled: true
   
   OJPTrip:
-    #Trip request 
-    #OJP_Trips.xsd
-    enabled: false
+    enabled: true
 
   OJPTripInfo:
-    #Trip/Vehicle information
-    ##OJP_TripInfo.xsd
-    enabled: false
+    enabled: true
 
   OJPMultiPointTrip:
-    #Distributed journey planning
-    ##OJP_Trips.xsd
-    enabled: false
+    enabled: true

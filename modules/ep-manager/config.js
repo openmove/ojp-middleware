@@ -5,7 +5,7 @@ module.exports = {
     port: 8083
   },
   db: {
-    //uri: 'mongodb://db:8085/',
+    //uri: 'mongodb://db/',
     uri: 'mongodb://0.0.0.0:8085/',
     name: 'ojp',
     collection: 'exchange_points'
