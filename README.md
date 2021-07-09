@@ -1,6 +1,6 @@
 # OJP/OTP Middleware
 
-Open API for distributed Journey Planning to OpentripPlanner Middleware as a Passive System.
+Open API for distributed Journey Planning to [OpenTripPlanner](https://github.com/opentripplanner) Middleware as a Passive System.
 
 The project is structured as a [Monorepo](https://codefresh.io/howtos/lerna-monorepo/) that contains NPM modules and Docker microservices
 
@@ -21,6 +21,7 @@ API XSD schemas:
 
 https://github.com/VDVde/OJP
 
+[OpenTripPlanner](https://github.com/opentripplanner)
 
 ## Setup
 
