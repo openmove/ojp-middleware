@@ -10,7 +10,7 @@ services:
     container_name: mongo
     image: mongo:latest
     ports:
-      - "8085:27017"
+      - "8085:5000"
     volumes:
       - ./modules/db/data:/data/db
 
