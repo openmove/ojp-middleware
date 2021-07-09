@@ -1,12 +1,11 @@
 const express = require('express');
 const app = express()
-//const config = require('config-yml');
-const config = require('./config');
+const config = require('@stefcud/configyml');
 const {getStopById, searchByName, searchByBBox, searchByRadius} = require('./stops');
 const {getStopTimesById} = require('./stoptimes');
 const {planTrip} = require('./plan');
 const { request } = require('express');
-const port =  config.server.port || 8090;
+const port =  config.server.port || 8082;
 
 app.use(express.json())
 
@@ -118,5 +117,5 @@ app.get('/stops/:id/details', async (req, result) => {
 });
 
 app.listen(port, () => {
-  console.log(`API OTP service running on port ${port}`)
+  console.log(`listening at http://localhost:${port}`)
 })

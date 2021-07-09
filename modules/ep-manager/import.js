@@ -7,8 +7,7 @@ const _ = require('lodash');
 const csvtojson = require('csvtojson');
 const mongoClient = require("mongodb").MongoClient;
 
-//const config = require('config-yml');
-const config = require('./config');
+const config = require('@stefcud/configyml');
 
 const lastVersion = config.import.version
 

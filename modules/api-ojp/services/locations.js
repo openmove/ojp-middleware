@@ -117,17 +117,16 @@ const createLocationErrorResponse = (errorCode, startTime) => {
 }
 
 module.exports = {
-  'locationExecution' : async (doc, startTime) => {
+  'locationExecution' : async (doc, startTime, config) => {
     try{
       if(queryNodes(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:PlaceRef']").length > 0){
-        const text = queryText(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:PlaceRef']/*[name()='ojp:StopPlaceRef']"); 
-        console.log(text);
-        const ptModes = queryText(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:Restrictions']/*[name()=ojp:IncludePtModes']");
-        const limit = queryText(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:Restrictions']/*[name()=ojp:NumberOfResults']");
+        const text = queryText(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:PlaceRef']/*[name()='ojp:StopPlaceRef']");
+        const ptModes = queryText(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:Restrictions']/*[name()='ojp:IncludePtModes']");
+        const limit = queryText(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:Restrictions']/*[name()='ojp:NumberOfResults']");
         const options = {
-          host: `localhost`, //from environment variable
-          path: `/stops/${text || ''}?limit=${limit || 5}`, //limit is not necessary in this case because we are looking for an ID.
-          port: 8090, //from environment variable
+          host: config['api-otp'].host,
+          port: config['api-otp'].port,
+          path: `/stops/${text || ''}?limit=${limit || 5}`, //limit is not necessary in this case because we are looking for an ID.          
           method: 'GET',
           json:true
         };
@@ -188,9 +187,9 @@ module.exports = {
         }
 
         const options = {
-          host: `localhost`, //from environment variable
+          host: config['api-otp'].host,
+          port: config['api-otp'].port,
           path: `/search/`,
-          port: 8090, //from environment variable
           json:true,
           method: 'POST',
           headers: {

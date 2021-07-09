@@ -121,7 +121,7 @@ const createExchangePointsErrorResponse = (errorCode, startTime) => {
 }
 
 module.exports = {
-  'exchangePointsExecution' : async (doc, startTime) => {
+  'exchangePointsExecution' : async (doc, startTime, config) => {
     try{
       if(queryNodes(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:PlaceRef']").length > 0){
 
@@ -149,9 +149,9 @@ module.exports = {
         //todo point
 
         const options = {
-          host: `localhost`, //from environment variable ep-manager service
-          path: `${path}?limit=${limit}`,
-          port: 8083, //from environment variable ep-manager api
+          host: config['ep-manager'].host,
+          port: config['ep-manager'].port,
+          path: `${path}?limit=${limit}`,          
           method: 'GET',
           json: true
         };
