@@ -122,8 +122,8 @@ module.exports = {
       if(queryNodes(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:PlaceRef']").length > 0){
         const text = queryText(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:PlaceRef']/*[name()='ojp:StopPlaceRef']"); 
         console.log(text);
-        const ptModes = queryText(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:Restrictions/*[name()=ojp:IncludePtModes]']");
-        const limit = queryText(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:Restrictions/*[name()=ojp:NumberOfResults]']");
+        const ptModes = queryText(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:Restrictions']/*[name()=ojp:IncludePtModes']");
+        const limit = queryText(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:Restrictions']/*[name()=ojp:NumberOfResults']");
         const options = {
           host: `localhost`, //from environment variable
           path: `/stops/${text || ''}?limit=${limit || 5}`, //limit is not necessary in this case because we are looking for an ID.
