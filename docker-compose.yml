@@ -6,14 +6,6 @@ networks:
 
 services:
 
-  tests:
-    container_name: mongo
-    image: mongo:latest
-    ports:
-      - "8085:5000"
-    volumes:
-      - ./modules/db/data:/data/db  
-
   api-ojp:
     container_name: api-ojp
     image: ojp/api-ojp:latest
@@ -33,7 +25,7 @@ services:
     build:
       context: ./modules/api-otp
     ports: 
-      - "8082:8080"      
+      - "8082:8082"      
 
   ep-manager:
     container_name: ep-manager
@@ -47,6 +39,15 @@ services:
     depends_on:
       - db
 
+  #TODO maybe un useful, used as library
+  #  xsd2json:
+  #   container_name: xsd2json
+  #   image: ojp/xsd2json:latest
+  #   build:
+  #     context: ./modules/xsd2json
+  #   ports:
+  #     - "8084:8084"      
+
   db:
     container_name: mongo
     image: mongo:latest
@@ -57,17 +58,10 @@ services:
     environment:
       - MONGO_INITDB_DATABASE=ojp
 
-  #TODO local testing instance of OpenTripPlanner
-  # otp-test:
-  #   container_name: otp-test
-  #   image: ojp/otp:latest
-  #   ports:
-  #     - "8080:8080"  
-  #
-  # xsd2json:
-  #   container_name: xsd2json
-  #   image: ojp/xsd2json:latest
-  #   build:
-  #     context: ./modules/xsd2json
-  #   ports:
-  #     - "8084:8084"      
+  tests:
+    container_name: tests
+    image: ojp/tests:latest
+    build:
+      context: ./tests
+    ports:
+      - "8086:8086" 

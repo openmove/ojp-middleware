@@ -31,10 +31,13 @@
 
 <script src="/jquery.min.js"></script>
 <script src="/utils.js"></script>
+<script src="/getconfig"></script>
 <script>
-const $list = $('#xmls');
+const {host, port} = window.config['api-ojp'];
 
-const apiOjpUrl = `${location.protocol}//${location.hostname}:8080/ojp/`;
+const apiOjpUrl = `${location.protocol}//${host}:${port}/ojp/`;
+
+const $list = $('#xmls');
 
 $.getJSON('/list.json', function( data ) {
     $.each( data, function( key, val ) {

@@ -24,6 +24,7 @@ const mapNS = {
 
 app.use(xmlparser());
 
+//TODO cors from config
 app.use(cors());
 
 const queryNodes = (doc, path) => {

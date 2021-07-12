@@ -5,7 +5,6 @@ const {getStopById, searchByName, searchByBBox, searchByRadius} = require('./sto
 const {getStopTimesById} = require('./stoptimes');
 const {planTrip} = require('./plan');
 const { request } = require('express');
-const port =  config.server.port || 8082;
 
 app.use(express.json())
 
@@ -20,7 +19,7 @@ app.get('/stops/:id?', async (req, result) => {
   const extra = {
     'limit': req.query.limit || 10
   };
-  const res = await getStopById(config.endpoints, req.params.id, extra)
+  const res = await getStopById(config, req.params.id, extra)
   result.json(res);
 });
 
@@ -49,10 +48,10 @@ app.post('/search/', async (req, result) => {
       const resTmp = {stops: []};
       switch(params.restrictionType){
         case 'bbox':
-          resTmp = await searchByBBox(config.endpoints, params.restrictionValue, extra);
+          resTmp = await searchByBBox(config, params.restrictionValue, extra);
           break;
         case 'circle':
-          resTmp = await searchByRadius(config.endpoints, params.restrictionValue, extra);
+          resTmp = await searchByRadius(config, params.restrictionValue, extra);
           break;
       }
       const reg = new RegExp(`(/?i)\b${value}\b`);
@@ -66,10 +65,10 @@ app.post('/search/', async (req, result) => {
         }
       }
     }else{
-      res = await searchByName(config.endpoints, params.value, extra);
+      res = await searchByName(config, params.value, extra);
     }
   }else if(position && position.length == 2){ //search at specific position (tricky: radius 1 meter)
-    res = await searchByRadius(config.endpoints, [...position,1], extra);
+    res = await searchByRadius(config, [...position,1], extra);
   }else{
     //TODO wrong request, manage this ?
   }
@@ -89,7 +88,7 @@ app.get('/stops/:id/details', async (req, result) => {
     'limit': req.query.limit || 10,
     'start': req.query.start || new Date().getTime()
   };
-  const res = await getStopTimesById(config.endpoints, req.params.id, extra);
+  const res = await getStopTimesById(config, req.params.id, extra);
   console.log(res);
   result.json(res);
 });
@@ -103,7 +102,7 @@ app.get('/stops/:id/details', async (req, result) => {
   //origin, destination, waypoints, no transfers at, ...
   const params = req.body;
   console.log(params);
-  const res = await planTrip(config.endpoints, params.origin, params.destination, params.date, params)
+  const res = await planTrip(config, params.origin, params.destination, params.date, params)
   result.json(res);
 });
 
@@ -116,6 +115,6 @@ app.get('/stops/:id/details', async (req, result) => {
   //TODO: check if this is viable with otp
 });
 
-app.listen(port, () => {
-  console.log(`listening at http://localhost:${port}`)
+app.listen(config.server.port, () => {
+  console.log(`listening at http://localhost:${config.server.port}`)
 })

@@ -4,12 +4,12 @@ const https = require('https');
 module.exports = {
   'getStopTimesById': async (config, stopId, extra) => {
     const options = {
-      host: config.default.hostname,
-      path: config.default.path + config.graphql.path,
-      port: config.default.port
+      host: config.otp.hostname,
+      path: config.otp.path + config.graphql.path,
+      port: config.otp.port
     };
     const endpoint = `https://${options.host}${options.path}`;
-    const clientQL = new GraphQLClient(endpoint, { headers: config.default.headers });
+    const clientQL = new GraphQLClient(endpoint, { headers: config.otp.headers });
     const query = gql`{
                 stop(id: "${stopId}"){
                   gtfsId,

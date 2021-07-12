@@ -3,12 +3,21 @@ const express = require('express');
 const fs = require('fs');
 
 const app = express();
-const port = 5000
+const config = require('@stefcud/configyml');
 
-app.use('/', express.static('static'));
+app.use('/', express.static('static', {
+  etag: false,
+  maxAge: '1000'
+}));
 app.use('/xmls', express.static('xmls'));
 
-app.use(express.json())
+app.use(express.json());
+
+app.get('/getconfig', async (req, res) => {
+  res.set('content-type', 'application/javascript');
+  const conftext = JSON.stringify(config,null,4);
+  res.send(`window.config = ${conftext};`);
+});
 
 app.get('/list.json', async (req, res) => {
   const dirPath = '/xmls/'
@@ -20,7 +29,6 @@ app.get('/list.json', async (req, res) => {
   });
 });
 
-
-app.listen(port, () => {
-  console.log(`listening at http://localhost:${port}`)
+app.listen(config.server.port, () => {
+  console.log(`listening at http://localhost:${config.server.port}`)
 })

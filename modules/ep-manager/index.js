@@ -2,12 +2,9 @@
 
 const express = require('express');
 const app = express();
-
 const config = require('@stefcud/configyml');
 
 const mongoClient = require("mongodb").MongoClient;
-
-const port =  config.server.port || 8083;
 
 app.use(express.json());
 
@@ -158,8 +155,8 @@ mongoClient.connect(config.db.uri, {
   serverSelectionTimeoutMS: 100 //mseconds
 }, err => {
   if (!err) {
-    app.listen(port, () => {
-      console.log(`listening at http://localhost:${port}`)
+    app.listen(config.server.port, () => {
+      console.log(`listening at http://localhost:${config.server.port}`)
     });
   }
   else {
