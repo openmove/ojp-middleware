@@ -14,7 +14,7 @@ ep-manager:
 
 db:
   #uri: mongodb://db/
-  uri: mongodb://0.0.0.0:8085/
+  uri: mongodb://localhost:8085/
   name: ojp
   collection: api_ojp
 

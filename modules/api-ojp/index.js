@@ -1,11 +1,12 @@
 const express = require('express')
 , app = express()
 , config = require('@stefcud/configyml')
-, xpath = require('xpath')
 , cors = require('cors')
 , dom = require('xmldom').DOMParser
 , xmlbuilder = require('xmlbuilder')
-, xmlparser = require('express-xml-bodyparser')
+, xmlparser = require('express-xml-bodyparser');
+
+const {queryNode, queryNodes, queryText} = require('./lib/query')
 , {locationExecution} = require('./services/locations')
 , {eventExecution} = require('./services/stop-events')
 , {tripsExecution} = require('./services/trips')  //TODO rename in trip
@@ -13,57 +14,16 @@ const express = require('express')
 , {multipointTripExecution} = require('./services/multipoint-trip')
 , {exchangePointsExecution} = require('./services/exchange-points');
 
-console.log(config);
-
-const port = config.server.port || 8080
-
-const mapNS = {
-  'siri' : 'http://www.siri.org.uk/siri',
-  'ojp': 'http://www.vdv.de/ojp',
-};
+app.use(cors());
 
 app.use(xmlparser());
 
-//TODO cors from config
-app.use(cors());
-
-const queryNodes = (doc, path) => {
-  const queryNS = xpath.useNamespaces(mapNS);
-  const nodes = queryNS(path, doc);
-  return nodes
-}
-
-const queryNode = (doc, path) => {
-  const nodes = queryNodes(doc, path)
-  if (nodes.length === 0) {
-      return null;
-  }
-
-  return nodes[0]
-}
-
-const queryText = (doc, path) => {
-  const queryNS = xpath.useNamespaces(mapNS);
-  const node = queryNS(path, doc, true);
-  if (!node) {
-      return null;
-  }
-
-  const nodeText = node.textContent;
-
-  return nodeText
-}
-
-
-//Endpoint
-//
 app.get('/ojp/', async (req, result) => {
   result.send({'status':'OK','description':'send POST data in /ojp/'});
 });
 
 app.post('/ojp/', async (req, result) => {
 
-  //console.log('request ',req.rawBody)
   const xml = req.rawBody;
   const doc = new dom().parseFromString(xml);
   const startTime = new Date().getTime();
@@ -145,6 +105,6 @@ app.post('/ojp/', async (req, result) => {
 
 });
 
-app.listen(port, () => {
-  console.log(`listening at http://localhost:${port}`)
+app.listen(config.server.port, () => {
+  console.log(`listening at http://localhost:${config.server.port}`)
 })

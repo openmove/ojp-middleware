@@ -1,65 +1,9 @@
-const xpath = require('xpath')
-, http = require('http')
-, dom = require('xmldom').DOMParser
-, xmlbuilder = require('xmlbuilder')
+const xmlbuilder = require('xmlbuilder')
 , moment = require('moment-timezone')
 , { v4: uuidv4 } = require('uuid');
 
-const mapNS = {
-  'siri' : 'http://www.siri.org.uk/siri',
-  'ojp': 'http://www.vdv.de/ojp',
-};
-
-const queryNodes = (doc, path) => {
-  const queryNS = xpath.useNamespaces(mapNS);
-  const nodes = queryNS(path, doc);
-  return nodes
-}
-
-const queryNode = (doc, path) => {
-  const nodes = queryNodes(doc, path)
-  if (nodes.length === 0) {
-      return null;
-  }
-
-  return nodes[0]
-}
-
-const queryText = (doc, path) => {
-  const queryNS = xpath.useNamespaces(mapNS);
-  const node = queryNS(path, doc, true);
-  if (!node) {
-      return null;
-  }
-
-  const nodeText = node.textContent;
-
-  return nodeText
-}
-
-const doRequest = (options, data) => {
-  return new Promise((resolve, reject) => {
-    const req = http.request(options, (res) => {
-      res.setEncoding('utf8');
-      let responseBody = '';
-
-      res.on('data', (chunk) => {
-        responseBody += chunk;
-      });
-
-      res.on('end', () => {
-        resolve(JSON.parse(responseBody));
-      });
-    });
-
-    req.on('error', (err) => {
-      reject(err);
-    });
-
-    req.write(data || '')
-    req.end();
-  });
-}
+const {queryNode, queryNodes, queryText} = require('../lib/query');
+const {doRequest} = require('../lib/request');
 
 const createEventResponse = (stop, startTime, isDeparture, isArrival, realtimeData) => {
   const responseTimestamp = new Date().toISOString();
