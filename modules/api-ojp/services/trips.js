@@ -3,7 +3,7 @@ const xmlbuilder = require('xmlbuilder')
 , { v4: uuidv4 } = require('uuid')
 , { time } = require('console');
 
-const {queryNode, queryNodes, queryText} = require('../lib/query');
+const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {doRequest} = require('../lib/request');
 
 const createTripResponse = (itineraries, startTime, showIntermediates) => {

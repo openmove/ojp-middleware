@@ -2,7 +2,7 @@ const xmlbuilder = require('xmlbuilder')
 , moment = require('moment-timezone')
 , { v4: uuidv4 } = require('uuid');
 
-const {queryNode, queryNodes, queryText} = require('../lib/query');
+const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {doRequest} = require('../lib/request');
 
 const createEventResponse = (stop, startTime, isDeparture, isArrival, realtimeData) => {

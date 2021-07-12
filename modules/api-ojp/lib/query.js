@@ -29,9 +29,24 @@ const queryText = (doc, path) => {
   return node.textContent;
 }
 
+const queryTags = (doc, paths) => {
+  if (!Array.isArray(paths)) {
+    paths = [paths];
+  }
+
+  const tags = paths.map(str => {
+    return `[name()='${str}']`;
+  }).join('/*');
+
+  const query = `//*${tags}`;
+  
+  return queryText(doc, query);
+}
+
 
 module.exports = {
 	'queryText': queryText,
 	'queryNode': queryNode,
-	'queryNodes': queryNodes
+	'queryNodes': queryNodes,
+  'queryTags': queryTags
 }

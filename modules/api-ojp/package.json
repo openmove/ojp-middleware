@@ -4,7 +4,7 @@
   "description": "OJP entrypoint",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --watch services --watch config.yml --watch index.js index.js",
+    "dev": "nodemon --watch services --watch lib --watch config.yml --watch index.js index.js",
     "start": "node index.js"
   },
   "author": "Stefano Cudini stefano.cudini@gmail.com",

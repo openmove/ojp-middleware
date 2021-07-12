@@ -1,6 +1,6 @@
 const xmlbuilder = require('xmlbuilder');
 
-const {queryNode, queryNodes, queryText} = require('../lib/query');
+const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {doRequest} = require('../lib/request');
 
 const createExchangePointsResponse = (stops, startTime, ptModes) => {
@@ -68,14 +68,32 @@ module.exports = {
     try{
       if(queryNodes(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:PlaceRef']").length > 0){
 
-        const stopId = queryText(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:PlaceRef']/*[name()='ojp:StopPlaceRef']"); 
-        const pointId = queryText(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:PlaceRef']/*[name()='ojp:StopPointRef']"); 
-
-        const LocationName = queryText(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:PlaceRef']/*[name()='ojp:LocationName']/*[name()='ojp:Text']");
-
-        const ptModes = queryText(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:Restrictions']/*[name()='ojp:IncludePtModes']");
-        
-        let limit = queryText(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:Restrictions']/*[name()='ojp:NumberOfResults']");
+        const stopId = queryTags(doc, [
+          'ojp:OJPExchangePointsRequest',
+          'ojp:PlaceRef',
+          'ojp:StopPlaceRef'
+        ]); 
+        const pointId = queryTags(doc, [
+          'ojp:OJPExchangePointsRequest',
+          'ojp:PlaceRef',
+          'ojp:StopPointRef'
+        ]); 
+        const LocationName = queryTags(doc, [
+          'ojp:OJPExchangePointsRequest',
+          'ojp:PlaceRef',
+          'ojp:LocationName',
+          'ojp:Text'
+        ]);
+        const ptModes = queryTags(doc, [
+          'ojp:OJPExchangePointsRequest',
+          'ojp:Restrictions',
+          'ojp:IncludePtModes'
+        ]);
+        let limit = queryTags(doc, [
+          'ojp:OJPExchangePointsRequest',
+          'ojp:Restrictions',
+          'ojp:NumberOfResults'
+        ]);
 
         limit = Number(limit) || 5;
 
