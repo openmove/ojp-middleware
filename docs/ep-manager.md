@@ -9,14 +9,6 @@ TODO maybe include NETEXT IFOPT
 https://github.com/NeTEx-CEN/NeTEx/blob/master/xsd/ifopt.xsd
 
 
-## dev mode
-
-```bash
-docker-compose up db
-node import.js
-
-```
-
 ## usage in docker
 
 ```
@@ -27,57 +19,19 @@ browse: http://localhost:8083/
 
 browse: http://localhost:8083/geojson
 
-
-
-## TODO REST POST TO IMPORT NEW csv
-
-
-
--1:1   eisite o non esiste (se ce e' uno solo
-
- :* esiste anche piu di uno
-
-0:1    puo non esistere se ce e' uno1
-
-1:1   deve esistere sempre un elemento
-# exchangepoint manager
-
-mongodb models to store ojp exchangepoints
-
-TODO download.sh script to download remote exchangepoint
-
-TODO maybe include NETEXT IFOPT
-https://github.com/NeTEx-CEN/NeTEx/blob/master/xsd/ifopt.xsd
-
-
-## dev mode
+## development mode
 
 ```bash
 docker-compose up db
-node import.js
-
+npm run dev
 ```
 
-## usage in docker
 
+### import csv manually
+
+
+```bash
+CSV_VERSION=10 node import.js
 ```
-docker-compose up ep-manager
-```
 
-browse: http://localhost:8083/
-
-browse: http://localhost:8083/geojson
-
-
-
-## TODO REST POST TO IMPORT NEW csv
-
-
-
--1:1   eisite o non esiste (se ce e' uno solo
-
- :* esiste anche piu di uno
-
-0:1    puo non esistere se ce e' uno1
-
-1:1   deve esistere sempre un elemento
+CSV_VERSION is directory inside csvs default is version param inside config.yml

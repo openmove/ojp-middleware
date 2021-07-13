@@ -2,13 +2,13 @@ server:
   port: 8086
 
 api-ojp:
-  #host: api-otp
   host: localhost
+  #host: api-otp
   port: 8081
 
 api-otp:
-  #host: api-otp
   host: localhost
+  #host: api-otp
   port: 8082
 
 ep-manager:

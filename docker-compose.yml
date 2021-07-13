@@ -34,8 +34,11 @@ services:
       context: ./modules/ep-manager
     ports:
       - "8083:8083"
-    volumes:
-      - ./csvs:/home/csvs
+    # volumes:
+    #   - ./csvs:/home/csvs
+    environment:
+      - IMPORT=true
+      - CSV_VERSION=0.16
     depends_on:
       - db
 

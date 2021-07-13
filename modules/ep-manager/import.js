@@ -8,79 +8,100 @@ const csvtojson = require('csvtojson');
 const mongoClient = require("mongodb").MongoClient;
 
 const config = require('@stefcud/configyml');
-
 const lastVersion = config.import.version
 
-const basepath = __dirname+'/csvs/'+lastVersion+'/';
+const importCsv = (ver, basedir) => {  
 
-const files = fs.readdirSync(basepath);
+    const version = ver || lastVersion;
+    const basepath = basedir || __dirname+'/csvs/'+version+'/';
 
-let csvFilePath
-  , csvFile;
+    console.log('import csv...', version, basepath)
+    
+    let files = [];
 
-for (let i in files) {
-  if (path.extname(files[i]) === ".csv") {
-    if (!_.isEmpty(config.import.csvFile) && files[i]===config.import.csvFile) {
-      csvFile = files[i];
-      break;
+    try {
+
+      files = fs.readdirSync(basepath);
+      
+    } catch(err) {
+      console.warn(`version ${version} not found ${basepath}`)
+      return;
+    }
+
+    let csvFilePath
+      , csvFile;
+
+    for (let i in files) {
+      if (path.extname(files[i]) === ".csv") {
+        if (!_.isEmpty(config.import.csvFile) && files[i]===config.import.csvFile) {
+          csvFile = files[i];
+          break;
+        }
+        else {
+          csvFile = files[i];  //if csvFile not specified use the first .csv file
+          break;    
+        }
+      }
+    }
+
+    csvFilePath = basepath + csvFile;
+
+    if (!fs.existsSync(csvFilePath)) {
+      
+      console.error(`file CSV not found ${csvFilePath}`)
+      
+      process.exit(1);
+
+      return;
     }
     else {
-      csvFile = files[i];  //if csvFile not specified use the first .csv file
-      break;    
+      console.log('PARSING CSV', csvFilePath)
     }
-  }
-}
 
-csvFilePath = basepath + csvFile;
-
-if (!fs.existsSync(csvFilePath)) {
-  
-  console.error(`file CSV not found ${csvFilePath}`)
-  
-  process.exit(1);
-
-  return;
-}
-else {
-  console.log('PARSING CSV', csvFilePath)
-}
-
-//TODO 
-const fields = config.import.fields
+    //TODO 
+    const fields = config.import.fields
 
 
-csvtojson({
-  noheader: false,
-  checkType: true,
-  delimiter: ',',
-  headers: config.import.headers
-})
-.fromFile(csvFilePath)
-/*.on('data',(data)=>{
-  //data is a buffer object
-  const jsonStr= data.toString('utf8')
-})*/
-.preRawData( raw => {
-  //console.log('RAWWWWWWW',raw)
-  return raw.toString('utf8');
-})
-.then( arrayResult => {
+    csvtojson({
+      noheader: false,
+      checkType: true,
+      delimiter: ',',
+      headers: config.import.headers
+    })
+    .fromFile(csvFilePath)
+    /*.on('data',(data)=>{
+      //data is a buffer object
+      const jsonStr= data.toString('utf8')
+    })*/
+    .preRawData( raw => {
+      //console.log('RAWWWWWWW',raw)
+      return raw.toString('utf8');
+    })
+    .then( arrayResult => {
 
-  console.log(arrayResult, csvFilePath);
-
-  mongoClient.connect(config.db.uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  }, (err, client) => {
-    if (err) throw err;
-
-    client.db(config.db.name).collection(config.db.collection)
-      .insertMany(arrayResult, (err, res) => {
+      mongoClient.connect(config.db.uri, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+      }, (err, client) => {
         if (err) throw err;
 
-        console.log(`Inserted: ${res.insertedCount} rows`);
-        client.close();
-      });
-  });//
+        client.db(config.db.name).collection(config.db.collection)
+          .insertMany(arrayResult, (err, res) => {
+            if (err) throw err;
 
-});
+            console.log(`Inserted: ${res.insertedCount} rows`);
+            client.close();
+          });
+      });//
+
+    });
+};
+
+if (require.main === module) {
+  importCsv(process.env['CSV_VERSION']);
+}
+else {
+  module.exports = {
+    importCsv
+  };
+}

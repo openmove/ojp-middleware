@@ -1,7 +1,6 @@
 
 const express = require('express');
 const fs = require('fs');
-
 const app = express();
 const config = require('@stefcud/configyml');
 
@@ -29,6 +28,6 @@ app.get('/list.json', async (req, res) => {
   });
 });
 
-app.listen(config.server.port, () => {
+app.listen(Number(config.server.port), () => {
   console.log(`listening at http://localhost:${config.server.port}`)
 })
