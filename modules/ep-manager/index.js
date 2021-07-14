@@ -7,8 +7,6 @@ const mongoClient = require("mongodb").MongoClient;
 const dotenv = require('dotenv').config()
     , config = require('@stefcud/configyml');
 
-console.log(config);
-
 const {importCsv} = require('./import');
 
 if (process.env['IMPORT']==='true') {
