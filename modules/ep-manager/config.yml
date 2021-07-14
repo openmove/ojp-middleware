@@ -2,14 +2,21 @@ environments:
   default: prod
   #default environment if NODE_ENV is not defined
 
-server:
-  port: 8083
+dev:
+  server:
+    port: 8083
+  db:
+    uri: mongodb://0.0.0.0:8085/
+    name: ojp
+    collection: exchange_points
 
-db:
-  uri: mongodb://db/
-  #uri: mongodb://0.0.0.0:8085/
-  name: ojp
-  collection: exchange_points
+prod:
+  server:
+    port: 9093
+  db:
+    uri: mongodb://db/
+    name: ojp
+    collection: exchange_points
 
 import:
   version: 0.16

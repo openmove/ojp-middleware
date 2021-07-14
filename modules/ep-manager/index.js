@@ -7,6 +7,8 @@ const mongoClient = require("mongodb").MongoClient;
 const dotenv = require('dotenv').config()
     , config = require('@stefcud/configyml');
 
+console.log(config);
+
 const {importCsv} = require('./import');
 
 if (process.env['IMPORT']==='true') {
@@ -163,11 +165,12 @@ mongoClient.connect(config.db.uri, {
   serverSelectionTimeoutMS: 100 //mseconds
 }, err => {
   if (!err) {
+    console.error(`MongoDb connected ${config.db.uri}`);
     app.listen(Number(config.server.port), () => {
       console.log(`listening at http://localhost:${config.server.port}`)
     });
   }
   else {
-    console.error(`MongoDb error ${err.message}`);
+    console.error(`MongoDb error ${config.db.uri} ${err.message}`);
   }
 });
