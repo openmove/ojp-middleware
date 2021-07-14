@@ -1,10 +1,14 @@
+'use strict';
+
 const express = require('express');
-const app = express()
-const config = require('@stefcud/configyml');
+const app = express();
 const {getStopById, searchByName, searchByBBox, searchByRadius} = require('./stops');
 const {getStopTimesById} = require('./stoptimes');
 const {planTrip} = require('./plan');
-const { request } = require('express');
+const {request} = require('express');
+
+const dotenv = require('dotenv').config()
+    , config = require('@stefcud/configyml');
 
 app.use(express.json())
 

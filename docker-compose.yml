@@ -10,7 +10,7 @@ services:
     container_name: api-ojp
     image: ojp/api-ojp:latest
     build:
-      context: ./modules/api-otp
+      context: ./modules/api-ojp
     ports:
       - "9091:9091"      
     #environment:
@@ -35,7 +35,7 @@ services:
     ports:
       - "9093:9093"
     environment:
-      - IMPORT=true
+      - IMPORT=false
       - CSV_VERSION=0.16
     # volumes:
     #   - ./csvs:/home/csvs      

@@ -1,6 +1,16 @@
-server:
-  port: 8082
-  #TODO cache_ttl: 0
+environments:
+  default: prod
+  #default environment if NODE_ENV is not defined
+dev:
+  server:
+    port: 8082
+  # otp:
+  #   hostname: localhost
+  #   path: /otp/routers/default
+  #   port: 80    
+prod:
+  server:
+    port: 9092
 
 otp:
   hostname: map.muoversinpiemonte.it
@@ -8,9 +18,7 @@ otp:
   port: 443
   headers:
     User-Agent: ojp-middleware-client
-
 rest:
   path: /index
-
 graphql:
   path: /index/graphql

@@ -1,37 +1,29 @@
 environments:
   default: prod
   #default environment if NODE_ENV is not defined
-
 dev:
   server:
     port: 8086
-
   api-ojp:
     host: localhost
     port: 8081
-
   api-otp:
     host: localhost
     port: 8082
-
   ep-manager:
     host: localhost
     port: 8083
-
 prod:
   server:
     port: 9096
     #example same from dev environment
     #port: ${dev.server.port}
-
   api-ojp:
     host: api-otp
     port: 9091
-
   api-otp:
     host: api-otp
     port: 9092
-
   ep-manager:
     host: ep-manager
     port: 9093

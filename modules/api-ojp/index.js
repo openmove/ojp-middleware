@@ -1,18 +1,20 @@
 const express = require('express')
-, app = express()
-, config = require('@stefcud/configyml')
-, cors = require('cors')
-, dom = require('xmldom').DOMParser
-, xmlbuilder = require('xmlbuilder')
-, xmlparser = require('express-xml-bodyparser');
+    , app = express()
+    , cors = require('cors')
+    , dom = require('xmldom').DOMParser
+    , xmlbuilder = require('xmlbuilder')
+    , xmlparser = require('express-xml-bodyparser');
 
 const {queryNode, queryNodes, queryText} = require('./lib/query')
-, {locationExecution} = require('./services/locations')
-, {eventExecution} = require('./services/stop-events')
-, {tripsExecution} = require('./services/trips')  //TODO rename in trip
-, {tripInfoExecution} = require('./services/trip-info')
-, {multipointTripExecution} = require('./services/multipoint-trip')
-, {exchangePointsExecution} = require('./services/exchange-points');
+    , {locationExecution} = require('./services/locations')
+    , {eventExecution} = require('./services/stop-events')
+    , {tripsExecution} = require('./services/trips')  //TODO rename in trip
+    , {tripInfoExecution} = require('./services/trip-info')
+    , {multipointTripExecution} = require('./services/multipoint-trip')
+    , {exchangePointsExecution} = require('./services/exchange-points');
+
+const dotenv = require('dotenv').config()
+    , config = require('@stefcud/configyml');
 
 app.use(cors());
 

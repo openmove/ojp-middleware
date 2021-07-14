@@ -1,23 +1,34 @@
-server:
-  port: 8081
-  #TODO cors disable
+environments:
+  default: prod
+  #default environment if NODE_ENV is not defined
+dev:
+  server:
+    port: 8081
+  api-otp:
+    host: localhost
+    port: 8082
+  ep-manager:
+    host: localhost
+    port: 8083
+  db:
+    uri: mongodb://localhost:8085/
+    name: ojp
+    collection: api_ojp
+prod:
+  server:
+    port: 9091
+  api-otp:
+    host: api-otp
+    port: 9092
+  ep-manager:
+    host: ep-manager
+    port: 9093
+  db:
+    uri: mongodb://db/
+    name: ojp
+    collection: api_ojp
 
-api-otp:
-  #host: api-otp  
-  host: localhost
-  port: 8082
-
-ep-manager:
-  #host: ep-manager  
-  host: localhost
-  port: 8083
-
-db:
-  #uri: mongodb://db/
-  uri: mongodb://localhost:8085/
-  name: ojp
-  collection: api_ojp
-
+#enable disable services
 services:
   OJPExchangePointsRequest: true
   OJPLocationInformationRequest: true
