@@ -2,8 +2,10 @@
 
 const express = require('express');
 const app = express();
-const config = require('@stefcud/configyml');
 const mongoClient = require("mongodb").MongoClient;
+
+const dotenv = require('dotenv').config()
+    , config = require('@stefcud/configyml');
 
 const {importCsv} = require('./import');
 
@@ -161,7 +163,7 @@ mongoClient.connect(config.db.uri, {
   serverSelectionTimeoutMS: 100 //mseconds
 }, err => {
   if (!err) {
-    app.listen(config.server.port, () => {
+    app.listen(Number(config.server.port), () => {
       console.log(`listening at http://localhost:${config.server.port}`)
     });
   }

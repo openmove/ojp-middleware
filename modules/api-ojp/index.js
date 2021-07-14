@@ -105,6 +105,6 @@ app.post('/ojp/', async (req, result) => {
 
 });
 
-app.listen(config.server.port, () => {
+app.listen(Number(config.server.port), () => {
   console.log(`listening at http://localhost:${config.server.port}`)
 })

@@ -2,7 +2,9 @@
 const express = require('express');
 const fs = require('fs');
 const app = express();
-const config = require('@stefcud/configyml');
+
+const dotenv = require('dotenv').config()
+    , config = require('@stefcud/configyml');
 
 app.use('/', express.static('static', {
   etag: false,

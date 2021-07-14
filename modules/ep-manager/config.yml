@@ -1,3 +1,7 @@
+environments:
+  default: prod
+  #default environment if NODE_ENV is not defined
+
 server:
   port: 8083
 
