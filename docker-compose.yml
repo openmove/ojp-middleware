@@ -34,22 +34,13 @@ services:
       context: ./modules/ep-manager
     ports:
       - "8083:8083"
-    # volumes:
-    #   - ./csvs:/home/csvs
     environment:
       - IMPORT=true
       - CSV_VERSION=0.16
+    # volumes:
+    #   - ./csvs:/home/csvs      
     depends_on:
       - db
-
-  #TODO maybe un useful, used as library
-  #  xsd2json:
-  #   container_name: xsd2json
-  #   image: ojp/xsd2json:latest
-  #   build:
-  #     context: ./modules/xsd2json
-  #   ports:
-  #     - "8084:8084"      
 
   db:
     container_name: mongo
@@ -68,3 +59,12 @@ services:
       context: ./tests
     ports:
       - "8086:8086" 
+
+  #TODO maybe un useful, used as library
+  #  xsd2json:
+  #   container_name: xsd2json
+  #   image: ojp/xsd2json:latest
+  #   build:
+  #     context: ./modules/xsd2json
+  #   ports:
+  #     - "8084:8084"      
