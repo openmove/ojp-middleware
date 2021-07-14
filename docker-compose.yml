@@ -12,7 +12,7 @@ services:
     build:
       context: ./modules/api-otp
     ports:
-      - "8081:8081"      
+      - "9091:9091"      
     #environment:
     depends_on:
       - ep-manager
@@ -25,7 +25,7 @@ services:
     build:
       context: ./modules/api-otp
     ports: 
-      - "8082:8082"      
+      - "9092:9092"      
 
   ep-manager:
     container_name: ep-manager
@@ -33,7 +33,7 @@ services:
     build:
       context: ./modules/ep-manager
     ports:
-      - "8083:8083"
+      - "9093:9093"
     environment:
       - IMPORT=true
       - CSV_VERSION=0.16
@@ -46,7 +46,8 @@ services:
     container_name: mongo
     image: mongo:latest
     ports:
-      - "8085:27017"
+      - "8085:27017" #used also by dev environment
+      - "9095:27017"
     volumes:
       - ./modules/db/data:/data/db
     environment:
@@ -58,7 +59,7 @@ services:
     build:
       context: ./tests
     ports:
-      - "8086:8086" 
+      - "9096:9096" 
 
   #TODO maybe un useful, used as library
   #  xsd2json:
