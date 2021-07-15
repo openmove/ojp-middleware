@@ -46,8 +46,8 @@ services:
     container_name: mongo
     image: mongo:latest
     ports:
-      - "8085:27017" #used also by dev environment
       - "9095:27017"
+      - "8085:27017" #used also by dev environment      
     volumes:
       - ./modules/db/data:/data/db
     environment:

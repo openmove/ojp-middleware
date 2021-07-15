@@ -8,10 +8,10 @@ base structure of any Docker service:
 
 ### Ports
 
-default ports by services
+default ports in production environment by services
 
-  - api-ojp 8081
-  - api-otp 8082
-  - ep-manager 8083
-  - db 8085
-  - tests 8086 
+  - api-ojp 9091
+  - api-otp 9092
+  - ep-manager 9093
+  - db 9095
+  - tests 9096 
