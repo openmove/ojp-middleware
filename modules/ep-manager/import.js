@@ -7,7 +7,9 @@ const _ = require('lodash');
 const csvtojson = require('csvtojson');
 const mongoClient = require("mongodb").MongoClient;
 
-const config = require('@stefcud/configyml');
+const dotenv = require('dotenv').config()
+    , config = require('@stefcud/configyml');
+
 const lastVersion = config.import.version
 
 const importCsv = (ver, basedir) => {  
@@ -61,7 +63,6 @@ const importCsv = (ver, basedir) => {
     //TODO 
     const fields = config.import.fields
 
-
     csvtojson({
       noheader: false,
       checkType: true,
@@ -92,13 +93,35 @@ const importCsv = (ver, basedir) => {
             console.log(`Inserted: ${res.insertedCount} rows`);
             client.close();
           });
-      });//
+      });
 
     });
 };
 
 if (require.main === module) {
-  importCsv(process.env['CSV_VERSION']);
+  //importCsv(process.env['CSV_VERSION']);
+  //TODO read from config
+console.log(config)
+  mongoClient.connect(config.db.uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }, (err, client) => {
+    if (err) throw err;
+
+console.log(client.db.getCollection(config.db.collection))
+
+    if (!client.db.getCollection(config.db.collection)) {
+      console.log('collection not exists');
+      client.db.createCollection(config.db.collection)
+    }
+    /*const opts = {};
+    opts[config.import.headerIndex] = 1;
+
+    client.db(config.db.name).collection(config.db.collection).createIndex(opts, {
+        unique: true,
+        sparse: true,
+      });*/
+  });
 }
 else {
   module.exports = {

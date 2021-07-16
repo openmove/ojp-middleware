@@ -18,7 +18,9 @@ prod:
 
 import:
   version: 0.16
+  #version: ${CSV_VERSION}
   csvFile: 5T.csv
+  headerIndex: NeTEx Id
   headers:
      - NeTEx Id
      - GlobalID
