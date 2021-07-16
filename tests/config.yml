@@ -28,3 +28,17 @@ prod:
   ep-manager:
     host: ep-manager
     port: 9093
+
+test:
+  server:
+    host: localhost
+    port: 5000
+  api-ojp:
+    host: ${test.server.host}
+    port: ${prod.api-ojp.port}
+  api-otp:
+    host: ${test.server.host}
+    port: ${prod.api-otp.port}
+  ep-manager:
+    host: ${test.server.host}
+    port: ${prod.ep-manager.port}
