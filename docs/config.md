@@ -7,7 +7,9 @@ it define contains service configurations(example PORT) or specific setting for 
 *dev* and *prod* implement two different environments, development and production,
 prod also refers to *docker-compose.yml* in the project root.
 
-example of common structure of a config.yml file:
+what is defined outside of dev and prod are configurations common to the two environments
+
+Below of common structure of a config.yml file:
 
 these config files may contain environment variables that are valued at runtime.
 In this example ```MONGO_HOST```, ```MONGO_PORT```
