@@ -1,7 +1,7 @@
 
 ## Config
 
-each module of project contains a single *config.yml* file
+each module of project contains a single **config.yml** file
 it define contains service configurations(example PORT) or specific setting for service
 
 *dev* and *prod* implement two different environments, development and production,
