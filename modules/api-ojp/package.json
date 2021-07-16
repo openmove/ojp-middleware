@@ -4,7 +4,7 @@
   "description": "OJP entrypoint",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --watch services --watch lib --watch config.yml --watch index.js index.js",
+    "dev": "nodemon -e js,yml,json index.js",
     "start": "node index.js"
   },
   "author": "Stefano Cudini stefano.cudini@gmail.com",
@@ -13,7 +13,7 @@
     "node": "14.16.0"
   },
   "dependencies": {
-    "@stefcud/configyml": "^0.0.2",
+    "@stefcud/configyml": "^0.0.3",
     "dotenv": "^8.2.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",

@@ -4,6 +4,7 @@ environments:
 dev:
   server:
     port: 8086
+    #port: ${PORT}
   api-ojp:
     host: localhost
     port: 8081

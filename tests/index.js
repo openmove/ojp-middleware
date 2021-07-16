@@ -6,6 +6,8 @@ const app = express();
 const dotenv = require('dotenv').config()
     , config = require('@stefcud/configyml');
 
+console.log(config);
+
 app.use('/', express.static('static', {
   etag: false,
   maxAge: '1000'
