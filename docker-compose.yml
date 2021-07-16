@@ -68,4 +68,4 @@ services:
   #   build:
   #     context: ./modules/xsd2json
   #   ports:
-  #     - "8084:8084"      
+  #     - "9094:9094"      

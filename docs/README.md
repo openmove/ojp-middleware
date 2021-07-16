@@ -27,31 +27,20 @@ The basic structure of code:
 │        ├── api-ojp
 │        │        ├── config.yml
 │        │        ├── Dockerfile
-│        │        ├── env.example
 │        │        ├── index.js
 │        │        ├── package.json
-│        │        └── services
+│        │        └── services/
 │        ├── api-otp
 │        │        ├── config.yml
 │        │        ├── Dockerfile
-│        │        ├── env.example
 │        │        └── package.json
 │        ├── ep-manager
 │        │        ├── config.yml
 │        │        ├── Dockerfile
 │        │        ├── download/
 │        │        ├── csvs/
-│        │        ├── env.example
 │        │        ├── import.js
 │        │        └── package.json
-│        ├── ojp-loader
-│        │        ├── config.yml
-│        │        ├── download/
-│        │        ├── env.example
-│        │        ├── import.js
-│        │        ├── index.js
-│        │        ├── package.json
-│        │        └── xsd-schemas/
 │        ├── utils
 │        │        ├── config.js
 │        │        ├── index.js
@@ -63,7 +52,6 @@ The basic structure of code:
 │        └── xsd2json
 │            ├── config.yml
 │            ├── Dockerfile
-│            ├── env.example
 │            ├── index.js
 │            └── package.json
 ├── lerna.json
@@ -78,9 +66,7 @@ all modules are single npm packages some are dependent on each other
 - api-ojp
 - api-otp
 - ep-manager
-- ojp-loader
 - utils
-- xsd2json
 
 [learn more](modules.md)
 
@@ -94,10 +80,14 @@ and associated with a specific port to an Api REST interface.
 - api-ojp
 - api-otp
 - ep-manager
-- ojp-loader
-- xsd2json
 
 [learn more](services.md)
+
+## Config
+
+each module of project contains a single *config.yml* file it define contains service configurations
+
+[learn more](config.md)
 
 ## References
 

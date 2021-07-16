@@ -10,6 +10,7 @@ The project is structured as a Monorepo that implements Docker microservices.
 - [Structure](docs/README.md#structure)
 - [Modules](docs/modules.md)
 - [Services](docs/services.md)
+- [Config](docs/config.md)
 
 ## References
 
