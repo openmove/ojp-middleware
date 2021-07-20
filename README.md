@@ -30,7 +30,7 @@ Inside ```/tests``` a web application has been implemented which facilitates sin
 
 ### System Architecture
 
-![macro](images/OJP_Architecture_macro.png)
+![macro](docs/images/OJP_Architecture_macro.png)
 
 ## Setup
 
