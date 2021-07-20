@@ -6,7 +6,7 @@ yarn-error.log*
 lerna-debug.log*
 
 modules/db/data
-modules/ep-manager/csvs
+#modules/ep-manager/csvs
 
 *.pid
 *.seed
