@@ -35,7 +35,7 @@ services:
     ports:
       - "9093:9093"
     environment:
-      - IMPORT=false
+      - IMPORT=true
       - CSV_VERSION=0.16
     # volumes:
     #   - ./csvs:/home/csvs      
@@ -59,7 +59,9 @@ services:
     build:
       context: ./tests
     ports:
-      - "9096:9096" 
+      - "9096:9096"
+    environment:
+      - API_HOST=localhost
 
   #TODO maybe un useful, used as library
   #  xsd2json:
