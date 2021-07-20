@@ -29,9 +29,10 @@ prod:
     host: ep-manager
     port: 9093
 
-test:
+test: #test in local docker compose services
   server:
     host: localhost
+    #port: ${dev.server.port}
     port: 5000
   api-ojp:
     host: ${test.server.host}
