@@ -1,6 +1,6 @@
 # OJP/OTP Middleware
 
-[Open API for distributed Journey Planning](https://github.com/VDVde/OJP) to [OpenTripPlanner](https://github.com/opentripplanner) Middleware as a Passive System.
+[Open API for distributed Journey Planning](https://github.com/VDVde/OJP) to [OpenTripPlanner](https://github.com/opentripplanner) Middleware as a OJP Passive System.
 
 The project is structured as a Monorepo that implements Docker microservices.
 
