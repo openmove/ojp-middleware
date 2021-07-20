@@ -2,12 +2,12 @@
 ## Config
 
 each module of project contains a single **config.yml** file
-it define contains service configurations(example PORT) or specific setting for service
+it define service configurations(example PORT).
 
 *dev* and *prod* implement two different environments, development and production,
 prod also refers to *docker-compose.yml* in the project root.
 
-what is defined outside of dev and prod are configurations common to the two environments
+Outside of *dev* and *prod* are common configurations to the two environments.
 
 Below of common structure of a config.yml file:
 ```yaml
@@ -39,3 +39,5 @@ In this example ```MONGO_HOST```, ```MONGO_PORT```
 
 the same values defined within the yml file can be used to make substitutions at runtime
 In this example ```${dev.db.collection}```
+
+defaults project ports configurations listed here: [services.md#ports](services.md#ports)
