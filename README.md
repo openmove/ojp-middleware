@@ -24,6 +24,15 @@ https://github.com/VDVde/OJP
 
 [OpenTripPlanner](https://github.com/opentripplanner)
 
+
+### API tester
+
+Inside ```/tests``` a web application has been implemented which facilitates single service testing process
+
+### System Architecture
+
+![macro](images/OJP_Architecture_macro.png)
+
 ## Setup
 
 ### quick start
@@ -38,6 +47,3 @@ resolve and link internal dependecies
 lerna bootstrap
 ```
 
-### API tester
-
-Inside ```/tests``` a simple web application has been implemented which facilitates service testing process
