@@ -43,7 +43,7 @@ services:
       - db
 
   db:
-    container_name: mongo
+    container_name: db
     image: mongo:latest
     ports:
       - "9095:27017"

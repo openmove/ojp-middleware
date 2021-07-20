@@ -5,7 +5,7 @@ const path = require('path');
 //const fastcsv = require("fast-csv");
 const _ = require('lodash');
 const csvtojson = require('csvtojson');
-const mongoClient = require("mongodb").MongoClient;
+const {MongoClient} = require("mongodb");
 
 const dotenv = require('dotenv').config()
     , config = require('@stefcud/configyml');
@@ -60,9 +60,6 @@ const importCsv = (ver, basedir) => {
       console.log('PARSING CSV', csvFilePath)
     }
 
-    //TODO 
-    const fields = config.import.fields
-
     csvtojson({
       noheader: false,
       checkType: true,
@@ -70,52 +67,51 @@ const importCsv = (ver, basedir) => {
       headers: config.import.headers
     })
     .fromFile(csvFilePath)
-    /*.on('data',(data)=>{
-      //data is a buffer object
-      const jsonStr= data.toString('utf8')
-    })*/
-    .preRawData( raw => {
-      //console.log('RAWWWWWWW',raw)
-      return raw.toString('utf8');
-    })
-    .then( arrayResult => {
+    .then(objs => {
 
-      mongoClient.connect(config.db.uri, {
+      MongoClient.connect(config.db.uri, {
         useNewUrlParser: true,
         useUnifiedTopology: true
       }, (err, client) => {
-        if (err) throw err;
 
-        client.db(config.db.name).collection(config.db.collection)
-          .insertMany(arrayResult, (err, res) => {
-            if (err) throw err;
+        const db = client.db(config.db.name)
+            , col = db.collection(config.db.collection)
+            , indexOpts = {};
+        indexOpts[config.import.headerIndex]= 1;
 
-            console.log(`Inserted: ${res.insertedCount} rows`);
-            client.close();
-          });
+        col.createIndex(indexOpts, {
+          unique: true,
+          sparse: true,
+        });
+        col.createIndex({'location': '2dsphere'});
+
+        const objsIns = objs.map(obj => {
+        
+          const lon = Number(obj[config.import.columnLongitude])
+              , lat = Number(obj[config.import.columnLatitude]);
+
+          obj['location'] = {
+            'type': 'Point',
+            'coordinates': [lon, lat]
+          };
+
+          return obj
+        });
+
+        col.insertMany(objsIns, (insertErr, res) => {
+          if(insertErr) console.warn(insertErr.message);
+          client.close();
+        });
+        
       });
 
     });
 };
 
 if (require.main === module) {
-  //importCsv(process.env['CSV_VERSION']);
-  //TODO read from config
-console.log(config)
-  mongoClient.connect(config.db.uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  }, (err, client) => {
-    if (err) throw err;
-/*
-    const opts = {};
-    opts[config.import.headerIndex] = 1;
 
-    client.db(config.db.name).collection(config.db.collection).createIndex(opts, {
-      unique: true,
-      sparse: true,
-    });*/
-  });
+  importCsv(process.env['CSV_VERSION']);
+
 }
 else {
   module.exports = {

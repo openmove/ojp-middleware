@@ -19,19 +19,21 @@ dev:
 import:
   version: 0.16
   #version: ${CSV_VERSION}
-  csvFile: 5T.csv
-  headerIndex: NeTEx Id
+  csvFile: 5T.csvd
+  columnLatitude: lat
+  columnLongitude: long
+  headerIndex: NeTExId
   headers:
-    - NeTEx Id
+    - NeTExId
     - GlobalID
     - MetaID
     - Name
     - Steward
-    - Destination Systems
+    - DestinationSystems
     - Crossborder
     - long
     - lat
-    - Main Mode
+    - MainMode
     - epPrio
     - CheckIn
     - Checkout
@@ -61,7 +63,7 @@ import:
     # - VAO Id (HAFAS ID)
     # - VAO Relevant?
     # - (EU Spirit only) Additional EPs
-    - Main Operator
+    - MainOperator
     - Country
     # - Remark
     # - TODO
