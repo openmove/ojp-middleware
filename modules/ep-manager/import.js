@@ -107,20 +107,14 @@ console.log(config)
     useUnifiedTopology: true
   }, (err, client) => {
     if (err) throw err;
-
-console.log(client.db.getCollection(config.db.collection))
-
-    if (!client.db.getCollection(config.db.collection)) {
-      console.log('collection not exists');
-      client.db.createCollection(config.db.collection)
-    }
-    /*const opts = {};
+/*
+    const opts = {};
     opts[config.import.headerIndex] = 1;
 
     client.db(config.db.name).collection(config.db.collection).createIndex(opts, {
-        unique: true,
-        sparse: true,
-      });*/
+      unique: true,
+      sparse: true,
+    });*/
   });
 }
 else {

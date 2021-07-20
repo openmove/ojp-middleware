@@ -22,46 +22,46 @@ import:
   csvFile: 5T.csv
   headerIndex: NeTEx Id
   headers:
-     - NeTEx Id
-     - GlobalID
-     - MetaID
-     - Name
-     - Steward
-     - Destination Systems
-     - Crossborder
-     - long
-     - lat
-     - Main Mode
-     - epPrio
-     - CheckIn
-     - Checkout
-  #   - VAORemarks
-  #   - (ARIA only) Name as found in time tables
-  #   - (ARIA only) ARIA Name
-  #   - (ARIA only) ARIA Remarks
-  #   - (ARIA only) Answers / remarks SBB
-  #   - ARIA id
-  #   - Meta stop to bridge systems?
-  #   - STA Relevant?
-  #   - STA Id
-  #   - STA Remarks
-  #   - ARIA Relevant?
-  #   - ARIA Id
-  #   - ARIA Remarks
-  #   - 5T Relevant?
-  #   - 5T  Id
-  #   - 5T Remarks
-  #   - LUK Relevant?
-  #   - LUK Id
-  #   - LUK Remarks
-  #   - SBB Relevant
-  #   - SBB Id
-  #   - DiDok-ID
-  #   - LUR Id
-  #   - VAO Id (HAFAS ID)
-  #   - VAO Relevant?
-  #   - (EU Spirit only) Additional EPs
-     - Main Operator
-     - Country
-  #   - Remark
-  #   - TODO
+    - NeTEx Id
+    - GlobalID
+    - MetaID
+    - Name
+    - Steward
+    - Destination Systems
+    - Crossborder
+    - long
+    - lat
+    - Main Mode
+    - epPrio
+    - CheckIn
+    - Checkout
+    # - VAORemarks
+    # - (ARIA only) Name as found in time tables
+    # - (ARIA only) ARIA Name
+    # - (ARIA only) ARIA Remarks
+    # - (ARIA only) Answers / remarks SBB
+    # - ARIA id
+    # - Meta stop to bridge systems?
+    # - STA Relevant?
+    # - STA Id
+    # - STA Remarks
+    # - ARIA Relevant?
+    # - ARIA Id
+    # - ARIA Remarks
+    # - 5T Relevant?
+    # - 5T  Id
+    # - 5T Remarks
+    # - LUK Relevant?
+    # - LUK Id
+    # - LUK Remarks
+    # - SBB Relevant
+    # - SBB Id
+    # - DiDok-ID
+    # - LUR Id
+    # - VAO Id (HAFAS ID)
+    # - VAO Relevant?
+    # - (EU Spirit only) Additional EPs
+    - Main Operator
+    - Country
+    # - Remark
+    # - TODO
