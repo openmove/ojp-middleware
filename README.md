@@ -32,13 +32,7 @@ Inside ```/tests``` a web application has been implemented which facilitates sin
 
 ### quick start
 
-download remote dependecies
 ```bash
-npm install
-```
-
-resolve and link internal dependecies
-```bash
-lerna bootstrap
+docker-compose up -d testss
 ```
 
