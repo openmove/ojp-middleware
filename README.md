@@ -28,14 +28,8 @@ https://github.com/VDVde/OJP
 
 ### quick start
 
-download remote dependecies
 ```bash
-npm install
-```
-
-resolve and link internal dependecies
-```bash
-lerna bootstrap
+docker-compose up -d testss
 ```
 
 ### API tester
