@@ -15,7 +15,7 @@ const createExchangePointsResponse = (stops, startTime, ptModes) => {
     const loc = location.ele('ojp:Location')
     const place = loc.ele('ojp:Location');
     const stopPlace = place.ele('ojp:StopPlace');
-    stopPlace.ele('ojp:StopPlaceRef', stop['NeTEx Id']);
+    stopPlace.ele('ojp:StopPlaceRef', stop['NeTExId']);
     stopPlace.ele('ojp:StopPlaceName').ele('ojp:Text', `${stop.Name}`);
     stopPlace.ele('ojp:TopographicPlaceRef', stop.zoneId);
     place.ele('ojp:LocationName').ele('ojp:Text', `${stop.Name}`);
@@ -28,11 +28,11 @@ const createExchangePointsResponse = (stops, startTime, ptModes) => {
 
       const mode = loc.ele('ojp:Mode');
       
-      if(stop['Main Mode'].toLowerCase() === '~bus~'){
+      if(stop['MainMode'].toLowerCase() === '~bus~'){
         mode.ele('ojp:PtMode', 'BUS');
         mode.ele('siri:BusSubmode', 'unknown')
       }
-      if(stop['Main Mode'].toLowerCase() === '~train~'){
+      if(stop['MainMode'].toLowerCase() === '~train~'){
         mode.ele('ojp:PtMode', 'RAIL');
         mode.ele('siri:RailSubmode', 'unknown')
       }

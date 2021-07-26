@@ -1,5 +1,5 @@
 environments:
-  default: test
+  default: prod
   #default environment if NODE_ENV is not defined
 prod:
   server:
@@ -32,13 +32,13 @@ dev:
 test: #test in local docker compose services
   server:
     host: localhost
-    port: ${prod.server.port}
+    port: 5000
   api-ojp:
     host: ${test.server.host}
-    port: ${prod.api-ojp.port}
+    port: ${dev.api-ojp.port}
   api-otp:
     host: ${test.server.host}
-    port: ${prod.api-otp.port}
+    port: ${dev.api-otp.port}
   ep-manager:
     host: ${test.server.host}
-    port: ${prod.ep-manager.port}
+    port: ${dev.ep-manager.port}
