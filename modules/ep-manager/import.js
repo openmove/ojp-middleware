@@ -110,7 +110,7 @@ const importCsv = (ver, basedir) => {
         });
 
         col.insertMany(objsIns, (insertErr, res) => {
-          if(insertErr) console.warn(insertErr.message);
+          if(insertErr) logger.warn(insertErr.message);
           client.close();
         });
         
