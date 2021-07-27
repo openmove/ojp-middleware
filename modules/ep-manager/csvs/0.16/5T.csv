@@ -1,4 +1,4 @@
-"NeTEx Id","GlobalID","MetaID","Name","Steward","Destination Systems","Crossborder","long","lat","Main Mode","epPrio","CheckIn","Checkout","Main Operator","Country"
+"NeTExId","GlobalID","MetaID","Name","Steward","DestinationSystems","Crossborder","long","lat","MainMode","epPrio","CheckIn","Checkout","MainOperator","Country"
 "it:itc:StopPlace:ITRP-ST00108290038:",,"ITRP-ST00108290038","Chivasso","5T","ARIA,5T",,"7.889920","45.1933900","~Train~",,5,5,,"IT"
 "it:itc:StopPlace:ITRP-ST0012729010:",,"ITRP-ST0012729010","Torino Porta Nuova","5T","ARIA,5T",,"7.677520","45.0608999997","~Train~",,5,5,,"IT"
 "it:itc:StopPlace:ITRP-ST0012729012:",,"ITRP-ST0012729012","Torino Lingotto","5T","ARIA,5T",,"7.656820","45.026600000","~Train~",,5,5,,"IT"

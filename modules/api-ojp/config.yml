@@ -1,19 +1,6 @@
 environments:
   default: prod
   #default environment if NODE_ENV is not defined
-dev:
-  server:
-    port: 8081
-  api-otp:
-    host: localhost
-    port: 8082
-  ep-manager:
-    host: localhost
-    port: 8083
-  db:
-    uri: mongodb://localhost:8085/
-    name: ojp
-    collection: api_ojp
 prod:
   server:
     port: 9091
@@ -27,6 +14,19 @@ prod:
     uri: mongodb://db/
     name: ojp
     collection: api_ojp
+dev:
+  server:
+    port: 8081
+  api-otp:
+    host: localhost
+    port: 8082
+  ep-manager:
+    host: localhost
+    port: 8083
+  db:
+    uri: mongodb://localhost:8085/
+    name: ${prod.db.name}
+    collection: ${prod.db.collection}
 
 #enable disable services
 services:

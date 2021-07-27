@@ -1,13 +1,6 @@
 environments:
   default: prod
   #default environment if NODE_ENV is not defined
-dev:
-  server:
-    port: 8083
-  db:
-    uri: mongodb://0.0.0.0:8085/
-    name: ojp
-    collection: exchange_points
 prod:
   server:
     port: 9093
@@ -15,51 +8,62 @@ prod:
     uri: mongodb://db/
     name: ojp
     collection: exchange_points
+dev:
+  server:
+    port: 8083
+  db:
+    uri: mongodb://0.0.0.0:8085/
+    name: ${prod.db.name}
+    collection: ${prod.db.collection}
 
 import:
   version: 0.16
-  csvFile: 5T.csv
+  #version: ${CSV_VERSION}
+  csvFile: 5T.csvd
+  columnLatitude: lat
+  columnLongitude: long
+  headerIndex: NeTExId
   headers:
-     - NeTEx Id
-     - GlobalID
-     - MetaID
-     - Name
-     - Steward
-     - Destination Systems
-     - Crossborder
-     - long
-     - lat
-     - Main Mode
-     - epPrio
-     - CheckIn
-     - Checkout
-  #   - VAORemarks
-  #   - (ARIA only) Name as found in time tables
-  #   - (ARIA only) ARIA Name
-  #   - (ARIA only) ARIA Remarks
-  #   - (ARIA only) Answers / remarks SBB
-  #   - ARIA id
-  #   - Meta stop to bridge systems?
-  #   - STA Relevant?
-  #   - STA Id
-  #   - STA Remarks
-  #   - ARIA Relevant?
-  #   - ARIA Id
-  #   - ARIA Remarks
-  #   - 5T Relevant?
-  #   - 5T  Id
-  #   - 5T Remarks
-  #   - LUK Relevant?
-  #   - LUK Id
-  #   - LUK Remarks
-  #   - SBB Relevant
-  #   - SBB Id
-  #   - DiDok-ID
-  #   - LUR Id
-  #   - VAO Id (HAFAS ID)
-  #   - VAO Relevant?
-  #   - (EU Spirit only) Additional EPs
-     - Main Operator
-     - Country
-  #   - Remark
-  #   - TODO
+    - NeTExId
+    - GlobalID
+    - MetaID
+    - Name
+    - Steward
+    - DestinationSystems
+    - Crossborder
+    - long
+    - lat
+    - MainMode
+    - epPrio
+    - CheckIn
+    - Checkout
+    # - VAORemarks
+    # - (ARIA only) Name as found in time tables
+    # - (ARIA only) ARIA Name
+    # - (ARIA only) ARIA Remarks
+    # - (ARIA only) Answers / remarks SBB
+    # - ARIA id
+    # - Meta stop to bridge systems?
+    # - STA Relevant?
+    # - STA Id
+    # - STA Remarks
+    # - ARIA Relevant?
+    # - ARIA Id
+    # - ARIA Remarks
+    # - 5T Relevant?
+    # - 5T  Id
+    # - 5T Remarks
+    # - LUK Relevant?
+    # - LUK Id
+    # - LUK Remarks
+    # - SBB Relevant
+    # - SBB Id
+    # - DiDok-ID
+    # - LUR Id
+    # - VAO Id (HAFAS ID)
+    # - VAO Relevant?
+    # - (EU Spirit only) Additional EPs
+    - MainOperator
+    - Country
+    # - Remark
+    # - TODO
