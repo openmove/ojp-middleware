@@ -23,6 +23,24 @@
                         </ojp:GeoPosition>
                     </ojp:PlaceRef>
                 </ojp:Destination>
+                <ojp:Via>
+                    <ojp:ViaPoint>
+                        <ojp:GeoPosition>
+                            <Longitude>7.4962</Longitude>
+                            <Latitude>44.64464</Latitude>
+                        </ojp:GeoPosition>
+                    </ojp:ViaPoint>
+                </ojp:Via>
+                <ojp:Via>
+                    <ojp:ViaPoint>
+                        <StopPointRef>gtt:23455</StopPointRef>
+                    </ojp:ViaPoint>
+                </ojp:Via>
+                <ojp:NotVia>
+                    <ojp:ViaPoint>
+                        <StopPointRef>gtt:47638473782</StopPointRef>
+                    </ojp:ViaPoint>
+                </ojp:NotVia>
                 <ojp:Params>
                     <ojp:TransferLimit>0</ojp:TransferLimit>
                     <ojp:IncludeTrackSections>false</ojp:IncludeTrackSections>
