@@ -8,13 +8,13 @@ prod:
     #port: ${dev.server.port}
   api-ojp:
     host: ${API_HOST}
-    port: 9091
+    port: 8381
   api-otp:
     host: ${API_HOST}
-    port: 9092
+    port: 8382
   ep-manager:
     host: ${API_HOST}
-    port: 9093
+    port: 8383
 dev:
   server:
     port: 8086
