@@ -95,7 +95,7 @@ const createEventErrorResponse = (errorCode, startTime) => {
 }
 
 module.exports = {
-  'eventExecution' : async (doc, startTime) => {
+  'eventExecution' : async (doc, startTime, config) => {
     try{
       if(queryNodes(doc, "//*[name()='ojp:OJPStopEventRequest']/*[name()='ojp:Location']/*[name()='ojp:PlaceRef']").length > 0){
         const text = queryText(doc, "//*[name()='ojp:OJPStopEventRequest']/*[name()='ojp:Location']/*[name()='ojp:PlaceRef']/*[name()='ojp:StopPlaceRef']"); 
@@ -110,9 +110,9 @@ module.exports = {
         }
         
         const options = {
-          host: `localhost`, //from environment variable
+          host: config['api-otp'].host,
+          port: config['api-otp'].port,
           path: `/stops/${text}/details?limit=${Number(limit) || 5}&start=${startDate}`,
-          port: 8090, //from environment variable
           method: 'GET',
           json:true
         };

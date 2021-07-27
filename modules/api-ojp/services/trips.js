@@ -29,28 +29,31 @@ const createTripResponse = (itineraries, startTime, showIntermediates, config, q
       const tripresponse = trips.ele('ojp:TripResult');
       const tripId = uuidv4();
 
-      mongoClient.connect(config.db.uri, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-      }, (err, client) => {
-        if (err) throw err;
-    
-        client
-        .db('ojp')
-        .collection('trip-requests')
-        .insertOne({
-          tripId,
-          itinerary,
-          'request': question
-        }, function(err, queryres) {
-          if (err) {
-            console.log(err);
-          } 
-          client.close();
+      try{
+        mongoClient.connect(config.db.uri, {
+          useNewUrlParser: true,
+          useUnifiedTopology: true
+        }, (err, client) => {
+          if (err) throw err;
+
+          client
+          .db('ojp')
+          .collection('trip-requests')
+          .insertOne({
+            tripId,
+            itinerary,
+            'request': question
+          }, function(err, queryres) {
+            if (err) {
+              console.log(err);
+            } 
+            client.close();
+          });
         });
-      });
-
-
+      }catch (exc){
+        console.log(exc);
+      }
+      
       tripresponse.ele('ojp:ResultId', tripId)
       const trip = tripresponse.ele('ojp:Trip');
       trip.ele('ojp:TripId', tripId);
@@ -264,9 +267,9 @@ module.exports = {
         const data = JSON.stringify(questionObj);
         
         const options = {
-          host: `localhost`, //from environment variable
           path: `/plan`,
-          port: 8090, //from environment variable
+          host: config['api-otp'].host,
+          port: config['api-otp'].port,
           method: 'POST',
           json:true,
           headers: {
