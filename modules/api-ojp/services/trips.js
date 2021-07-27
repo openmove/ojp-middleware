@@ -1,12 +1,13 @@
 const xmlbuilder = require('xmlbuilder')
 , moment = require('moment-timezone')
 , { v4: uuidv4 } = require('uuid')
-, { time } = require('console');
+, { time } = require('console')
+, mongoClient = require("mongodb").MongoClient
 
 const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {doRequest} = require('../lib/request');
 
-const createTripResponse = (itineraries, startTime, showIntermediates) => {
+const createTripResponse = (itineraries, startTime, showIntermediates, config, question) => {
   const responseTimestamp = new Date().toISOString();
   const calcTime = (new Date().getTime()) - startTime
   const trips = xmlbuilder.create('ojp:OJPTripDelivery');
@@ -27,6 +28,32 @@ const createTripResponse = (itineraries, startTime, showIntermediates) => {
     for(const itinerary of itineraries){
       const tripresponse = trips.ele('ojp:TripResult');
       const tripId = uuidv4();
+
+      try{
+        mongoClient.connect(config.db.uri, {
+          useNewUrlParser: true,
+          useUnifiedTopology: true
+        }, (err, client) => {
+          if (err) throw err;
+
+          client
+          .db('ojp')
+          .collection('trip-requests')
+          .insertOne({
+            tripId,
+            itinerary,
+            'request': question
+          }, function(err, queryres) {
+            if (err) {
+              console.log(err);
+            } 
+            client.close();
+          });
+        });
+      }catch (exc){
+        console.log(exc);
+      }
+      
       tripresponse.ele('ojp:ResultId', tripId)
       const trip = tripresponse.ele('ojp:Trip');
       trip.ele('ojp:TripId', tripId);
@@ -170,7 +197,7 @@ const createTripErrorResponse = (errorCode, startTime) => {
 }
 
 module.exports = {
-  'tripsExecution' : async (doc, startTime) => {
+  'tripsExecution' : async (doc, startTime, config) => {
     try{
       if(
         queryNodes(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Origin']/*[name()='ojp:PlaceRef']").length > 0
@@ -198,6 +225,25 @@ module.exports = {
 
         const useWheelchair = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Params']/*[name()='ojp:IncludeAccessibility']");
         
+        const intermediatePlaces = [];
+
+        const vias = queryNodes(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Via']/*[name()='ojp:ViaPoint']")
+        for(const via of vias){
+          if(via.childNodes[1].localName === 'StopPointRef'){
+            intermediatePlaces.push(via.childNodes[1].firstChild.data);
+          } else if(via.childNodes[1].localName === 'GeoPosition'){
+            let lat, lon = 0;
+            for (const key in via.childNodes[1].childNodes){
+              const child = via.childNodes[1].childNodes[key];
+              if(child.localName === 'Longitude'){
+                lon = child.firstChild.data;
+              }else if (child.localName === 'Latitude'){
+                lat = child.firstChild.data;
+              }
+            }
+            intermediatePlaces.push([lon,lat]);
+          }
+        }
 
         let date = new Date().getTime();
         let arrivedBy = false;
@@ -208,7 +254,7 @@ module.exports = {
           date = new Date(dateEnd).getTime();
         }
 
-        const data = JSON.stringify({
+        const questionObj = {
           origin: originId || [originLon, originLat, originName || "Origin"],
           destination: destinationId || [destinationLon, destinationLat, destinationName || "Destination"],
           date,
@@ -216,13 +262,14 @@ module.exports = {
           arrivedBy,
           transfers: Number(transfersValue) || 2,
           wheelchair: useWheelchair === 'true',
-          intermediatePlaces: []
-        });
+          intermediatePlaces
+        }
+        const data = JSON.stringify(questionObj);
         
         const options = {
-          host: `localhost`, //from environment variable
           path: `/plan`,
-          port: 8090, //from environment variable
+          host: config['api-otp'].host,
+          port: config['api-otp'].port,
           method: 'POST',
           json:true,
           headers: {
@@ -232,7 +279,7 @@ module.exports = {
         };
         console.log(options);
         const response = await doRequest(options, data);
-        return createTripResponse(response.plan.itineraries, startTime, intermediateStops === 'true');
+        return createTripResponse(response.plan.itineraries, startTime, intermediateStops === 'true', config, questionObj);
       }else{
         return createTripErrorResponse('E0001', startTime);
       }
