@@ -8,6 +8,10 @@ prod:
     uri: mongodb://db/
     name: ojp
     collection: exchange_points
+  logs:
+    level: 'info'
+    colorize: true
+    ignore: 'pid,hostname'
 dev:
   server:
     port: 8083
@@ -15,6 +19,9 @@ dev:
     uri: mongodb://0.0.0.0:8085/
     name: ${prod.db.name}
     collection: ${prod.db.collection}
+  logs:
+    level: 'debug'
+    colorize: false
 
 import:
   version: 0.16

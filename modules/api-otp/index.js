@@ -1,14 +1,25 @@
 'use strict';
 
-const express = require('express');
-const app = express();
-const {getStopById, searchByName, searchByBBox, searchByRadius} = require('./stops');
-const {getStopTimesById} = require('./stoptimes');
-const {planTrip} = require('./plan');
-const {request} = require('express');
+const express = require('express')
+, app = express()
+, {getStopById, searchByName, searchByBBox, searchByRadius} = require('./stops')
+, {getStopTimesById} = require('./stoptimes')
+, {planTrip} = require('./plan')
+, {request} = require('express')
+, pino = require('pino');
 
 const dotenv = require('dotenv').config()
-    , config = require('@stefcud/configyml');
+    , config = require('@stefcud/configyml')
+    , logger = pino({
+      level: config.logs.level || "info",
+      prettyPrint: {
+        translateTime: "SYS:standard",
+        colorize: config.logs.colorize == null ? true : config.logs.colorize, 
+        ignore: config.logs.ignore,
+        messageFormat: `{msg}`
+      },
+    });
+config.logger = logger;
 
 app.use(express.json())
 
@@ -41,7 +52,7 @@ app.post('/search/', async (req, result) => {
    * }
    */
   const params = req.body;
-  console.log(params);
+  logger.debug(params);
   const extra = {
     'limit': params.limit || 10,
     'arriveBy': params.arriveBy || false
@@ -78,7 +89,7 @@ app.post('/search/', async (req, result) => {
   }
   
   
-  console.log(res);
+  logger.debug(res);
   result.json(res);
 });
 
@@ -93,7 +104,7 @@ app.get('/stops/:id/details', async (req, result) => {
     'start': req.query.start || new Date().getTime()
   };
   const res = await getStopTimesById(config, req.params.id, extra);
-  console.log(res);
+  logger.debug(res);
   result.json(res);
 });
 
@@ -105,7 +116,7 @@ app.get('/stops/:id/details', async (req, result) => {
   //search a trip with given parameters:
   //origin, destination, waypoints, no transfers at, ...
   const params = req.body;
-  console.log(params);
+  logger.debug(params);
   const res = await planTrip(config, params.origin, params.destination, params.date, params)
   result.json(res);
 });
@@ -120,5 +131,5 @@ app.get('/stops/:id/details', async (req, result) => {
 });
 
 app.listen(Number(config.server.port), () => {
-  console.log(`listening at http://localhost:${config.server.port}`)
+  logger.info(`listening at http://localhost:${config.server.port}`)
 })

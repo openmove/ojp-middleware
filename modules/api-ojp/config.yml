@@ -14,6 +14,10 @@ prod:
     uri: mongodb://db/
     name: ojp
     collection: api_ojp
+  logs:
+    level: 'info'
+    colorize: true
+    ignore: 'pid,hostname'
 dev:
   server:
     port: 8081
@@ -27,6 +31,9 @@ dev:
     uri: mongodb://localhost:8085/
     name: ${prod.db.name}
     collection: ${prod.db.collection}
+  logs:
+    level: 'debug'
+    colorize: false
 
 #enable disable services
 services:

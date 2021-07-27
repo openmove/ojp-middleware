@@ -67,7 +67,7 @@ module.exports = {
                 }
               }`
   
-              console.log(query);
+              logger.debug(query);
     const data = await clientQL.request(query, {})
 
     if(data!= null && data.stop){

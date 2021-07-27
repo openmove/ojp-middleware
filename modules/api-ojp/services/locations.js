@@ -62,6 +62,7 @@ const createLocationErrorResponse = (errorCode, startTime) => {
 
 module.exports = {
   'locationExecution' : async (doc, startTime, config) => {
+    const {logger} = config;
     try{
       if(queryNodes(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:PlaceRef']").length > 0){
         const text = queryText(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:PlaceRef']/*[name()='ojp:StopPlaceRef']");
@@ -142,13 +143,13 @@ module.exports = {
           }
         }
         const response = await doRequest(options, data)   
-        console.log(response)
+        logger.info(response)
         return createLocationResponse(response.stops, startTime, ptModes === 'true');
       }else{
         return createLocationErrorResponse('E0001', startTime);
       }
     }catch(err){
-      console.log(err);
+      logger.error(err);
       return createLocationErrorResponse('E0002', startTime);
     }
     

@@ -13,7 +13,6 @@ module.exports = {
         });
 
         res.on('end', () => {
-          console.log(responseBody)
           resolve(JSON.parse(responseBody));
         });
       });

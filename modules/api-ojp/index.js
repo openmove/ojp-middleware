@@ -3,7 +3,8 @@ const express = require('express')
     , cors = require('cors')
     , dom = require('xmldom').DOMParser
     , xmlbuilder = require('xmlbuilder')
-    , xmlparser = require('express-xml-bodyparser');
+    , xmlparser = require('express-xml-bodyparser')
+    , pino = require('pino');
 
 const {queryNode, queryNodes, queryText} = require('./lib/query')
     , {locationExecution} = require('./services/locations')
@@ -14,7 +15,18 @@ const {queryNode, queryNodes, queryText} = require('./lib/query')
     , {exchangePointsExecution} = require('./services/exchange-points');
 
 const dotenv = require('dotenv').config()
-    , config = require('@stefcud/configyml');
+    , config = require('@stefcud/configyml')
+    , logger = pino({
+      level: config.logs.level || "info",
+      prettyPrint: {
+        translateTime: "SYS:standard",
+        colorize: config.logs.colorize == null ? true : config.logs.colorize, 
+        ignore: config.logs.ignore,
+        messageFormat: `{msg}`
+      },
+    });
+config.logger = logger;
+
 
 app.use(cors());
 
@@ -46,7 +58,7 @@ app.post('/ojp/', async (req, result) => {
 
   if(queryNode(doc, "//*[name()='ojp:OJPLocationInformationRequest']")){
     if(!config.services.OJPLocationInformationRequest) {
-      console.warn('OJPLocationInformationRequest disabled by config')
+      logger.warn('OJPLocationInformationRequest disabled by config')
     }
     else {
       xmlServiceResponse.importXMLBuilder(await locationExecution(doc, startTime, config));
@@ -55,7 +67,7 @@ app.post('/ojp/', async (req, result) => {
 
   if(queryNode(doc, "//*[name()='ojp:OJPStopEventRequest']")){
     if(!config.services.OJPStopEventRequest) {
-      console.warn('OJPStopEventRequest disabled by config');
+      logger.warn('OJPStopEventRequest disabled by config');
     }
     else {
       xmlServiceResponse.importXMLBuilder(await eventExecution(doc, startTime, config));
@@ -64,7 +76,7 @@ app.post('/ojp/', async (req, result) => {
 
   if(queryNode(doc, "//*[name()='ojp:OJPTripRequest']")){
     if(!config.services.OJPTripRequest) {
-      console.warn('OJPTripRequest disabled by config');
+      logger.warn('OJPTripRequest disabled by config');
     }
     else {
       xmlServiceResponse.importXMLBuilder(await tripsExecution(doc, startTime, config));
@@ -73,7 +85,7 @@ app.post('/ojp/', async (req, result) => {
   
   if(queryNode(doc, "//*[name()='ojp:OJPTripInfoRequest']")){
     if(!config.services.OJPTripInfoRequest) {
-      console.warn('OJPTripInfoRequest disabled by config');
+      logger.warn('OJPTripInfoRequest disabled by config');
     }
     else {
       xmlServiceResponse.importXMLBuilder(await tripInfoExecution(doc, startTime, config));
@@ -82,7 +94,7 @@ app.post('/ojp/', async (req, result) => {
 
   if(queryNode(doc, "//*[name()='ojp:OJPExchangePointsRequest']")){
     if(!config.services.OJPExchangePointsRequest) {
-      console.warn('OJPExchangePointsRequest disabled by config');
+      logger.warn('OJPExchangePointsRequest disabled by config');
     }
     else {
       xmlServiceResponse.importXMLBuilder(await exchangePointsExecution(doc, startTime, config));
@@ -91,7 +103,7 @@ app.post('/ojp/', async (req, result) => {
 
   if(queryNode(doc, "//*[name()='ojp:OJPMultiPointTripRequest']")){
     if(!config.services.OJPMultiPointTripRequest) {
-      console.warn('OJPMultiPointTripRequest disabled by config');
+      logger.warn('OJPMultiPointTripRequest disabled by config');
     }
     else {
       xmlServiceResponse.importXMLBuilder(await multipointTripExecution(doc, startTime, config));
@@ -108,5 +120,5 @@ app.post('/ojp/', async (req, result) => {
 });
 
 app.listen(Number(config.server.port), () => {
-  console.log(`listening at http://localhost:${config.server.port}`)
+  logger.info(`listening at http://localhost:${config.server.port}`)
 })
