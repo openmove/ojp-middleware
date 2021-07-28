@@ -65,7 +65,9 @@ const createExchangePointsErrorResponse = (errorCode, startTime) => {
 
 module.exports = {
   'exchangePointsExecution' : async (doc, startTime, config) => {
+    const {logger} = config;
     try{
+      
       if(queryNodes(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:PlaceRef']").length > 0){
 
         const stopId = queryTags(doc, [
@@ -116,7 +118,7 @@ module.exports = {
           method: 'GET',
           json: true
         };
-        console.log(options)
+        logger.info(options)
         const response = await doRequest(options)   
         return createExchangePointsResponse(response, startTime, ptModes === 'true');
       }
@@ -193,7 +195,7 @@ module.exports = {
         return createExchangePointsErrorResponse('E0001', startTime);
       }
     }catch(err){
-      console.log(err);
+      logger.error(err);
       return createExchangePointsErrorResponse('E0002', startTime);
     }
     

@@ -8,6 +8,7 @@ const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {doRequest} = require('../lib/request');
 
 const createTripResponse = (itineraries, startTime, showIntermediates, config, question) => {
+  const {logger} = config;
   const responseTimestamp = new Date().toISOString();
   const calcTime = (new Date().getTime()) - startTime
   const trips = xmlbuilder.create('ojp:OJPTripDelivery');
@@ -34,24 +35,26 @@ const createTripResponse = (itineraries, startTime, showIntermediates, config, q
           useNewUrlParser: true,
           useUnifiedTopology: true
         }, (err, client) => {
-          if (err) throw err;
-
-          client
-          .db('ojp')
-          .collection('trip-requests')
-          .insertOne({
-            tripId,
-            itinerary,
-            'request': question
-          }, function(err, queryres) {
-            if (err) {
-              console.log(err);
-            } 
-            client.close();
-          });
+          if (err) {
+            logger.error(err);
+          }else{
+            client
+            .db('ojp')
+            .collection('trip-requests')
+            .insertOne({
+              tripId,
+              itinerary,
+              'request': question
+            }, function(err, queryres) {
+              if (err) {
+                logger.error(err);
+              } 
+              client.close();
+            });
+          }          
         });
       }catch (exc){
-        console.log(exc);
+        logger.error(exc);
       }
       
       tripresponse.ele('ojp:ResultId', tripId)
@@ -198,6 +201,7 @@ const createTripErrorResponse = (errorCode, startTime) => {
 
 module.exports = {
   'tripsExecution' : async (doc, startTime, config) => {
+    const {logger} = config;
     try{
       if(
         queryNodes(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Origin']/*[name()='ojp:PlaceRef']").length > 0
@@ -277,14 +281,14 @@ module.exports = {
             'Content-Length': Buffer.byteLength(data)
          }
         };
-        console.log(options);
+        logger.info(options);
         const response = await doRequest(options, data);
         return createTripResponse(response.plan.itineraries, startTime, intermediateStops === 'true', config, questionObj);
       }else{
         return createTripErrorResponse('E0001', startTime);
       }
     }catch(err){
-      console.log(err);
+      logger.error(err);
       return createTripErrorResponse('E0002', startTime);
     }
     

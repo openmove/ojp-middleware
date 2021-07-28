@@ -6,9 +6,20 @@ const path = require('path');
 const _ = require('lodash');
 const csvtojson = require('csvtojson');
 const {MongoClient} = require("mongodb");
+const pino = require('pino');
 
 const dotenv = require('dotenv').config()
-    , config = require('@stefcud/configyml');
+    , config = require('@stefcud/configyml')
+    , logger = pino({
+      level: config.logs.level || "info",
+      prettyPrint: {
+        translateTime: "SYS:standard",
+        colorize: config.logs.colorize == null ? true : config.logs.colorize, 
+        ignore: config.logs.ignore,
+        messageFormat: `{msg}`
+      },
+    });
+config.logger = logger;
 
 const lastVersion = config.import.version
 
@@ -17,7 +28,7 @@ const importCsv = (ver, basedir) => {
     const version = ver || lastVersion;
     const basepath = basedir || __dirname+'/csvs/'+version+'/';
 
-    console.log('import csv...', version, basepath)
+    logger.info(`import csv: ${version}, ${basepath}`)
     
     let files = [];
 
@@ -26,7 +37,7 @@ const importCsv = (ver, basedir) => {
       files = fs.readdirSync(basepath);
       
     } catch(err) {
-      console.warn(`version ${version} not found ${basepath}`)
+      logger.warn(`version ${version} not found ${basepath}`)
       return;
     }
 
@@ -50,14 +61,14 @@ const importCsv = (ver, basedir) => {
 
     if (!fs.existsSync(csvFilePath)) {
       
-      console.error(`file CSV not found ${csvFilePath}`)
+      logger.error(`file CSV not found ${csvFilePath}`)
       
       process.exit(1);
 
       return;
     }
     else {
-      console.log('PARSING CSV', csvFilePath)
+      logger.info(`PARSING CSV: ${csvFilePath}`)
     }
 
     csvtojson({
@@ -99,7 +110,7 @@ const importCsv = (ver, basedir) => {
         });
 
         col.insertMany(objsIns, (insertErr, res) => {
-          if(insertErr) console.warn(insertErr.message);
+          if(insertErr) logger.warn(insertErr.message);
           client.close();
         });
         

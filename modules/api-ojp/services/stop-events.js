@@ -96,14 +96,12 @@ const createEventErrorResponse = (errorCode, startTime) => {
 
 module.exports = {
   'eventExecution' : async (doc, startTime, config) => {
+    const {logger} = config;
     try{
       if(queryNodes(doc, "//*[name()='ojp:OJPStopEventRequest']/*[name()='ojp:Location']/*[name()='ojp:PlaceRef']").length > 0){
         const text = queryText(doc, "//*[name()='ojp:OJPStopEventRequest']/*[name()='ojp:Location']/*[name()='ojp:PlaceRef']/*[name()='ojp:StopPlaceRef']"); 
-        console.log(text);
         const date = queryText(doc, "//*[name()='ojp:OJPStopEventRequest']/*[name()='ojp:Location']/*[name()='ojp:DepArrTime']");
         const limit = queryText(doc, "//*[name()='ojp:OJPStopEventRequest']/*[name()='ojp:Params']/*[name()='ojp:NumberOfResults']");
-        console.log(limit);
-        console.log(date);
         let startDate = new Date().getTime();
         if(date != null){
           startDate = new Date(date).getTime();
@@ -116,7 +114,7 @@ module.exports = {
           method: 'GET',
           json:true
         };
-        console.log(options);
+        logger.info(options);
         const response = await doRequest(options);
         
         let isDeparture = true;
@@ -139,7 +137,7 @@ module.exports = {
         return createEventErrorResponse('E0001', startTime);
       }
     }catch(err){
-      console.log(err);
+      logger.info(err);
       return createEventErrorResponse('E0002', startTime);
     }
     

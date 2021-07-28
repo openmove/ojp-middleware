@@ -3,9 +3,20 @@
 const express = require('express');
 const app = express();
 const mongoClient = require("mongodb").MongoClient;
+const pino = require('pino');
 
 const dotenv = require('dotenv').config()
-    , config = require('@stefcud/configyml');
+    , config = require('@stefcud/configyml')
+    , logger = pino({
+      level: config.logs.level || "info",
+      prettyPrint: {
+        translateTime: "SYS:standard",
+        colorize: config.logs.colorize == null ? true : config.logs.colorize, 
+        ignore: config.logs.ignore,
+        messageFormat: `{msg}`
+      },
+    });
+config.logger = logger;
 
 const {importCsv} = require('./import');
 
@@ -26,7 +37,7 @@ app.use(express.json());
 
 app.get('/', async (req, getres) => {
   
-  console.log('request GET /', new Date().toISOString());
+  logger.info(`request GET / ${new Date().toISOString()}`);
 
   mongoClient.connect(config.db.uri, {
     useNewUrlParser: true,
@@ -56,7 +67,7 @@ app.get('/searchByName/', async (req, getres) => {
 
 app.get('/searchByName/:name', async (req, getres) => {
   
-  console.log('request GET', req.url, new Date().toISOString());
+  logger.info(`request GET ${req.url} ${new Date().toISOString()}`);
 
   mongoClient.connect(config.db.uri, {
     useNewUrlParser: true,
@@ -90,7 +101,7 @@ app.get('/searchByNetexId/', async (req, getres) => {
 
 app.get('/searchByNetexId/:id', async (req, getres) => {
   
-  console.log('request GET /searchById', new Date().toISOString());
+  logger.info(`request GET /searchById ${new Date().toISOString()}`);
 
   mongoClient.connect(config.db.uri, {
     useNewUrlParser: true,
@@ -119,7 +130,7 @@ app.get('/searchByNetexId/:id', async (req, getres) => {
 
 app.get('/geojson', async (req, getres) => {
   
-  console.log('request GET /geojson', new Date().toISOString());
+  logger.info(`request GET /geojson ${new Date().toISOString()}`);
 
   mongoClient.connect(config.db.uri, {
     useNewUrlParser: true,
@@ -163,12 +174,12 @@ mongoClient.connect(config.db.uri, {
   serverSelectionTimeoutMS: 100 //mseconds
 }, err => {
   if (!err) {
-    console.error(`MongoDb connected ${config.db.uri}`);
+    logger.info(`MongoDb connected ${config.db.uri}`);
     app.listen(Number(config.server.port), () => {
-      console.log(`listening at http://localhost:${config.server.port}`)
+      logger.info(`listening at http://localhost:${config.server.port}`)
     });
   }
   else {
-    console.error(`MongoDb error ${config.db.uri} ${err.message}`);
+    logger.error(`MongoDb error ${config.db.uri} ${err.message}`);
   }
 });
