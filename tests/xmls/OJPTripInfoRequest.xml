@@ -6,7 +6,7 @@
             <RequestorRef>API-Explorer</RequestorRef>
             <ojp:OJPTripInfoRequest>
                 <RequestTimestamp>2021-07-30T14:15:11.075Z</RequestTimestamp>
-                <ojp:JourneyRef>9:ea4e22c7-874c-4425-96ba-07dcd8c4eb24</ojp:JourneyRef>
+                <ojp:JourneyRef>9:8c9b7cb6-1b4f-4d4f-abfe-b4d78e983418</ojp:JourneyRef>
                 <ojp:OperatingDayRef>2021-07-30</ojp:OperatingDayRef>
                 <ojp:Params>
                     <ojp:IncludeCalls>true</ojp:IncludeCalls>

@@ -4,7 +4,7 @@ const xmlbuilder = require('xmlbuilder')
 , {doRequest} = require('../lib/request')
 , moment = require('moment-timezone');
 
-const createTripInfoResponse = (trip, startTime) => {
+const createTripInfoResponse = (trip, date, startTime) => {
   const responseTimestamp = new Date().toISOString();
   const calcTime = (new Date().getTime()) - startTime
   const tripInfo = xmlbuilder.create('ojp:OJPTripInfoDelivery');
@@ -20,6 +20,7 @@ const createTripInfoResponse = (trip, startTime) => {
   } else {
     tripInfo.ele('siri:Status', true);
     const context = tripInfo.ele('ojp:TripInfoResponseContext');
+		const loc = context.ele('ojp:Places');
 		const tripResponse = tripInfo.ele('ojp:TripInfoResult');
     const stopsIds = [];
 		
@@ -29,7 +30,7 @@ const createTripInfoResponse = (trip, startTime) => {
 
 			if(stopsIds.indexOf(stop.gtfsId) === -1){
 				stopsIds.push(stop.gtfsId);
-				const loc = context.ele('ojp:Places');
+				
 				const place = loc.ele('ojp:Location');
 				const stopPlace = place.ele('ojp:StopPlace');
 				stopPlace.ele('ojp:StopPlaceRef', stop.gtfsId);
@@ -75,26 +76,26 @@ const createTripInfoResponse = (trip, startTime) => {
 			}
       
       call.ele('ojp:Order', schedule.stopSequence)        
-      const service = tripResponse.ele('ojp:Service');
-      service.ele('ojp:OperatingDayRef', moment(schedule.serviceDay * 1000).tz(trip.route.agency.timezone).format("YYYY-MM-DD"));
-      service.ele('ojp:JourneyRef', trip.gtfsId);
-      service.ele('siri:LineRef', trip.route.gtfsId);
-      const mode = service.ele('ojp:Mode');
-      mode.ele('ojp:PtMode', stop.vehicleMode.toLowerCase());
-      if(trip.route.mode === 'BUS'){
-        mode.ele('siri:BusSubmode', 'unknown')
-      }
-      if(trip.route.mode === 'RAIL'){
-        mode.ele('siri:RailSubmode', 'unknown')
-      }
-      service.ele('siri:DirectionRef', trip.directionId);
-      service.ele('ojp:PublishedLineName').ele('ojp:Text', trip.route.longName || trip.route.shortName || trip.route.gtfsId)
-      service.ele('ojp:OperatorRef', trip.route.agency.gtfsId);
-      service.ele('ojp:OriginStopPointRef', trip.departureStoptime.stop.gtfsId);
-      service.ele('ojp:OriginText').ele('ojp:Text', `${trip.departureStoptime.stop.name}`);
-      service.ele('ojp:DestinationStopPointRef', trip.arrivalStoptime.stop.gtfsId);
-      service.ele('ojp:DestinationText').ele('ojp:Text', `${trip.arrivalStoptime.stop.name}`);
     }
+		const service = tripResponse.ele('ojp:Service');
+		service.ele('ojp:OperatingDayRef', moment(date, "YYYYMMDD").tz(trip.route.agency.timezone).format("YYYY-MM-DD"));
+		service.ele('ojp:JourneyRef', trip.gtfsId);
+		service.ele('siri:LineRef', trip.route.gtfsId);
+		const mode = service.ele('ojp:Mode');
+		mode.ele('ojp:PtMode', trip.route.mode.toLowerCase());
+		if(trip.route.mode === 'BUS'){
+			mode.ele('siri:BusSubmode', 'unknown')
+		}
+		if(trip.route.mode === 'RAIL'){
+			mode.ele('siri:RailSubmode', 'unknown')
+		}
+		service.ele('siri:DirectionRef', trip.directionId);
+		service.ele('ojp:PublishedLineName').ele('ojp:Text', trip.route.longName || trip.route.shortName || trip.route.gtfsId)
+		service.ele('ojp:OperatorRef', trip.route.agency.gtfsId);
+		service.ele('ojp:OriginStopPointRef', trip.departureStoptime.stop.gtfsId);
+		service.ele('ojp:OriginText').ele('ojp:Text', `${trip.departureStoptime.stop.name}`);
+		service.ele('ojp:DestinationStopPointRef', trip.arrivalStoptime.stop.gtfsId);
+		service.ele('ojp:DestinationText').ele('ojp:Text', `${trip.arrivalStoptime.stop.name}`);
   }
 
   return tripInfo;
@@ -139,7 +140,7 @@ module.exports = {
 					}
 					const response = await doRequest(options)   
 					logger.info(response)
-					return createTripInfoResponse(response.trip, startTime);
+					return createTripInfoResponse(response.trip, date, startTime);
 
 				}else{
 					return createTripInfoErrorResponse('UNSUPPORTED', startTime);
