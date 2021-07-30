@@ -5,6 +5,7 @@ const express = require('express')
 , {getStopById, searchByName, searchByBBox, searchByRadius} = require('./stops')
 , {getStopTimesById} = require('./stoptimes')
 , {planTrip} = require('./plan')
+, {getTripsByIdAndDate} = require('./trips')
 , {request} = require('express')
 , pino = require('pino');
 
@@ -118,6 +119,20 @@ app.get('/stops/:id/details', async (req, result) => {
   const params = req.body;
   logger.debug(params);
   const res = await planTrip(config, params.origin, params.destination, params.date, params)
+  result.json(res);
+});
+
+
+/**
+ * OJPTripInfoRequest
+ */
+
+ app.get('/trip/:id/:date', async (req, result) => {
+  //search a trip with given parameters:
+  //origin, destination, waypoints, no transfers at, ...
+  const params = req.params;
+  logger.debug(params);
+  const res = await getTripsByIdAndDate(config, params.id, params.date, {})
   result.json(res);
 });
 

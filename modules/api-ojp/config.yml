@@ -42,4 +42,4 @@ services:
   OJPStopEventRequest: true
   OJPTripRequest: true
   #OJPMultiPointTripRequest: true
-  #OJPTripInfoRequest: true
+  OJPTripInfoRequest: true
