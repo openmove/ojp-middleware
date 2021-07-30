@@ -8,6 +8,7 @@ module.exports = {
       path: config.otp.path + config.graphql.path,
       port: config.otp.port
     };
+    const {logger} = config;
     const endpoint = `https://${options.host}${options.path}`;
     const clientQL = new GraphQLClient(endpoint, { headers: config.otp.headers });
     const query = gql`{

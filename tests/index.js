@@ -17,6 +17,7 @@ app.use('/xmls', express.static('xmls'));
 app.use(express.json());
 
 app.get('/getconfig', async (req, res) => {
+  res.set('cache-control', 'no-cache')
   res.set('content-type', 'application/javascript');
   const conftext = JSON.stringify(config,null,4);
   res.send(`window.config = ${conftext};`);
