@@ -109,12 +109,13 @@ app.get('/searchByNetexId/:id', async (req, getres) => {
   }, (err, client) => {
     if (err) throw err;
 
+    const findCond = {};
+    findCond[config.import.headerIndex]= req.params.id
+
     client
     .db('ojp')
     .collection(config.db.collection)
-    .find({
-      "NeTEx Id": req.params.id
-    }).toArray(function(err, queryres) {
+    .find(findCond).toArray(function(err, queryres) {
       if (err) {
         getres.send(err);
         throw err;
