@@ -65,9 +65,31 @@ const createExchangePointsErrorResponse = (errorCode, startTime) => {
 
 module.exports = {
   'exchangePointsExecution' : async (doc, startTime, config) => {
+
     const {logger} = config;
     try{
       
+      const ptModes = queryTags(doc, [
+        'ojp:OJPExchangePointsRequest',
+        'ojp:Restrictions',
+        'ojp:IncludePtModes'
+      ]);
+
+      let limitRestrictions = queryTags(doc, [
+        'ojp:OJPExchangePointsRequest',
+        'ojp:Restrictions',
+        'ojp:NumberOfResults'
+      ]);
+
+      let limitParams = queryTags(doc, [
+        'ojp:OJPExchangePointsRequest',
+        'ojp:Params',
+        'ojp:NumberOfResults'
+      ]);
+
+      let limit = Number(limitRestrictions || limitParams) || 5
+        , path = '';
+
       if(queryNodes(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:PlaceRef']").length > 0){
 
         const stopId = queryTags(doc, [
@@ -86,20 +108,7 @@ module.exports = {
           'ojp:LocationName',
           'ojp:Text'
         ]);
-        const ptModes = queryTags(doc, [
-          'ojp:OJPExchangePointsRequest',
-          'ojp:Restrictions',
-          'ojp:IncludePtModes'
-        ]);
-        let limit = queryTags(doc, [
-          'ojp:OJPExchangePointsRequest',
-          'ojp:Restrictions',
-          'ojp:NumberOfResults'
-        ]);
 
-        limit = Number(limit) || 5;
-
-        let path;
         if(LocationName) {
           path = `/searchByName/${LocationName}`;
         }
@@ -109,19 +118,27 @@ module.exports = {
         else if(pointId) {
           path = `/searchByNetexId/${pointId}`;
         }
-        //todo point
-
-        const options = {
-          host: config['ep-manager'].host,
-          port: config['ep-manager'].port,
-          path: `${path}?limit=${limit}`,          
-          method: 'GET',
-          json: true
-        };
-        logger.info(options)
-        const response = await doRequest(options)   
-        return createExchangePointsResponse(response, startTime, ptModes === 'true');
       }
+      else if(queryNodes(doc, "//*[name()='ojp:OJPExchangePointsRequest']").length > 0) {
+        path = '/';  //return all points
+      }
+      else {
+        return createExchangePointsErrorResponse('E0001', startTime);
+      }
+
+      const options = {
+        host: config['ep-manager'].host,
+        port: config['ep-manager'].port,
+        path: `${path}?limit=${limit}`,          
+        method: 'GET',
+        json: true
+      };
+      logger.info(options);
+      
+      const response = await doRequest(options);
+
+      return createExchangePointsResponse(response, startTime, ptModes === 'true');
+
       /*else if(queryNodes(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:InitialInput']").length > 0){
         const locationName = queryText(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:InitialInput']/*[name()='ojp:LocationName']"); 
         const locationPositionLat = queryText(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:InitialInput']/*[name()='ojp:GeoPosition']/*[name()=Latitude]"); 
@@ -191,9 +208,7 @@ module.exports = {
         console.log(response)
         return createExchangePointsResponse(response.stops, startTime, ptModes === 'true');
       }*/
-      else {
-        return createExchangePointsErrorResponse('E0001', startTime);
-      }
+      
     }catch(err){
       logger.error(err);
       return createExchangePointsErrorResponse('E0002', startTime);

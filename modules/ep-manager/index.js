@@ -48,7 +48,9 @@ app.get('/', async (req, getres) => {
     client
     .db('ojp')
     .collection(config.db.collection)
-    .find({}).toArray(function(err, queryres) {
+    .find({})
+    .limit( Number(req.query.limit) )
+    .toArray(function(err, queryres) {
       if (err) {
         getres.send(err);
         throw err;
