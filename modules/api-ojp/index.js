@@ -27,13 +27,16 @@ const dotenv = require('dotenv').config()
     });
 config.logger = logger;
 
-
 app.use(cors());
 
 app.use(xmlparser());
 
 app.get('/ojp/', async (req, result) => {
-  result.send({'status':'OK','description':'send POST data in /ojp/'});
+  result.send({
+    status: 'OK',
+    description: 'send POST data to /ojp/',
+    services: config.services
+  });
 });
 
 app.post('/ojp/', async (req, result) => {
