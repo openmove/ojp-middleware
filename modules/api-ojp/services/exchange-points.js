@@ -67,6 +67,7 @@ module.exports = {
   'exchangePointsExecution' : async (doc, startTime, config) => {
 
     const {logger} = config;
+    
     try{
       
       const ptModes = queryTags(doc, [

@@ -2,7 +2,7 @@
 
 const express = require('express')
 , app = express()
-, {getStopById, searchByName, searchByBBox, searchByRadius} = require('./stops')
+, {getStopById, getAllStops, searchByName, searchByBBox, searchByRadius} = require('./stops')
 , {getStopTimesById} = require('./stoptimes')
 , {planTrip} = require('./plan')
 , {getTripsByIdAndDate} = require('./trips')
@@ -35,7 +35,15 @@ app.get('/stops/:id?', async (req, result) => {
   const extra = {
     'limit': req.query.limit || 10
   };
-  const res = await getStopById(config, req.params.id, extra)
+
+  let res = {stops: []};
+
+  if(!req.params.id) {
+    res = await getAllStops(config, extra);
+  }
+  else {
+    res = await getStopById(config, req.params.id, extra)
+  }
   result.json(res);
 });
 
@@ -53,13 +61,18 @@ app.post('/search/', async (req, result) => {
    * }
    */
   const params = req.body;
-  logger.debug(params);
+  
+  logger.debug('/search',params);
+
   const extra = {
     'limit': params.limit || 10,
     'arriveBy': params.arriveBy || false
   };
+  
   let res = {stops: []};
-  if(value != null){
+
+  if(params.value != null) {
+
     if(params.restrictionType && params.restrictionValue){
       const resTmp = {stops: []};
       switch(params.restrictionType){
@@ -83,13 +96,16 @@ app.post('/search/', async (req, result) => {
     }else{
       res = await searchByName(config, params.value, extra);
     }
-  }else if(position && position.length == 2){ //search at specific position (tricky: radius 1 meter)
-    res = await searchByRadius(config, [...position,1], extra);
-  }else{
-    //TODO wrong request, manage this ?
   }
-  
-  
+  //TODO
+  else if(params.position && params.position.length == 2){ //search at specific position (tricky: radius 1 meter)
+    res = await searchByRadius(config, [...params.position,1], extra);
+  }
+  else
+  {
+    res = await getAllStops(config, extra);
+  }
+
   logger.debug(res);
   result.json(res);
 });
@@ -105,7 +121,9 @@ app.get('/stops/:id/details', async (req, result) => {
     'start': req.query.start || new Date().getTime()
   };
   const res = await getStopTimesById(config, req.params.id, extra);
+  
   logger.debug(res);
+
   result.json(res);
 });
 

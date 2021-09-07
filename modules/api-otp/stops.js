@@ -41,7 +41,49 @@ module.exports = {
     return {
       stops: []
     }
+  },
+  'getAllStops': async (config, extra) => {
+    const options = {
+      host: config.otp.hostname,
+      path: config.otp.path + config.graphql.path,
+      port: config.otp.port
+    };
+    const {logger} = config;
+    const endpoint = `https://${options.host}${options.path}`;
+    const clientQL = new GraphQLClient(endpoint, { headers: config.otp.headers });
+    
+    const query = gql`
+                {
+                stops (maxResults: ${extra.limit}) {
+                  gtfsId
+                  name
+                  code
+                  zoneId
+                  desc
+                  lat
+                  lon
+                  vehicleMode
+                }
+              }`
   
+    logger.debug(query);
+    
+    const data = await clientQL.request(query, {});
+
+    logger.debug(data);
+
+    if(data!= null && data.stops){
+      const res = {stops: []}
+      for(const stop of data.stops){
+        if(stop){
+          res.stops.push(stop);
+        }
+      }
+      return res;
+    }
+    return {
+      stops: []
+    }
   },
   'searchByName': async (config, name, extra) => {
     const options = {
@@ -68,8 +110,11 @@ module.exports = {
               }`
   
     logger.debug(query);
+    
     const data = await clientQL.request(query, {});
+
     logger.debug(data);
+    
     if(data!= null && data.stopsByName){
       const res = {stops: []}
       for(const stop of data.stopsByName){
@@ -112,7 +157,7 @@ module.exports = {
                   }
               }`
   
-    clientQL.request(query, {});
+    const data = await clientQL.request(query, {});
 
     if(data!= null && data.stopsByRadius){
       const res = {stops: []}
@@ -129,7 +174,7 @@ module.exports = {
       stops: []
     }
   },
-  'searchByBBox': (config, params, extra) => {
+  'searchByBBox': async (config, params, extra) => {
     const options = {
       host: config.otp.hostname,
       path: config.otp.path + config.graphql.path,
@@ -156,7 +201,7 @@ module.exports = {
                   }
               }`
   
-    clientQL.request(query, {});
+    const data = await clientQL.request(query, {});
 
     if(data!= null && data.stopsByBbox){
       const res = {stops: []}
@@ -172,6 +217,5 @@ module.exports = {
     return {
       stops: []
     }
-  
   }
 }
