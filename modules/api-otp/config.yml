@@ -14,7 +14,7 @@ dev:
   # otp: #local instance of opentripplanner
   #   hostname: localhost
   #   path: /otp/routers/default
-  #   port: 80    
+  #   port: 8080
   logs:
     level: 'debug'
     colorize: false
@@ -24,7 +24,7 @@ otp:
   path: /otp/routers/mip
   port: 443
   headers:
-    User-Agent: ojp-middleware-client
+    User-Agent: ojp-middleware
 rest:
   path: /index
 graphql:
