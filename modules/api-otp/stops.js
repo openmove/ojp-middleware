@@ -70,7 +70,7 @@ module.exports = {
     
     const data = await clientQL.request(query, {});
 
-    logger.debug(data);
+    //logger.debug(data);
 
     if(data!= null && data.stops){
       const res = {stops: []}

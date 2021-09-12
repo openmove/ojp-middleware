@@ -85,7 +85,7 @@ module.exports = {
         'ojp:NumberOfResults'
       ]);
 
-      let limit = Number(limitRestrictions || limitParams) || 5;
+      let limit = limitRestrictions || limitParams || 5;
 
       if(queryNodes(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:PlaceRef']").length > 0){
 
@@ -111,7 +111,7 @@ module.exports = {
           method: 'GET',
           json: true
         };
-
+        
         const response = await doRequest(options);
 
         return createLocationResponse(response.stops, startTime, ptModes === 'true');

@@ -30,10 +30,12 @@ app.use(express.json())
 
 
 app.get('/stops/:id?', async (req, result) => {
+
+  console.log('STOPS/', req.params, req.query)
   //search a stop by id in PlaceRef
   //if id is undefined return all stops
   const extra = {
-    'limit': req.query.limit || 10
+    'limit': Number(req.query.limit)
   };
 
   let res = {stops: []};
@@ -65,7 +67,7 @@ app.post('/search/', async (req, result) => {
   logger.debug('/search',params);
 
   const extra = {
-    'limit': params.limit || 10,
+    'limit': params.limit,
     'arriveBy': params.arriveBy || false
   };
   

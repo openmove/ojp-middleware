@@ -18,6 +18,8 @@ services:
       - ep-manager
       - api-otp
       - db
+    environment:
+      - LOG_REQUEST=true
 
   api-otp:
     container_name: api-otp

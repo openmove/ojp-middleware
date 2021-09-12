@@ -89,7 +89,7 @@ const createTripResponse = (itineraries, startTime, showIntermediates, config, q
             transferLeg.ele('ojp:TimeWindowEnd', moment(leg.endTime).toISOString());
             transferLeg.ele('ojp:Duration', moment.duration(leg.duration, 's').toISOString());
             transferLeg.ele('ojp:WalkDuration', moment.duration(leg.duration, 's').toISOString())
-          }          
+          }
         }else{
           tripTransfers += 1;
           let sequence = 1;
@@ -120,7 +120,7 @@ const createTripResponse = (itineraries, startTime, showIntermediates, config, q
               serviceIntermediateArr.ele('ojp:TimetabledTime', moment(intermediatePoint.arrivalTime).toISOString())
               serviceIntermediateArr.ele('ojp:EstimatedTime', moment(intermediatePoint.arrivalTime - leg.departureDelay).toISOString())
               intermediate.ele('ojp:Order', sequence);
-            }            
+            }
           }
 
           const alight = timedLeg.ele('ojp:LegAlight');
@@ -134,8 +134,6 @@ const createTripResponse = (itineraries, startTime, showIntermediates, config, q
           serviceTo.ele('ojp:TimetabledTime', moment(leg.endTime).toISOString())
           serviceTo.ele('ojp:EstimatedTime', moment(leg.endTime - leg.arrivalDelay).toISOString())
           alight.ele('ojp:Order', sequence+1);
-
-          
 
           const service = timedLeg.ele('ojp:Service');
           service.ele('ojp:OperatingDayRef', moment(leg.serviceDate).tz(leg.route.agency.timezone).format("YYYY-MM-DD"));

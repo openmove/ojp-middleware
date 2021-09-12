@@ -35,6 +35,8 @@ dev:
     level: 'debug'
     colorize: false
 
+logrequest: ${LOG_REQUEST}
+
 #enable disable services
 services:
   OJPExchangePointsRequest: true

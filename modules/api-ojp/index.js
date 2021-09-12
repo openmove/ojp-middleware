@@ -4,6 +4,7 @@ const express = require('express')
     , dom = require('xmldom').DOMParser
     , xmlbuilder = require('xmlbuilder')
     , xmlparser = require('express-xml-bodyparser')
+    , mongoClient = require("mongodb").MongoClient
     , pino = require('pino');
 
 const {queryNode, queryNodes, queryText} = require('./lib/query')
@@ -25,7 +26,38 @@ const dotenv = require('dotenv').config()
         messageFormat: `{msg}`
       },
     });
+
+console.log(config);
+
 config.logger = logger;
+
+const logrequest = (xml) => {
+  try{
+    mongoClient.connect(config.db.uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    }, (err, client) => {
+      if (err) {
+        logger.error(err);
+      }else{
+        client
+        .db('ojp')
+        .collection('log-requests')
+        .insertOne({
+          'createdAt': new Date(),
+          'request': xml.split("\n")
+        }, function(err, queryres) {
+          if (err) {
+            logger.error(err);
+          } 
+          client.close();
+        });
+      }          
+    });
+  }catch (exc){
+    logger.error(exc);
+  }
+};
 
 app.use(cors());
 
@@ -44,6 +76,11 @@ app.post('/ojp/', async (req, result) => {
   const xml = req.rawBody;
   const doc = new dom().parseFromString(xml);
   const startTime = new Date().getTime();
+
+  if(config.logrequest==='true') {
+    logrequest(xml);
+  }
+
   const ojpXML = xmlbuilder.create('siri:OJP', {
     encoding: 'utf-8',
   });
