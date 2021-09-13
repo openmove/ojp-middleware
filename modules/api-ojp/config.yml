@@ -4,6 +4,7 @@ environments:
 prod:
   server:
     port: 9091
+    logrequest: ${LOG_REQUEST}
   api-otp:
     host: api-otp
     port: 9092
@@ -21,6 +22,7 @@ prod:
 dev:
   server:
     port: 8081
+    logrequest: true
   api-otp:
     host: localhost
     port: 8082
@@ -35,7 +37,6 @@ dev:
     level: 'debug'
     colorize: false
 
-logrequest: ${LOG_REQUEST}
 
 #enable disable services
 services:
@@ -43,5 +44,5 @@ services:
   OJPLocationInformationRequest: true
   OJPStopEventRequest: true
   OJPTripRequest: true
-  #OJPMultiPointTripRequest: true
   OJPTripInfoRequest: true
+  OJPMultiPointTripRequest: true  

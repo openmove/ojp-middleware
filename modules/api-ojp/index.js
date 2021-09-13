@@ -27,11 +27,11 @@ const dotenv = require('dotenv').config()
       },
     });
 
-console.log(config);
+logger.info(config);
 
 config.logger = logger;
 
-const logrequest = (xml) => {
+const logrequest = (xml, req) => {
   try{
     mongoClient.connect(config.db.uri, {
       useNewUrlParser: true,
@@ -41,18 +41,19 @@ const logrequest = (xml) => {
         logger.error(err);
       }else{
         client
-        .db('ojp')
+        .db(config.db.name)
         .collection('log-requests')
         .insertOne({
           'createdAt': new Date(),
-          'request': xml.split("\n")
+          'request': xml.split("\n"),
+          //'headers': req.headers
         }, function(err, queryres) {
           if (err) {
             logger.error(err);
-          } 
+          }
           client.close();
         });
-      }          
+      }
     });
   }catch (exc){
     logger.error(exc);
@@ -71,14 +72,49 @@ app.get('/ojp/', async (req, result) => {
   });
 });
 
+app.get('/ojp/logs', async (req, getres) => {
+  
+  logger.info(`request GET ${req.url} ${new Date().toISOString()}`);
+
+  const limit = Number(req.query.limit) || 5;
+
+  mongoClient.connect(config.db.uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }, (err, client) => {
+    if (err) throw err;
+
+    client
+        .db(config.db.name)
+        .collection('log-requests')
+    .find({})
+    .sort({'createdAt': -1})
+    .limit(limit)
+    .toArray(function(err, queryres) {
+
+      //getres.json(queryres);
+
+      const resText = queryres.map( row => {
+        return `[${row.createdAt}]\n` +
+                row.request.join("\n")
+      }).join("\n\n----------------\n\n");
+
+      getres.setHeader('content-type', 'text/json');
+      getres.send(resText);
+
+      client.close();
+    });
+  });
+});
+
 app.post('/ojp/', async (req, result) => {
 
   const xml = req.rawBody;
   const doc = new dom().parseFromString(xml);
   const startTime = new Date().getTime();
 
-  if(config.logrequest==='true') {
-    logrequest(xml);
+  if(config.server.logrequest === 'true' || config.server.logrequest === true) {
+    logrequest(xml, req);
   }
 
   const ojpXML = xmlbuilder.create('siri:OJP', {
