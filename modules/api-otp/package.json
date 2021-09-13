@@ -20,6 +20,7 @@
     "graphql-request": "^3.4.0",
     "https": "^1.0.0",
     "moment-timezone": "^0.5.33",
+    "lodash": "4.17.21",
     "pino": "^6.13.0",
     "pino-pretty": "^5.1.2"
   },

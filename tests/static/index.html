@@ -11,6 +11,7 @@
 <h2><a href="https://github.com/openmove/ojp-middleware">OJP/OTP Middleware</a> API tester</h2>
 <select id="xmls">
     <option disabled selected value>select a request...</option>
+    <option>Empty Request</option>
 </select>
 <a href="/list.json">xmls requests example files</a>
 <br><br>
@@ -26,6 +27,24 @@
 <br />
 <textarea id="xml_res" cols="120" rows="22">
 </textarea>
+
+<div id="ojp_logs">
+	<label>API-OJP REQUESTS LOGS: </label>
+	<select id="ojp_logs_limit">
+		<option value="2">last 2</option>
+		<option selected value="5">last 5</option>
+		<option value="10">last 10</option>
+		<option value="50">last 50</option>
+		<option value="100">last 100</option>
+	</select>
+	<div style="float:right">
+		<a  id="logs_refresh" href="#">[refresh]</a> 
+		<a href="" target="_blank">[open]</a>
+	</div>
+	<br />
+	<textarea cols="80" rows="44">
+	</textarea>
+</div>
 </form>
 </div>
 
@@ -57,23 +76,31 @@ $.getJSON('/list.json', function( data ) {
 $("#sendform").submit(function(e){
     e.preventDefault();
     $('#xml_res').text('').addClass('loading');
-    setTimeout(_=>{
+    setTimeout(()=>{
 		$.ajax({
 			url: apiOjpUrl,
 			type: 'POST',
 			data: uncomment($('#xml_req').val()),
 			contentType:"application/xml; charset=utf-8",
-			success: function(data){;
+			success: function(data){
+				//console.log('RETURN',data);
 				$('#xml_res')
-				.scrollTop(0)
-				.text(formatXml(data))
-				.removeClass('loading');
+					.scrollTop(0)
+					.text(formatXml(data))
+					.removeClass('loading');
+				$('#ojp_logs textarea').load(apiOjpUrl+'logs?limit='+$('#ojp_logs_limit').val())
 			}
 		})
 	},300);
 
 	return false;
 });
+
+$('#logs_refresh').on('click', e => {
+	e.preventDefault();
+	$('#ojp_logs textarea').empty().load(apiOjpUrl+'logs?limit='+$('#ojp_logs_limit').val())
+})
+.next('a').attr('href',apiOjpUrl+'logs?format=text')
 </script> 
 
 </body>

@@ -1,13 +1,14 @@
 'use strict';
 
 const express = require('express')
-, app = express()
-, {getStopById, getAllStops, searchByName, searchByBBox, searchByRadius} = require('./stops')
-, {getStopTimesById} = require('./stoptimes')
-, {planTrip} = require('./plan')
-, {getTripsByIdAndDate} = require('./trips')
-, {request} = require('express')
-, pino = require('pino');
+    , app = express()
+    , _ = require('lodash')
+    , {getStopById, getAllStops, searchByName, searchByBBox, searchByRadius} = require('./stops')
+    , {getStopTimesById} = require('./stoptimes')
+    , {planTrip} = require('./plan')
+    , {getTripsByIdAndDate} = require('./trips')
+    , {request} = require('express')
+    , pino = require('pino');
 
 const dotenv = require('dotenv').config()
     , config = require('@stefcud/configyml')
