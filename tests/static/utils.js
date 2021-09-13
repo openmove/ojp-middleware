@@ -1,6 +1,4 @@
 
- 
-
 function formatXml(xmldom='') {
     
     const serializer = new XMLSerializer();

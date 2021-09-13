@@ -33,7 +33,7 @@ logger.info(config);
 
 config.logger = logger;
 
-const logrequest = (xml, req) => {
+const logrequest = (xml, status = 'OK', req) => {
 
   if(config.server.logrequest === 'false' || 
      config.server.logrequest === false) {
@@ -42,6 +42,13 @@ const logrequest = (xml, req) => {
   }
 
   xml = _.isString(xml) && xml.length > 0 ? xml : '';
+
+  const obj = {
+      'createdAt': new Date(),
+      'status': status,      
+      'request': xml.split("\n"),
+      //'headers': req.headers
+    };
 
   try{
     mongoClient.connect(config.db.uri, {
@@ -54,11 +61,7 @@ const logrequest = (xml, req) => {
         client
         .db(config.db.name)
         .collection('log-requests')
-        .insertOne({
-          'createdAt': new Date(),
-          'request': xml.split("\n")
-          //'headers': req.headers
-        }, function(err, queryres) {
+        .insertOne(obj, function(err, queryres) {
           if (err) {
             logger.error(err);
           }
@@ -86,9 +89,7 @@ app.get('/ojp/', async (req, result) => {
   });
 });
 
-app.get('/ojp/logs', async (req, getres) => {
-  
-  logger.info(`request GET ${req.url} ${new Date().toISOString()}`);
+app.get('/logs', async (req, getres) => {
 
   const limit = Number(req.query.limit) || 10;
 
@@ -114,7 +115,7 @@ app.get('/ojp/logs', async (req, getres) => {
       else if(format==='text') {
 
         const resText = queryres.map( row => {
-          return `[${row.createdAt}]\n` +
+          return `[${row.createdAt}]\n\n"${row.status}"\n\n` +
                   row.request.join("\n")
         }).join("\n\n----------------\n\n");
 
@@ -131,18 +132,49 @@ app.post('/ojp/', async (req, result) => {
 
   const xml = req.rawBody;
 
-  logrequest(xml, req);
   let doc;
 
   try {
     doc = new dom({
       errorHandler:{
         warning: e => {console.warn('DOM WARN', e)},
-        error: e => {
-          result.send(e)
-          console.error('DOM ERR', e)
+        error: errorMsg => {
 
-          return
+          const errorCode = errorMsg.replace("\n",' ');
+
+          const ojpErr = xmlbuilder.create('siri:OJP', {encoding: 'utf-8'});
+          ojpErr.att('xmlns:siri', 'http://www.siri.org.uk/siri');
+          ojpErr.att('xmlns:ojp', 'http://www.vdv.de/ojp');
+          ojpErr.att('version', '1.0');
+          const xmlServiceResponse = ojpErr.ele('siri:OJPResponse').ele('siri:ServiceDelivery');
+          
+          const location = xmlbuilder.create('ojp:ERROR');
+          //TODO replace with request name
+
+          location.ele('siri:ResponseTimestamp',  new Date().toISOString());
+          location.ele('siri:Status', false);
+
+          const err = location.ele('siri:ErrorCondition');
+          err.ele('siri:OtherError')
+          err.ele('siri:Description', errorCode);
+          xmlServiceResponse.importXMLBuilder(location);
+          
+
+          const resXml = ojpErr.end({pretty: true});
+          
+          result.set({
+            'Content-Type': 'application/xml',
+            //'Content-Type': 'text/json'
+            'Content-Length': resXml.length
+          });
+
+          result.send(resXml);
+
+          logrequest(xml, errorCode);
+
+          console.error('DOM ERR', errorMsg)
+
+          return false
         }
       }
     }).parseFromString(xml);
@@ -153,6 +185,12 @@ app.post('/ojp/', async (req, result) => {
     
     return;
   }
+
+  if(doc===undefined) {
+    return
+  }
+
+  logrequest(xml,'OK',req);
 
   const startTime = new Date().getTime();
 
@@ -227,18 +265,6 @@ app.post('/ojp/', async (req, result) => {
 
   const resXml = ojpXML.end({pretty: true});
 
-/*  TODO CREAT ERROR OBJ
- const responseTimestamp = new Date().toISOString();
-  const calcTime = (new Date().getTime()) - startTime
-  const location = xmlbuilder.create('ojp:OJPLocationInformationDelivery');
-  location.ele('siri:ResponseTimestamp', responseTimestamp);
-  location.ele('siri:Status', false);
-  location.ele('ojp:CalcTime', calcTime);
-
-  const err = location.ele('siri:ErrorCondition');
-  err.ele('siri:OtherError')
-  err.ele('siri:Description', errorCode);
-*/
   result.set({
     'Content-Type': 'application/xml',
     'Content-Length': resXml.length

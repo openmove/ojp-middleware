@@ -87,7 +87,7 @@ $("#sendform").submit(function(e){
 					.scrollTop(0)
 					.text(formatXml(data))
 					.removeClass('loading');
-				$('#ojp_logs textarea').load(apiOjpUrl+'logs?limit='+$('#ojp_logs_limit').val())
+				$('#ojp_logs textarea').load(apiOjpUrl.replace('ojp','logs')+'?limit='+$('#ojp_logs_limit').val())
 			}
 		})
 	},300);
@@ -97,9 +97,9 @@ $("#sendform").submit(function(e){
 
 $('#logs_refresh').on('click', e => {
 	e.preventDefault();
-	$('#ojp_logs textarea').empty().load(apiOjpUrl+'logs?limit='+$('#ojp_logs_limit').val())
+	$('#ojp_logs textarea').empty().load(apiOjpUrl.replace('ojp','logs')+'?limit='+$('#ojp_logs_limit').val())
 })
-.next('a').attr('href',apiOjpUrl+'logs?format=text')
+.next('a').attr('href',apiOjpUrl.replace('ojp','logs')+'?format=text')
 </script> 
 
 </body>
