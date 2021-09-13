@@ -65,7 +65,7 @@ module.exports = {
     
     const {logger} = config;
     
-    try{
+    try {
 
       const ptModes = queryTags(doc, [
         'ojp:OJPLocationInformationRequest',

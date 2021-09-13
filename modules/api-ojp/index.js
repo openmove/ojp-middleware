@@ -227,6 +227,18 @@ app.post('/ojp/', async (req, result) => {
 
   const resXml = ojpXML.end({pretty: true});
 
+/*  TODO CREAT ERROR OBJ
+ const responseTimestamp = new Date().toISOString();
+  const calcTime = (new Date().getTime()) - startTime
+  const location = xmlbuilder.create('ojp:OJPLocationInformationDelivery');
+  location.ele('siri:ResponseTimestamp', responseTimestamp);
+  location.ele('siri:Status', false);
+  location.ele('ojp:CalcTime', calcTime);
+
+  const err = location.ele('siri:ErrorCondition');
+  err.ele('siri:OtherError')
+  err.ele('siri:Description', errorCode);
+*/
   result.set({
     'Content-Type': 'application/xml',
     'Content-Length': resXml.length

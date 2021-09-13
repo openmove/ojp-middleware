@@ -21,6 +21,7 @@ const dotenv = require('dotenv').config()
         messageFormat: `{msg}`
       },
     });
+
 config.logger = logger;
 
 app.use(express.json())
@@ -28,8 +29,6 @@ app.use(express.json())
 /**
  * OJPLocationInformationRequest
  */
-
-
 app.get('/stops/:id?', async (req, result) => {
 
   console.log('STOPS/', req.params, req.query)

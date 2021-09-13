@@ -1,12 +1,36 @@
 
 # OJP Middleware Documentation
 
-## OJP Passive System Architecture
+## Modules
 
-![macro](images/OJP_Architecture_macro.png)
+all modules are single npm packages some are dependent on each other
 
-## Microservices Architecture
-![detail](images/OJP_Architecture_detail.png)
+- api-ojp
+- api-otp
+- ep-manager
+- utils
+
+[learn more](modules.md)
+
+## Services
+
+some of modules implement a Docker service running in individual container 
+and associated with a specific port to an Api REST interface.
+
+*docker-compose.yml* this sets up the infrastructure to make these services interact
+
+- api-ojp
+- api-otp
+- ep-manager
+
+[learn more](services.md)
+
+## Config
+
+each module of project contains a single *config.yml* file it define contains service configurations
+
+[learn more](config.md)
+
 
 ## Structure
 
@@ -18,7 +42,6 @@ Common structure for modules and services is:
 and for services is:
 - Dockerfile
 - env.example(renamed to .env in dev environment)
-
 
 The basic structure of code:
 ```
@@ -58,36 +81,6 @@ The basic structure of code:
 ├── docker-compose.yml
 └── package.json
 ```
-
-## Modules
-
-all modules are single npm packages some are dependent on each other
-
-- api-ojp
-- api-otp
-- ep-manager
-- utils
-
-[learn more](modules.md)
-
-## Services
-
-some of modules implement a Docker service running in individual container 
-and associated with a specific port to an Api REST interface.
-
-*docker-compose.yml* this sets up the infrastructure to make these services interact
-
-- api-ojp
-- api-otp
-- ep-manager
-
-[learn more](services.md)
-
-## Config
-
-each module of project contains a single *config.yml* file it define contains service configurations
-
-[learn more](config.md)
 
 ## References
 

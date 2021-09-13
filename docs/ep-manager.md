@@ -34,4 +34,8 @@ npm run dev
 CSV_VERSION=10 node import.js
 ```
 
-CSV_VERSION is directory inside csvs default is version param inside config.yml
+### environment
+
+```CSV_VERSION``` is directory inside csvs default is version param inside config.yml
+```IMPORT``` 	enable auto import of csv into database at startup
+
