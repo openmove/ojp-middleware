@@ -33,7 +33,6 @@ logger.info(config);
 
 var pkg = require('./package.json');
 
-config.version = pkg.version;
 config.logger = logger;
 
 const logrequest = (xml, status = 'OK', req) => {
