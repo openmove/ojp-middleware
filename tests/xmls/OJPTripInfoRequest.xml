@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OJP xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.siri.org.uk/siri" version="1.0" xmlns:ojp="http://www.vdv.de/ojp" xsi:schemaLocation="http://www.siri.org.uk/siri ../ojp-xsd-v1.0/OJP.xsd">
-    <OJPRequest>
-        <ServiceRequest>
-            <RequestTimestamp>2021-07-30T14:15:11.075Z</RequestTimestamp>
-            <RequestorRef>API-Explorer</RequestorRef>
-            <ojp:OJPTripInfoRequest>
-                <RequestTimestamp>2021-07-30T14:15:11.075Z</RequestTimestamp>
-                <ojp:JourneyRef>9:8c9b7cb6-1b4f-4d4f-abfe-b4d78e983418</ojp:JourneyRef>
-                <ojp:OperatingDayRef>2021-07-30</ojp:OperatingDayRef>
-                <ojp:Params>
-                    <ojp:IncludeCalls>true</ojp:IncludeCalls>
-                    <ojp:IncludeService>true</ojp:IncludeService>
-                </ojp:Params>
-            </ojp:OJPTripInfoRequest>
-        </ServiceRequest>
-    </OJPRequest>
+  <OJPRequest>
+    <ServiceRequest>
+      <RequestTimestamp>2021-07-30T14:15:11.075Z</RequestTimestamp>
+      <RequestorRef>API-Explorer</RequestorRef>
+      <ojp:OJPTripInfoRequest>
+        <RequestTimestamp>2021-07-30T14:15:11.075Z</RequestTimestamp>
+        <ojp:JourneyRef>9:8c9b7cb6-1b4f-4d4f-abfe-b4d78e983418</ojp:JourneyRef>
+        <ojp:OperatingDayRef>2021-07-30</ojp:OperatingDayRef>
+        <ojp:Params>
+          <ojp:IncludeCalls>true</ojp:IncludeCalls>
+          <ojp:IncludeService>true</ojp:IncludeService>
+        </ojp:Params>
+      </ojp:OJPTripInfoRequest>
+    </ServiceRequest>
+  </OJPRequest>
 </OJP>

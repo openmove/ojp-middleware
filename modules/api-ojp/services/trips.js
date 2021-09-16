@@ -1,8 +1,9 @@
-const xmlbuilder = require('xmlbuilder')
-, moment = require('moment-timezone')
-, { v4: uuidv4 } = require('uuid')
-, { time } = require('console')
-, mongoClient = require("mongodb").MongoClient
+const xmlbuilder = require('xmlbuilder');
+const qstr = require('querystring');
+const moment = require('moment-timezone');
+const { v4: uuidv4 } = require('uuid');
+const { time } = require('console');
+const mongoClient = require("mongodb").MongoClient;
 
 const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {doRequest} = require('../lib/request');
@@ -199,7 +200,9 @@ const createTripErrorResponse = (errorCode, startTime) => {
 
 module.exports = {
   'tripsExecution' : async (doc, startTime, config) => {
+    
     const {logger} = config;
+
     try{
       if(
         queryNodes(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Origin']/*[name()='ojp:PlaceRef']").length > 0

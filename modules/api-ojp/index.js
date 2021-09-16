@@ -105,8 +105,8 @@ app.get('/ojp/logs', async (req, getres) => {
     if (err) throw err;
 
     client
-        .db(config.db.name)
-        .collection('log-requests')
+    .db(config.db.name)
+    .collection('log-requests')
     .find({})
     .sort({'createdAt': -1})
     .limit(limit)

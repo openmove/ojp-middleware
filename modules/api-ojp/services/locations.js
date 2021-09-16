@@ -1,4 +1,5 @@
 const xmlbuilder = require('xmlbuilder');
+const qstr = require('querystring');
 
 const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {doRequest} = require('../lib/request');
@@ -87,7 +88,7 @@ module.exports = {
 
       let limit = limitRestrictions || limitParams || 5;
 
-      if(queryNodes(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:PlaceRef']").length > 0){
+      if(queryNodes(doc, ['ojp:OJPLocationInformationRequest','ojp:PlaceRef']).length > 0) {
 
         const stopName = queryTags(doc, [
           'ojp:OJPLocationInformationRequest',
@@ -116,17 +117,14 @@ module.exports = {
 
         return createLocationResponse(response.stops, startTime, ptModes === 'true');
       }
-      else if(queryNodes(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:InitialInput']").length > 0){
+      else if(queryNodes(doc, ['ojp:OJPLocationInformationRequest','ojp:InitialInput']).length > 0){
 
-        const locationName = queryTags(doc, [
+        const LocationName = queryTags(doc, [
           'ojp:OJPLocationInformationRequest',
           'ojp:InitialInput',
           'ojp:LocationName'
         ]);
 
-        //const locationPositionLat = queryText(doc, "//*[name()=]/*[name()=]/*[name()=]/*[name()=Latitude]"); 
-        //const locationPositionLon = queryText(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:InitialInput']/*[name()='ojp:GeoPosition']/*[name()=Longitude]"); 
-        
         const locationPositionLat = queryTags(doc, [
           'ojp:OJPLocationInformationRequest',
           'ojp:InitialInput',
@@ -143,7 +141,7 @@ module.exports = {
 
         let data = null;
         const params = {
-          value: locationName,
+          value: LocationName,
           position: [locationPositionLon, locationPositionLat],
           limit: limit
         };
@@ -182,7 +180,7 @@ module.exports = {
           }
         }
 
-        if(locationName != null || (locationPositionLat != null && locationPositionLon != null) ){
+        if(LocationName != null || (locationPositionLat != null && locationPositionLon != null) ){
           data = JSON.stringify(params);
         }
 

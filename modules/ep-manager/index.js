@@ -49,7 +49,8 @@ app.get('/', async (req, getres) => {
     .db('ojp')
     .collection(config.db.collection)
     .find({})
-    .limit( Number(req.query.limit) )
+    .skip( Number(req.query.skip) || 0 )
+    .limit( Number(req.query.limit) || 0 )
     .toArray(function(err, queryres) {
       if (err) {
         getres.send(err);
@@ -83,7 +84,8 @@ app.get('/searchByName/:name', async (req, getres) => {
     .find({
       'Name': new RegExp(req.params.name, "i")
     })
-    .limit( Number(req.query.limit) )
+    .skip( Number(req.query.skip) || 0 )
+    .limit( Number(req.query.limit) || 0 )
     .toArray(function(err, queryres) {
       if (err) {
         getres.send(err);

@@ -1,8 +1,9 @@
-const xmlbuilder = require('xmlbuilder')
-, mongoClient = require("mongodb").MongoClient
-, {queryNode, queryNodes, queryText, queryTags} = require('../lib/query')
-, {doRequest} = require('../lib/request')
-, moment = require('moment-timezone');
+const xmlbuilder = require('xmlbuilder');
+const qstr = require('querystring');
+const mongoClient = require("mongodb").MongoClient;
+const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
+const {doRequest} = require('../lib/request');
+const moment = require('moment-timezone');
 
 const createTripInfoResponse = (trip, date, startTime) => {
   const responseTimestamp = new Date().toISOString();
@@ -119,7 +120,9 @@ const createTripInfoErrorResponse = (errorCode, startTime) => {
 //TODO
 module.exports = {
 	'tripInfoExecution' : async (doc, startTime, config) => {
+		
 		const {logger} = config;
+
     try {
 			if(
         queryNodes(doc, "//*[name()='ojp:OJPTripInfoRequest']/*[name()='ojp:JourneyRef']").length > 0

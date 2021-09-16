@@ -8,7 +8,7 @@
 			<ojp:OJPExchangePointsRequest>
 				<siri:RequestTimestamp>2021-04-21T15:20:35Z</siri:RequestTimestamp>
 				<ojp:Params>
-					<ojp:NumberOfResults>500</ojp:NumberOfResults>
+					<ojp:NumberOfResults>5</ojp:NumberOfResults>
 					<ojp:ContinueAt>0</ojp:ContinueAt>
 				</ojp:Params>
 			</ojp:OJPExchangePointsRequest>

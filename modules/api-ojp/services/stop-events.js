@@ -1,6 +1,7 @@
-const xmlbuilder = require('xmlbuilder')
-, moment = require('moment-timezone')
-, { v4: uuidv4 } = require('uuid');
+const xmlbuilder = require('xmlbuilder');
+const qstr = require('querystring');
+const moment = require('moment-timezone');
+const { v4: uuidv4 } = require('uuid');
 
 const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {doRequest} = require('../lib/request');
@@ -96,7 +97,9 @@ const createEventErrorResponse = (errorCode, startTime) => {
 
 module.exports = {
   'eventExecution' : async (doc, startTime, config) => {
+    
     const {logger} = config;
+
     try{
       if(queryNodes(doc, "//*[name()='ojp:OJPStopEventRequest']/*[name()='ojp:Location']/*[name()='ojp:PlaceRef']").length > 0){
         const text = queryText(doc, "//*[name()='ojp:OJPStopEventRequest']/*[name()='ojp:Location']/*[name()='ojp:PlaceRef']/*[name()='ojp:StopPlaceRef']"); 
