@@ -1,5 +1,6 @@
 const xmlbuilder = require('xmlbuilder');
 const qstr = require('querystring');
+const _ = require('lodash');
 const moment = require('moment-timezone');
 const { v4: uuidv4 } = require('uuid');
 const { time } = require('console');
@@ -200,6 +201,8 @@ const createTripErrorResponse = (errorCode, startTime) => {
 
 module.exports = {
   'tripsExecution' : async (doc, startTime, config) => {
+
+    const serviceTag = 'ojp:OJPTripRequest';   //replace
     
     const {logger} = config;
 

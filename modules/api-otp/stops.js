@@ -12,7 +12,7 @@ module.exports = {
     const clientQL = new GraphQLClient(endpoint, { headers: config.otp.headers });
     let filter = `stops (ids : ["${stopId}"])`;
     if(!stopId) {
-      filter = `stops (maxResults: ${extra.limit || 10})`;
+      filter = `stops (maxResults: ${extra.limit || config.default_max_results})`;
     }
     const query = gql`
                 {${filter} {
@@ -52,9 +52,11 @@ module.exports = {
     const endpoint = `https://${options.host}${options.path}`;
     const clientQL = new GraphQLClient(endpoint, { headers: config.otp.headers });
     
+    const maxResults = extra.limit || config.default_max_results;
+
     const query = gql`
                 {
-                stops (maxResults: ${extra.limit}) {
+                stops (maxResults: ${maxResults}) {
                   gtfsId
                   name
                   code
@@ -97,7 +99,7 @@ module.exports = {
     
     const query = gql`
                 {
-                stopsByName (name: "${name}", maxResults: ${extra.limit || 10}) {
+                stopsByName (name: "${name}", maxResults: ${extra.limit || config.default_max_results}) {
                   gtfsId
                   name
                   code

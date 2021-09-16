@@ -1,5 +1,6 @@
 const xmlbuilder = require('xmlbuilder');
 const qstr = require('querystring');
+const _ = require('lodash');
 
 const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {doRequest} = require('../lib/request');
@@ -67,37 +68,39 @@ const createExchangePointsErrorResponse = (errorCode, startTime) => {
 
 module.exports = {
   'exchangePointsExecution' : async (doc, startTime, config) => {
+    
+    const serviceTag = 'ojp:OJPExchangePointsRequest';
 
     const {logger} = config;
     
     try{
       
       const ptModes = queryTags(doc, [
-        'ojp:OJPExchangePointsRequest',
+        serviceTag,
         'ojp:Restrictions',
         'ojp:IncludePtModes'
       ]);
 
       let limitRestrictions = queryTags(doc, [
-        'ojp:OJPExchangePointsRequest',
+        serviceTag,
         'ojp:Restrictions',
         'ojp:NumberOfResults'
       ]);
 
       let limitParams = queryTags(doc, [
-        'ojp:OJPExchangePointsRequest',
+        serviceTag,
         'ojp:Params',
         'ojp:NumberOfResults'
       ]);
 
       let skipRestrictions = queryTags(doc, [
-        'ojp:OJPExchangePointsRequest',
+        serviceTag,
         'ojp:Restrictions',
         'ojp:ContinueAt'
       ]);
 
       let skipParams = queryTags(doc, [
-        'ojp:OJPExchangePointsRequest',
+        serviceTag,
         'ojp:Params',
         'ojp:ContinueAt'
       ]);
@@ -108,20 +111,20 @@ module.exports = {
 
       logger.debug('limit',limit, 'ptModes', ptModes);
 
-      if(queryNodes(doc, ['ojp:OJPExchangePointsRequest','ojp:PlaceRef']).length > 0){
+      if(queryNodes(doc, [serviceTag, 'ojp:PlaceRef']).length > 0) {
 
         const stopId = queryTags(doc, [
-          'ojp:OJPExchangePointsRequest',
+          serviceTag,
           'ojp:PlaceRef',
           'ojp:StopPlaceRef'
         ]);
         const pointId = queryTags(doc, [
-          'ojp:OJPExchangePointsRequest',
+          serviceTag,
           'ojp:PlaceRef',
           'ojp:StopPointRef'
         ]);
         const LocationName = queryTags(doc, [
-          'ojp:OJPExchangePointsRequest',
+          serviceTag,
           'ojp:PlaceRef',
           'ojp:LocationName',
           'ojp:Text'
@@ -137,30 +140,30 @@ module.exports = {
           path = `/searchByNetexId/${pointId}`;
         }
       }
-      else if(queryNodes(doc, ['ojp:OJPExchangePointsRequest','ojp:InitialInput']).length > 0) {
+      else if(queryNodes(doc, [serviceTag, 'ojp:InitialInput']).length > 0) {
 
         const LocationName = queryTags(doc, [
-          'ojp:OJPExchangePointsRequest',
+          serviceTag,
           'ojp:InitialInput',
           'ojp:LocationName'
         ]);
 
         const locationPositionLat = queryTags(doc, [
-          'ojp:OJPExchangePointsRequest',
+          serviceTag,
           'ojp:InitialInput',
           'ojp:GeoPosition',
           'Latitude'
         ]);
         
         const locationPositionLon = queryTags(doc, [
-          'ojp:OJPExchangePointsRequest',
+          serviceTag,
           'ojp:InitialInput',
           'ojp:GeoPosition',
           'Longitude'
         ]);
         
         const geoRestriction = queryNode(doc, [
-          'ojp:OJPExchangePointsRequest',
+          serviceTag,
           'ojp:InitialInput',
           'ojp:GeoRestriction'
         ]);
@@ -169,8 +172,8 @@ module.exports = {
           
           logger.debug('GeoRestriction',geoRestriction);
 
-          /* TODO const rect = queryNode(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:InitialInput']/*[name()='ojp:GeoRestriction']/*[name()='ojp:Rectangle']");
-            const circle = queryNode(doc, "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:InitialInput']/*[name()='ojp:GeoRestriction']/*[name()='ojp:Circle']");
+          /* TODO const rect = queryNode(doc, "//*[name()=serviceTag]/*[name()='ojp:InitialInput']/*[name()='ojp:GeoRestriction']/*[name()='ojp:Rectangle']");
+            const circle = queryNode(doc, "//*[name()=serviceTag]/*[name()='ojp:InitialInput']/*[name()='ojp:GeoRestriction']/*[name()='ojp:Circle']");
             
             let data = null;
             const params = {
@@ -180,7 +183,7 @@ module.exports = {
             };
 
             if(rect){
-              const path = "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:InitialInput']/*[name()='ojp:GeoRestriction']/*[name()='ojp:Rectangle']"
+              const path = "//*[name()=serviceTag]/*[name()='ojp:InitialInput']/*[name()='ojp:GeoRestriction']/*[name()='ojp:Rectangle']"
               const upperLat = queryText(doc, path+"/*[name()='ojp:UpperLeft']/*[name()=Latitude]");
               const upperLon = queryText(doc, path+"/*[name()='ojp:UpperLeft']/*[name()=Logitude]");
 
@@ -193,7 +196,7 @@ module.exports = {
               params.restrictionValue= [[upperLon, upperLat],[lowerLon, lowerLat]];
 
             }else if(circle){
-              const path = "//*[name()='ojp:OJPExchangePointsRequest']/*[name()='ojp:InitialInput']/*[name()='ojp:GeoRestriction']/*[name()='ojp:Circle']"
+              const path = "//*[name()=serviceTag]/*[name()='ojp:InitialInput']/*[name()='ojp:GeoRestriction']/*[name()='ojp:Circle']"
               const centerLat = queryText(doc, path+"/*[name()='ojp:Center']/*[name()=Latitude]");
               const centerLon = queryText(doc, path+"/*[name()='ojp:Center']/*[name()=Logitude]");
 
@@ -215,7 +218,7 @@ module.exports = {
           path = '/';
         }
       }
-      else if(queryNodes(doc, ['ojp:OJPExchangePointsRequest']).length > 0) {
+      else if(queryNodes(doc, [serviceTag]).length > 0) {
         path = '/';  //return all points
       }
       else {

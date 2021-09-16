@@ -1,5 +1,6 @@
 const xmlbuilder = require('xmlbuilder');
 const qstr = require('querystring');
+const _ = require('lodash');
 
 const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {doRequest} = require('../lib/request');
@@ -64,40 +65,55 @@ const createLocationErrorResponse = (errorCode, startTime) => {
 module.exports = {
   'locationExecution' : async (doc, startTime, config) => {
     
+    const serviceTag = 'ojp:OJPLocationInformationRequest';
+
     const {logger} = config;
     
     try {
 
       const ptModes = queryTags(doc, [
-        'ojp:OJPLocationInformationRequest',
+        serviceTag,
         'ojp:Restrictions',
         'ojp:IncludePtModes'
       ]);
 
       let limitRestrictions = queryTags(doc, [
-        'ojp:OJPLocationInformationRequest',
+        serviceTag,
         'ojp:Restrictions',
         'ojp:NumberOfResults'
       ]);
 
       let limitParams = queryTags(doc, [
-        'ojp:OJPLocationInformationRequest',
+        serviceTag,
         'ojp:Params',
         'ojp:NumberOfResults'
       ]);
 
-      let limit = limitRestrictions || limitParams || 5;
+      let skipRestrictions = queryTags(doc, [
+        serviceTag,
+        'ojp:Restrictions',
+        'ojp:ContinueAt'
+      ]);
 
-      if(queryNodes(doc, ['ojp:OJPLocationInformationRequest','ojp:PlaceRef']).length > 0) {
+      let skipParams = queryTags(doc, [
+        serviceTag,
+        'ojp:Params',
+        'ojp:ContinueAt'
+      ]);
+
+      let limit = Number(limitRestrictions || limitParams) || 0
+        , skip = Number(skipRestrictions || skipParams) || 0
+
+      if(queryNodes(doc, [serviceTag,'ojp:PlaceRef']).length > 0) {
 
         const stopName = queryTags(doc, [
-          'ojp:OJPLocationInformationRequest',
+          serviceTag,
           'ojp:PlaceRef',
           'ojp:StopPlaceRef'
         ]);
 
         const locationName = queryTags(doc, [
-          'ojp:OJPLocationInformationRequest',
+          serviceTag,
           'ojp:PlaceRef',
           'ojp:LocationName',
           'ojp:Text'
@@ -105,48 +121,53 @@ module.exports = {
 
         const text = stopName || locationName || '';
 
-        const options = {
-          host: config['api-otp'].host,
-          port: config['api-otp'].port,
-          path: `/stops/${text}?limit=${limit}`, //limit is not necessary in this case because we are looking for an ID.          
-          method: 'GET',
-          json: true
-        };
+        const querystr = qstr.stringify({limit/*, skip*/})
+            , options = {
+              host: config['api-otp'].host,
+              port: config['api-otp'].port,
+              path: `/stops/${text}?${querystr}`, //limit is not necessary in this case because we are looking for an ID.          
+              method: 'GET',
+              json: true
+            };
         
         const response = await doRequest(options);
 
         return createLocationResponse(response.stops, startTime, ptModes === 'true');
       }
-      else if(queryNodes(doc, ['ojp:OJPLocationInformationRequest','ojp:InitialInput']).length > 0){
+      else if(queryNodes(doc, [serviceTag, 'ojp:InitialInput']).length > 0) {
 
         const LocationName = queryTags(doc, [
-          'ojp:OJPLocationInformationRequest',
+          serviceTag,
           'ojp:InitialInput',
           'ojp:LocationName'
         ]);
 
         const locationPositionLat = queryTags(doc, [
-          'ojp:OJPLocationInformationRequest',
+          serviceTag,
           'ojp:InitialInput',
           'ojp:GeoPosition',
           'Latitude'
         ]);
         
         const locationPositionLon = queryTags(doc, [
-          'ojp:OJPLocationInformationRequest',
+          serviceTag,
           'ojp:InitialInput',
           'ojp:GeoPosition',
           'Longitude'
         ]);
 
-        let data = null;
         const params = {
           value: LocationName,
-          position: [locationPositionLon, locationPositionLat],
           limit: limit
         };
         
-        const restriction = queryNode(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:InitialInput']/*[name()='ojp:GeoRestriction']");
+        let json = JSON.stringify(params);
+
+        const restriction = queryNode(doc, [
+          serviceTag,
+          'ojp:InitialInput',
+          'ojp:GeoRestriction'
+        ]);
   
         if(restriction){
           const rect = queryNode(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:InitialInput']/*[name()='ojp:GeoRestriction']/*[name()='ojp:Rectangle']");
@@ -180,8 +201,11 @@ module.exports = {
           }
         }
 
-        if(LocationName != null || (locationPositionLat != null && locationPositionLon != null) ){
-          data = JSON.stringify(params);
+        if(locationPositionLat != null && locationPositionLon != null){
+          
+          params.position = [locationPositionLon, locationPositionLat];
+
+          json = JSON.stringify(params);
         }
 
         const options = {
@@ -192,14 +216,19 @@ module.exports = {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Content-Length': data.length,
+            'Content-Length': json.length,
           }
         }
-        const response = await doRequest(options, data);
+        const response = await doRequest(options, json);
 
-        logger.info(response)
-        return createLocationResponse(response.stops, startTime, ptModes === 'true');
-      }else{
+        const stops = _.slice(response.stops, skip, limit);
+
+        console.log('POST PARAMS',params, json)
+
+        //logger.info(response)
+        return createLocationResponse(stops, startTime, ptModes === 'true');
+      }
+      else{
         return createLocationErrorResponse('E0001', startTime);
       }
     }catch(err){

@@ -35,7 +35,7 @@ app.get('/stops/:id?', async (req, result) => {
   //search a stop by id in PlaceRef
   //if id is undefined return all stops
   const extra = {
-    'limit': Number(req.query.limit)
+    'limit': Number(req.query.limit) || 0
   };
 
   let res = {stops: []};
@@ -63,17 +63,15 @@ app.post('/search/', async (req, result) => {
    * }
    */
   const params = req.body;
-  
-  logger.debug('/search',params);
 
   const extra = {
-    'limit': params.limit,
+    'limit': Number(params.limit) || 0,
     'arriveBy': params.arriveBy || false
   };
   
   let res = {stops: []};
 
-  if(params.value != null) {
+  if(!_.isEmpty(params.value)) {
 
     if(params.restrictionType && params.restrictionValue){
       const resTmp = {stops: []};
@@ -99,8 +97,8 @@ app.post('/search/', async (req, result) => {
       res = await searchByName(config, params.value, extra);
     }
   }
-  //TODO
-  else if(params.position && params.position.length == 2){ //search at specific position (tricky: radius 1 meter)
+  else if(params.position && params.position.length == 2){
+    //search at specific position (tricky: radius 1 meter)
     res = await searchByRadius(config, [...params.position,1], extra);
   }
   else
@@ -108,7 +106,6 @@ app.post('/search/', async (req, result) => {
     res = await getAllStops(config, extra);
   }
 
-  logger.debug(res);
   result.json(res);
 });
 
@@ -119,7 +116,7 @@ app.post('/search/', async (req, result) => {
 app.get('/stops/:id/details', async (req, result) => {
   //return stoptimes and other schedule details for stop
   const extra = {
-    'limit': req.query.limit || 10,
+    'limit': req.query.limit || 0,
     'start': req.query.start || new Date().getTime()
   };
   const res = await getStopTimesById(config, req.params.id, extra);

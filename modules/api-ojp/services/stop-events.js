@@ -1,5 +1,6 @@
 const xmlbuilder = require('xmlbuilder');
 const qstr = require('querystring');
+const _ = require('lodash');
 const moment = require('moment-timezone');
 const { v4: uuidv4 } = require('uuid');
 
@@ -98,6 +99,8 @@ const createEventErrorResponse = (errorCode, startTime) => {
 module.exports = {
   'eventExecution' : async (doc, startTime, config) => {
     
+    const serviceTag = 'ojp:OJPStopEventRequest';   //replace
+
     const {logger} = config;
 
     try{

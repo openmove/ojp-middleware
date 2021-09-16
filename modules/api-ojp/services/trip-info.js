@@ -1,5 +1,6 @@
 const xmlbuilder = require('xmlbuilder');
 const qstr = require('querystring');
+const _ = require('lodash');
 const mongoClient = require("mongodb").MongoClient;
 const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {doRequest} = require('../lib/request');
@@ -120,6 +121,8 @@ const createTripInfoErrorResponse = (errorCode, startTime) => {
 //TODO
 module.exports = {
 	'tripInfoExecution' : async (doc, startTime, config) => {
+
+		const serviceTag = 'ojp:OJPTripInfoRequest';   //replace
 		
 		const {logger} = config;
 
