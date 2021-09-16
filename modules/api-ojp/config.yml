@@ -45,4 +45,4 @@ services:
   OJPStopEventRequest: true
   OJPTripRequest: true
   OJPTripInfoRequest: true
-  OJPMultiPointTripRequest: true  
+  OJPMultiPointTripRequest: false  

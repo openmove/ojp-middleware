@@ -31,6 +31,9 @@ const dotenv = require('dotenv').config()
 
 logger.info(config);
 
+var pkg = require('./package.json');
+
+config.version = pkg.version;
 config.logger = logger;
 
 const logrequest = (xml, status = 'OK', req) => {
@@ -84,8 +87,9 @@ app.use(xmlparser());
 app.get('/ojp/', async (req, result) => {
   result.send({
     status: 'OK',
-    description: 'send POST data to /ojp/',
-    services: config.services
+    version: pkg.version,    
+    description: 'POST XML OJP requests to /ojp',
+    services: config.services,
   });
 });
 

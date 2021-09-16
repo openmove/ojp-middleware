@@ -1,6 +1,6 @@
 {
   "name": "api-ojp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "OJP entrypoint",
   "main": "index.js",
   "scripts": {
