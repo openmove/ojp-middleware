@@ -10,9 +10,18 @@ console.log(config);
 
 app.use('/', express.static('static', {
   etag: false,
-  maxAge: '1000'
+  maxAge: '1000',
+  setHeaders: function(res, path) {
+    res.set('cache-control', 'no-cache')
+  }
 }));
-app.use('/xmls', express.static('xmls'));
+app.use('/xmls', express.static('xmls', {
+  etag: false,
+  maxAge: '1000',
+  setHeaders: function(res, path) {
+    res.set('cache-control', 'no-cache')
+  }
+}));
 
 app.use(express.json());
 

@@ -8,7 +8,7 @@
 
 <body>
 <div id="content">
-<h2><a href="https://github.com/openmove/ojp-middleware">OJP/OTP Middleware</a> API tester</h2>
+<h2>OJP-OTP Middleware API tester <a class="github" href="https://github.com/openmove/ojp-middleware"><span></span></a></h2>
 <select id="xmls">
     <option disabled selected value>select a request...</option>
 </select>
@@ -17,14 +17,14 @@
 <label>REQUEST OJP:</label>
 <br>
 <form id="sendform">
-<textarea id="xml_req" type="text" contenteditable="true" cols="120" rows="22"> 
+<textarea id="xml_req" cols="100" rows="22" type="text" contenteditable="true"> 
 </textarea>
 <br />
 <input type="submit" name="SEND REQUEST">
 <br /><br />
 <label>RESPONSE OJP:</label>
 <br />
-<textarea id="xml_res" cols="120" rows="22">
+<textarea id="xml_res" cols="100" rows="22">
 </textarea>
 
 <div id="ojp_logs">
@@ -36,9 +36,9 @@
 		<option value="50">last 50</option>
 		<option value="100">last 100</option>
 	</select>
-	<div style="float:right">
-		<a  id="logs_refresh" href="#">[refresh]</a> 
-		<a href="" target="_blank">[open]</a>
+	<div style="float:right;">
+		<a id="logs_refresh" class="btn" href="#">refresh</a> 
+		<a class="btn" href="" target="_blank">open</a>
 	</div>
 	<br />
 	<textarea cols="80" rows="44">
@@ -53,9 +53,9 @@
 <script>
 const {host, port} = window.config['api-ojp'];
 
-const apiOjpUrl = `${location.protocol}//${host}:${port}/ojp/`;
-
-const $list = $('#xmls');
+const apiOjpUrl = `${location.protocol}//${host}:${port}/ojp`
+	, apiOjpUrlLogs = `${apiOjpUrl}/logs`
+	, $list = $('#xmls');
 
 $.getJSON('/list.json', function( data ) {
     $.each( data, function( key, val ) {
@@ -87,7 +87,7 @@ $("#sendform").submit(function(e){
 					.scrollTop(0)
 					.text(formatXml(data))
 					.removeClass('loading');
-				$('#ojp_logs textarea').load(apiOjpUrl.replace('ojp','logs')+'?limit='+$('#ojp_logs_limit').val())
+				$('#ojp_logs textarea').load(apiOjpUrlLogs+'?limit='+$('#ojp_logs_limit').val())
 			}
 		})
 	},300);
@@ -97,9 +97,9 @@ $("#sendform").submit(function(e){
 
 $('#logs_refresh').on('click', e => {
 	e.preventDefault();
-	$('#ojp_logs textarea').empty().load(apiOjpUrl.replace('ojp','logs')+'?limit='+$('#ojp_logs_limit').val())
+	$('#ojp_logs textarea').empty().load(apiOjpUrlLogs+'?limit='+$('#ojp_logs_limit').val())
 })
-.next('a').attr('href',apiOjpUrl.replace('ojp','logs')+'?format=text')
+.next('a').attr('href',apiOjpUrlLogs+'?format=text');
 </script> 
 
 </body>

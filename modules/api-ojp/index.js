@@ -89,7 +89,7 @@ app.get('/ojp/', async (req, result) => {
   });
 });
 
-app.get('/logs', async (req, getres) => {
+app.get('/ojp/logs', async (req, getres) => {
 
   const limit = Number(req.query.limit) || 10;
 
