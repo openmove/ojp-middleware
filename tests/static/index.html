@@ -65,7 +65,7 @@ $.getJSON(apiOjpUrl, json => {
     	$('#ojp_version').text(`API service version: ${data.version}`).removeClass('loading');
 	},1000,json);
 }).catch(err => {
-	$('#ojp_version').text(`API service offline: ${err}`).removeClass('loading');
+	$('#ojp_version').text(`API service offline!`).removeClass('loading');
 })
 
 $.getJSON('/list.json', data => {
