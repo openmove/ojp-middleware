@@ -31,6 +31,8 @@ label {
 	max-width: 40%;
 }
 #ojp_version {
-	min-height: 20px;
-	min-width: 100px;
+	display: inline-block;
+	min-height: 10px;
+	min-width: 80px;
+	text-align: right;
 }

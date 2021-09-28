@@ -16,35 +16,35 @@
 <a href="/list.json">xmls requests example files</a>
 <br><br>
 <form id="sendform">
-<label>REQUEST OJP:</label> <small style="float:right;" id="ojp_version"></small>
-<br />
-<textarea id="xml_req" cols="100" rows="22" type="text" contenteditable="true"> 
-</textarea>
-<br />
-<input type="submit" name="SEND REQUEST">
-<br /><br />
-<label>RESPONSE OJP:</label>
-<br />
-<textarea id="xml_res" cols="100" rows="22">
-</textarea>
-
-<div id="ojp_logs">
-	<label>API-OJP REQUESTS LOGS: </label>
-	<select id="ojp_logs_limit">
-		<option value="2">last 2</option>
-		<option selected value="5">last 5</option>
-		<option value="10">last 10</option>
-		<option value="50">last 50</option>
-		<option value="100">last 100</option>
-	</select>
-	<div style="float:right;">
-		<a id="logs_refresh" class="btn" href="#">refresh</a> 
-		<a class="btn" href="" target="_blank">open</a>
-	</div>
+	<label>REQUEST OJP:</label> <small style="float:right;">API endpoint <a id="ojp_version"></a></small>
 	<br />
-	<textarea cols="80" rows="44">
+	<textarea id="xml_req" cols="100" rows="22" type="text" contenteditable="true"> 
 	</textarea>
-</div>
+	<br />
+	<input type="submit" name="SEND REQUEST">
+	<br /><br />
+	<label>RESPONSE OJP:</label>
+	<br />
+	<textarea id="xml_res" cols="100" rows="22">
+	</textarea>
+
+	<div id="ojp_logs">
+		<label>API-OJP REQUESTS LOGS: </label>
+		<select id="ojp_logs_limit">
+			<option value="2">last 2</option>
+			<option selected value="5">last 5</option>
+			<option value="10">last 10</option>
+			<option value="50">last 50</option>
+			<option value="100">last 100</option>
+		</select>
+		<div style="float:right;">
+			<a id="logs_refresh" class="btn" href="#">refresh</a> 
+			<a class="btn" href="" target="_blank">open</a>
+		</div>
+		<br />
+		<textarea cols="80" rows="44">
+		</textarea>
+	</div>
 </form>
 </div>
 
@@ -58,14 +58,13 @@ const apiOjpUrl = `${location.protocol}//${host}:${port}/ojp`
 	, apiOjpUrlLogs = `${apiOjpUrl}/logs`
 	, $list = $('#xmls');
 
-
-$('#ojp_version').text('').addClass('loading');
+$('#ojp_version').attr('href',apiOjpUrl).text('').addClass('loading');
 $.getJSON(apiOjpUrl, json => {
 	setTimeout(data=>{
-    	$('#ojp_version').text(`API service version: ${data.version}`).removeClass('loading');
+    	$('#ojp_version').text(`version: ${data.version}`).removeClass('loading');
 	},1000,json);
 }).catch(err => {
-	$('#ojp_version').text(`API service offline!`).removeClass('loading');
+	$('#ojp_version').text(`offline!`).removeClass('loading');
 })
 
 $.getJSON('/list.json', data => {
