@@ -11,7 +11,7 @@
         </ojp:PlaceRef>
         <ojp:Restrictions>
           <ojp:Type>stop</ojp:Type>
-          <ojp:NumberOfResults>9</ojp:NumberOfResults>
+          <ojp:NumberOfResults>3</ojp:NumberOfResults>
           <ojp:IncludePtModes>false</ojp:IncludePtModes>
         </ojp:Restrictions>
       </ojp:OJPLocationInformationRequest>

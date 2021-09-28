@@ -4,6 +4,7 @@ const _ = require('lodash');
 
 const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {doRequest} = require('../lib/request');
+const {parseParamsRestrictions} = require('../lib/restrictions');
 
 
 const createExchangePointsResponse = (stops, startTime, ptModes) => {
@@ -74,42 +75,10 @@ module.exports = {
     const {logger} = config;
     
     try{
-      
-      const ptModes = queryTags(doc, [
-        serviceTag,
-        'ojp:Restrictions',
-        'ojp:IncludePtModes'
-      ]);
 
-      let limitRestrictions = queryTags(doc, [
-        serviceTag,
-        'ojp:Restrictions',
-        'ojp:NumberOfResults'
-      ]);
+      const { limit, skip, ptModes } = parseParamsRestrictions(doc, serviceTag);
 
-      let limitParams = queryTags(doc, [
-        serviceTag,
-        'ojp:Params',
-        'ojp:NumberOfResults'
-      ]);
-
-      let skipRestrictions = queryTags(doc, [
-        serviceTag,
-        'ojp:Restrictions',
-        'ojp:ContinueAt'
-      ]);
-
-      let skipParams = queryTags(doc, [
-        serviceTag,
-        'ojp:Params',
-        'ojp:ContinueAt'
-      ]);
-
-      let limit = Number(limitRestrictions || limitParams) || 0
-        , skip = Number(skipRestrictions || skipParams) || 0
-        , path = '/';
-
-      logger.debug('limit',limit, 'ptModes', ptModes);
+      let path = '/';
 
       if(queryNodes(doc, [serviceTag, 'ojp:PlaceRef']).length > 0) {
 

@@ -52,7 +52,7 @@ module.exports = {
     const endpoint = `https://${options.host}${options.path}`;
     const clientQL = new GraphQLClient(endpoint, { headers: config.otp.headers });
     
-    const maxResults = extra.limit || config.default_max_results;
+    const maxResults = Number(extra.limit || config.default_max_results);
 
     const query = gql`
                 {

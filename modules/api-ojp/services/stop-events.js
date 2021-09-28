@@ -6,6 +6,7 @@ const { v4: uuidv4 } = require('uuid');
 
 const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {doRequest} = require('../lib/request');
+const {parseParamsRestrictions} = require('../lib/restrictions');
 
 const createEventResponse = (stop, startTime, isDeparture, isArrival, realtimeData) => {
   const responseTimestamp = new Date().toISOString();
@@ -104,24 +105,32 @@ module.exports = {
     const {logger} = config;
 
     try{
+
+      const { limit, skip, ptModes } = parseParamsRestrictions(doc, serviceTag);
+
       if(queryNodes(doc, "//*[name()='ojp:OJPStopEventRequest']/*[name()='ojp:Location']/*[name()='ojp:PlaceRef']").length > 0){
         const text = queryText(doc, "//*[name()='ojp:OJPStopEventRequest']/*[name()='ojp:Location']/*[name()='ojp:PlaceRef']/*[name()='ojp:StopPlaceRef']"); 
         const date = queryText(doc, "//*[name()='ojp:OJPStopEventRequest']/*[name()='ojp:Location']/*[name()='ojp:DepArrTime']");
-        const limit = queryText(doc, "//*[name()='ojp:OJPStopEventRequest']/*[name()='ojp:Params']/*[name()='ojp:NumberOfResults']");
+        //const limit = queryText(doc, "//*[name()='ojp:OJPStopEventRequest']/*[name()='ojp:Params']/*[name()='ojp:NumberOfResults']");
         let startDate = new Date().getTime();
         if(date != null){
           startDate = new Date(date).getTime();
         }
         
-        const options = {
-          host: config['api-otp'].host,
-          port: config['api-otp'].port,
-          path: `/stops/${text}/details?limit=${Number(limit) || 5}&start=${startDate}`,
-          method: 'GET',
-          json:true
-        };
+        const querystr = qstr.stringify({limit/*, skip*/, start: startDate})
+            , options = {
+              host: config['api-otp'].host,
+              port: config['api-otp'].port,
+              path: `/stops/${text}/details?${querystr}`,
+              method: 'GET',
+              json:true
+            };
+        
         logger.info(options);
+
         const response = await doRequest(options);
+
+        const stops = _.slice(response.stops, skip, limit);
         
         let isDeparture = true;
         let isArrival = false;

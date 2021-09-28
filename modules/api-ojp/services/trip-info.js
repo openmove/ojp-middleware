@@ -1,10 +1,11 @@
 const xmlbuilder = require('xmlbuilder');
 const qstr = require('querystring');
 const _ = require('lodash');
+const moment = require('moment-timezone');
 const mongoClient = require("mongodb").MongoClient;
 const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {doRequest} = require('../lib/request');
-const moment = require('moment-timezone');
+const {parseParamsRestrictions} = require('../lib/restrictions');
 
 const createTripInfoResponse = (trip, date, startTime) => {
   const responseTimestamp = new Date().toISOString();

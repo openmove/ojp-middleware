@@ -8,6 +8,7 @@ const mongoClient = require("mongodb").MongoClient;
 
 const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {doRequest} = require('../lib/request');
+const {parseParamsRestrictions} = require('../lib/restrictions');
 
 const createTripResponse = (itineraries, startTime, showIntermediates, config, question) => {
   const {logger} = config;
@@ -17,7 +18,6 @@ const createTripResponse = (itineraries, startTime, showIntermediates, config, q
   trips.ele('siri:ResponseTimestamp', responseTimestamp);
   
   trips.ele('ojp:CalcTime', calcTime);
-
 
   if(itineraries === null || itineraries.length === 0){
     trips.ele('siri:Status', false);
@@ -207,6 +207,9 @@ module.exports = {
     const {logger} = config;
 
     try{
+
+      const { limit, skip, ptModes } = parseParamsRestrictions(doc, serviceTag);
+
       if(
         queryNodes(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Origin']/*[name()='ojp:PlaceRef']").length > 0
         &&
@@ -228,8 +231,9 @@ module.exports = {
         const originName = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Origin']/*[name()='ojp:PlaceRef']/*[name()='ojp:LocationName']/*[name()='ojp:Text']"); 
         const destinationName = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Destination']/*[name()='ojp:PlaceRef']/*[name()='ojp:LocationName']/*[name()='ojp:Text']"); 
 
-        const limitValue = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Params']/*[name()='ojp:NumberOfResults']");
+        
         const transfersValue = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Params']/*[name()='ojp:TransferLimit']");
+        //TODO move inside parseParamsRestrictions() 
 
         const useWheelchair = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Params']/*[name()='ojp:IncludeAccessibility']");
         
@@ -266,7 +270,7 @@ module.exports = {
           origin: originId || [originLon, originLat, originName || "Origin"],
           destination: destinationId || [destinationLon, destinationLat, destinationName || "Destination"],
           date,
-          limit: Number(limitValue) || 1,
+          limit,
           arrivedBy,
           transfers: Number(transfersValue) || 2,
           wheelchair: useWheelchair === 'true',

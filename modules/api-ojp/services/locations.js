@@ -4,6 +4,7 @@ const _ = require('lodash');
 
 const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {doRequest} = require('../lib/request');
+const {parseParamsRestrictions} = require('../lib/restrictions');
 
 const createLocationResponse = (stops, startTime, ptModes) => {
   const responseTimestamp = new Date().toISOString();
@@ -71,38 +72,7 @@ module.exports = {
     
     try {
 
-      const ptModes = queryTags(doc, [
-        serviceTag,
-        'ojp:Restrictions',
-        'ojp:IncludePtModes'
-      ]);
-
-      let limitRestrictions = queryTags(doc, [
-        serviceTag,
-        'ojp:Restrictions',
-        'ojp:NumberOfResults'
-      ]);
-
-      let limitParams = queryTags(doc, [
-        serviceTag,
-        'ojp:Params',
-        'ojp:NumberOfResults'
-      ]);
-
-      let skipRestrictions = queryTags(doc, [
-        serviceTag,
-        'ojp:Restrictions',
-        'ojp:ContinueAt'
-      ]);
-
-      let skipParams = queryTags(doc, [
-        serviceTag,
-        'ojp:Params',
-        'ojp:ContinueAt'
-      ]);
-
-      let limit = Number(limitRestrictions || limitParams) || 0
-        , skip = Number(skipRestrictions || skipParams) || 0
+      const { limit, skip, ptModes } = parseParamsRestrictions(doc, serviceTag);
 
       if(queryNodes(doc, [serviceTag,'ojp:PlaceRef']).length > 0) {
 
@@ -132,7 +102,9 @@ module.exports = {
         
         const response = await doRequest(options);
 
-        return createLocationResponse(response.stops, startTime, ptModes === 'true');
+        const stops = _.slice(response.stops, skip, limit);
+
+        return createLocationResponse(stops, startTime, ptModes === 'true');
       }
       else if(queryNodes(doc, [serviceTag, 'ojp:InitialInput']).length > 0) {
 
@@ -223,7 +195,7 @@ module.exports = {
 
         const stops = _.slice(response.stops, skip, limit);
 
-        console.log('POST PARAMS',params, json)
+        //console.log('POST PARAMS',params, json)
 
         //logger.info(response)
         return createLocationResponse(stops, startTime, ptModes === 'true');
