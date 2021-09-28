@@ -12,7 +12,6 @@ module.exports = {
     const endpoint = `https://${options.host}${options.path}`;
     const clientQL = new GraphQLClient(endpoint, { headers: config.otp.headers });
 
-
     let from = null
     , to = null;
 

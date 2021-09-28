@@ -231,7 +231,6 @@ module.exports = {
         const originName = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Origin']/*[name()='ojp:PlaceRef']/*[name()='ojp:LocationName']/*[name()='ojp:Text']"); 
         const destinationName = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Destination']/*[name()='ojp:PlaceRef']/*[name()='ojp:LocationName']/*[name()='ojp:Text']"); 
 
-        
         const transfersValue = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Params']/*[name()='ojp:TransferLimit']");
         //TODO move inside parseParamsRestrictions() 
 

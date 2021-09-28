@@ -111,7 +111,7 @@ module.exports = {
       if(queryNodes(doc, "//*[name()='ojp:OJPStopEventRequest']/*[name()='ojp:Location']/*[name()='ojp:PlaceRef']").length > 0){
         const text = queryText(doc, "//*[name()='ojp:OJPStopEventRequest']/*[name()='ojp:Location']/*[name()='ojp:PlaceRef']/*[name()='ojp:StopPlaceRef']"); 
         const date = queryText(doc, "//*[name()='ojp:OJPStopEventRequest']/*[name()='ojp:Location']/*[name()='ojp:DepArrTime']");
-        //const limit = queryText(doc, "//*[name()='ojp:OJPStopEventRequest']/*[name()='ojp:Params']/*[name()='ojp:NumberOfResults']");
+        
         let startDate = new Date().getTime();
         if(date != null){
           startDate = new Date(date).getTime();

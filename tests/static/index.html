@@ -15,9 +15,9 @@
 </select>
 <a href="/list.json">xmls requests example files</a>
 <br><br>
-<label>REQUEST OJP:</label>
-<br>
 <form id="sendform">
+<label>REQUEST OJP:</label> <small style="float:right;" id="apiversion"></small>
+<br />
 <textarea id="xml_req" cols="100" rows="22" type="text" contenteditable="true"> 
 </textarea>
 <br />
@@ -57,6 +57,10 @@ const {host, port} = window.config['api-ojp'];
 const apiOjpUrl = `${location.protocol}//${host}:${port}/ojp`
 	, apiOjpUrlLogs = `${apiOjpUrl}/logs`
 	, $list = $('#xmls');
+
+$.getJSON(apiOjpUrl, function( data ) {
+    $('#apiversion').text(`API service version: ${data.version}`);
+})
 
 $.getJSON('/list.json', function( data ) {
     $.each( data, function( key, val ) {
