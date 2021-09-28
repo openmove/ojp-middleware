@@ -16,7 +16,7 @@
 <a href="/list.json">xmls requests example files</a>
 <br><br>
 <form id="sendform">
-<label>REQUEST OJP:</label> <small style="float:right;" id="apiversion"></small>
+<label>REQUEST OJP:</label> <small style="float:right;" id="ojp_version"></small>
 <br />
 <textarea id="xml_req" cols="100" rows="22" type="text" contenteditable="true"> 
 </textarea>
@@ -58,12 +58,18 @@ const apiOjpUrl = `${location.protocol}//${host}:${port}/ojp`
 	, apiOjpUrlLogs = `${apiOjpUrl}/logs`
 	, $list = $('#xmls');
 
-$.getJSON(apiOjpUrl, function( data ) {
-    $('#apiversion').text(`API service version: ${data.version}`);
+
+$('#ojp_version').text('').addClass('loading');
+$.getJSON(apiOjpUrl, json => {
+	setTimeout(data=>{
+    	$('#ojp_version').text(`API service version: ${data.version}`).removeClass('loading');
+	},1000,json);
+}).catch(err => {
+	$('#ojp_version').text(`API service offline: ${err}`).removeClass('loading');
 })
 
-$.getJSON('/list.json', function( data ) {
-    $.each( data, function( key, val ) {
+$.getJSON('/list.json', data => {
+    $.each( data, ( key, val ) => {
         let name = val.replace('.xml','').replace('/xmls/','');
         $(`<option value="${val}">${name}</option>`).appendTo($list);
     });
@@ -77,7 +83,7 @@ $.getJSON('/list.json', function( data ) {
     });
 });
 
-$("#sendform").submit(function(e){
+$("#sendform").submit(e => {
     e.preventDefault();
     $('#xml_res').text('').addClass('loading');
     setTimeout(()=>{
