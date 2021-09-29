@@ -22,6 +22,8 @@ const dotenv = require('dotenv').config()
       },
     });
 
+logger.info(config);
+
 config.logger = logger;
 
 app.use(express.json())

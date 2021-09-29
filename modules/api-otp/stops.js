@@ -1,6 +1,13 @@
 const { request, GraphQLClient, gql } = require('graphql-request');
 const https = require('https');
 
+const NodeCache = require('node-cache');
+
+const Cache = new NodeCache({
+  stdTTL: 300,
+  //checkperiod: 60 * 3,
+});
+
 module.exports = {
   'getStopById': async (config, stopId, extra) => {
     const options = {
@@ -43,6 +50,7 @@ module.exports = {
     }
   },
   'getAllStops': async (config, extra) => {
+
     const options = {
       host: config.otp.hostname,
       path: config.otp.path + config.graphql.path,
@@ -69,8 +77,32 @@ module.exports = {
               }`
   
     logger.debug(query);
-    
-    const data = await clientQL.request(query, {});
+
+    let data = null;
+
+    const cacheKey = `getAllStops_${maxResults}`;
+
+    if(Cache) {
+
+      if(Cache.has(cacheKey)) {
+
+        data = Cache.get(cacheKey);
+
+        logger.debug('USE CACHE response')
+      }
+      else {
+        data = await clientQL.request(query, {});
+
+        logger.debug('NOT USE CACHE response')
+
+        Cache.set(cacheKey, data);
+      }
+
+      //logger.debug(Cache.getStats(), 'cache stats')
+    }
+    else {
+      data = await clientQL.request(query, {});
+    }
 
     //logger.debug(data);
 

@@ -4,7 +4,7 @@ const http = require('http');
 module.exports = {
   'doRequest': (options, data) => {
     
-    console.log('doRequest', options);
+    //console.log('doRequest', options);
 
     return new Promise((resolve, reject) => {
       const req = http.request(options, (res) => {
