@@ -6,11 +6,12 @@
     "lerna": "^4.0.0",
     "nodemon": "^2.0.12"
   },
-  "scritps": {
+  "scripts": {
     "__TODO__ postinstall": "lerna run download",
     "download": "lerna run download",
     "import": "lerna run import",
-    "clean": "lerna clean"
+    "lernaclean": "lerna clean",
+    "clean": "find ./modules -name package-lock.json -delete"
   },
   "engines": {
     "node": "14.16.0"
