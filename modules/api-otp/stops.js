@@ -19,7 +19,10 @@ module.exports = {
     const clientQL = new GraphQLClient(endpoint, { headers: config.otp.headers });
     let filter = `stops (ids : ["${stopId}"])`;
     if(!stopId) {
-      filter = `stops (maxResults: ${extra.limit || config.default_max_results})`;
+
+      const maxResults = Number(extra.limit || config.default_max_results);
+
+      filter = `stops (maxResults: ${maxResults})`;
     }
     const query = gql`
                 {${filter} {
@@ -124,10 +127,12 @@ module.exports = {
     const {logger} = config;
     const endpoint = `https://${options.host}${options.path}`;
     const clientQL = new GraphQLClient(endpoint, { headers: config.otp.headers });
+
+    const maxResults = Number(extra.limit || config.default_max_results);
     
     const query = gql`
                 {
-                stopsByName (name: "${name}", maxResults: ${extra.limit || config.default_max_results}) {
+                stopsByName (name: "${name}", maxResults: ${maxResults}) {
                   gtfsId
                   name
                   code
@@ -167,10 +172,15 @@ module.exports = {
     };
     const endpoint = `https://${options.host}${options.path}`;
     const clientQL = new GraphQLClient(endpoint, { headers: config.otp.headers });
-    
+
+    //const maxResults = Number(extra.limit || config.default_max_results);
+
     const query = gql`
                 {
-                stopsByRadius (lat : ${params[1]}, lon : ${params[0]}, radius: ${params[2] || 1000}) {
+                stopsByRadius (
+                    lat : ${params[1]},
+                    lon : ${params[0]},
+                    radius: ${params[2] || 1000}) {
                   edges {
                     node {
                       stop {
@@ -216,9 +226,9 @@ module.exports = {
     const query = gql`
                 {
                   stopsByBbox (
-                    minLat : ${params[1][1]}, 
-                    minLon : ${params[1][0]}, 
-                    maxLat: ${params[0][1]}, 
+                    minLat : ${params[1][1]},
+                    minLon : ${params[1][0]},
+                    maxLat: ${params[0][1]},
                     maxLon: ${params[0][0]}) {
                       gtfsId
                       name
