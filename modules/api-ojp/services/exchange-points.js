@@ -75,6 +75,10 @@ module.exports = {
 
       const { limit, skip, ptModes } = parseParamsRestrictions(doc, serviceTag);
 
+      const params = {
+        limit,
+        skip
+      };
       let path = '/';
 
       if(queryNodes(doc, [serviceTag, 'ojp:PlaceRef']).length > 0) {
@@ -138,43 +142,96 @@ module.exports = {
           
           logger.debug('GeoRestriction',geoRestriction);
 
-          /* TODO const rect = queryNode(doc, "//*[name()=serviceTag]/*[name()='ojp:InitialInput']/*[name()='ojp:GeoRestriction']/*[name()='ojp:Rectangle']");
-            const circle = queryNode(doc, "//*[name()=serviceTag]/*[name()='ojp:InitialInput']/*[name()='ojp:GeoRestriction']/*[name()='ojp:Circle']");
-            
-            let data = null;
-            const params = {
-              value: LocationName,
-              position: [locationPositionLon, locationPositionLat],
-              limit: limit
-            };
+            const rect = queryNode(doc, [
+              serviceTag,
+              'ojp:InitialInput',
+              'ojp:GeoRestriction',
+              'ojp:Rectangle'
+            ]);
 
-            if(rect){
-              const path = "//*[name()=serviceTag]/*[name()='ojp:InitialInput']/*[name()='ojp:GeoRestriction']/*[name()='ojp:Rectangle']"
-              const upperLat = queryText(doc, path+"/*[name()='ojp:UpperLeft']/*[name()=Latitude]");
-              const upperLon = queryText(doc, path+"/*[name()='ojp:UpperLeft']/*[name()=Logitude]");
+            const circle = queryNode(doc, [
+              serviceTag,
+              'ojp:InitialInput',
+              'ojp:GeoRestriction',
+              'ojp:Circle'
+            ]);
 
-              const lowerLat = queryText(doc, path+"/*[name()='ojp:LowerRight']/*[name()=Latitude]");
-              const lowerLon = queryText(doc, path+"/*[name()='ojp:LowerRight']/*[name()=Logitude]");
+            if(rect) {
 
-              //TODO check values and check if value maybe are expressed inside a Coordinates element
+              const upperLat = queryTags(doc, [
+                serviceTag,
+                'ojp:InitialInput',
+                'ojp:GeoRestriction',
+                'ojp:Rectangle',
+                'ojp:UpperLeft',
+                'Latitude'
+              ]);
+              const upperLon = queryTags(doc, [
+                serviceTag,
+                'ojp:InitialInput',
+                'ojp:GeoRestriction',
+                'ojp:Rectangle',
+                'ojp:UpperLeft',
+                'Longitude'
+              ]);
+              const lowerLat = queryTags(doc, [
+                serviceTag,
+                'ojp:InitialInput',
+                'ojp:GeoRestriction',
+                'ojp:Rectangle',
+                'ojp:LowerRight',
+                'Latitude'
+              ]);
+              const lowerLon = queryTags(doc, [
+                serviceTag,
+                'ojp:InitialInput',
+                'ojp:GeoRestriction',
+                'ojp:Rectangle',
+                'ojp:LowerRight',
+                'Longitude'
+              ]);
 
               params.restrictionType = 'bbox';
-              params.restrictionValue= [[upperLon, upperLat],[lowerLon, lowerLat]];
+              params.restrictionValue= [upperLon, upperLat,lowerLon, lowerLat].join(',');
 
-            }else if(circle){
-              const path = "//*[name()=serviceTag]/*[name()='ojp:InitialInput']/*[name()='ojp:GeoRestriction']/*[name()='ojp:Circle']"
-              const centerLat = queryText(doc, path+"/*[name()='ojp:Center']/*[name()=Latitude]");
-              const centerLon = queryText(doc, path+"/*[name()='ojp:Center']/*[name()=Logitude]");
+            }
+            else if(circle) {
+              const centerLat = queryTags(doc, [
+                serviceTag,
+                'ojp:InitialInput',
+                'ojp:GeoRestriction',
+                'ojp:Circle',
+                'ojp:Center',
+                'Latitude'
+              ]);
+              const centerLon = queryTags(doc, [
+                serviceTag,
+                'ojp:InitialInput',
+                'ojp:GeoRestriction',
+                'ojp:Circle',
+                'ojp:Center',
+                'Longitude'
+              ]);
+              const radius = queryTags(doc, [
+                serviceTag,
+                'ojp:InitialInput',
+                'ojp:GeoRestriction',
+                'ojp:Circle',
+                'ojp:Radius'
+              ]);
 
-              //TODO check if value maybe are expressed inside a Coordinates element
-
-              const radius = queryText(doc, path+"/*[name()='ojp:Radius']");
               params.restrictionType = 'circle';
-              params.restrictionValue= [centerLon, centerLat, radius];
+              params.restrictionValue = [centerLon, centerLat, radius].join(',');
+
             }else{
               throw new Error('Unrecognize Restriction');
             }
-          */
+        }
+
+        if(locationPositionLat != null && locationPositionLon != null){
+
+          params.position = [locationPositionLon, locationPositionLat].join(',');
+
         }
 
         if(LocationName) {
@@ -191,7 +248,7 @@ module.exports = {
         return createExchangePointsErrorResponse('E0001', startTime);
       }
 
-      const querystr = qstr.stringify({limit, skip})
+      const querystr = qstr.stringify(params)
           , options = {
             host: config['ep-manager'].host,
             port: config['ep-manager'].port,
