@@ -30,12 +30,6 @@ const createLocationResponse = (stops, startTime, ptModes) => {
     if(ptModes === true){
       const mode = loc.ele('ojp:Mode');
       mode.ele('ojp:PtMode', stop.vehicleMode.toLowerCase());
-      if(stop.vehicleMode === 'BUS'){
-        mode.ele('siri:BusSubmode', 'unknown')
-      }
-      if(stop.vehicleMode === 'RAIL'){
-        mode.ele('siri:RailSubmode', 'unknown')
-      }
     }
   }
 
@@ -104,7 +98,7 @@ module.exports = {
 
         const stops = _.slice(response.stops, skip, limit);
 
-        return createLocationResponse(stops, startTime, ptModes === 'true');
+        return createLocationResponse(stops, startTime, ptModes);
       }
       else if(queryNodes(doc, [serviceTag, 'ojp:InitialInput']).length > 0) {
 
@@ -198,7 +192,7 @@ module.exports = {
         //console.log('POST PARAMS',params, json)
 
         //logger.info(response)
-        return createLocationResponse(stops, startTime, ptModes === 'true');
+        return createLocationResponse(stops, startTime, ptModes);
       }
       else{
         return createLocationErrorResponse('E0001', startTime);

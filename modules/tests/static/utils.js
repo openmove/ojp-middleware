@@ -1,6 +1,8 @@
 
 function formatXml(xmldom='') {
-    
+
+    if(!xmldom) return xmldom;
+
     const serializer = new XMLSerializer();
     let xml;
     try {

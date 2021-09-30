@@ -63,12 +63,6 @@ const createEventResponse = (stop, startTime, isDeparture, isArrival, realtimeDa
       service.ele('siri:LineRef', schedule.trip.route.gtfsId);
       const mode = service.ele('ojp:Mode');
       mode.ele('ojp:PtMode', stop.vehicleMode.toLowerCase());
-      if(schedule.trip.route.mode === 'BUS'){
-        mode.ele('siri:BusSubmode', 'unknown')
-      }
-      if(schedule.trip.route.mode === 'RAIL'){
-        mode.ele('siri:RailSubmode', 'unknown')
-      }
       service.ele('siri:DirectionRef', schedule.trip.directionId);
       service.ele('ojp:PublishedLineName').ele('ojp:Text', schedule.trip.route.longName || schedule.trip.route.shortName || schedule.trip.route.gtfsId)
       service.ele('ojp:OperatorRef', schedule.trip.route.agency.gtfsId);

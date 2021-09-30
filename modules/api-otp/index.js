@@ -22,7 +22,7 @@ const dotenv = require('dotenv').config()
       },
     });
 
-logger.info(config);
+logger.info(_.omit(config,['dev','prod','environments']));
 
 config.logger = logger;
 

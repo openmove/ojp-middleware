@@ -4,6 +4,7 @@ const express = require('express');
 const app = express();
 const mongoClient = require("mongodb").MongoClient;
 const pino = require('pino');
+const _ = require('lodash');
 
 const dotenv = require('dotenv').config()
     , config = require('@stefcud/configyml')
@@ -16,6 +17,9 @@ const dotenv = require('dotenv').config()
         messageFormat: `{msg}`
       },
     });
+
+logger.info(_.omit(config,['dev','prod','environments']));
+
 config.logger = logger;
 
 const {importCsv} = require('./import');
@@ -24,6 +28,7 @@ if (process.env['IMPORT']==='true') {
   importCsv(process.env['CSV_VERSION']);
   //TODO sleep https://stackoverflow.com/questions/14249506/how-can-i-wait-in-node-js-javascript-l-need-to-pause-for-a-period-of-time
 }
+
 
 app.use(express.json());
 

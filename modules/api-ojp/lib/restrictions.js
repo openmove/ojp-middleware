@@ -1,13 +1,21 @@
 
+const _ = require('lodash');
+
 const {queryNode, queryNodes, queryText, queryTags} = require('./query');
 
 module.exports = {
 
 	'parseParamsRestrictions': (doc, serviceTag) => {
 
-		const ptModes = queryTags(doc, [
+		const ptModesRestrictions = queryTags(doc, [
 			serviceTag,
 			'ojp:Restrictions',
+			'ojp:IncludePtModes'
+		]);
+
+		const ptModesParams = queryTags(doc, [
+			serviceTag,
+			'ojp:Params',
 			'ojp:IncludePtModes'
 		]);
 
@@ -36,7 +44,8 @@ module.exports = {
 		]);
 
 		const limit = Number(limitRestrictions || limitParams) || 0
-		  	, skip = Number(skipRestrictions || skipParams) || 0;
+		  	, skip = Number(skipRestrictions || skipParams) || 0
+		  	, ptModes = ptModesRestrictions === 'true' || ptModesParams === 'true' || false;
 
 		return {
 			limit,

@@ -32,3 +32,4 @@ graphql:
 
 default_max_results: 10000
 
+caching: true

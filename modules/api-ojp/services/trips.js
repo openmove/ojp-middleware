@@ -143,12 +143,6 @@ const createTripResponse = (itineraries, startTime, showIntermediates, config, q
           service.ele('siri:LineRef', leg.route.gtfsId);
           const mode = service.ele('ojp:Mode');
           mode.ele('ojp:PtMode', leg.mode.toLowerCase());
-          if(leg.mode === 'BUS'){
-            mode.ele('siri:BusSubmode', 'unknown')
-          }
-          if(leg.mode === 'RAIL'){
-            mode.ele('siri:RailSubmode', 'unknown')
-          }
           service.ele('siri:DirectionRef', leg.trip.directionId);
           service.ele('ojp:PublishedLineName').ele('ojp:Text', leg.route.longName || leg.route.shortName || leg.route.gtfsId)
           service.ele('ojp:OperatorRef', leg.route.agency.gtfsId);

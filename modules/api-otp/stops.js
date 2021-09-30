@@ -82,7 +82,7 @@ module.exports = {
 
     const cacheKey = `getAllStops_${maxResults}`;
 
-    if(Cache) {
+    if(config.caching ===  true) {
 
       if(Cache.has(cacheKey)) {
 
@@ -97,14 +97,10 @@ module.exports = {
 
         Cache.set(cacheKey, data);
       }
-
-      //logger.debug(Cache.getStats(), 'cache stats')
     }
     else {
       data = await clientQL.request(query, {});
     }
-
-    //logger.debug(data);
 
     if(data!= null && data.stops){
       const res = {stops: []}

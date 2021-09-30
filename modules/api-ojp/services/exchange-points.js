@@ -34,11 +34,9 @@ const createExchangePointsResponse = (stops, startTime, ptModes) => {
       
       if(stop['MainMode'].toLowerCase() === '~bus~'){
         mode.ele('ojp:PtMode', 'BUS');
-        mode.ele('siri:BusSubmode', 'unknown')
       }
       if(stop['MainMode'].toLowerCase() === '~train~'){
         mode.ele('ojp:PtMode', 'RAIL');
-        mode.ele('siri:RailSubmode', 'unknown')
       }
     }
   }
@@ -207,7 +205,7 @@ module.exports = {
       
       const response = await doRequest(options);
 
-      return createExchangePointsResponse(response, startTime, ptModes === 'true');
+      return createExchangePointsResponse(response, startTime, ptModes);
       
     }catch(err){
       logger.error(err);
