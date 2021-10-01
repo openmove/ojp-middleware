@@ -15,6 +15,8 @@
     "express": "^4.17.1",
     "jquery": "^3.6.0",
     "lodash": "^4.17.21",
+    "pino": "^6.13.0",
+    "pino-pretty": "^5.1.2",
     "serve-index": "^1.9.1"
   },
   "devDependencies": {

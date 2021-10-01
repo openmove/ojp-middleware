@@ -9,16 +9,19 @@
         <MessageIdentifier>4711</MessageIdentifier>
         <ojp:InitialInput>
           <ojp:LocationName></ojp:LocationName>
-        </ojp:InitialInput>
-        <ojp:GeoRestrictions>
+          <ojp:GeoRestriction>
             <ojp:Circle>
               <ojp:Center>
                 <Latitude>45.0608999997</Latitude>
                 <Longitude>7.677520</Longitude>
               </ojp:Center>
-            <ojp:Radius>1000</ojp:Radius>
+              <ojp:Radius>1000</ojp:Radius>
             </ojp:Circle>
-        </ojp:GeoRestrictions>
+          </ojp:GeoRestriction>
+        </ojp:InitialInput>
+        <ojp:Restrictions>
+            <ojp:NumberOfResults>1</ojp:NumberOfResults>
+        </ojp:Restrictions>
       </ojp:OJPExchangePointsRequest>
     </ServiceRequest>
   </OJPRequest>

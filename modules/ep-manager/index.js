@@ -39,9 +39,10 @@ app.use(express.json());
 //  'limit': req.query.limit || 10
 //};
 //});
+//
 
-app.get('/', async (req, getres) => {
-  
+const getAll = async (req, getres) => {
+
   logger.info(`request GET / ${new Date().toISOString()}`);
 
   mongoClient.connect(config.db.uri, {
@@ -60,21 +61,17 @@ app.get('/', async (req, getres) => {
       if (err) {
         getres.send(err);
         throw err;
-      } 
-      
+      }
+
       getres.json(queryres);
 
       client.close();
     });
   });
-});
+}
 
-app.get('/searchByName/', async (req, getres) => {
-  getres.json([]);
-});
+const getByName = async (req, getres) => {
 
-app.get('/searchByName/:name', async (req, getres) => {
-  
   logger.info(`request GET ${req.url} ${new Date().toISOString()}`);
 
   mongoClient.connect(config.db.uri, {
@@ -83,26 +80,60 @@ app.get('/searchByName/:name', async (req, getres) => {
   }, (err, client) => {
     if (err) throw err;
 
+    const where = {};
+
+    if(_.isString(req.params.name)) {
+      where['Name']=  new RegExp(req.params.name, "i")
+    }
+
+    if(req.query.restrictionType && req.query.restrictionType==='circle') {
+
+      const [ lon, lat, radius ] = req.query.restrictionValue.split(',').map(Number);
+
+      where['location']= {
+        '$geoWithin': {
+          '$centerSphere': [ [ lon, lat ], radius/6378100 ]
+        }
+      }
+      logger.debug('Restriction Circle:'+JSON.stringify(where))
+    }
+    else if(req.query.restrictionType && req.query.restrictionType==='bbox') {
+
+      const [upperLon, upperLat,lowerLon, lowerLat] = req.query.restrictionValue.split(',').map(Number);
+
+      where['location']= {
+        '$geoWithin': {
+          '$box': [
+            [ lowerLon, lowerLat ],
+            [ upperLon, upperLat ]
+          ]
+        }
+      }
+      logger.debug('Restriction Rectangle:'+JSON.stringify(where))
+    }
+
     client
     .db('ojp')
     .collection(config.db.collection)
-    .find({
-      'Name': new RegExp(req.params.name, "i")
-    })
+    .find(where)
     .skip( Number(req.query.skip) || 0 )
     .limit( Number(req.query.limit) || 0 )
     .toArray(function(err, queryres) {
       if (err) {
         getres.send(err);
         throw err;
-      } 
-      
+      }
       getres.json(queryres);
 
       client.close();
     });
   });
-});
+}
+
+app.get('/', getAll);
+
+app.get('/searchByName/', getByName);
+app.get('/searchByName/:name', getByName);
 
 app.get('/searchByNetexId/', async (req, getres) => {
   getres.json([]);
@@ -136,7 +167,6 @@ app.get('/searchByNetexId/:id', async (req, getres) => {
     });
   });
 });
-
 
 app.get('/geojson', async (req, getres) => {
   

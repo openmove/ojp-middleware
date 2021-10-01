@@ -15,6 +15,11 @@ prod:
   ep-manager:
     host: ${API_HOST}
     port: 8383
+  logs:
+    level: 'info'
+    colorize: true
+    ignore: 'pid,hostname'
+
 dev:
   server:
     port: 8086
@@ -27,6 +32,9 @@ dev:
   ep-manager:
     host: localhost
     port: 8083
+  logs:
+    level: 'debug'
+    colorize: false
 
 test: #test in local docker compose services
   server:

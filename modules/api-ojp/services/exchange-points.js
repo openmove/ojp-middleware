@@ -138,6 +138,9 @@ module.exports = {
           'ojp:GeoRestriction'
         ]);
 
+        //if(LocationName) {
+          path = `/searchByName/${LocationName}`;
+
         if(geoRestriction) {
           
           logger.debug('GeoRestriction',geoRestriction);
@@ -192,7 +195,7 @@ module.exports = {
               ]);
 
               params.restrictionType = 'bbox';
-              params.restrictionValue= [upperLon, upperLat,lowerLon, lowerLat].join(',');
+              params.restrictionValue = [upperLon, upperLat,lowerLon, lowerLat].join(',');
 
             }
             else if(circle) {
@@ -227,19 +230,6 @@ module.exports = {
               throw new Error('Unrecognize Restriction');
             }
         }
-
-        if(locationPositionLat != null && locationPositionLon != null){
-
-          params.position = [locationPositionLon, locationPositionLat].join(',');
-
-        }
-
-        if(LocationName) {
-          path = `/searchByName/${LocationName}`;
-        }
-        else {
-          path = '/';
-        }
       }
       else if(queryNodes(doc, [serviceTag]).length > 0) {
         path = '/';  //return all points
@@ -257,7 +247,7 @@ module.exports = {
             json: true
           };
 
-      logger.debug(options);
+      console.log(options);
       
       const response = await doRequest(options);
 
