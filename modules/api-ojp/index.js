@@ -56,48 +56,21 @@ app.post('/ojp/', async (req, result) => {
   xmlServiceResponse.ele('siri:ProducerRef', 'OJP OpenMove Middleware');
   xmlServiceResponse.ele('siri:Status', true);
 
-  if(queryNode(doc, "//*[name()='ojp:OJPLocationInformationRequest']")){
-    if(!config.services.OJPLocationInformationRequest) {
-      logger.warn('OJPLocationInformationRequest disabled by config')
-    }
-    else {
-      xmlServiceResponse.importXMLBuilder(await locationExecution(doc, startTime, config));
-    }
-  }
-
-  if(queryNode(doc, "//*[name()='ojp:OJPStopEventRequest']")){
-    if(!config.services.OJPStopEventRequest) {
-      logger.warn('OJPStopEventRequest disabled by config');
-    }
-    else {
-      xmlServiceResponse.importXMLBuilder(await eventExecution(doc, startTime, config));
-    }    
-  }
-
-  if(queryNode(doc, "//*[name()='ojp:OJPTripRequest']")){
-    if(!config.services.OJPTripRequest) {
-      logger.warn('OJPTripRequest disabled by config');
-    }
-    else {
-      xmlServiceResponse.importXMLBuilder(await tripsExecution(doc, startTime, config));
-    }  
-  }
-  
-  if(queryNode(doc, "//*[name()='ojp:OJPTripInfoRequest']")){
-    if(!config.services.OJPTripInfoRequest) {
-      logger.warn('OJPTripInfoRequest disabled by config');
-    }
-    else {
-      xmlServiceResponse.importXMLBuilder(await tripInfoExecution(doc, startTime, config));
-    }  
-  }
-
   if(queryNode(doc, "//*[name()='ojp:OJPExchangePointsRequest']")){
     if(!config.services.OJPExchangePointsRequest) {
       logger.warn('OJPExchangePointsRequest disabled by config');
     }
     else {
       xmlServiceResponse.importXMLBuilder(await exchangePointsExecution(doc, startTime, config));
+    }
+  }
+
+  if(queryNode(doc, "//*[name()='ojp:OJPLocationInformationRequest']")){
+    if(!config.services.OJPLocationInformationRequest) {
+      logger.warn('OJPLocationInformationRequest disabled by config')
+    }
+    else {
+      xmlServiceResponse.importXMLBuilder(await locationExecution(doc, startTime, config));
     }
   }
 
@@ -110,6 +83,33 @@ app.post('/ojp/', async (req, result) => {
     }
   }
 
+  if(queryNode(doc, "//*[name()='ojp:OJPStopEventRequest']")){
+    if(!config.services.OJPStopEventRequest) {
+      logger.warn('OJPStopEventRequest disabled by config');
+    }
+    else {
+      xmlServiceResponse.importXMLBuilder(await eventExecution(doc, startTime, config));
+    }    
+  }
+
+  if(queryNode(doc, "//*[name()='ojp:OJPTripInfoRequest']")){
+    if(!config.services.OJPTripInfoRequest) {
+      logger.warn('OJPTripInfoRequest disabled by config');
+    }
+    else {
+      xmlServiceResponse.importXMLBuilder(await tripInfoExecution(doc, startTime, config));
+    }  
+  }
+
+  if(queryNode(doc, "//*[name()='ojp:OJPTripRequest']")){
+    if(!config.services.OJPTripRequest) {
+      logger.warn('OJPTripRequest disabled by config');
+    }
+    else {
+      xmlServiceResponse.importXMLBuilder(await tripsExecution(doc, startTime, config));
+    }  
+  }
+  
   const resXml = ojpXML.end({ pretty: true});
   result.set({
     'Content-Type': 'application/xml',

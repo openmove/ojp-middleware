@@ -23,7 +23,7 @@ const createExchangePointsResponse = (stops, startTime, ptModes) => {
     geo.ele('siri:Longitude', Number(stop['long']));
     geo.ele('siri:Latitude', Number(stop['lat']));
     loc.ele('ojp:Complete', true);
-    loc.ele('ojp:Probability', 1 / stops.length);
+    loc.ele('ojp:Probability', (1 / stops.length).toFixed(2));
     if(ptModes === true) {
 
       const mode = loc.ele('ojp:Mode');

@@ -1,5 +1,4 @@
 const xmlbuilder = require('xmlbuilder')
-, mongoClient = require("mongodb").MongoClient
 , {queryNode, queryNodes, queryText, queryTags} = require('../lib/query')
 , {doRequest} = require('../lib/request')
 , moment = require('moment-timezone');
@@ -16,7 +15,7 @@ const createTripInfoResponse = (trip, date, startTime) => {
     tripInfo.ele('siri:Status', false);
     const err = tripInfo.ele('siri:ErrorCondition');
     err.ele('siri:OtherError')
-    err.ele('siri:Description', 'TRIPINFO_TRIPUNAVAILABLE');
+    err.ele('siri:Description', 'TRIPINFO_TRIP_UNAVAILABLE');
   } else {
     tripInfo.ele('siri:Status', true);
     const context = tripInfo.ele('ojp:TripInfoResponseContext');
@@ -129,12 +128,10 @@ module.exports = {
 					const tripId = queryText(doc, "//*[name()='ojp:OJPTripInfoRequest']/*[name()='ojp:JourneyRef']");
 					const date = queryText(doc, "//*[name()='ojp:OJPTripInfoRequest']/*[name()='ojp:OperatingDayRef']");
 
-					console.log(tripId, date)
-
 					const options = {
 						host: config['api-otp'].host,
 						port: config['api-otp'].port,
-						path: `/trip/${tripId}/${date.replace(/-/g, '')}`,
+						path: `/trip/${tripId}/${moment(date, 'YYYY-MM-DD').format('YYYYMMDD')}`,
 						json: true,
 						method: 'GET'
 					}
