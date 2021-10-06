@@ -2,17 +2,37 @@
 const express = require('express');
 const fs = require('fs');
 const app = express();
+const pino = require('pino');
+const _ = require('lodash');
 
 const dotenv = require('dotenv').config()
-    , config = require('@stefcud/configyml');
+    , config = require('@stefcud/configyml')
+    , logger = pino({
+      level: config.logs.level || "info",
+      prettyPrint: {
+        translateTime: "SYS:standard",
+        colorize: config.logs.colorize == null ? true : config.logs.colorize,
+        ignore: config.logs.ignore,
+        messageFormat: `{msg}`
+      },
+    });
 
-console.log(config);
+logger.info(_.omit(config,['dev','prod','test','environments']));
 
 app.use('/', express.static('static', {
   etag: false,
-  maxAge: '1000'
+  maxAge: '1000',
+  setHeaders: function(res, path) {
+    res.set('cache-control', 'no-cache')
+  }
 }));
-app.use('/xmls', express.static('xmls'));
+app.use('/xmls', express.static('xmls', {
+  etag: false,
+  maxAge: '1000',
+  setHeaders: function(res, path) {
+    res.set('cache-control', 'no-cache')
+  }
+}));
 
 app.use(express.json());
 

@@ -1,7 +1,11 @@
-const xmlbuilder = require('xmlbuilder')
-, {queryNode, queryNodes, queryText, queryTags} = require('../lib/query')
-, {doRequest} = require('../lib/request')
-, moment = require('moment-timezone');
+const xmlbuilder = require('xmlbuilder');
+const qstr = require('querystring');
+const _ = require('lodash');
+const moment = require('moment-timezone');
+const mongoClient = require("mongodb").MongoClient;
+const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
+const {doRequest} = require('../lib/request');
+const {parseParamsRestrictions} = require('../lib/restrictions');
 
 const createTripInfoResponse = (trip, date, startTime) => {
   const responseTimestamp = new Date().toISOString();
@@ -82,12 +86,6 @@ const createTripInfoResponse = (trip, date, startTime) => {
 		service.ele('siri:LineRef', trip.route.gtfsId);
 		const mode = service.ele('ojp:Mode');
 		mode.ele('ojp:PtMode', trip.route.mode.toLowerCase());
-		if(trip.route.mode === 'BUS'){
-			mode.ele('siri:BusSubmode', 'unknown')
-		}
-		if(trip.route.mode === 'RAIL'){
-			mode.ele('siri:RailSubmode', 'unknown')
-		}
 		service.ele('siri:DirectionRef', trip.directionId);
 		service.ele('ojp:PublishedLineName').ele('ojp:Text', trip.route.longName || trip.route.shortName || trip.route.gtfsId)
 		service.ele('ojp:OperatorRef', trip.route.agency.gtfsId);
@@ -118,7 +116,11 @@ const createTripInfoErrorResponse = (errorCode, startTime) => {
 //TODO
 module.exports = {
 	'tripInfoExecution' : async (doc, startTime, config) => {
+
+		const serviceTag = 'ojp:OJPTripInfoRequest';   //replace
+		
 		const {logger} = config;
+
     try {
 			if(
         queryNodes(doc, "//*[name()='ojp:OJPTripInfoRequest']/*[name()='ojp:JourneyRef']").length > 0

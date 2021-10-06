@@ -1,11 +1,14 @@
-const xmlbuilder = require('xmlbuilder')
-, moment = require('moment-timezone')
-, { v4: uuidv4 } = require('uuid')
-, { time } = require('console')
-, mongoClient = require("mongodb").MongoClient
+const xmlbuilder = require('xmlbuilder');
+const qstr = require('querystring');
+const _ = require('lodash');
+const moment = require('moment-timezone');
+const { v4: uuidv4 } = require('uuid');
+const { time } = require('console');
+const mongoClient = require("mongodb").MongoClient;
 
 const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {doRequest} = require('../lib/request');
+const {parseParamsRestrictions} = require('../lib/restrictions');
 
 const createTripResponse = (itineraries, startTime, showIntermediates, config, question) => {
   const {logger} = config;
@@ -15,7 +18,6 @@ const createTripResponse = (itineraries, startTime, showIntermediates, config, q
   trips.ele('siri:ResponseTimestamp', responseTimestamp);
   
   trips.ele('ojp:CalcTime', calcTime);
-
 
   if(itineraries === null || itineraries.length === 0){
     trips.ele('siri:Status', false);
@@ -89,7 +91,7 @@ const createTripResponse = (itineraries, startTime, showIntermediates, config, q
             transferLeg.ele('ojp:TimeWindowEnd', moment(leg.endTime).toISOString());
             transferLeg.ele('ojp:Duration', moment.duration(leg.duration, 's').toISOString());
             transferLeg.ele('ojp:WalkDuration', moment.duration(leg.duration, 's').toISOString())
-          }          
+          }
         }else{
           tripTransfers += 1;
           let sequence = 1;
@@ -120,7 +122,7 @@ const createTripResponse = (itineraries, startTime, showIntermediates, config, q
               serviceIntermediateArr.ele('ojp:TimetabledTime', moment(intermediatePoint.arrivalTime).toISOString())
               serviceIntermediateArr.ele('ojp:EstimatedTime', moment(intermediatePoint.arrivalTime - leg.departureDelay).toISOString())
               intermediate.ele('ojp:Order', sequence);
-            }            
+            }
           }
 
           const alight = timedLeg.ele('ojp:LegAlight');
@@ -135,20 +137,12 @@ const createTripResponse = (itineraries, startTime, showIntermediates, config, q
           serviceTo.ele('ojp:EstimatedTime', moment(leg.endTime - leg.arrivalDelay).toISOString())
           alight.ele('ojp:Order', sequence+1);
 
-          
-
           const service = timedLeg.ele('ojp:Service');
           service.ele('ojp:OperatingDayRef', moment(leg.serviceDate).tz(leg.route.agency.timezone).format("YYYY-MM-DD"));
           service.ele('ojp:JourneyRef', leg.trip.gtfsId);
           service.ele('siri:LineRef', leg.route.gtfsId);
           const mode = service.ele('ojp:Mode');
           mode.ele('ojp:PtMode', leg.mode.toLowerCase());
-          if(leg.mode === 'BUS'){
-            mode.ele('siri:BusSubmode', 'unknown')
-          }
-          if(leg.mode === 'RAIL'){
-            mode.ele('siri:RailSubmode', 'unknown')
-          }
           service.ele('siri:DirectionRef', leg.trip.directionId);
           service.ele('ojp:PublishedLineName').ele('ojp:Text', leg.route.longName || leg.route.shortName || leg.route.gtfsId)
           service.ele('ojp:OperatorRef', leg.route.agency.gtfsId);
@@ -201,8 +195,15 @@ const createTripErrorResponse = (errorCode, startTime) => {
 
 module.exports = {
   'tripsExecution' : async (doc, startTime, config) => {
+
+    const serviceTag = 'ojp:OJPTripRequest';   //replace
+    
     const {logger} = config;
+
     try{
+
+      const { limit, skip, ptModes } = parseParamsRestrictions(doc, serviceTag);
+
       if(
         queryNodes(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Origin']/*[name()='ojp:PlaceRef']").length > 0
         &&
@@ -224,8 +225,8 @@ module.exports = {
         const originName = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Origin']/*[name()='ojp:PlaceRef']/*[name()='ojp:LocationName']/*[name()='ojp:Text']"); 
         const destinationName = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Destination']/*[name()='ojp:PlaceRef']/*[name()='ojp:LocationName']/*[name()='ojp:Text']"); 
 
-        const limitValue = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Params']/*[name()='ojp:NumberOfResults']");
         const transfersValue = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Params']/*[name()='ojp:TransferLimit']");
+        //TODO move inside parseParamsRestrictions() 
 
         const useWheelchair = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Params']/*[name()='ojp:IncludeAccessibility']");
         
@@ -262,7 +263,7 @@ module.exports = {
           origin: originId || [originLon, originLat, originName || "Origin"],
           destination: destinationId || [destinationLon, destinationLat, destinationName || "Destination"],
           date,
-          limit: Number(limitValue) || 1,
+          limit,
           arrivedBy,
           transfers: Number(transfersValue) || 2,
           wheelchair: useWheelchair === 'true',

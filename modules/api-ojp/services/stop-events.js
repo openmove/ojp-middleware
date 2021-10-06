@@ -1,9 +1,12 @@
-const xmlbuilder = require('xmlbuilder')
-, moment = require('moment-timezone')
-, { v4: uuidv4 } = require('uuid');
+const xmlbuilder = require('xmlbuilder');
+const qstr = require('querystring');
+const _ = require('lodash');
+const moment = require('moment-timezone');
+const { v4: uuidv4 } = require('uuid');
 
 const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {doRequest} = require('../lib/request');
+const {parseParamsRestrictions} = require('../lib/restrictions');
 
 const createEventResponse = (stop, startTime, isDeparture, isArrival, realtimeData) => {
   const responseTimestamp = new Date().toISOString();
@@ -60,12 +63,6 @@ const createEventResponse = (stop, startTime, isDeparture, isArrival, realtimeDa
       service.ele('siri:LineRef', schedule.trip.route.gtfsId);
       const mode = service.ele('ojp:Mode');
       mode.ele('ojp:PtMode', stop.vehicleMode.toLowerCase());
-      if(schedule.trip.route.mode === 'BUS'){
-        mode.ele('siri:BusSubmode', 'unknown')
-      }
-      if(schedule.trip.route.mode === 'RAIL'){
-        mode.ele('siri:RailSubmode', 'unknown')
-      }
       service.ele('siri:DirectionRef', schedule.trip.directionId);
       service.ele('ojp:PublishedLineName').ele('ojp:Text', schedule.trip.route.longName || schedule.trip.route.shortName || schedule.trip.route.gtfsId)
       service.ele('ojp:OperatorRef', schedule.trip.route.agency.gtfsId);
@@ -96,26 +93,38 @@ const createEventErrorResponse = (errorCode, startTime) => {
 
 module.exports = {
   'eventExecution' : async (doc, startTime, config) => {
+    
+    const serviceTag = 'ojp:OJPStopEventRequest';   //replace
+
     const {logger} = config;
+
     try{
+
+      const { limit, skip, ptModes } = parseParamsRestrictions(doc, serviceTag);
+
       if(queryNodes(doc, "//*[name()='ojp:OJPStopEventRequest']/*[name()='ojp:Location']/*[name()='ojp:PlaceRef']").length > 0){
         const text = queryText(doc, "//*[name()='ojp:OJPStopEventRequest']/*[name()='ojp:Location']/*[name()='ojp:PlaceRef']/*[name()='ojp:StopPlaceRef']"); 
         const date = queryText(doc, "//*[name()='ojp:OJPStopEventRequest']/*[name()='ojp:Location']/*[name()='ojp:DepArrTime']");
-        const limit = queryText(doc, "//*[name()='ojp:OJPStopEventRequest']/*[name()='ojp:Params']/*[name()='ojp:NumberOfResults']");
+        
         let startDate = new Date().getTime();
         if(date != null){
           startDate = new Date(date).getTime();
         }
         
-        const options = {
-          host: config['api-otp'].host,
-          port: config['api-otp'].port,
-          path: `/stops/${text}/details?limit=${Number(limit) || 5}&start=${startDate}`,
-          method: 'GET',
-          json:true
-        };
+        const querystr = qstr.stringify({limit/*, skip*/, start: startDate})
+            , options = {
+              host: config['api-otp'].host,
+              port: config['api-otp'].port,
+              path: `/stops/${text}/details?${querystr}`,
+              method: 'GET',
+              json:true
+            };
+        
         logger.info(options);
+
         const response = await doRequest(options);
+
+        const stops = _.slice(response.stops, skip, limit);
         
         let isDeparture = true;
         let isArrival = false;

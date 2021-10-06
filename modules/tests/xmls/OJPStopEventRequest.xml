@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OJP xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.siri.org.uk/siri" version="1.0" xmlns:ojp="http://www.vdv.de/ojp" xsi:schemaLocation="http://www.siri.org.uk/siri ../ojp-xsd-v1.0/OJP.xsd">
+  <OJPRequest>
+    <ServiceRequest>
+      <RequestTimestamp>2021-05-06T11:57:52.438Z</RequestTimestamp>
+      <RequestorRef>OJP/OTP Middleware API Tester</RequestorRef>
+      <ojp:OJPStopEventRequest>
+        <RequestTimestamp>2021-06-04T13:10:17.283Z</RequestTimestamp>
+        <ojp:Location>
+          <ojp:PlaceRef>
+            <ojp:StopPlaceRef>gtt:11592</ojp:StopPlaceRef>
+          </ojp:PlaceRef>
+          <ojp:DepArrTime>2021-07-17T16:40:56</ojp:DepArrTime>
+        </ojp:Location>
+        <ojp:Params>
+          <ojp:NumberOfResults>4</ojp:NumberOfResults>
+          <ojp:StopEventType>arrival</ojp:StopEventType>
+          <ojp:IncludePreviousCalls>false</ojp:IncludePreviousCalls>
+          <ojp:IncludeOnwardCalls>false</ojp:IncludeOnwardCalls>
+          <ojp:IncludeRealtimeData>true</ojp:IncludeRealtimeData>
+        </ojp:Params>
+      </ojp:OJPStopEventRequest>
+    </ServiceRequest>
+  </OJPRequest>
+</OJP>

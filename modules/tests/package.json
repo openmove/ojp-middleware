@@ -1,11 +1,9 @@
 {
   "name": "ojp-test",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "__postinstall": "cp node_modules/jquery/dist/jquery.min.js static/jquery.min.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon -e js,yml,json,env index.js",
     "start": "node index.js"
   },
@@ -16,6 +14,9 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jquery": "^3.6.0",
+    "lodash": "^4.17.21",
+    "pino": "^6.13.0",
+    "pino-pretty": "^5.1.2",
     "serve-index": "^1.9.1"
   },
   "devDependencies": {

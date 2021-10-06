@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+<title>OJP/OTP Middleware API tester</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<link href="main.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div id="content">
+<a style="float:right;" class="btn" href="https://github.com/openmove/ojp-middleware">Github Source</a>
+<h2>OJP-OTP Middleware API tester</h2>
+<select id="xmls">
+    <option disabled selected value>select a request...</option>
+</select>
+<a href="/list.json">xmls requests example files</a>
+<br><br>
+<form id="sendform">
+	<label>REQUEST OJP:</label> <small style="float:right;">API endpoint <a id="ojp_version"></a></small>
+	<br />
+	<textarea id="xml_req" cols="100" rows="22" type="text" contenteditable="true"> 
+	</textarea>
+	<br />
+	<input type="submit" name="SEND REQUEST">
+	<br /><br />
+	<label>RESPONSE OJP:</label>
+	<br />
+	<textarea id="xml_res" cols="100" rows="22">
+	</textarea>
+
+	<div id="ojp_logs">
+		<label>API-OJP REQUESTS LOGS: </label>
+		<select id="ojp_logs_limit">
+			<option value="2">last 2</option>
+			<option selected value="5">last 5</option>
+			<option value="10">last 10</option>
+			<option value="50">last 50</option>
+			<option value="100">last 100</option>
+		</select>
+		<div style="float:right;">
+			<a id="logs_refresh" class="btn" href="#">refresh</a> 
+			<a class="btn" href="" target="_blank">open</a>
+		</div>
+		<br />
+		<textarea cols="80" rows="44">
+		</textarea>
+	</div>
+</form>
+</div>
+
+<script src="/jquery.min.js"></script>
+<script src="/utils.js"></script>
+<script src="/getconfig"></script>
+<script>
+const {host, port} = window.config['api-ojp'];
+
+const apiOjpUrl = `${location.protocol}//${host}:${port}/ojp`
+	, apiOjpUrlLogs = `${apiOjpUrl}/logs`
+	, $list = $('#xmls');
+
+$('#ojp_version').attr('href',apiOjpUrl).text('').addClass('loading');
+$.getJSON(apiOjpUrl, json => {
+	setTimeout(data=>{
+    	$('#ojp_version').text(`version: ${data.version}`).removeClass('loading');
+	},1000,json);
+}).catch(err => {
+	$('#ojp_version').text(`offline!`).removeClass('loading');
+})
+
+$.getJSON('/list.json', data => {
+    $.each( data, ( key, val ) => {
+        let name = val.replace('.xml','').replace('/xmls/','');
+        $(`<option value="${val}">${name}</option>`).appendTo($list);
+    });
+})
+.then(() => {
+    $list.on('change', e => {
+        e.preventDefault();
+        $.get(e.target.value, xmldata => {
+            $('#xml_req').text(comment(formatXml(xmldata)));
+        })
+    });
+});
+
+$("#sendform").submit(e => {
+    e.preventDefault();
+    $('#xml_res').text('').addClass('loading');
+    setTimeout(()=>{
+		$.ajax({
+			url: apiOjpUrl,
+			type: 'POST',
+			data: uncomment($('#xml_req').val()),
+			contentType:"application/xml; charset=utf-8",
+			success: function(data){
+				//console.log('RETURN',data);
+				$('#xml_res')
+					.scrollTop(0)
+					.text(formatXml(data))
+					.removeClass('loading');
+				$('#ojp_logs textarea').load(apiOjpUrlLogs+'?limit='+$('#ojp_logs_limit').val())
+			}
+		})
+	},300);
+
+	return false;
+});
+
+$('#logs_refresh').on('click', e => {
+	e.preventDefault();
+	$('#ojp_logs textarea').empty().load(apiOjpUrlLogs+'?limit='+$('#ojp_logs_limit').val())
+})
+.next('a').attr('href',apiOjpUrlLogs+'?format=text');
+</script> 
+
+</body>
+</html>

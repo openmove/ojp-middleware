@@ -1,12 +1,17 @@
 
- 
+function formatXml(xmldom='') {
 
-function formatXml(xmldom) {
-    
+    if(!xmldom) return xmldom;
+
     const serializer = new XMLSerializer();
-
-    let xml = serializer.serializeToString(xmldom);
-
+    let xml;
+    try {
+        xml = serializer.serializeToString(xmldom);
+    }
+    catch(err) {
+        console.error(err)
+        return xmldom
+    }
     var formatted = '';
     var reg = /(>)(<)(\/*)/g;
     xml = xml.replace(reg, '$1\r\n$2$3');

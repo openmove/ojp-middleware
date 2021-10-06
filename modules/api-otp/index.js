@@ -1,13 +1,14 @@
 'use strict';
 
 const express = require('express')
-, app = express()
-, {getStopById, searchByName, searchByBBox, searchByRadius} = require('./stops')
-, {getStopTimesById} = require('./stoptimes')
-, {planTrip} = require('./plan')
-, {getTripsByIdAndDate} = require('./trips')
-, {request} = require('express')
-, pino = require('pino');
+    , app = express()
+    , _ = require('lodash')
+    , {getStopById, getAllStops, searchByName, searchByBBox, searchByRadius} = require('./stops')
+    , {getStopTimesById} = require('./stoptimes')
+    , {planTrip} = require('./plan')
+    , {getTripsByIdAndDate} = require('./trips')
+    , {request} = require('express')
+    , pino = require('pino');
 
 const dotenv = require('dotenv').config()
     , config = require('@stefcud/configyml')
@@ -20,6 +21,9 @@ const dotenv = require('dotenv').config()
         messageFormat: `{msg}`
       },
     });
+
+logger.info(_.omit(config,['dev','prod','environments']));
+
 config.logger = logger;
 
 app.use(express.json())
@@ -27,15 +31,23 @@ app.use(express.json())
 /**
  * OJPLocationInformationRequest
  */
-
-
 app.get('/stops/:id?', async (req, result) => {
+
+  console.log('STOPS/', req.params, req.query)
   //search a stop by id in PlaceRef
   //if id is undefined return all stops
   const extra = {
-    'limit': req.query.limit || 10
+    'limit': Number(req.query.limit) || 0
   };
-  const res = await getStopById(config, req.params.id, extra)
+
+  let res = {stops: []};
+
+  if(!req.params.id) {
+    res = await getAllStops(config, extra);
+  }
+  else {
+    res = await getStopById(config, req.params.id, extra)
+  }
   result.json(res);
 });
 
@@ -53,13 +65,16 @@ app.post('/search/', async (req, result) => {
    * }
    */
   const params = req.body;
-  logger.debug(params);
+
   const extra = {
-    'limit': params.limit || 10,
+    'limit': Number(params.limit) || 0,
     'arriveBy': params.arriveBy || false
   };
+  
   let res = {stops: []};
-  if(value != null){
+
+  if(!_.isEmpty(params.value)) {
+
     if(params.restrictionType && params.restrictionValue){
       const resTmp = {stops: []};
       switch(params.restrictionType){
@@ -83,14 +98,16 @@ app.post('/search/', async (req, result) => {
     }else{
       res = await searchByName(config, params.value, extra);
     }
-  }else if(position && position.length == 2){ //search at specific position (tricky: radius 1 meter)
-    res = await searchByRadius(config, [...position,1], extra);
-  }else{
-    //TODO wrong request, manage this ?
   }
-  
-  
-  logger.debug(res);
+  else if(params.position && params.position.length == 2){
+    //search at specific position (tricky: radius 1 meter)
+    res = await searchByRadius(config, [...params.position,1], extra);
+  }
+  else
+  {
+    res = await getAllStops(config, extra);
+  }
+
   result.json(res);
 });
 
@@ -101,11 +118,13 @@ app.post('/search/', async (req, result) => {
 app.get('/stops/:id/details', async (req, result) => {
   //return stoptimes and other schedule details for stop
   const extra = {
-    'limit': req.query.limit || 10,
+    'limit': req.query.limit || 0,
     'start': req.query.start || new Date().getTime()
   };
   const res = await getStopTimesById(config, req.params.id, extra);
+  
   logger.debug(res);
+
   result.json(res);
 });
 

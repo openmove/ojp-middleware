@@ -6,7 +6,7 @@ const mapNS = {
   'ojp': 'http://www.vdv.de/ojp',
 };
 
-const queryNodes = (doc, path) => {
+const queryNodesOld = (doc, path) => {
   const queryNS = xpath.useNamespaces(mapNS);
   const nodes = queryNS(path, doc);
   return nodes
@@ -41,6 +41,22 @@ const queryTags = (doc, paths) => {
   const query = `//*${tags}`;
   
   return queryText(doc, query);
+}
+
+const queryNodes = (doc, paths) => {
+  if (!Array.isArray(paths)) {
+    return queryNodesOld(doc, paths)
+  }
+
+  const tags = paths.map(str => {
+    return `[name()='${str}']`;
+  }).join('/*');
+
+  const query = `//*${tags}`;
+
+  const queryNS = xpath.useNamespaces(mapNS);
+  const nodes = queryNS(query, doc);
+  return nodes
 }
 
 

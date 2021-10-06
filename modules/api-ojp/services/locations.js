@@ -1,7 +1,10 @@
 const xmlbuilder = require('xmlbuilder');
+const qstr = require('querystring');
+const _ = require('lodash');
 
 const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {doRequest} = require('../lib/request');
+const {parseParamsRestrictions} = require('../lib/restrictions');
 
 const createLocationResponse = (stops, startTime, ptModes) => {
   const responseTimestamp = new Date().toISOString();
@@ -27,12 +30,6 @@ const createLocationResponse = (stops, startTime, ptModes) => {
     if(ptModes === true){
       const mode = loc.ele('ojp:Mode');
       mode.ele('ojp:PtMode', stop.vehicleMode.toLowerCase());
-      if(stop.vehicleMode === 'BUS'){
-        mode.ele('siri:BusSubmode', 'unknown')
-      }
-      if(stop.vehicleMode === 'RAIL'){
-        mode.ele('siri:RailSubmode', 'unknown')
-      }
     }
   }
 
@@ -62,38 +59,81 @@ const createLocationErrorResponse = (errorCode, startTime) => {
 
 module.exports = {
   'locationExecution' : async (doc, startTime, config) => {
+    
+    const serviceTag = 'ojp:OJPLocationInformationRequest';
+
     const {logger} = config;
-    try{
-      if(queryNodes(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:PlaceRef']").length > 0){
-        const text = queryText(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:PlaceRef']/*[name()='ojp:StopPlaceRef']");
-        const ptModes = queryText(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:Restrictions']/*[name()='ojp:IncludePtModes']");
-        const limit = queryText(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:Restrictions']/*[name()='ojp:NumberOfResults']");
-        const options = {
-          host: config['api-otp'].host,
-          port: config['api-otp'].port,
-          path: `/stops/${text || ''}?limit=${limit || 5}`, //limit is not necessary in this case because we are looking for an ID.          
-          method: 'GET',
-          json: true
-        };
-        const response = await doRequest(options)   
-        return createLocationResponse(response.stops, startTime, ptModes === 'true');
-      } else if(queryNodes(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:InitialInput']").length > 0){
-        const locationName = queryText(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:InitialInput']/*[name()='ojp:LocationName']"); 
-        const locationPositionLat = queryText(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:InitialInput']/*[name()='ojp:GeoPosition']/*[name()=Latitude]"); 
-        const locationPositionLon = queryText(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:InitialInput']/*[name()='ojp:GeoPosition']/*[name()=Longitude]"); 
+    
+    try {
+
+      const { limit, skip, ptModes } = parseParamsRestrictions(doc, serviceTag);
+
+      if(queryNodes(doc, [serviceTag,'ojp:PlaceRef']).length > 0) {
+
+        const stopName = queryTags(doc, [
+          serviceTag,
+          'ojp:PlaceRef',
+          'ojp:StopPlaceRef'
+        ]);
+
+        const locationName = queryTags(doc, [
+          serviceTag,
+          'ojp:PlaceRef',
+          'ojp:LocationName',
+          'ojp:Text'
+        ]);
+
+        const text = stopName || locationName || '';
+
+        const querystr = qstr.stringify({limit/*, skip*/})
+            , options = {
+              host: config['api-otp'].host,
+              port: config['api-otp'].port,
+              path: `/stops/${text}?${querystr}`, //limit is not necessary in this case because we are looking for an ID.          
+              method: 'GET',
+              json: true
+            };
         
-        const ptModes = queryText(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:Restrictions']/*[name()='ojp:IncludePtModes']");
-        const limit = queryText(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:Restrictions']/*[name()='ojp:NumberOfResults']");
-  
+        const response = await doRequest(options);
+
+        const stops = _.slice(response.stops, skip, limit);
+
+        return createLocationResponse(stops, startTime, ptModes);
+      }
+      else if(queryNodes(doc, [serviceTag, 'ojp:InitialInput']).length > 0) {
+
+        const LocationName = queryTags(doc, [
+          serviceTag,
+          'ojp:InitialInput',
+          'ojp:LocationName'
+        ]);
+
+        const locationPositionLat = queryTags(doc, [
+          serviceTag,
+          'ojp:InitialInput',
+          'ojp:GeoPosition',
+          'Latitude'
+        ]);
         
-        let data = null;
+        const locationPositionLon = queryTags(doc, [
+          serviceTag,
+          'ojp:InitialInput',
+          'ojp:GeoPosition',
+          'Longitude'
+        ]);
+
         const params = {
-          value: locationName,
-          position: [locationPositionLon, locationPositionLat],
-          limit: Number(limit) || 5
+          value: LocationName,
+          limit: limit
         };
         
-        const restriction = queryNode(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:InitialInput']/*[name()='ojp:GeoRestriction']");
+        let json = JSON.stringify(params);
+
+        const restriction = queryNode(doc, [
+          serviceTag,
+          'ojp:InitialInput',
+          'ojp:GeoRestriction'
+        ]);
   
         if(restriction){
           const rect = queryNode(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:InitialInput']/*[name()='ojp:GeoRestriction']/*[name()='ojp:Rectangle']");
@@ -127,8 +167,11 @@ module.exports = {
           }
         }
 
-        if(locationName != null || (locationPositionLat != null && locationPositionLon != null) ){
-          data = JSON.stringify(params);
+        if(locationPositionLat != null && locationPositionLon != null){
+          
+          params.position = [locationPositionLon, locationPositionLat];
+
+          json = JSON.stringify(params);
         }
 
         const options = {
@@ -139,13 +182,19 @@ module.exports = {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Content-Length': data.length,
+            'Content-Length': json.length,
           }
         }
-        const response = await doRequest(options, data)   
-        logger.info(response)
-        return createLocationResponse(response.stops, startTime, ptModes === 'true');
-      }else{
+        const response = await doRequest(options, json);
+
+        const stops = _.slice(response.stops, skip, limit);
+
+        //console.log('POST PARAMS',params, json)
+
+        //logger.info(response)
+        return createLocationResponse(stops, startTime, ptModes);
+      }
+      else{
         return createLocationErrorResponse('E0001', startTime);
       }
     }catch(err){
