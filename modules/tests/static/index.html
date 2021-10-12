@@ -76,15 +76,17 @@ $.getJSON('/list.json', data => {
 .then(() => {
     $list.on('change', e => {
         e.preventDefault();
+        $('#xml_req').val('').addClass('loading');
         $.get(e.target.value, xmldata => {
-            $('#xml_req').text(comment(formatXml(xmldata)));
+            $('#xml_req').removeClass('loading').val(comment(formatXml(xmldata)));
+            //document.getElementById('xml_req').innerHTML = comment(formatXml(xmldata));
         })
     });
 });
 
 $("#sendform").submit(e => {
     e.preventDefault();
-    $('#xml_res').text('').addClass('loading');
+    $('#xml_res').val('').addClass('loading');
     setTimeout(()=>{
 		$.ajax({
 			url: apiOjpUrl,
@@ -95,7 +97,7 @@ $("#sendform").submit(e => {
 				//console.log('RETURN',data);
 				$('#xml_res')
 					.scrollTop(0)
-					.text(formatXml(data))
+					.val(formatXml(data))
 					.removeClass('loading');
 				$('#ojp_logs textarea').load(apiOjpUrlLogs+'?limit='+$('#ojp_logs_limit').val())
 			}

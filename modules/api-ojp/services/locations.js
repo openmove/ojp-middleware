@@ -97,9 +97,8 @@ module.exports = {
         }
 
         if (locationName) {
-          const name = encodeURIComponent(locationName || '');
 
-          const json = JSON.stringify({value: name});
+          const json = JSON.stringify({value: locationName});
 
           const options = {
             host: config['api-otp'].host,
