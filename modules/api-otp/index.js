@@ -123,7 +123,7 @@ app.get('/stops/:id/details', async (req, result) => {
   };
   const res = await getStopTimesById(config, req.params.id, extra);
   
-  logger.debug(res);
+  logger.debug(extra);
 
   result.json(res);
 });

@@ -5,6 +5,10 @@ const {queryNode, queryNodes, queryText, queryTags} = require('./query');
 
 module.exports = {
 
+	'parseGeoRestrictions': (doc, serviceTag) => {
+		//TODO
+	},
+
 	'parseParamsRestrictions': (doc, serviceTag) => {
 
 		const ptModesRestrictions = queryTags(doc, [

@@ -149,8 +149,6 @@ module.exports = {
     logger.debug(query);
     
     const data = await clientQL.request(query, {});
-
-    logger.debug(data);
     
     if(data!= null && data.stopsByName){
       const res = {stops: []}

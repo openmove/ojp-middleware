@@ -81,7 +81,7 @@ app.use(nocache());
 
 app.use(cors());
 
-app.use(xmlparser());
+app.use(xmlparser({strict:false}));
 
 app.get('/ojp/', async (req, result) => {
   result.send({
@@ -143,6 +143,8 @@ app.post('/ojp/', async (req, result) => {
         warning: e => {console.warn('DOM WARN', e)},
         error: errorMsg => {
 
+          console.warn('ERROR XML PARSING',err)
+
           const errorCode = errorMsg.replace("\n",' ');
 
           const ojpErr = xmlbuilder.create('siri:OJP', {encoding: 'utf-8'});
@@ -183,9 +185,7 @@ app.post('/ojp/', async (req, result) => {
     }).parseFromString(xml);
   }
   catch(err) {
-    console.warn('ERROR XML PARSING',err)
     logger.error(err);
-    
     return;
   }
 
