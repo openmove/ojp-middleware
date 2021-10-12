@@ -26,7 +26,7 @@ logger.info(_.omit(config,['dev','prod','environments']));
 
 config.logger = logger;
 
-app.use(express.json())
+app.use(express.json());
 
 /**
  * OJPLocationInformationRequest

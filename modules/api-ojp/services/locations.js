@@ -76,44 +76,65 @@ module.exports = {
           'ojp:StopPlaceRef'
         ]);
 
-        const locationName = queryTags(doc, [
+        const stopName = queryTags(doc, [
           serviceTag,
           'ojp:PlaceRef',
           'ojp:LocationName',
           'ojp:Text'
         ]);
 
+        const locationName = queryNodes(doc, [
+          serviceTag,
+          'ojp:PlaceRef',
+          'ojp:LocationName'
+        ]);
+
+        let json = '', options = {};
+
         if (stopId) {
 
-          const querystr = qstr.stringify({limit/*, skip*/})
-              , options = {
-                host: config['api-otp'].host,
-                port: config['api-otp'].port,
-                path: `/stops/${stopId}?${querystr}`, //limit is not necessary in this case because we are looking for an ID.
-                method: 'GET',
-                json: true
-              };
-          const response = await doRequest(options);
+          const querystr = qstr.stringify({limit/*, skip*/});
+
+          options = {
+            host: config['api-otp'].host,
+            port: config['api-otp'].port,
+            path: `/stops/${stopId}?${querystr}`, //limit is not necessary in this case because we are looking for an ID.
+            method: 'GET',
+            json: true
+          };
         }
+        else if (stopName) {
 
-        if (locationName) {
+          json = JSON.stringify({value: stopName});
 
-          const json = JSON.stringify({value: locationName});
-
-          const options = {
+          options = {
             host: config['api-otp'].host,
             port: config['api-otp'].port,
             path: `/search/`,
-            json: true,
             method: 'POST',
+            json: true,
             headers: {
               'Content-Type': 'application/json',
               'Content-Length': json.length,
             }
           };
-
-          const response = await doRequest(options, json);
         }
+        else if(locationName) { //GET ALL
+
+          const querystr = qstr.stringify({limit/*, skip*/});
+
+          options = {
+            host: config['api-otp'].host,
+            port: config['api-otp'].port,
+            path: `/stops/?${querystr}`, //limit is not necessary in this case because we are looking for an ID.
+            method: 'GET',
+            json: true
+          };
+        }
+
+        console.log('PLACEREF',stopId,stopName,locationName)
+
+        const response = await doRequest(options, json);
 
         const stops = _.slice(response.stops, skip, limit);
 
