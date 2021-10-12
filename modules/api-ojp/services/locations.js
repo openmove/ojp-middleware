@@ -70,7 +70,7 @@ module.exports = {
 
       if(queryNodes(doc, [serviceTag,'ojp:PlaceRef']).length > 0) {
 
-        const stopName = queryTags(doc, [
+        const stopId = queryTags(doc, [
           serviceTag,
           'ojp:PlaceRef',
           'ojp:StopPlaceRef'
@@ -83,18 +83,38 @@ module.exports = {
           'ojp:Text'
         ]);
 
-        const text = encodeURIComponent(stopName || locationName || '');
+        if (stopId) {
 
-        const querystr = qstr.stringify({limit/*, skip*/})
-            , options = {
-              host: config['api-otp'].host,
-              port: config['api-otp'].port,
-              path: `/stops/${text}?${querystr}`, //limit is not necessary in this case because we are looking for an ID.          
-              method: 'GET',
-              json: true
-            };
-        
-        const response = await doRequest(options);
+          const querystr = qstr.stringify({limit/*, skip*/})
+              , options = {
+                host: config['api-otp'].host,
+                port: config['api-otp'].port,
+                path: `/stops/${stopId}?${querystr}`, //limit is not necessary in this case because we are looking for an ID.
+                method: 'GET',
+                json: true
+              };
+          const response = await doRequest(options);
+        }
+
+        if (locationName) {
+          const name = encodeURIComponent(locationName || '');
+
+          const json = JSON.stringify({value: name});
+
+          const options = {
+            host: config['api-otp'].host,
+            port: config['api-otp'].port,
+            path: `/search/`,
+            json: true,
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Content-Length': json.length,
+            }
+          };
+
+          const response = await doRequest(options, json);
+        }
 
         const stops = _.slice(response.stops, skip, limit);
 
@@ -183,7 +203,8 @@ module.exports = {
             'Content-Type': 'application/json',
             'Content-Length': json.length,
           }
-        }
+        };
+
         const response = await doRequest(options, json);
 
         const stops = _.slice(response.stops, skip, limit);

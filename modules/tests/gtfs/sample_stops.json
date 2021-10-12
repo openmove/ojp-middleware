@@ -1,0 +1,1002 @@
+[
+  {
+    "id": "8:8",
+    "code": "8",
+    "name": "Saluzzo - stella",
+    "lat": 44.63197,
+    "lon": 7.49544
+  },
+  {
+    "id": "17:17",
+    "code": "59052",
+    "name": "Jafferau Telecabina",
+    "lat": 45.08203995,
+    "lon": 6.71253276
+  },
+  {
+    "id": "8:9",
+    "code": "9",
+    "name": "Manta - sole",
+    "lat": 44.62898,
+    "lon": 7.4941
+  },
+  {
+    "id": "gtt:11592",
+    "code": "11592",
+    "name": "IVREA (V. CASALE/PONTE BREDA)",
+    "lat": 45.46283,
+    "lon": 7.90368
+  },
+  {
+    "id": "17:15",
+    "code": "55099",
+    "name": "Piazza Statuto",
+    "lat": 45.07786113,
+    "lon": 6.71040094
+  },
+  {
+    "id": "17:16",
+    "code": "55100",
+    "name": "Piazza Statuto",
+    "lat": 45.07796265,
+    "lon": 6.71043098
+  },
+  {
+    "id": "17:14",
+    "code": "63945",
+    "name": "Via Medail - Via Giuseppe Garibaldi",
+    "lat": 45.07711563,
+    "lon": 6.71212614
+  },
+  {
+    "id": "17:12",
+    "code": "63944",
+    "name": "Via Susa 1",
+    "lat": 45.07657393,
+    "lon": 6.71328485
+  },
+  {
+    "id": "8:1",
+    "code": "1",
+    "name": "SALUZZO - Autostazione",
+    "lat": 44.64935,
+    "lon": 7.48995
+  },
+  {
+    "id": "gtt:23577",
+    "code": "23577",
+    "name": "SANGANO (VILLA AUGUSTA)",
+    "lat": 45.02244,
+    "lon": 7.4611
+  },
+  {
+    "id": "8:5",
+    "code": "5",
+    "name": "Saluzzo - c.so roma birreria",
+    "lat": 44.64464,
+    "lon": 7.4962
+  },
+  {
+    "id": "8:6",
+    "code": "6",
+    "name": "Saluzzo - Stazione FS",
+    "lat": 44.64289,
+    "lon": 7.4972
+  },
+  {
+    "id": "17:19",
+    "code": "63947",
+    "name": "Prerichard",
+    "lat": 45.07482605,
+    "lon": 6.71637475
+  },
+  {
+    "id": "8:7",
+    "code": "7",
+    "name": "Saluzzo - tapparelli",
+    "lat": 44.6353,
+    "lon": 7.49691
+  },
+  {
+    "id": "gtt:23574",
+    "code": "23574",
+    "name": "BRUINO (V. SUSA-PINEROLO 70)",
+    "lat": 45.0167,
+    "lon": 7.46511
+  },
+  {
+    "id": "gtt:23571",
+    "code": "23571",
+    "name": "BRUINO (V. TORINO/V. CORDERO)",
+    "lat": 45.01945,
+    "lon": 7.46583
+  },
+  {
+    "id": "15:23171",
+    "code": "23171",
+    "name": "Brusasco (P.za Ritana)",
+    "lat": 45.1567483889184,
+    "lon": 8.06950686558402
+  },
+  {
+    "id": "17:20",
+    "code": "63946",
+    "name": "Prerichard",
+    "lat": 45.07488441,
+    "lon": 6.71642411
+  },
+  {
+    "id": "17:21",
+    "code": "59783",
+    "name": "Millaures - Hotel Bellevue",
+    "lat": 45.07241746,
+    "lon": 6.71914816
+  },
+  {
+    "id": "gtt:11598",
+    "code": "11598",
+    "name": "IVREA (V. CIGLIANO/CASC. ROSSA)",
+    "lat": 45.45219,
+    "lon": 7.91205
+  },
+  {
+    "id": "gtt:11595",
+    "code": "11595",
+    "name": "IVREA (V. CIGLIANO/CASC. BAGNOD)",
+    "lat": 45.45804,
+    "lon": 7.90731
+  },
+  {
+    "id": "gtt:11580",
+    "code": "11580",
+    "name": "IVREA (C.SO VERCELLI 120)",
+    "lat": 45.4683,
+    "lon": 7.88973
+  },
+  {
+    "id": "12:0021564687",
+    "name": "LOCATE DI TRIULZI - VIA MORO -A",
+    "lat": 45.35648038592314,
+    "lon": 9.230875968933105
+  },
+  {
+    "id": "gtt:24894",
+    "code": "24894",
+    "name": "ASTI (C.SO FERRARIS/V. TORRICELLI)",
+    "lat": 44.89903,
+    "lon": 8.21221
+  },
+  {
+    "id": "gtt:23562",
+    "code": "23562",
+    "name": "BRUINO (ALBA SERENA)",
+    "lat": 45.01851,
+    "lon": 7.48137
+  },
+  {
+    "id": "gtt:24891",
+    "code": "24891",
+    "name": "ASTI (V. GENOVA 1)",
+    "lat": 44.90276,
+    "lon": 8.2144
+  },
+  {
+    "id": "14:23162",
+    "code": "23162",
+    "name": "SCARMAGNO (SP82-STABILIMENTO)",
+    "lat": 45.378257738292,
+    "lon": 7.85594007593857
+  },
+  {
+    "id": "5:031231",
+    "name": "Rondissone - P.Za Roma",
+    "lat": 45.24691,
+    "lon": 7.9658
+  },
+  {
+    "id": "gtt:11589",
+    "code": "11589",
+    "name": "IVREA (V. CASALE/V. BIELLA)",
+    "lat": 45.46567,
+    "lon": 7.90078
+  },
+  {
+    "id": "17:10",
+    "code": "53538",
+    "name": "Via Susa 2",
+    "lat": 45.07555491,
+    "lon": 6.71392322
+  },
+  {
+    "id": "gtt:11586",
+    "code": "11586",
+    "name": "IVREA (V. CASALE 2)",
+    "lat": 45.46732,
+    "lon": 7.89874
+  },
+  {
+    "id": "gtt:11583",
+    "code": "11583",
+    "name": "IVREA (C.SO VERCELLI/V. STRUSIGLIA)",
+    "lat": 45.46832,
+    "lon": 7.89195
+  },
+  {
+    "id": "6:1002",
+    "code": "0011520002",
+    "name": "PUGNETTO",
+    "lat": 45.2744914,
+    "lon": 7.4121342
+  },
+  {
+    "id": "gtt:11571",
+    "code": "11571",
+    "name": "SAN BERNARDO (V. TORINO/CANTON GARDA)",
+    "lat": 45.43821,
+    "lon": 7.87904
+  },
+  {
+    "id": "11:11171",
+    "code": "11171",
+    "name": "CHIVASSO (P.ZA DEL POPOLO)",
+    "lat": 45.1914657933744,
+    "lon": 7.8917937745906
+  },
+  {
+    "id": "17:38",
+    "code": "55096",
+    "name": "Via Cavour angolo via Frejus",
+    "lat": 45.08170285,
+    "lon": 6.69817328
+  },
+  {
+    "id": "17:36",
+    "code": "55094",
+    "name": "Via Cavour",
+    "lat": 45.0833551,
+    "lon": 6.6993784
+  },
+  {
+    "id": "trepie:ITRP-ST0110199001",
+    "name": "Stazione MONTEROSSO",
+    "lat": 44.145962,
+    "lon": 9.649008
+  },
+  {
+    "id": "gtt:23559",
+    "code": "23559",
+    "name": "BRUINO (V. ORBASSANO/V. MARCONI)",
+    "lat": 45.01748,
+    "lon": 7.48542
+  },
+  {
+    "id": "15:11171",
+    "code": "11171",
+    "name": "Chivasso (P.za del Popolo)",
+    "lat": 45.1914657933744,
+    "lon": 7.8917937745906
+  },
+  {
+    "id": "17:34",
+    "code": "30024",
+    "name": "Via Medail",
+    "lat": 45.07953997,
+    "lon": 6.70032442
+  },
+  {
+    "id": "2:3666",
+    "code": "0040730001",
+    "name": "CORTEMILIA - PAESE",
+    "lat": 44.5807142,
+    "lon": 8.1923342
+  },
+  {
+    "id": "8:1007",
+    "code": "1007",
+    "name": "Vinovo - via cottolengo 83",
+    "lat": 44.94743,
+    "lon": 7.63426
+  },
+  {
+    "id": "gtt:24888",
+    "code": "24888",
+    "name": "ASTI (C.SO CASALE /V. TOSI)",
+    "lat": 44.90524,
+    "lon": 8.21891
+  },
+  {
+    "id": "8:1006",
+    "code": "1006",
+    "name": "Vinovo - via cottolengo / via mazzolari",
+    "lat": 44.94641,
+    "lon": 7.63233
+  },
+  {
+    "id": "gtt:24887",
+    "code": "24887",
+    "name": "ASTI (C.SO CASALE/V. DESIDERI)",
+    "lat": 44.9102,
+    "lon": 8.21957
+  },
+  {
+    "id": "14:23156",
+    "code": "23156",
+    "name": "BALDISSERO (CIMITERO)",
+    "lat": 45.4051873163167,
+    "lon": 7.74596988804137
+  },
+  {
+    "id": "8:1005",
+    "code": "1005",
+    "name": "Vinovo - via cottolengo /via della rocca",
+    "lat": 44.94474,
+    "lon": 7.62923
+  },
+  {
+    "id": "gtt:24886",
+    "code": "24886",
+    "name": "ASTI (C.SO CASALE-IPERMERCATO IL BORGO)",
+    "lat": 44.91588,
+    "lon": 8.22242
+  },
+  {
+    "id": "gtt:23556",
+    "code": "23556",
+    "name": "RIVALTA (FRAZ. PRABERNASCA-V. SANGANO)",
+    "lat": 45.0162,
+    "lon": 7.49085
+  },
+  {
+    "id": "8:1004",
+    "code": "1004",
+    "name": "Vinovo - via aliberti / via carignano",
+    "lat": 44.94427,
+    "lon": 7.63729
+  },
+  {
+    "id": "gtt:23553",
+    "code": "23553",
+    "name": "RIVALTA (FRAZ. PRABERNASCA-V. PIOSSASCO)",
+    "lat": 45.01382,
+    "lon": 7.50125
+  },
+  {
+    "id": "gtt:24885",
+    "code": "24885",
+    "name": "VALGERA COPPI",
+    "lat": 44.94238,
+    "lon": 8.22437
+  },
+  {
+    "id": "8:1003",
+    "code": "1003",
+    "name": "Vinovo - via aliberti 4",
+    "lat": 44.94927,
+    "lon": 7.63894
+  },
+  {
+    "id": "8:1002",
+    "code": "1002",
+    "name": "La loggia - s.p. di la loggia 41",
+    "lat": 44.94988,
+    "lon": 7.64135
+  },
+  {
+    "id": "8:1001",
+    "code": "1001",
+    "name": "LA LOGGIA - Via Vinovo / V. Sciascia",
+    "lat": 44.957,
+    "lon": 7.66103
+  },
+  {
+    "id": "gtt:24882",
+    "code": "24882",
+    "name": "PORTACOMARO (ISOFLUSS)",
+    "lat": 44.9495,
+    "lon": 8.2237
+  },
+  {
+    "id": "14:23159",
+    "code": "23159",
+    "name": "SCARMAGNO (MASERO)",
+    "lat": 45.3696785903511,
+    "lon": 7.84868912851726
+  },
+  {
+    "id": "8:1011",
+    "code": "1011",
+    "name": "Vinovo - via stupinigi distr. ip",
+    "lat": 44.95673,
+    "lon": 7.6258
+  },
+  {
+    "id": "14:23150",
+    "code": "23150",
+    "name": "TORRE (BV. BAIRO)",
+    "lat": 45.389544614512,
+    "lon": 7.75806032018638
+  },
+  {
+    "id": "8:1010",
+    "code": "1010",
+    "name": "Vinovo - via stupinigi distr. shell",
+    "lat": 44.95402,
+    "lon": 7.62728
+  },
+  {
+    "id": "gtt:23550",
+    "code": "23550",
+    "name": "RIVALTA (FRAZ. GERBOLE-CAUDANO)",
+    "lat": 45.01226,
+    "lon": 7.50805
+  },
+  {
+    "id": "14:23153",
+    "code": "23153",
+    "name": "TORRE (PESO)",
+    "lat": 45.393192813243,
+    "lon": 7.75665014440082
+  },
+  {
+    "id": "17:42",
+    "code": "57945",
+    "name": "Sant'Ippolito",
+    "lat": 45.08044,
+    "lon": 6.6967764
+  },
+  {
+    "id": "gtt:11577",
+    "code": "11577",
+    "name": "IVREA (V. TORINO/CANTON MARIDON)",
+    "lat": 45.44893,
+    "lon": 7.87846
+  },
+  {
+    "id": "17:40",
+    "code": "55097",
+    "name": "Piazza Des Ambrois",
+    "lat": 45.0807539,
+    "lon": 6.6980598
+  },
+  {
+    "id": "gtt:11574",
+    "code": "11574",
+    "name": "IVREA (V. TORINO/CANTON FERRERO)",
+    "lat": 45.44554,
+    "lon": 7.87801
+  },
+  {
+    "id": "gtt:10241",
+    "code": "10241",
+    "name": "CHIVASSO (P.I.CHI.)",
+    "lat": 45.20439,
+    "lon": 7.89053
+  },
+  {
+    "id": "12:0060960001",
+    "name": "MOLINO DEI TORTI -A",
+    "lat": 45.0236246169,
+    "lon": 8.89233788358
+  },
+  {
+    "id": "17:29",
+    "code": "63943",
+    "name": "Via Pietro Micca 36",
+    "lat": 45.08053998,
+    "lon": 6.703704
+  },
+  {
+    "id": "12:0060960004",
+    "name": "BIVIO MOLINO DEI TORTI -A",
+    "lat": 45.0178167055,
+    "lon": 8.89030674773
+  },
+  {
+    "id": "gtt:12890",
+    "code": "12890",
+    "name": "CASTIGLIONE (MONTANELLO)",
+    "lat": 44.63055,
+    "lon": 7.97835
+  },
+  {
+    "id": "14:12491",
+    "code": "12491",
+    "name": "OGLIANICO (CAMPO SPORTIVO)",
+    "lat": 45.3486617963023,
+    "lon": 7.69246208806293
+  },
+  {
+    "id": "17:26",
+    "code": "63940",
+    "name": "Le Gleise",
+    "lat": 45.0681564,
+    "lon": 6.73383106
+  },
+  {
+    "id": "17:27",
+    "code": "57938",
+    "name": "Via Pietro Micca",
+    "lat": 45.0816613,
+    "lon": 6.7060154
+  },
+  {
+    "id": "17:25",
+    "code": "57939",
+    "name": "Le Gleise",
+    "lat": 45.06819947,
+    "lon": 6.73388314
+  },
+  {
+    "id": "trepie:ITRP-ST0181779001",
+    "name": "Stazione VIGEVANO",
+    "lat": 45.3129,
+    "lon": 8.86203
+  },
+  {
+    "id": "gtt:24879",
+    "code": "24879",
+    "name": "PORTACOMARO (CENTRO)",
+    "lat": 44.95822,
+    "lon": 8.22398
+  },
+  {
+    "id": "17:23",
+    "code": "59782",
+    "name": "Millaures",
+    "lat": 45.07035271,
+    "lon": 6.72279596
+  },
+  {
+    "id": "14:23147",
+    "code": "23147",
+    "name": "BAIRO (CIRCONVALLAZIONE)",
+    "lat": 45.3861127754248,
+    "lon": 7.7582600288148
+  },
+  {
+    "id": "gtt:24876",
+    "code": "24876",
+    "name": "CASTELL'ALFERO (BV. SERRA PERNO)",
+    "lat": 44.96846,
+    "lon": 8.22728
+  },
+  {
+    "id": "gtt:24873",
+    "code": "24873",
+    "name": "CASTELL'ALFERO (CASOTTO)",
+    "lat": 44.97781,
+    "lon": 8.22652
+  },
+  {
+    "id": "gtt:22210",
+    "code": "22210",
+    "name": "CHIESANUOVA (V. CUORGNÈ 2)",
+    "lat": 45.41636,
+    "lon": 7.65574
+  },
+  {
+    "id": "gtt:24870",
+    "code": "24870",
+    "name": "CASTELL'ALFERO",
+    "lat": 44.98044,
+    "lon": 8.21225
+  },
+  {
+    "id": "8:260235",
+    "code": "260235",
+    "name": "San giuseppe - san giuseppe (incrocio)",
+    "lat": 44.49594,
+    "lon": 7.47556
+  },
+  {
+    "id": "8:260237",
+    "code": "260237",
+    "name": "BUSCA - Blue Sky",
+    "lat": 44.51067,
+    "lon": 7.48358
+  },
+  {
+    "id": "gtt:12896",
+    "code": "12896",
+    "name": "CASTIGLIONE (V. MONFORTE 1)",
+    "lat": 44.61751,
+    "lon": 7.9711
+  },
+  {
+    "id": "gtt:11568",
+    "code": "11568",
+    "name": "IVREA (V. TORINO/CANTON MUSSANO)",
+    "lat": 45.43531,
+    "lon": 7.88001
+  },
+  {
+    "id": "14:12497",
+    "code": "12497",
+    "name": "LOMBARDORE (CASCINA BOSSOLE)",
+    "lat": 45.2408625673942,
+    "lon": 7.74074199969375
+  },
+  {
+    "id": "17:31",
+    "code": "63942",
+    "name": "Via Pietro Micca 21",
+    "lat": 45.0804718,
+    "lon": 6.70296907
+  },
+  {
+    "id": "17:32",
+    "code": "55095",
+    "name": "Via Pietro Micca 11",
+    "lat": 45.08097559,
+    "lon": 6.70087695
+  },
+  {
+    "id": "8:260230",
+    "code": "260230",
+    "name": "Bivio san mauro - castelletto incrocio",
+    "lat": 44.48194,
+    "lon": 7.45199
+  },
+  {
+    "id": "gtt:12899",
+    "code": "12899",
+    "name": "CASTIGLIONE (CASE BORGOGNO)",
+    "lat": 44.61444,
+    "lon": 7.96695
+  },
+  {
+    "id": "gtt:11565",
+    "code": "11565",
+    "name": "SAN BERNARDO (V. TORINO/CANTON ARBORE)",
+    "lat": 45.43276,
+    "lon": 7.88081
+  },
+  {
+    "id": "gtt:12893",
+    "code": "12893",
+    "name": "CASTIGLIONE FALLETTO (V. ROMA)",
+    "lat": 44.62259,
+    "lon": 7.97435
+  },
+  {
+    "id": "gtt:11562",
+    "code": "11562",
+    "name": "IVREA (V. TORINO/CANTON BEVOLO)",
+    "lat": 45.42978,
+    "lon": 7.88186
+  },
+  {
+    "id": "1:2358",
+    "code": "0013080010",
+    "name": "VILLASTELLONE  - ZONA INDUSTRIALE - CORSO SAVONA, 10",
+    "lat": 44.9378295,
+    "lon": 7.7272199
+  },
+  {
+    "id": "8:260290",
+    "code": "260290",
+    "name": "Via Rocca / Via del Portico",
+    "lat": 44.44538,
+    "lon": 7.52502
+  },
+  {
+    "id": "14:12482",
+    "code": "12482",
+    "name": "Favria (v. S.Pietro/P.za Martiri Liberta')",
+    "lat": 45.3317,
+    "lon": 7.6908
+  },
+  {
+    "id": "1:1026",
+    "code": "0011560015",
+    "name": "REVIGLIASCO - STRADA TROFARELLO",
+    "lat": 45.0131431,
+    "lon": 7.7413145
+  },
+  {
+    "id": "14:11153",
+    "code": "11153",
+    "name": "Boschetto (P.za S.Giovanni)",
+    "lat": 45.2369,
+    "lon": 7.9049
+  },
+  {
+    "id": "17:58",
+    "code": "63933",
+    "name": "Biblioteca",
+    "lat": 45.0767584,
+    "lon": 6.7025908
+  },
+  {
+    "id": "1:2354",
+    "code": "0013080006",
+    "name": "VILLASTELLONE - BIVIO CORNALESE - PARCO INDUSTRIALE",
+    "lat": 44.9169066,
+    "lon": 7.7416438
+  },
+  {
+    "id": "8:260292",
+    "code": "260292",
+    "name": "PALAZZASSO - Via Vecchia di Busca",
+    "lat": 44.44901,
+    "lon": 7.45572
+  },
+  {
+    "id": "8:260291",
+    "code": "260291",
+    "name": "PALAZZASSO - Borgata Parrocchia",
+    "lat": 44.45677,
+    "lon": 7.45808
+  },
+  {
+    "id": "gtt:22207",
+    "code": "22207",
+    "name": "BORGIALLO (LOC BELVEDERE)",
+    "lat": 45.42214,
+    "lon": 7.66129
+  },
+  {
+    "id": "17:56",
+    "code": "30025",
+    "name": "Piazza Suspize",
+    "lat": 45.07932785,
+    "lon": 6.6989243
+  },
+  {
+    "id": "gtt:22204",
+    "code": "22204",
+    "name": "BORGIALLO (LOC. SAN CARLO)",
+    "lat": 45.41953,
+    "lon": 7.66463
+  },
+  {
+    "id": "gtt:24867",
+    "code": "24867",
+    "name": "CASTELL'ALFERO (STAZIONE FS)",
+    "lat": 44.98638,
+    "lon": 8.2216
+  },
+  {
+    "id": "gtt:22201",
+    "code": "22201",
+    "name": "BORGIALLO (P.ZA 16.3.1948)",
+    "lat": 45.41622,
+    "lon": 7.66886
+  },
+  {
+    "id": "1:1032",
+    "code": "0011560021",
+    "name": "MONCALIERI - VIA PASTRENGO ANGOLO VIA PESCHIERA",
+    "lat": 45.0024662,
+    "lon": 7.6705692
+  },
+  {
+    "id": "17:64",
+    "code": "57940",
+    "name": "Piazza De Gasperi",
+    "lat": 45.0781522,
+    "lon": 6.7034116
+  },
+  {
+    "id": "1:2364",
+    "code": "0013090008",
+    "name": "TORRETTE",
+    "lat": 44.9693019,
+    "lon": 7.6151837
+  },
+  {
+    "id": "14:12485",
+    "code": "12485",
+    "name": "FAVRIA (STAZIONE)",
+    "lat": 45.3363971017849,
+    "lon": 7.69008177896064
+  },
+  {
+    "id": "1:2361",
+    "code": "0013090005",
+    "name": "BIVIO TORRETTE - INCROCIO SP 140 - SP 143",
+    "lat": 44.9714396,
+    "lon": 7.6177574
+  },
+  {
+    "id": "gtt:12887",
+    "code": "12887",
+    "name": "CASTIGLIONE (LORENZOTTO)",
+    "lat": 44.63678,
+    "lon": 7.97788
+  },
+  {
+    "id": "14:12488",
+    "code": "12488",
+    "name": "OGLIANICO (P.ZA STATUTO)",
+    "lat": 45.3421762642537,
+    "lon": 7.6920673382739
+  },
+  {
+    "id": "17:62",
+    "code": "56423",
+    "name": "Via Montenero",
+    "lat": 45.07655878,
+    "lon": 6.70661688
+  },
+  {
+    "id": "1:1031",
+    "code": "0011560020",
+    "name": "ZONA VADO' - STABILIMENTO ILTE",
+    "lat": 44.9753691,
+    "lon": 7.7176894
+  },
+  {
+    "id": "gtt:12881",
+    "code": "12881",
+    "name": "GALLO (FARINETTI)",
+    "lat": 44.65612,
+    "lon": 8.00416
+  },
+  {
+    "id": "17:60",
+    "code": "55098",
+    "name": "Via Pollicino",
+    "lat": 45.07780074,
+    "lon": 6.70291114
+  },
+  {
+    "id": "gtt:12884",
+    "code": "12884",
+    "name": "GALLO (GRINZANE)",
+    "lat": 44.65351,
+    "lon": 7.99273
+  },
+  {
+    "id": "gtt:11550",
+    "code": "11550",
+    "name": "BANCHETTE (V. CIRCONVALLAZIONE 5)",
+    "lat": 45.45541,
+    "lon": 7.86033
+  },
+  {
+    "id": "1:1016",
+    "code": "0011560003",
+    "name": "MONCALIERI - PIAZZA CADUTI - BORGO NAVILE",
+    "lat": 44.9994067,
+    "lon": 7.6799782
+  },
+  {
+    "id": "17:48",
+    "code": "57943",
+    "name": "Via San Giorgio capolinea",
+    "lat": 45.08191496,
+    "lon": 6.69526041
+  },
+  {
+    "id": "1:1014",
+    "code": "0011560001",
+    "name": "MONCALIERI - STAZIONE FERROVIARIA",
+    "lat": 44.9987286,
+    "lon": 7.6789407
+  },
+  {
+    "id": "17:46",
+    "code": "63938",
+    "name": "Via La Rho 2",
+    "lat": 45.08111574,
+    "lon": 6.6921705
+  },
+  {
+    "id": "gtt:23529",
+    "code": "23529",
+    "name": "ORBASSANO (NUOVA ROTONDA)",
+    "lat": 45.01025,
+    "lon": 7.53958
+  },
+  {
+    "id": "gtt:24858",
+    "code": "24858",
+    "name": "CASTELL'ALFERO (BV. CASALINO)",
+    "lat": 45.00281,
+    "lon": 8.19902
+  },
+  {
+    "id": "14:12473",
+    "code": "12473",
+    "name": "RIVAROLO (CASE FANFANI)",
+    "lat": 45.331436210624,
+    "lon": 7.71614112358163
+  },
+  {
+    "id": "17:44",
+    "code": "63937",
+    "name": "Via La Rho 1",
+    "lat": 45.0807203,
+    "lon": 6.6941605
+  },
+  {
+    "id": "8:1019",
+    "code": "1019",
+    "name": "Candiolo - candiolo ferm. gtt 2610",
+    "lat": 44.95913,
+    "lon": 7.60046
+  },
+  {
+    "id": "8:1018",
+    "code": "1018",
+    "name": "CANDIOLO - Via Torino / C. Giovanni XIII",
+    "lat": 44.96039,
+    "lon": 7.60327
+  },
+  {
+    "id": "gtt:24855",
+    "code": "24855",
+    "name": "FRINCO (BV. MOLINASSO)",
+    "lat": 45.00891,
+    "lon": 8.18275
+  },
+  {
+    "id": "2:3674",
+    "code": "0040730009",
+    "name": "LA PIEVE",
+    "lat": 44.5826447,
+    "lon": 8.196729
+  },
+  {
+    "id": "8:1017",
+    "code": "1017",
+    "name": "Vinovo - via torino ferm. gtt 2611",
+    "lat": 44.96313,
+    "lon": 7.60747
+  },
+  {
+    "id": "2:3675",
+    "code": "0040730010",
+    "name": "BIVIO BRUCETO - DOGLIO",
+    "lat": 44.5797338,
+    "lon": 8.1975752
+  },
+  {
+    "id": "8:1016",
+    "code": "1016",
+    "name": "Vinovo - via torino ferm. gtt 2567",
+    "lat": 44.96958,
+    "lon": 7.61546
+  },
+  {
+    "id": "8:1015",
+    "code": "1015",
+    "name": "Vinovo - via stupingi villaggio i lauri",
+    "lat": 44.97049,
+    "lon": 7.61825
+  },
+  {
+    "id": "gtt:24852",
+    "code": "24852",
+    "name": "TONCO (FORNACE)",
+    "lat": 45.01227,
+    "lon": 8.182
+  },
+  {
+    "id": "8:1014",
+    "code": "1014",
+    "name": "Vinovo - via stupinigi 128",
+    "lat": 44.967,
+    "lon": 7.62018
+  },
+  {
+    "id": "8:1013",
+    "code": "1013",
+    "name": "Vinovo - rotonda tetti grella",
+    "lat": 44.96088,
+    "lon": 7.62354
+  },
+  {
+    "id": "8:1012",
+    "code": "1012",
+    "name": "Vinovo - via stupinigi 70",
+    "lat": 44.95901,
+    "lon": 7.62457
+  },
+  {
+    "id": "8:1020",
+    "code": "1020",
+    "name": "CANDIOLO - v. Pinerolo / v. Leoncavallo",
+  }
+]
