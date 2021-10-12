@@ -136,11 +136,11 @@ module.exports = {
         ]);
   
         if(restriction){
-          const rect = queryNode(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:InitialInput']/*[name()='ojp:GeoRestriction']/*[name()='ojp:Rectangle']");
-          const circle = queryNode(doc, "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:InitialInput']/*[name()='ojp:GeoRestriction']/*[name()='ojp:Circle']");
+          const rect = queryNode(doc, `//*[name()='${serviceTag}']/*[name()='ojp:InitialInput']/*[name()='ojp:GeoRestriction']/*[name()='ojp:Rectangle']`);
+          const circle = queryNode(doc, `//*[name()='${serviceTag}']/*[name()='ojp:InitialInput']/*[name()='ojp:GeoRestriction']/*[name()='ojp:Circle']`);
           
           if(rect){
-            const path = "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:InitialInput']/*[name()='ojp:GeoRestriction']/*[name()='ojp:Rectangle']"
+            const path = `//*[name()='${serviceTag}']/*[name()='ojp:InitialInput']/*[name()='ojp:GeoRestriction']/*[name()='ojp:Rectangle']`;
             const upperLat = queryText(doc, path+"/*[name()='ojp:UpperLeft']/*[name()=Latitude]");
             const upperLon = queryText(doc, path+"/*[name()='ojp:UpperLeft']/*[name()=Logitude]");
 
@@ -153,8 +153,7 @@ module.exports = {
             params.restrictionValue= [[upperLon, upperLat],[lowerLon, lowerLat]];
 
           }else if(circle){
-            const path = "//*[name()='ojp:OJPLocationInformationRequest']/*[name()='ojp:InitialInput']/*[name()='ojp:GeoRestriction']/*[name()='ojp:Circle']"
-            const centerLat = queryText(doc, path+"/*[name()='ojp:Center']/*[name()=Latitude]");
+            const path = `//*[name()='${serviceTag}']/*[name()='ojp:InitialInput']/*[name()='ojp:GeoRestriction']/*[name()='ojp:Circle']`;            const centerLat = queryText(doc, path+"/*[name()='ojp:Center']/*[name()=Latitude]");
             const centerLon = queryText(doc, path+"/*[name()='ojp:Center']/*[name()=Logitude]");
 
             //TODO check if value maybe are expressed inside a Coordinates element
