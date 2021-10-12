@@ -101,7 +101,7 @@ module.exports = {
         ]);
 
         if(LocationName) {
-          path = `/searchByName/${LocationName}`;
+          path = `/searchByName/${encodeURIComponent(LocationName)}`;
         }
         else if(stopId) {
           path = `/searchByNetexId/${stopId}`;
@@ -139,7 +139,7 @@ module.exports = {
         ]);
 
         //if(LocationName) {
-          path = `/searchByName/${LocationName}`;
+          path = `/searchByName/${encodeURIComponent(LocationName)}`;
 
         if(geoRestriction) {
           

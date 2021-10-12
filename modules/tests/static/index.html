@@ -65,7 +65,7 @@ $.getJSON(apiOjpUrl, json => {
 	},1000,json);
 }).catch(err => {
 	$('#ojp_version').text(`offline!`).removeClass('loading');
-})
+});
 
 $.getJSON('/list.json', data => {
     $.each( data, ( key, val ) => {
@@ -79,7 +79,6 @@ $.getJSON('/list.json', data => {
         $('#xml_req').val('').addClass('loading');
         $.get(e.target.value, xmldata => {
             $('#xml_req').removeClass('loading').val(comment(formatXml(xmldata)));
-            //document.getElementById('xml_req').innerHTML = comment(formatXml(xmldata));
         })
     });
 });
