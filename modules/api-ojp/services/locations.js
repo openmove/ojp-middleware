@@ -70,11 +70,19 @@ module.exports = {
 
       if(queryNodes(doc, [serviceTag,'ojp:PlaceRef']).length > 0) {
 
-        const stopId = queryTags(doc, [
+        let stopId = queryTags(doc, [
           serviceTag,
           'ojp:PlaceRef',
           'ojp:StopPlaceRef'
         ]);
+
+        if(stopId == null){
+          stopId = queryTags(doc, [
+            serviceTag,
+            'ojp:PlaceRef',
+            'ojp:StopPointRef'
+          ]);
+        }
 
         const stopName = queryTags(doc, [
           serviceTag,
