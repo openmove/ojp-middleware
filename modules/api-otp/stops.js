@@ -17,13 +17,15 @@ module.exports = {
     };
     const endpoint = `https://${options.host}${options.path}`;
     const clientQL = new GraphQLClient(endpoint, { headers: config.otp.headers });
-    let filter = `stops (ids : ["${stopId}"])`;
+
+    let filter = `stops (id : ["${stopId}"])`;
     if(!stopId) {
 
       const maxResults = Number(extra.limit || config.default_max_results);
 
       filter = `stops (maxResults: ${maxResults})`;
     }
+
     const query = gql`
                 {${filter} {
                   gtfsId
@@ -36,7 +38,7 @@ module.exports = {
                   vehicleMode
                 }
               }`
-  
+
     const data = await clientQL.request(query, {})
 
     if(data!= null && data.stops){

@@ -83,7 +83,7 @@ module.exports = {
           'ojp:Text'
         ]);
 
-        const text = stopName || locationName || '';
+        const text = encodeURIComponent(stopName || locationName || '');
 
         const querystr = qstr.stringify({limit/*, skip*/})
             , options = {
@@ -129,13 +129,13 @@ module.exports = {
         
         let json = JSON.stringify(params);
 
-        const restriction = queryNode(doc, [
+        const geoRestriction = queryNode(doc, [
           serviceTag,
           'ojp:InitialInput',
           'ojp:GeoRestriction'
         ]);
   
-        if(restriction){
+        if(geoRestriction){
           const rect = queryNode(doc, `//*[name()='${serviceTag}']/*[name()='ojp:InitialInput']/*[name()='ojp:GeoRestriction']/*[name()='ojp:Rectangle']`);
           const circle = queryNode(doc, `//*[name()='${serviceTag}']/*[name()='ojp:InitialInput']/*[name()='ojp:GeoRestriction']/*[name()='ojp:Circle']`);
           
