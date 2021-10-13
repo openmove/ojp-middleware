@@ -5,11 +5,11 @@ const {queryNode, queryNodes, queryText, queryTags} = require('./query');
 
 module.exports = {
 
-	'parseGeoRestrictions': (doc, serviceTag) => {
+	'parseGeoRestrictions': (doc, serviceTag, config) => {
 		//TODO
 	},
 
-	'parseParamsRestrictions': (doc, serviceTag) => {
+	'parseParamsRestrictions': (doc, serviceTag, config) => {
 
 		const ptModesRestrictions = queryTags(doc, [
 			serviceTag,
@@ -47,14 +47,23 @@ module.exports = {
 			'ojp:ContinueAt'
 		]);
 
-		const limit = Number(limitRestrictions || limitParams) || 0
-		  	, skip = Number(skipRestrictions || skipParams) || 0
-		  	, ptModes = ptModesRestrictions === 'true' || ptModesParams === 'true' || false;
+		let limit = Number(limitRestrictions) || Number(limitParams) || undefined
+		  	, skip = Number(skipRestrictions) || Number(skipParams) || undefined
+		  	, ptModes = ptModesRestrictions === 'true' || ptModesParams === 'true';
+
+		if (_.isNaN(limit)) {
+			limit = Number(config.default_restrictions.limit);
+		}
+
+		if (_.isNaN(skip)) {
+			skip = Number(config.default_restrictions.skip);
+		}
 
 		return {
 			limit,
 			skip,
 			ptModes,
+			//additional
 			limitRestrictions,
 			limitParams,
 			skipRestrictions,

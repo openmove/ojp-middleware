@@ -11,6 +11,10 @@ module.exports = {
 	'multipointTripExecution' : async (doc, startTime, config) => {
 	
 	    const {logger} = config;
+
+	    const { limit, skip, ptModes } = parseParamsRestrictions(doc, serviceTag, config);
+
+	    //TODO
 	    
 	}
 }

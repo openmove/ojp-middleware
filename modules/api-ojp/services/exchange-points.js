@@ -73,7 +73,7 @@ module.exports = {
     
     try{
 
-      const { limit, skip, ptModes } = parseParamsRestrictions(doc, serviceTag);
+      const { limit, skip, ptModes } = parseParamsRestrictions(doc, serviceTag, config);
 
       const params = {
         limit,

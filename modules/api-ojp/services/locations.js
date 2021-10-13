@@ -66,7 +66,7 @@ module.exports = {
 
     try {
 
-      const { limit, skip, ptModes } = parseParamsRestrictions(doc, serviceTag);
+      const { limit, skip, ptModes } = parseParamsRestrictions(doc, serviceTag, config);
 
       if(queryNodes(doc, [serviceTag,'ojp:PlaceRef']).length > 0) {
 
@@ -238,9 +238,7 @@ module.exports = {
         const response = await doRequest(options, json);
 
         const stops = _.slice(response.stops, skip, limit);
-console.log('doRequest', options, json, JSON.stringify(response))
-        //console.log('POST PARAMS',params, json)
-
+console.log('SLICE',skip,limit,response.stops.length)
         //logger.info(response)
         return createLocationResponse(stops, startTime, ptModes);
       }

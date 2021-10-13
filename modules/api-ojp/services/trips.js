@@ -202,7 +202,7 @@ module.exports = {
 
     try{
 
-      const { limit, skip, ptModes } = parseParamsRestrictions(doc, serviceTag);
+      const { limit, skip, ptModes } = parseParamsRestrictions(doc, serviceTag, config);
 
       if(
         queryNodes(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Origin']/*[name()='ojp:PlaceRef']").length > 0

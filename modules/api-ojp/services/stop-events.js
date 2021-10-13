@@ -100,7 +100,7 @@ module.exports = {
 
     try{
 
-      const { limit, skip, ptModes } = parseParamsRestrictions(doc, serviceTag);
+      const { limit, skip, ptModes } = parseParamsRestrictions(doc, serviceTag, config);
 
       if(queryNodes(doc, "//*[name()='ojp:OJPStopEventRequest']/*[name()='ojp:Location']/*[name()='ojp:PlaceRef']").length > 0){
         const text = queryText(doc, "//*[name()='ojp:OJPStopEventRequest']/*[name()='ojp:Location']/*[name()='ojp:PlaceRef']/*[name()='ojp:StopPlaceRef']"); 

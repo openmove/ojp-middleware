@@ -37,6 +37,9 @@ dev:
     level: 'debug'
     colorize: false
 
+default_restrictions:
+  limit: 10000
+  skip: 0
 
 #enable disable services
 services:
