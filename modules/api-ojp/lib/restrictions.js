@@ -6,7 +6,31 @@ const {queryNode, queryNodes, queryText, queryTags} = require('./query');
 module.exports = {
 
 	'parseGeoRestrictions': (doc, serviceTag, config) => {
-		//TODO
+
+        const rect = queryNode(doc, [serviceTag,'ojp:InitialInput','ojp:GeoRestriction','ojp:Rectangle']);
+
+        const circle = queryNode(doc, [serviceTag,'ojp:InitialInput','ojp:GeoRestriction','ojp:Circle']);
+
+		const upperLat = queryTags(doc, [serviceTag,'ojp:InitialInput','ojp:GeoRestriction','ojp:Rectangle','ojp:UpperLeft','Latitude']);
+		const upperLon = queryTags(doc, [serviceTag,'ojp:InitialInput','ojp:GeoRestriction','ojp:Rectangle','ojp:UpperLeft','Longitude']);
+		const lowerLat = queryTags(doc, [serviceTag,'ojp:InitialInput','ojp:GeoRestriction','ojp:Rectangle','ojp:LowerRight','Latitude']);
+		const lowerLon = queryTags(doc, [serviceTag,'ojp:InitialInput','ojp:GeoRestriction','ojp:Rectangle','ojp:LowerRight','Longitude']);
+		const centerLat = queryTags(doc, [serviceTag,'ojp:InitialInput','ojp:GeoRestriction','ojp:Circle','ojp:Center','Latitude']);
+		const centerLon = queryTags(doc, [serviceTag,'ojp:InitialInput','ojp:GeoRestriction','ojp:Circle','ojp:Center','Longitude']);
+		const radius = queryTags(doc, [serviceTag,'ojp:InitialInput','ojp:GeoRestriction','ojp:Circle','ojp:Radius']);
+
+		return {
+			rect,
+			upperLat,
+			upperLon,
+			lowerLat,
+			lowerLon,
+			//
+			circle,
+			centerLat,
+			centerLon,
+			radius
+		}
 	},
 
 	'parseParamsRestrictions': (doc, serviceTag, config) => {
