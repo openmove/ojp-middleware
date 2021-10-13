@@ -45,4 +45,12 @@ services:
   OJPStopEventRequest: true
   OJPTripRequest: true
   OJPTripInfoRequest: true
-  OJPMultiPointTripRequest: false  
+  OJPMultiPointTripRequest: false
+
+errors:
+  noresults:
+    exchange-points: EXCHANGEPOINTS_NO_RESULTS
+    locations: LOCATION_NO_RESULTS
+    stop-events: STOPEVENT_LOCATION_UNSERVED
+    trip-info: TRIPINFO_TRIP_UNAVAILABLE
+    trips: TRIP_NO_TRIP_FOUND

@@ -36,7 +36,7 @@ const createLocationResponse = (stops, startTime, ptModes) => {
   if(stops.length === 0){
     const err = location.ele('siri:ErrorCondition');
     err.ele('siri:OtherError')
-    err.ele('siri:Description', 'LOCATION_NORESULTS');
+    err.ele('siri:Description', 'LOCATION_NO_RESULTS');
   }
 
   return location;
@@ -238,7 +238,7 @@ module.exports = {
         const response = await doRequest(options, json);
 
         const stops = _.slice(response.stops, skip, limit);
-
+console.log('doRequest', options, json, JSON.stringify(response))
         //console.log('POST PARAMS',params, json)
 
         //logger.info(response)

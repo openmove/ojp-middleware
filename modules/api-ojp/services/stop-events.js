@@ -20,7 +20,7 @@ const createEventResponse = (stop, startTime, isDeparture, isArrival, realtimeDa
     event.ele('siri:Status', false);
     const err = event.ele('siri:ErrorCondition');
     err.ele('siri:OtherError')
-    err.ele('siri:Description', 'STOPEVENT_LOCATIONUNSERVED');
+    err.ele('siri:Description', 'STOPEVENT_LOCATION_UNSERVED');
   } else {
     event.ele('siri:Status', true);
     const context = event.ele('ojp:StopEventResponseContext');

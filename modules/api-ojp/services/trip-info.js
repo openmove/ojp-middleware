@@ -19,7 +19,7 @@ const createTripInfoResponse = (trip, date, startTime) => {
     tripInfo.ele('siri:Status', false);
     const err = tripInfo.ele('siri:ErrorCondition');
     err.ele('siri:OtherError')
-    err.ele('siri:Description', 'TRIPINFO_TRIPUNAVAILABLE');
+    err.ele('siri:Description', 'TRIPINFO_TRIP_UNAVAILABLE');
   } else {
     tripInfo.ele('siri:Status', true);
     const context = tripInfo.ele('ojp:TripInfoResponseContext');

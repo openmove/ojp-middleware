@@ -23,7 +23,7 @@ const createTripResponse = (itineraries, startTime, showIntermediates, config, q
     trips.ele('siri:Status', false);
     const err = trip.ele('siri:ErrorCondition');
     err.ele('siri:OtherError')
-    err.ele('siri:Description', 'TRIP_NOTRIPFOUND');
+    err.ele('siri:Description', 'TRIP_NO_TRIP_FOUND');
   } else {
     trips.ele('siri:Status', true);
     const context = trips.ele('ojp:TripResponseContext');

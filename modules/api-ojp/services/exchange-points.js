@@ -43,7 +43,7 @@ const createExchangePointsResponse = (stops, startTime, ptModes) => {
   if(stops.length === 0){
     const err = location.ele('siri:ErrorCondition');
     err.ele('siri:OtherError')
-    err.ele('siri:Description', 'LOCATION_NORESULTS');
+    err.ele('siri:Description', 'EXCHANGEPOINTS_NO_RESULTS');
   }
 
   return location;
