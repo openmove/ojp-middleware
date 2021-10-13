@@ -140,8 +140,6 @@ module.exports = {
           };
         }
 
-        console.log('PLACEREF',stopId,stopName,locationName)
-
         const response = await doRequest(options, json);
 
         const stops = _.slice(response.stops, skip, limit);

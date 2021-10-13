@@ -47,8 +47,8 @@ module.exports = {
 			'ojp:ContinueAt'
 		]);
 
-		let limit = Number(limitRestrictions) || Number(limitParams) || undefined
-		  	, skip = Number(skipRestrictions) || Number(skipParams) || undefined
+		let limit = Number( Number(limitRestrictions) || Number(limitParams) || undefined )
+		  	, skip = Number( Number(skipRestrictions) || Number(skipParams) || undefined )
 		  	, ptModes = ptModesRestrictions === 'true' || ptModesParams === 'true';
 
 		if (_.isNaN(limit)) {
