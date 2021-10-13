@@ -8,13 +8,13 @@
         <RequestTimestamp>2021-07-07T09:55:53.297Z</RequestTimestamp>
         <ojp:Origin>
           <ojp:PlaceRef>
-             <StopPlaceRef>gtt:23455</StopPlaceRef>
+             <ojp:StopPlaceRef>gtt:740</ojp:StopPlaceRef>
           </ojp:PlaceRef>
-          <ojp:DepArrTime>2021-07-07T16:55:53</ojp:DepArrTime>
+          <ojp:DepArrTime>2021-10-07T16:55:53</ojp:DepArrTime>
         </ojp:Origin>
         <ojp:Destination>
           <ojp:PlaceRef>
-             <StopPointRef>gtt:47638473782</StopPointRef>
+             <StopPointRef>gtt:248</StopPointRef>
           </ojp:PlaceRef>
         </ojp:Destination>
         <ojp:Params>

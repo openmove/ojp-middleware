@@ -13,7 +13,7 @@ module.exports = {
     const clientQL = new GraphQLClient(endpoint, { headers: config.otp.headers });
 
     let from = null
-    , to = null;
+      , to = null;
 
     if(Array.isArray(origin)){
       from = `from: {lat: ${origin[1]}, lon: ${origin[0]}, address: "${origin[2]}"}`;   
@@ -57,7 +57,7 @@ module.exports = {
         maxTransfers: ${extra.transfers || 2},
         wheelchair: ${extra.wheelchair || false},
         intermediatePlaces: [${intermediatePlacesStrings.join(",")}]
-        ){
+        ) {
         date
         from {
           name
@@ -182,7 +182,7 @@ module.exports = {
         }
       }
     }`
-  
+
     return await clientQL.request(query, {});
   }
 }

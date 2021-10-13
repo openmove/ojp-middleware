@@ -11,9 +11,9 @@
             <ojp:LocationName>
               <ojp:Text>Ivrea</ojp:Text>
             </ojp:LocationName>
-            <StopPointRef>gtt:11592</StopPointRef>
+            <StopPointRef>gtt:740</StopPointRef>
           </ojp:PlaceRef>
-          <ojp:DepArrTime>2021-07-07T16:55:53</ojp:DepArrTime>
+          <ojp:DepArrTime>2021-10-07T16:55:53</ojp:DepArrTime>
         </ojp:Origin>
         <ojp:Destination>
           <ojp:PlaceRef>
