@@ -26,7 +26,7 @@ const createLocationResponse = (stops, startTime, ptModes) => {
     geo.ele('siri:Longitude', stop.lon);
     geo.ele('siri:Latitude', stop.lat);
     loc.ele('ojp:Complete', true);
-    loc.ele('ojp:Probability', 1 / stops.length); //TODO: other criteria?
+    loc.ele('ojp:Probability', (1 / stops.length).toFixed(2)); //TODO: other criteria?
     if(ptModes === true){
       const mode = loc.ele('ojp:Mode');
       mode.ele('ojp:PtMode', stop.vehicleMode.toLowerCase());

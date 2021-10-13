@@ -130,12 +130,10 @@ module.exports = {
 					const tripId = queryText(doc, "//*[name()='ojp:OJPTripInfoRequest']/*[name()='ojp:JourneyRef']");
 					const date = queryText(doc, "//*[name()='ojp:OJPTripInfoRequest']/*[name()='ojp:OperatingDayRef']");
 
-					console.log(tripId, date)
-
 					const options = {
 						host: config['api-otp'].host,
 						port: config['api-otp'].port,
-						path: `/trip/${tripId}/${date.replace(/-/g, '')}`,
+						path: `/trip/${tripId}/${moment(date, 'YYYY-MM-DD').format('YYYYMMDD')}`,
 						json: true,
 						method: 'GET'
 					}
