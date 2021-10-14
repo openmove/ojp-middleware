@@ -52,21 +52,6 @@ const createExchangePointsResponse = (stops, startTime, ptModes) => {
   return location;
 }
 
-const createExchangePointsErrorResponse = (errorCode, startTime) => {
-  const responseTimestamp = new Date().toISOString();
-  const calcTime = (new Date().getTime()) - startTime
-  const location = xmlbuilder.create('ojp:OJPExchangePointsDelivery');
-  location.ele('siri:ResponseTimestamp', responseTimestamp);
-  location.ele('siri:Status', false);
-  location.ele('ojp:CalcTime', calcTime);
-
-  const err = location.ele('siri:ErrorCondition');
-  err.ele('siri:OtherError')
-  err.ele('siri:Description', errorCode);
-
-  return location;
-}
-
 module.exports = {
   'exchangePointsExecution' : async (doc, startTime, config) => {
     

@@ -7,6 +7,9 @@ const { v4: uuidv4 } = require('uuid');
 const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {doRequest} = require('../lib/request');
 const {parseParamsRestrictions} = require('../lib/restrictions');
+const {createErrorResponse} = require('../lib/response');
+
+const serviceName = 'OJPStopEvent';
 
 const createEventResponse = (stop, startTime, isDeparture, isArrival, realtimeData) => {
   const responseTimestamp = new Date().toISOString();
@@ -76,25 +79,10 @@ const createEventResponse = (stop, startTime, isDeparture, isArrival, realtimeDa
   return event;
 }
 
-const createEventErrorResponse = (errorCode, startTime) => {
-  const responseTimestamp = new Date().toISOString();
-  const calcTime = (new Date().getTime()) - startTime
-  const event = xmlbuilder.create('ojp:OJPStopEventDelivery');
-  event.ele('siri:ResponseTimestamp', responseTimestamp);
-  event.ele('siri:Status', false);
-  event.ele('ojp:CalcTime', calcTime);
-
-  const err = event.ele('siri:ErrorCondition');
-  err.ele('siri:OtherError')
-  err.ele('siri:Description', errorCode);
-
-  return event;
-}
-
 module.exports = {
   'eventExecution' : async (doc, startTime, config) => {
     
-    const serviceTag = 'ojp:OJPStopEventRequest';   //replace
+    const serviceTag = `ojp:${serviceName}Request`;
 
     const {logger} = config;
 
@@ -142,12 +130,13 @@ module.exports = {
         }
         showRealtime = realtime === 'true';
         return createEventResponse(response.stop, startTime, isDeparture, isArrival, showRealtime);
-      }else{
-        return createEventErrorResponse('E0001', startTime);
+      }
+      else{
+        return createErrorResponse(serviceName, 'E0001', startTime);
       }
     }catch(err){
       logger.info(err);
-      return createEventErrorResponse('E0002', startTime);
+      return createErrorResponse(serviceName, 'E0002', startTime);
     }
     
   }

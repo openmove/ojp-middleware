@@ -6,11 +6,14 @@ const mongoClient = require("mongodb").MongoClient;
 const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {doRequest} = require('../lib/request');
 const {parseParamsRestrictions} = require('../lib/restrictions');
+const {createErrorResponse} = require('../lib/response');
+
+const serviceName = 'OJPTripInfo';
 
 const createTripInfoResponse = (trip, date, startTime) => {
   const responseTimestamp = new Date().toISOString();
   const calcTime = (new Date().getTime()) - startTime
-  const tripInfo = xmlbuilder.create('ojp:OJPTripInfoDelivery');
+  const tripInfo = xmlbuilder.create(`ojp:${serviceName}Delivery`);
   tripInfo.ele('siri:ResponseTimestamp', responseTimestamp);
   
   tripInfo.ele('ojp:CalcTime', calcTime);
@@ -98,26 +101,10 @@ const createTripInfoResponse = (trip, date, startTime) => {
   return tripInfo;
 }
 
-const createTripInfoErrorResponse = (errorCode, startTime) => {
-  const responseTimestamp = new Date().toISOString();
-  const calcTime = (new Date().getTime()) - startTime
-  const trip = xmlbuilder.create('ojp:OJPTripInfoDelivery');
-  trip.ele('siri:ResponseTimestamp', responseTimestamp);
-  trip.ele('siri:Status', false);
-  trip.ele('ojp:CalcTime', calcTime);
-
-  const err = trip.ele('siri:ErrorCondition');
-  err.ele('siri:OtherError')
-  err.ele('siri:Description', errorCode);
-
-  return trip;
-}
-
-//TODO
 module.exports = {
 	'tripInfoExecution' : async (doc, startTime, config) => {
 
-		const serviceTag = 'ojp:OJPTripInfoRequest';   //replace
+		const serviceTag = `ojp:${serviceName}Request`;
 		
 		const {logger} = config;
 
@@ -142,11 +129,11 @@ module.exports = {
 					return createTripInfoResponse(response.trip, date, startTime);
 
 				}else{
-					return createTripInfoErrorResponse('UNSUPPORTED', startTime);
+					return createErrorResponse(serviceName, 'E0001', startTime);
 				}
 		} catch (err){
       logger.error(err);
-      return createTripInfoErrorResponse('E0002', startTime);
+      return createErrorResponse(serviceName, 'E0002', startTime);
     }
 	}
 }

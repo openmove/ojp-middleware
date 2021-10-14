@@ -5,11 +5,14 @@ const _ = require('lodash');
 const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {doRequest} = require('../lib/request');
 const {parseParamsRestrictions, parseGeoRestrictions} = require('../lib/restrictions');
+const {createErrorResponse} = require('../lib/response');
+
+const serviceName = 'OJPLocationInformation';
 
 const createLocationResponse = (stops, startTime, ptModes) => {
   const responseTimestamp = new Date().toISOString();
   const calcTime = (new Date().getTime()) - startTime
-  const location = xmlbuilder.create('ojp:OJPLocationInformationDelivery');
+  const location = xmlbuilder.create(`ojp:${serviceName}Delivery`);
   location.ele('siri:ResponseTimestamp', responseTimestamp);
   location.ele('siri:Status', stops.length === 0 ? false : true);
   location.ele('ojp:CalcTime', calcTime);
@@ -42,26 +45,10 @@ const createLocationResponse = (stops, startTime, ptModes) => {
   return location;
 }
 
-const createLocationErrorResponse = (errorCode, startTime) => {
-  const responseTimestamp = new Date().toISOString();
-  const calcTime = (new Date().getTime()) - startTime
-  const location = xmlbuilder.create('ojp:OJPLocationInformationDelivery');
-  location.ele('siri:ResponseTimestamp', responseTimestamp);
-  location.ele('siri:Status', false);
-  location.ele('ojp:CalcTime', calcTime);
-
-  const err = location.ele('siri:ErrorCondition');
-  err.ele('siri:OtherError')
-  err.ele('siri:Description', errorCode);
-
-  return location;
-}
-
 module.exports = {
   'locationExecution' : async (doc, startTime, config) => {
     
-    const serviceName = 'OJPLocationInformation'
-        , serviceTag = `ojp:${serviceName}Request`;
+    const serviceTag = `ojp:${serviceName}Request`;
 
     const {logger} = config;
 
@@ -193,12 +180,13 @@ module.exports = {
         //logger.info(response)
         return createLocationResponse(stops, startTime, ptModes);
       }
-      else{
-        return createLocationErrorResponse('E0001', startTime);
+      else {
+        return createErrorResponse(serviceName, 'E0001', startTime);
       }
-    }catch(err){
+    }
+    catch(err){
       logger.error(err);
-      return createLocationErrorResponse('E0002', startTime);
+      return createErrorResponse(serviceName, 'E0002', startTime);
     }
     
   }

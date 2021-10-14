@@ -9,12 +9,15 @@ const mongoClient = require("mongodb").MongoClient;
 const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {doRequest} = require('../lib/request');
 const {parseParamsRestrictions} = require('../lib/restrictions');
+const {createErrorResponse} = require('../lib/response');
+
+const serviceName = 'OJPTrip';
 
 const createTripResponse = (itineraries, startTime, showIntermediates, config, question) => {
   const {logger} = config;
   const responseTimestamp = new Date().toISOString();
   const calcTime = (new Date().getTime()) - startTime
-  const trips = xmlbuilder.create('ojp:OJPTripDelivery');
+  const trips = xmlbuilder.create(`ojp:${serviceName}Delivery`);
   trips.ele('siri:ResponseTimestamp', responseTimestamp);
   
   trips.ele('ojp:CalcTime', calcTime);
@@ -178,25 +181,10 @@ const createTripResponse = (itineraries, startTime, showIntermediates, config, q
   return trips;
 }
 
-const createTripErrorResponse = (errorCode, startTime) => {
-  const responseTimestamp = new Date().toISOString();
-  const calcTime = (new Date().getTime()) - startTime
-  const trip = xmlbuilder.create('ojp:OJPTripDelivery');
-  trip.ele('siri:ResponseTimestamp', responseTimestamp);
-  trip.ele('siri:Status', false);
-  trip.ele('ojp:CalcTime', calcTime);
-
-  const err = trip.ele('siri:ErrorCondition');
-  err.ele('siri:OtherError')
-  err.ele('siri:Description', errorCode);
-
-  return trip;
-}
-
 module.exports = {
   'tripsExecution' : async (doc, startTime, config) => {
 
-    const serviceTag = 'ojp:OJPTripRequest';   //replace
+    const serviceTag = `ojp:${serviceName}Request`;
     
     const {logger} = config;
 
@@ -294,11 +282,11 @@ module.exports = {
         const response = await doRequest(options, data);
         return createTripResponse(response.plan.itineraries, startTime, intermediateStops === 'true', config, questionObj);
       }else{
-        return createTripErrorResponse('E0001', startTime);
+        return createErrorResponse(serviceName, 'E0001', startTime);
       }
     }catch(err){
       logger.error(err);
-      return createTripErrorResponse('E0002', startTime);
+      return createErrorResponse(serviceName, 'E0002', startTime);
     }
     
   }
