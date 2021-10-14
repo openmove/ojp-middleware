@@ -278,6 +278,7 @@ app.post('/ojp/', async (req, result) => {
 });
 
 app.listen(Number(config.server.port), () => {
+  logger.info( app._router.stack.filter(r => r.route).map(r => `${Object.keys(r.route.methods)[0]} ${r.route.path}`) );
   logger.info(`listening at http://localhost:${config.server.port}`)
 });
 

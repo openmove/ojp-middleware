@@ -34,5 +34,6 @@ app.post('/', (req, res) => {
 });
 
 app.listen(port, () => {
+  console.log( app._router.stack.filter(r => r.route).map(r => `${Object.keys(r.route.methods)[0]} ${r.route.path}`) );
   console.log(`API OTP service running on port ${port}`)
 })
