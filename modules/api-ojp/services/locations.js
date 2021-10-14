@@ -60,7 +60,8 @@ const createLocationErrorResponse = (errorCode, startTime) => {
 module.exports = {
   'locationExecution' : async (doc, startTime, config) => {
     
-    const serviceTag = 'ojp:OJPLocationInformationRequest';
+    const serviceName = 'OJPLocationInformation'
+        , serviceTag = `ojp:${serviceName}Request`;
 
     const {logger} = config;
 

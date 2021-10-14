@@ -51,6 +51,7 @@ services:
   OJPMultiPointTripRequest: false
 
 errors:
+  notagrequest: NO_TAG_REQUEST_FOUND
   noresults:
     exchange-points: EXCHANGEPOINTS_NO_RESULTS
     locations: LOCATION_NO_RESULTS

@@ -10,6 +10,7 @@ const express = require('express')
     , nocache = require('nocache');
 
 const {queryNode, queryNodes, queryText} = require('./lib/query')
+    , {createErrorResponse} = require('./lib/response')
     , {locationExecution} = require('./services/locations')
     , {eventExecution} = require('./services/stop-events')
     , {tripsExecution} = require('./services/trips')  //TODO rename in trip
@@ -143,7 +144,7 @@ app.post('/ojp/', async (req, result) => {
         warning: e => {console.warn('DOM WARN', e)},
         error: errorMsg => {
 
-          console.warn('ERROR XML PARSING',err)
+          console.warn('ERROR XML PARSING',errorMsg)
 
           const errorCode = errorMsg.replace("\n",' ');
 
@@ -151,19 +152,18 @@ app.post('/ojp/', async (req, result) => {
           ojpErr.att('xmlns:siri', 'http://www.siri.org.uk/siri');
           ojpErr.att('xmlns:ojp', 'http://www.vdv.de/ojp');
           ojpErr.att('version', '1.0');
+
+          //TODO use createErrorResponse()
+
           const xmlServiceResponse = ojpErr.ele('siri:OJPResponse').ele('siri:ServiceDelivery');
-          
           const location = xmlbuilder.create('ojp:ERROR');
           //TODO replace with request name
-
           location.ele('siri:ResponseTimestamp',  new Date().toISOString());
           location.ele('siri:Status', false);
-
           const err = location.ele('siri:ErrorCondition');
           err.ele('siri:OtherError')
           err.ele('siri:Description', errorCode);
           xmlServiceResponse.importXMLBuilder(location);
-          
 
           const resXml = ojpErr.end({pretty: true});
           
