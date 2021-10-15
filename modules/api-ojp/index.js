@@ -9,14 +9,7 @@ const express = require('express')
     , pino = require('pino')
     , nocache = require('nocache');
 
-const {queryNode, queryNodes, queryText} = require('./lib/query')
-    , {createErrorResponse} = require('./lib/response')
-    , {locationExecution} = require('./services/locations')
-    , {eventExecution} = require('./services/stop-events')
-    , {tripsExecution} = require('./services/trips')  //TODO rename in trip
-    , {tripInfoExecution} = require('./services/trip-info')
-    , {multipointTripExecution} = require('./services/multipoint-trip')
-    , {exchangePointsExecution} = require('./services/exchange-points');
+const pkg = require('./package.json');
 
 const dotenv = require('dotenv').config()
     , config = require('@stefcud/configyml')
@@ -30,9 +23,17 @@ const dotenv = require('dotenv').config()
       },
     });
 
-logger.info(_.omit(config,['dev','prod','environments']));
+const {queryNode, queryNodes, queryText} = require('./lib/query')
+    , {createErrorResponse} = require('./lib/response')
 
-var pkg = require('./package.json');
+const {exchangePointsExecution} = require('./services/exchangePoints')
+    , {locationExecution} = require('./services/locationInformation')
+    , {multipointTripExecution} = require('./services/multiPointTrip')
+    , {eventExecution} = require('./services/stopEvent')
+    , {tripInfoExecution} = require('./services/tripInfo')
+    , {tripsExecution} = require('./services/trip');
+
+logger.info(_.omit(config,['dev','prod','environments']));
 
 config.logger = logger;
 

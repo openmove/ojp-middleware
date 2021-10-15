@@ -19,7 +19,7 @@ module.exports = {
     const err = tag.ele('siri:ErrorCondition');
     err.ele('siri:OtherError')
     err.ele('siri:Description', `${serviceName}_${errorDesc}`);
-
+    //TODO siri:ErrorText
     return tag;
   }
 }
