@@ -11,6 +11,9 @@ module.exports = {
     const {logger} = config;
     const endpoint = `https://${options.host}${options.path}`;
     const clientQL = new GraphQLClient(endpoint, { headers: config.otp.headers });
+
+    const maxResults = Number(extra.limit || config.default_max_results);
+
     const query = gql`{
                 stop(id: "${stopId}"){
                   gtfsId,
@@ -23,7 +26,7 @@ module.exports = {
                   vehicleMode
                   stoptimesWithoutPatterns(
                     startTime: ${((extra.start || new Date().getTime()) / 1000).toFixed(0)}, 
-                    numberOfDepartures: ${extra.limit || 10}, 
+                    numberOfDepartures: ${maxResults},
                     omitNonPickups: true
                   ){
                     trip {
@@ -68,7 +71,8 @@ module.exports = {
                 }
               }`
   
-              logger.debug(query);
+    logger.debug(query);
+
     const data = await clientQL.request(query, {})
 
     if(data!= null && data.stop){

@@ -119,7 +119,7 @@ app.post('/search/', async (req, result) => {
 app.get('/stops/:id/details', async (req, result) => {
   //return stoptimes and other schedule details for stop
   const extra = {
-    'limit': req.query.limit || 0,
+    'limit': Number(req.query.limit) || 0,
     'start': req.query.start || new Date().getTime()
   };
   const res = await getStopTimesById(config, req.params.id, extra);

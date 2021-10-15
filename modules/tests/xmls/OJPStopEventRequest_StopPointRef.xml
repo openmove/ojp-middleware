@@ -8,9 +8,9 @@
         <RequestTimestamp>2021-06-04T13:10:17.283Z</RequestTimestamp>
         <ojp:Location>
           <ojp:PlaceRef>
-            <ojp:StopPlaceRef>gtt:11592</ojp:StopPlaceRef>
+            <ojp:StopPointRef>gtt:740</ojp:StopPointRef>
           </ojp:PlaceRef>
-          <ojp:DepArrTime>2021-07-17T16:40:56</ojp:DepArrTime>
+          <ojp:DepArrTime>2021-10-14T16:40:56</ojp:DepArrTime>
         </ojp:Location>
         <ojp:Params>
           <ojp:NumberOfResults>4</ojp:NumberOfResults>

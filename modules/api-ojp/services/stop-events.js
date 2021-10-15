@@ -89,10 +89,16 @@ module.exports = {
 
       const { limit, skip, ptModes } = parseParamsRestrictions(doc, serviceTag, config);
 
-      if(queryNodes(doc, "//*[name()='ojp:OJPStopEventRequest']/*[name()='ojp:Location']/*[name()='ojp:PlaceRef']").length > 0){
-        const text = queryText(doc, "//*[name()='ojp:OJPStopEventRequest']/*[name()='ojp:Location']/*[name()='ojp:PlaceRef']/*[name()='ojp:StopPlaceRef']"); 
-        const date = queryText(doc, "//*[name()='ojp:OJPStopEventRequest']/*[name()='ojp:Location']/*[name()='ojp:DepArrTime']");
-        
+      if(queryNodes(doc, [serviceTag,'ojp:Location','ojp:PlaceRef']).length > 0) {
+
+        let stopId = queryTags(doc, [serviceTag, 'ojp:Location', 'ojp:PlaceRef', 'ojp:StopPlaceRef']);
+
+        if(stopId == null){
+          stopId = queryTags(doc, [serviceTag, 'ojp:Location', 'ojp:PlaceRef', 'ojp:StopPointRef']);
+        }
+
+        const date = queryTags(doc, [serviceTag, 'ojp:Location', 'ojp:DepArrTime']);
+
         let startDate = new Date().getTime();
         if(date != null){
           startDate = new Date(date).getTime();
@@ -102,7 +108,7 @@ module.exports = {
             , options = {
               host: config['api-otp'].host,
               port: config['api-otp'].port,
-              path: `/stops/${text}/details?${querystr}`,
+              path: `/stops/${stopId}/details?${querystr}`,
               method: 'GET',
               json:true
             };
