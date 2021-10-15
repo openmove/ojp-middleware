@@ -11,22 +11,21 @@ const {createErrorResponse} = require('../lib/response');
 
 const serviceName = 'OJPStopEvent';
 
-const createEventResponse = (stop, startTime, isDeparture, isArrival, realtimeData) => {
-  const responseTimestamp = new Date().toISOString();
-  const calcTime = (new Date().getTime()) - startTime
-  const event = xmlbuilder.create('ojp:OJPStopEventDelivery');
-  event.ele('siri:ResponseTimestamp', responseTimestamp);
-  
-  event.ele('ojp:CalcTime', calcTime);
+const createResponse = (stop, startTime, isDeparture, isArrival, realtimeData) => {
+
+  const now = new Date()
+    , tag = xmlbuilder.create(`ojp:${serviceName}Delivery`);
+  tag.ele('siri:ResponseTimestamp', now.toISOString());
+  tag.ele('ojp:CalcTime', now.getTime() - startTime);
   
   if(stop === null || stop.stoptimesWithoutPatterns.length === 0){
-    event.ele('siri:Status', false);
-    const err = event.ele('siri:ErrorCondition');
+    tag.ele('siri:Status', false);
+    const err = tag.ele('siri:ErrorCondition');
     err.ele('siri:OtherError')
     err.ele('siri:Description', 'STOPEVENT_LOCATION_UNSERVED');
   } else {
-    event.ele('siri:Status', true);
-    const context = event.ele('ojp:StopEventResponseContext');
+    tag.ele('siri:Status', true);
+    const context = tag.ele('ojp:StopEventResponseContext');
     const loc = context.ele('ojp:Places');
     const place = loc.ele('ojp:Location');
     const stopPlace = place.ele('ojp:StopPlace');
@@ -38,7 +37,7 @@ const createEventResponse = (stop, startTime, isDeparture, isArrival, realtimeDa
     geo.ele('siri:Longitude', stop.lon);
     geo.ele('siri:Latitude', stop.lat);
     for(const schedule of stop.stoptimesWithoutPatterns){
-      const eventresponse = event.ele('ojp:StopEventResult');
+      const eventresponse = tag.ele('ojp:StopEventResult');
       eventresponse.ele('ojp:ResultId', uuidv4())
       const stopevent = eventresponse.ele('ojp:StopEvent');
       const call = stopevent.ele('ojp:ThisCall').ele('ojp:CallAtStop');
@@ -76,7 +75,7 @@ const createEventResponse = (stop, startTime, isDeparture, isArrival, realtimeDa
     }
   }
 
-  return event;
+  return tag;
 }
 
 module.exports = {
@@ -129,14 +128,14 @@ module.exports = {
           isArrival = true;
         }
         showRealtime = realtime === 'true';
-        return createEventResponse(response.stop, startTime, isDeparture, isArrival, showRealtime);
+        return createResponse(response.stop, startTime, isDeparture, isArrival, showRealtime);
       }
       else{
-        return createErrorResponse(serviceName, 'E0001', startTime);
+        return createErrorResponse(serviceName, config.errors.notagcondition, startTime);
       }
     }catch(err){
       logger.info(err);
-      return createErrorResponse(serviceName, 'E0002', startTime);
+      return createErrorResponse(serviceName, config.errors.noparsing, startTime);
     }
     
   }

@@ -9,16 +9,17 @@ const {createErrorResponse} = require('../lib/response');
 
 const serviceName = 'OJPExchangePoints';
 
-const createExchangePointsResponse = (stops, startTime, ptModes) => {
-  const responseTimestamp = new Date().toISOString();
-  const calcTime = (new Date().getTime()) - startTime
-  const location = xmlbuilder.create(`ojp:${serviceName}Delivery`);
-  location.ele('siri:ResponseTimestamp', responseTimestamp);
-  location.ele('siri:Status', stops.length === 0 ? false : true);
-  location.ele('ojp:CalcTime', calcTime);
+const createResponse = (stops, startTime, ptModes) => {
+
+  const now = new Date()
+    , tag = xmlbuilder.create(`ojp:${serviceName}Delivery`);
+  tag.ele('siri:ResponseTimestamp', now.toISOString());
+  tag.ele('ojp:CalcTime', now.getTime() - startTime);
+
+  tag.ele('siri:Status', stops.length === 0 ? false : true);
 
   for(const stop of stops) {
-    const loc = location.ele('ojp:Location')
+    const loc = tag.ele('ojp:Location')
     const place = loc.ele('ojp:Location');
     const stopPlace = place.ele('ojp:StopPlace');
     stopPlace.ele('ojp:StopPlaceRef', stop['NeTExId']);
@@ -44,12 +45,12 @@ const createExchangePointsResponse = (stops, startTime, ptModes) => {
   }
 
   if(stops.length === 0){
-    const err = location.ele('siri:ErrorCondition');
+    const err = tag.ele('siri:ErrorCondition');
     err.ele('siri:OtherError')
     err.ele('siri:Description', 'EXCHANGEPOINTS_NO_RESULTS');
   }
 
-  return location;
+  return tag;
 }
 
 module.exports = {
@@ -128,7 +129,7 @@ module.exports = {
         path = '/';  //return all points
       }
       else {
-        return createErrorResponse(serviceName, 'E0001', startTime);
+        return createErrorResponse(serviceName, config.errors.notagcondition, startTime);
       }
 
       const querystr = qstr.stringify(params)
@@ -142,12 +143,12 @@ module.exports = {
       
       const response = await doRequest(options);
 
-      return createExchangePointsResponse(response, startTime, ptModes);
+      return createResponse(response, startTime, ptModes);
       
     }
     catch(err){
       logger.error(err);
-      return createErrorResponse(serviceName, 'E0002', startTime);
+      return createErrorResponse(serviceName, config.errors.noparsing, startTime);
     }
     
   }

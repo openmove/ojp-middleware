@@ -52,9 +52,11 @@ services:
 
 errors:
   notagrequest: NO_TAG_REQUEST_FOUND
+  notagcondition: NO_CONDITIONS_REQUEST_FOUND
+  noparsing: NO_PARSING_XML_REQUEST
   noresults:
-    exchange-points: EXCHANGEPOINTS_NO_RESULTS
+    exchangepoints: EXCHANGEPOINTS_NO_RESULTS
     locations: LOCATION_NO_RESULTS
-    stop-events: STOPEVENT_LOCATION_UNSERVED
-    trip-info: TRIPINFO_TRIP_UNAVAILABLE
-    trips: TRIP_NO_TRIP_FOUND
+    stopevents: STOPEVENT_LOCATION_UNSERVED
+    tripinfo: TRIPINFO_TRIP_UNAVAILABLE
+    trip: TRIP_NO_TRIP_FOUND

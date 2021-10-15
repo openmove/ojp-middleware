@@ -100,7 +100,7 @@ app.post('/search/', async (req, result) => {
       res = await searchByName(config, params.value, extra);
     }
   }
-  else if(params.position){
+  else if(params.position) {
     //search at specific position (tricky: radius 10 meter)
     res = await searchByRadius(config, [...params.position,10], extra);
   }

@@ -10,24 +10,23 @@ const {createErrorResponse} = require('../lib/response');
 
 const serviceName = 'OJPTripInfo';
 
-const createTripInfoResponse = (trip, date, startTime) => {
-  const responseTimestamp = new Date().toISOString();
-  const calcTime = (new Date().getTime()) - startTime
-  const tripInfo = xmlbuilder.create(`ojp:${serviceName}Delivery`);
-  tripInfo.ele('siri:ResponseTimestamp', responseTimestamp);
-  
-  tripInfo.ele('ojp:CalcTime', calcTime);
+const createResponse = (trip, date, startTime) => {
+
+  const now = new Date()
+      , tag = xmlbuilder.create(`ojp:${serviceName}Delivery`);
+  tag.ele('siri:ResponseTimestamp', now.toISOString());
+  tag.ele('ojp:CalcTime', now.getTime() - startTime);
   
   if(trip === null || trip.stoptimesForDate.length === 0){
-    tripInfo.ele('siri:Status', false);
-    const err = tripInfo.ele('siri:ErrorCondition');
+    tag.ele('siri:Status', false);
+    const err = tag.ele('siri:ErrorCondition');
     err.ele('siri:OtherError')
-    err.ele('siri:Description', 'TRIPINFO_TRIP_UNAVAILABLE');
+    err.ele('siri:Description', config.errors.noresults.tripinfo);
   } else {
-    tripInfo.ele('siri:Status', true);
-    const context = tripInfo.ele('ojp:TripInfoResponseContext');
+    tag.ele('siri:Status', true);
+    const context = tag.ele('ojp:TripInfoResponseContext');
 		const loc = context.ele('ojp:Places');
-		const tripResponse = tripInfo.ele('ojp:TripInfoResult');
+		const tripResponse = tag.ele('ojp:TripInfoResult');
     const stopsIds = [];
 		
     for(const schedule of trip.stoptimesForDate){
@@ -98,7 +97,7 @@ const createTripInfoResponse = (trip, date, startTime) => {
 		service.ele('ojp:DestinationText').ele('ojp:Text', `${trip.arrivalStoptime.stop.name}`);
   }
 
-  return tripInfo;
+  return tag;
 }
 
 module.exports = {
@@ -126,14 +125,14 @@ module.exports = {
 					}
 					const response = await doRequest(options)   
 					logger.info(response)
-					return createTripInfoResponse(response.trip, date, startTime);
+					return createResponse(response.trip, date, startTime);
 
 				}else{
-					return createErrorResponse(serviceName, 'E0001', startTime);
+					return createErrorResponse(serviceName, config.errors.notagcondition, startTime);
 				}
 		} catch (err){
       logger.error(err);
-      return createErrorResponse(serviceName, 'E0002', startTime);
+      return createErrorResponse(serviceName, config.errors.noparsing, startTime);
     }
 	}
 }

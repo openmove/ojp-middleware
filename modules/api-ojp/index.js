@@ -212,6 +212,8 @@ app.post('/ojp/', async (req, result) => {
   xmlServiceResponse.ele('siri:ProducerRef', 'OJP OpenMove Middleware');
   xmlServiceResponse.ele('siri:Status', true);
 
+  const tagRequests = [];
+
   if(queryNode(doc, "//*[name()='ojp:OJPExchangePointsRequest']")){
     if(!config.services.OJPExchangePointsRequest) {
       logger.warn('OJPExchangePointsRequest disabled by config');
@@ -264,6 +266,11 @@ app.post('/ojp/', async (req, result) => {
     else {
       xmlServiceResponse.importXMLBuilder(await tripsExecution(doc, startTime, config));
     }  
+  }
+
+  if(tagRequests.length===0) {
+    logger.warn('OJPRequest not found');
+    xmlServiceResponse.importXMLBuilder(createErrorResponse('OJP', config.errors.notagrequest, startTime));
   }
 
   const resXml = ojpXML.end({pretty: true});

@@ -13,26 +13,26 @@ const {createErrorResponse} = require('../lib/response');
 
 const serviceName = 'OJPTrip';
 
-const createTripResponse = (itineraries, startTime, showIntermediates, config, question) => {
+const createResponse = (itineraries, startTime, showIntermediates, config, question) => {
+
+  const now = new Date()
+    , tag = xmlbuilder.create(`ojp:${serviceName}Delivery`);
+  tag.ele('siri:ResponseTimestamp', now.toISOString());
+  tag.ele('ojp:CalcTime', now.getTime() - startTime);
+
   const {logger} = config;
-  const responseTimestamp = new Date().toISOString();
-  const calcTime = (new Date().getTime()) - startTime
-  const trips = xmlbuilder.create(`ojp:${serviceName}Delivery`);
-  trips.ele('siri:ResponseTimestamp', responseTimestamp);
-  
-  trips.ele('ojp:CalcTime', calcTime);
 
   if(itineraries === null || itineraries.length === 0){
-    trips.ele('siri:Status', false);
+    tag.ele('siri:Status', false);
     const err = trip.ele('siri:ErrorCondition');
     err.ele('siri:OtherError')
-    err.ele('siri:Description', 'TRIP_NO_TRIP_FOUND');
+    err.ele('siri:Description', config.errors.noresults.trip);
   } else {
-    trips.ele('siri:Status', true);
-    const context = trips.ele('ojp:TripResponseContext');
+    tag.ele('siri:Status', true);
+    const context = tag.ele('ojp:TripResponseContext');
     const stops = [];
     for(const itinerary of itineraries){
-      const tripresponse = trips.ele('ojp:TripResult');
+      const tripresponse = tag.ele('ojp:TripResult');
       const tripId = uuidv4();
 
       try{
@@ -178,7 +178,7 @@ const createTripResponse = (itineraries, startTime, showIntermediates, config, q
     }
   }
 
-  return trips;
+  return tag;
 }
 
 module.exports = {
@@ -280,13 +280,13 @@ module.exports = {
         };
         logger.info(options);
         const response = await doRequest(options, data);
-        return createTripResponse(response.plan.itineraries, startTime, intermediateStops === 'true', config, questionObj);
+        return createResponse(response.plan.itineraries, startTime, intermediateStops === 'true', config, questionObj);
       }else{
-        return createErrorResponse(serviceName, 'E0001', startTime);
+        return createErrorResponse(serviceName, config.errors.notagcondition, startTime);
       }
     }catch(err){
       logger.error(err);
-      return createErrorResponse(serviceName, 'E0002', startTime);
+      return createErrorResponse(serviceName, config.errors.noparsing, startTime);
     }
     
   }
