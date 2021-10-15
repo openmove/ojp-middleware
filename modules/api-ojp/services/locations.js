@@ -4,7 +4,7 @@ const _ = require('lodash');
 
 const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {doRequest} = require('../lib/request');
-const {parseParamsRestrictions, parseGeoRestrictions} = require('../lib/restrictions');
+const {parseParamsRestrictions, parseGeoRestriction} = require('../lib/restrictions');
 const {createErrorResponse} = require('../lib/response');
 
 const serviceName = 'OJPLocationInformation';
@@ -121,25 +121,19 @@ module.exports = {
 
         const LocationName = queryTags(doc, [serviceTag,'ojp:InitialInput','ojp:LocationName']);
 
-        const locationPositionLat = queryTags(doc, [serviceTag,'ojp:InitialInput','ojp:GeoPosition','Latitude']);
-        
-        const locationPositionLon = queryTags(doc, [serviceTag,'ojp:InitialInput','ojp:GeoPosition','Longitude']);
-
         const params = {
           value: LocationName,
           limit: limit
         };
         
-        let json = JSON.stringify(params);
-
         const geoRestriction = queryNode(doc, [serviceTag,'ojp:InitialInput','ojp:GeoRestriction']);
 
-         if(geoRestriction) {
+        if(geoRestriction) {
 
           logger.debug('GeoRestriction', geoRestriction);
 
           const { rect, upperLon, upperLat, lowerLon, lowerLat
-                , circle, radius, centerLon, centerLat } = parseGeoRestrictions(doc, serviceTag, config);
+                , circle, radius, centerLon, centerLat } = parseGeoRestriction(doc, serviceTag, config);
 
           if(rect) {
             params.restrictionType = 'bbox';
@@ -154,12 +148,14 @@ module.exports = {
           }
         }
 
-        if(locationPositionLat != null && locationPositionLon != null){
-          
-          params.position = [locationPositionLon, locationPositionLat];
+        const geoPositionLat = queryTags(doc, [serviceTag,'ojp:InitialInput','ojp:GeoPosition','Latitude'])
+            , geoPositionLon = queryTags(doc, [serviceTag,'ojp:InitialInput','ojp:GeoPosition','Longitude']);
 
-          json = JSON.stringify(params);
+        if(geoPositionLat != null && geoPositionLon != null) {
+          params.position = [geoPositionLon, geoPositionLat].join(',');
         }
+
+        const json = JSON.stringify(params);
 
         const options = {
           host: config['api-otp'].host,

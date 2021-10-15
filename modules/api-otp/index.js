@@ -61,6 +61,7 @@ app.post('/search/', async (req, result) => {
    *  value: 'XXXX',
    *  restrictionType: 'bbox' || 'circle' || 'polygon'
    *  restrictionValue: [[upper-left: x1, y1], [lower-right: x2, y2]] || [x, y, radius] || [...polyline]
+   *  position: [lon,lat]
    *  limit: integer
    * }
    */
@@ -99,9 +100,9 @@ app.post('/search/', async (req, result) => {
       res = await searchByName(config, params.value, extra);
     }
   }
-  else if(params.position && params.position.length == 2){
-    //search at specific position (tricky: radius 1 meter)
-    res = await searchByRadius(config, [...params.position,1], extra);
+  else if(params.position){
+    //search at specific position (tricky: radius 10 meter)
+    res = await searchByRadius(config, [...params.position,10], extra);
   }
   else
   {

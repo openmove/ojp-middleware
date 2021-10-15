@@ -8,17 +8,18 @@ module.exports = {
   'createResponse': (stops, startTime, ptModes) => {
       //TODO
   },
-  'createErrorResponse': (serviceName, errorCode = 'GenericError', startTime) => {
-    const responseTimestamp = new Date().toISOString();
-    const calcTime = (new Date().getTime()) - startTime
-    const tag = xmlbuilder.create(`ojp:${serviceName}Delivery`);
-    tag.ele('siri:ResponseTimestamp', responseTimestamp);
+  'createErrorResponse': (serviceName, errorDesc = 'GenericError', startTime) => {
+
+    const date = new Date()
+        , tag = xmlbuilder.create(`ojp:${serviceName}Delivery`);
+
+    tag.ele('siri:ResponseTimestamp', date.toISOString());
     tag.ele('siri:Status', false);
-    tag.ele('ojp:CalcTime', calcTime);
+    tag.ele('ojp:CalcTime', date.getTime() - startTime);
 
     const err = tag.ele('siri:ErrorCondition');
     err.ele('siri:OtherError')
-    err.ele('siri:Description', errorCode);
+    err.ele('siri:Description', errorDesc);
 
     return tag;
   }

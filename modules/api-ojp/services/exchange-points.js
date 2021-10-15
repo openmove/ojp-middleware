@@ -4,7 +4,7 @@ const _ = require('lodash');
 
 const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {doRequest} = require('../lib/request');
-const {parseParamsRestrictions, parseGeoRestrictions} = require('../lib/restrictions');
+const {parseParamsRestrictions, parseGeoRestriction} = require('../lib/restrictions');
 const {createErrorResponse} = require('../lib/response');
 
 const serviceName = 'OJPExchangePoints';
@@ -91,10 +91,6 @@ module.exports = {
 
         const LocationName = queryTags(doc, [serviceTag,'ojp:InitialInput','ojp:LocationName']);
 
-        const locationPositionLat = queryTags(doc, [serviceTag,'ojp:InitialInput','ojp:GeoPosition','Latitude']);
-        
-        const locationPositionLon = queryTags(doc, [serviceTag,'ojp:InitialInput','ojp:GeoPosition','Longitude']);
-        
         const geoRestriction = queryNode(doc, [serviceTag,'ojp:InitialInput','ojp:GeoRestriction']);
 
         //if(LocationName) {
@@ -105,7 +101,7 @@ module.exports = {
           logger.debug('GeoRestriction', geoRestriction);
 
           const { rect, upperLon, upperLat, lowerLon, lowerLat
-                , circle, radius, centerLon, centerLat } = parseGeoRestrictions(doc, serviceTag, config);
+                , circle, radius, centerLon, centerLat } = parseGeoRestriction(doc, serviceTag, config);
 
           if(rect) {
             params.restrictionType = 'bbox';
@@ -119,6 +115,14 @@ module.exports = {
             throw new Error('Unrecognize Restriction');
           }
         }
+
+        const geoPositionLat = queryTags(doc, [serviceTag,'ojp:InitialInput','ojp:GeoPosition','Latitude'])
+            , geoPositionLon = queryTags(doc, [serviceTag,'ojp:InitialInput','ojp:GeoPosition','Longitude']);
+
+        if(geoPositionLat != null && geoPositionLon != null) {
+          params.position = [geoPositionLon, geoPositionLat].join(',');
+        }
+
       }
       else if(queryNodes(doc, [serviceTag]).length > 0) {
         path = '/';  //return all points

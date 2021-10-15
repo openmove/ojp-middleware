@@ -23,6 +23,8 @@ dev:
     level: 'debug'
     colorize: false
 
+geoPositionSearchRadius: 10
+
 import:
   version: 0.16
   #version: ${CSV_VERSION}

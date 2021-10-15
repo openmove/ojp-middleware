@@ -82,22 +82,11 @@ const getByName = async (req, getres) => {
 
     const where = {};
 
-    if(_.isString(req.params.name)) {
+    if (_.isString(req.params.name)) {
       where['Name']=  new RegExp(req.params.name, "i")
     }
 
-    if(req.query.restrictionType && req.query.restrictionType==='circle') {
-
-      const [ lon, lat, radius ] = req.query.restrictionValue.split(',').map(Number);
-
-      where['location']= {
-        '$geoWithin': {
-          '$centerSphere': [ [ lon, lat ], radius/6378100 ]
-        }
-      }
-      logger.debug('Restriction Circle:'+JSON.stringify(where))
-    }
-    else if(req.query.restrictionType && req.query.restrictionType==='bbox') {
+    if(req.query.restrictionType === 'bbox') {
 
       const [upperLon, upperLat,lowerLon, lowerLat] = req.query.restrictionValue.split(',').map(Number);
 
@@ -109,8 +98,30 @@ const getByName = async (req, getres) => {
           ]
         }
       }
-      logger.debug('Restriction Rectangle:'+JSON.stringify(where))
     }
+    else if (req.query.restrictionType === 'circle') {
+
+      const [ lon, lat, radius ] = req.query.restrictionValue.split(',').map(Number);
+
+      where['location']= {
+        '$geoWithin': {
+          '$centerSphere': [ [ lon, lat ], radius/6378100 ]
+        }
+      }
+    }
+
+    if (req.query.position) {
+
+      const [ lon, lat ] = req.query.position.split(',').map(Number);
+
+      where['location']= {
+        '$geoWithin': {
+          '$centerSphere': [ [ lon, lat ], config.geoPositionSearchRadius/6378100 ]
+        }
+      }
+    }
+
+    logger.debug('search query: '+JSON.stringify(where))
 
     client
     .db('ojp')
@@ -119,6 +130,7 @@ const getByName = async (req, getres) => {
     .skip( Number(req.query.skip) || 0 )
     .limit( Number(req.query.limit) || 0 )
     .toArray(function(err, queryres) {
+      console.log(queryres)
       if (err) {
         getres.send(err);
         throw err;

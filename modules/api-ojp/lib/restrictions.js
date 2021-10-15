@@ -5,7 +5,11 @@ const {queryNode, queryNodes, queryText, queryTags} = require('./query');
 
 module.exports = {
 
-	'parseGeoRestrictions': (doc, serviceTag, config) => {
+/*	'parseGeoPosition': (doc, serviceTag, config) => {
+//TODO maybe
+	},*/
+
+	'parseGeoRestriction': (doc, serviceTag, config) => {
 
         const rect = queryNode(doc, [serviceTag,'ojp:InitialInput','ojp:GeoRestriction','ojp:Rectangle']);
 
