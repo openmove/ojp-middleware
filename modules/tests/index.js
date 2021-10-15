@@ -39,7 +39,10 @@ app.use(express.json());
 app.get('/getconfig', async (req, res) => {
   res.set('cache-control', 'no-cache')
   res.set('content-type', 'application/javascript');
-  const conftext = JSON.stringify(config,null,4);
+
+  const conf = _.omit(config,['dev','prod','environments']);
+
+  const conftext = JSON.stringify(conf,null,4);
   res.send(`window.config = ${conftext};`);
 });
 

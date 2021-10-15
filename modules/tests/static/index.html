@@ -21,9 +21,12 @@
 	<textarea id="xml_req" cols="100" rows="22" type="text" contenteditable="true"> 
 	</textarea>
 	<br />
-	<input type="submit" name="SEND REQUEST">
+	<input type="submit" value="SEND REQUEST" />
+
+	<!-- <input type="button" id="sendvalid" value="VALIDATE REQUEST" /> -->
+
 	<br /><br />
-	<label>RESPONSE OJP:</label>
+	<label>RESPONSE:</label>
 	<br />
 	<textarea id="xml_res" cols="100" rows="22">
 	</textarea>
@@ -52,7 +55,8 @@
 <script src="/utils.js"></script>
 <script src="/getconfig"></script>
 <script>
-const {host, port} = window.config['api-ojp'];
+const {host, port} = window.config['api-ojp']
+	, {'host': validhost, 'port': validport} = window.config['validator'];
 
 const apiOjpUrl = `${location.protocol}//${host}:${port}/ojp`
 	, apiOjpUrlLogs = `${apiOjpUrl}/logs`
@@ -86,13 +90,13 @@ $.getJSON('/list.json', data => {
 $("#sendform").submit(e => {
     e.preventDefault();
     $('#xml_res').val('').addClass('loading');
-    setTimeout(()=>{
+    setTimeout(() => {
 		$.ajax({
 			url: apiOjpUrl,
 			type: 'POST',
 			data: uncomment($('#xml_req').val()),
 			contentType:"application/xml; charset=utf-8",
-			success: function(data){
+			success: data => {
 				//console.log('RETURN',data);
 				$('#xml_res')
 					.scrollTop(0)
@@ -104,6 +108,23 @@ $("#sendform").submit(e => {
 	},300);
 
 	return false;
+})
+.on('click','#sendvalid', e => {
+	e.preventDefault();
+	$('#xml_res').val('').addClass('loading');
+	$.ajax({
+		url: validhost,
+		type: 'POST',
+		data: uncomment($('#xml_req').val()),
+		contentType:"application/xml; charset=utf-8",
+		success: data => {
+			console.log('VALID',data);
+			$('#xml_res')
+				.scrollTop(0)
+				.val(formatXml(data))
+				.removeClass('loading');
+		}
+	})
 });
 
 $('#logs_refresh').on('click', e => {

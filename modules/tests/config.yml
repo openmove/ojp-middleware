@@ -19,6 +19,9 @@ prod:
     level: 'info'
     colorize: true
     ignore: 'pid,hostname'
+  validator:
+    host: 'https://validate-st.verkehrsauskunft.at/ojp/'
+    port: 443
 
 dev:
   server:
@@ -35,17 +38,6 @@ dev:
   logs:
     level: 'debug'
     colorize: false
-
-test: #test in local docker compose services
-  server:
-    host: localhost
-    port: 5000
-  api-ojp:
-    host: ${test.server.host}
-    port: ${dev.api-ojp.port}
-  api-otp:
-    host: ${test.server.host}
-    port: ${dev.api-otp.port}
-  ep-manager:
-    host: ${test.server.host}
-    port: ${dev.ep-manager.port}
+  validator:
+    host: 'https://validate-st.verkehrsauskunft.at/ojp/'
+    port: 443
