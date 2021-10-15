@@ -1,0 +1,782 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<siri:OJPRequest xmlns:siri="http://www.siri.org.uk/siri"
+                 xmlns="http://www.vdv.de/ojp"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xmlns:ojp4d="http://ojp4danube.hbit.sztaki.hu/ojp4d"
+                 xsi:schemaLocation="http://www.siri.org.uk/siri http://ojp4danube.hbit.sztaki.hu/xsd/OJP4D_siri_v2.0.xsd http://www.vdv.de/ojp http://ojp4danube.hbit.sztaki.hu/xsd/OJP4D_ojp_v1.0.1.xsd http://ojp4danube.hbit.sztaki.hu/ojp4d http://ojp4danube.hbit.sztaki.hu/xsd/OJP4D.xsd"
+><!--
+  @required
+-->
+  <siri:ServiceRequest><!--
+    @role Request from Consumer to Producer for immediate delivery of data. Answered with a ServiceDelivery.
+		@required
+	-->
+    <siri:ServiceRequestContext><!--
+      @role General request properties.
+      @required
+    -->
+      <siri:Language>en-GB<!--
+        @role Preferred language in which to return text values.
+        @required
+        @type bcp47
+      --></siri:Language>
+    </siri:ServiceRequestContext>
+    <siri:RequestTimestamp>2021-01-01T01:01:01<!--
+      @role Timestamp on request.
+      @type dateTime
+      @required
+    --></siri:RequestTimestamp>
+    <siri:AccountId>OJP4Danube<!--
+      @role Account Identifier. May be used to attribute requests to a particular application provider and authentication key. The account  may be common to all users of an application, or to an individual user. Note that to identify an individual user the  RequestorRef can be used with an anonymised token.
+      @type string
+    --></siri:AccountId>
+    <siri:AccountKey>2345fglsfkgertwertw3452354<!--
+      @role Authentication key for request. May be used to authenticate requests from a particular account.
+      @type string
+    --></siri:AccountKey>
+    <siri:RequestorRef>VAO<!--
+      @role Reference to a requestor - Participant Code.
+      @type netexParticipant
+      @required
+    --></siri:RequestorRef>
+    <siri:MessageIdentifier>AT:VAO:123e4567-e89b-12d3-a456-426614174000<!--
+      @role Arbitrary unique identifier that can be used to reference this message in subsequent interactions.
+      @description Unique identifier of a message within SIRI functional service type and participant.
+      @type netexMessage
+      @required
+    --></siri:MessageIdentifier>
+    <OJPMultiPointTripRequest><!--
+      @role Request for Multi Point Trips.
+      @extends AbstractServiceRequestStructure
+      @required
+      @oneOf OJPExchangePointsRequest|OJPLocationInformationRequest|OJPTripRequest|OJPTripInfoRequest|OJPMultiPointTripRequest
+    -->
+      <siri:RequestTimestamp>2021-01-01T01:01:01<!--
+        @role Timestamp on request.
+        @type dateTime
+        @required
+      --></siri:RequestTimestamp>
+      <Origin><!--
+        @role Specifies the origin situation from where the user wants to start.
+        @required
+        @multiple 1 any
+      -->
+        <PlaceRef><!--
+          @role Spatial location of the origin.
+          @required
+        -->
+          <siri:StopPointRef>AT:AT130:StopPoint:123:VAO<!--
+            @role Reference to a Stop Point
+            @optional
+            @type netexStopPoint
+            @oneOf StopPlaceRef|siri:StopPointRef|TopographicPlaceRef|AddressRef|PointOfInterestRef|GeoPosition
+          --></siri:StopPointRef>
+          <!--
+            Could also be one of:
+            @tag StopPlaceRef {
+              @role Reference to a Stop Place.
+              @required
+              @type netexStopPlace
+              @example AT:AT130:StopPlace:123:VAO
+              @oneOf StopPlaceRef|siri:StopPointRef|TopographicPlaceRef|AddressRef|PointOfInterestRef|GeoPosition
+            }
+            @tag TopographicPlaceRef {
+              @role Reference to a Topographic Place.
+              @required
+              @type netexTopographicPlace
+              @example AT:AT130:District:14:VAO
+              @oneOf StopPlaceRef|siri:StopPointRef|TopographicPlaceRef|AddressRef|PointOfInterestRef|GeoPosition
+            }
+            @tag AddressRef {
+              @role Reference to an Address.
+              @required
+              @type netexAddress
+              @example AT:AT130:Address:123:VAO
+              @oneOf StopPlaceRef|siri:StopPointRef|TopographicPlaceRef|AddressRef|PointOfInterestRef|GeoPosition
+            }
+            @tag PointOfInterestRef {
+              @role Reference to a Point Of Interest.
+              @required
+              @type netexPOI
+              @example AT:AT130:POI:123:VAO
+              @oneOf StopPlaceRef|siri:StopPointRef|TopographicPlaceRef|AddressRef|PointOfInterestRef|GeoPosition
+            }
+            @tag GeoPosition {
+              @role A GeoPosition.
+              @required
+              @oneOf StopPlaceRef|siri:StopPointRef|TopographicPlaceRef|AddressRef|PointOfInterestRef|GeoPosition
+              @tag siri:Latitude {
+                @role Latitude.
+                @required
+                @type wgs84
+                @example 41.132512
+              }
+              @tag siri:Longitude {
+                @role Longitude
+                @required
+                @type wgs84
+                @example 39.151233
+              }
+            }
+          -->
+          <LocationName><!--
+            @role Public name of the location.
+            @required
+            @type ojp:InternationalTextStructure
+          -->
+            <Text xml:lang="en-GB">Schloss Schönbrunn<!--
+              @role A localized name of the location.
+              @description Will be used for display in GUI interface
+              @required
+              @type string
+              @attribute xml:lang {
+                @role The language-country code the description is in.
+                @required
+                @type bcp47
+              }
+            --></Text>
+          </LocationName>
+        </PlaceRef>
+        <DepArrTime>2018-02-07T11:00:00+01:00<!--
+          @role Time when departure from location is required.
+          @description If this parameter is present under <Origin> is interpreted as departure time. If this parameter is present under <Destination> is interpreted as arrival time.
+          @type dateTime
+          @optional
+        --></DepArrTime>
+
+        <IndividualTransportOptions><!--
+          @role Options how to access/leave the location by individual transport.
+          @optional
+        -->
+          <Mode>walk<!--
+            @role The individual transport mode to access/leave the location by.
+            @enum walk|cycle|taxi|self-drive-car|others-drive-car|motorcycle|truck
+            @type siri:IndividualModesEnumeration
+            @optional
+          --></Mode>
+          <MaxDistance>100<!--
+            @role Maximum distance in meters.
+            @description If given, it restricts the maximum distance of routes with the given mode.
+            @type integer
+            @optional
+          --></MaxDistance>
+          <MaxDuration>PT1H<!--
+            @role Maximum duration.
+            @description If given, it restricts the maximum time of routes with the given mode.
+            @type duration
+            @optional
+          --></MaxDuration>
+          <MinDistance>50<!--
+            @role Minimum distance in meters.
+            @description If given, it restricts the minimum distance of routes with the given mode.
+            @type integer
+            @optional
+          --></MinDistance>
+          <MinDuration>PT15M<!--
+            @role Minimum duration.
+            @description If given, it restricts the minimum time of routes with the given mode.
+            @type duration
+            @optional
+          --></MinDuration>
+          <Speed>100<!--
+            @role Relative speed in percent.
+            @description If given slows the standard speed (below 100) or fastens it (above 100).
+            @type integer
+            @optional
+          --></Speed>
+        </IndividualTransportOptions>
+        <!-- additional IndividualTransportOptions filters -->
+      </Origin>
+      <!-- additional Origins -->
+
+      <Destination><!--
+        @role Specifies the destination situation where the user is heading to.
+        @required
+        @multiple 1 any
+      -->
+        <PlaceRef><!--
+          @role Spatial location of the destination.
+          @required
+        -->
+          <PointOfInterestRef>AT:AT130:POI:123:VAO<!--
+            @role Reference to a Stop Point
+            @optional
+            @type netexPOI
+            @oneOf StopPlaceRef|siri:StopPointRef|TopographicPlaceRef|AddressRef|PointOfInterestRef|GeoPosition
+          --></PointOfInterestRef>
+          <!--
+            Could also be one of:
+            @tag siri:StopPointRef {
+              @role Reference to a Stop Point.
+              @required
+              @type netexStopPoint
+              @example AT:AT130:StopPoint:123:VAO
+              @oneOf StopPlaceRef|siri:StopPointRef|TopographicPlaceRef|AddressRef|PointOfInterestRef|GeoPosition
+            }
+            @tag StopPlaceRef {
+              @role Reference to a Stop Place.
+              @required
+              @type netexStopPlace
+              @example AT:AT130:StopPlace:123:VAO
+              @oneOf StopPlaceRef|siri:StopPointRef|TopographicPlaceRef|AddressRef|PointOfInterestRef|GeoPosition
+            }
+            @tag TopographicPlaceRef {
+              @role Reference to a Topographic Place.
+              @required
+              @type netexTopographicPlace
+              @example AT:AT130:District:14:VAO
+              @oneOf StopPlaceRef|siri:StopPointRef|TopographicPlaceRef|AddressRef|PointOfInterestRef|GeoPosition
+            }
+            @tag AddressRef {
+              @role Reference to an Address.
+              @required
+              @type netexAddress
+              @example AT:AT130:Address:123:VAO
+              @oneOf StopPlaceRef|siri:StopPointRef|TopographicPlaceRef|AddressRef|PointOfInterestRef|GeoPosition
+            }
+            @tag PointOfInterestRef {
+              @role Reference to a Point Of Interest.
+              @required
+              @type netexPOI
+              @example AT:AT130:POI:123:VAO
+              @oneOf StopPlaceRef|siri:StopPointRef|TopographicPlaceRef|AddressRef|PointOfInterestRef|GeoPosition
+            }
+            @tag GeoPosition {
+              @role A GeoPosition.
+              @required
+              @oneOf StopPlaceRef|siri:StopPointRef|TopographicPlaceRef|AddressRef|PointOfInterestRef|GeoPosition
+              @tag siri:Latitude {
+                @role Latitude.
+                @required
+                @type wgs84
+                @example 41.132512
+              }
+              @tag siri:Longitude {
+                @role Longitude
+                @required
+                @type wgs84
+                @example 39.151233
+              }
+            }
+          -->
+          <LocationName><!--
+            @role Public name of the location.
+            @required
+            @type ojp:InternationalTextStructure
+          -->
+            <Text xml:lang="en-GB">Schloss Schönbrunn<!--
+              @role A localized name of the location.
+              @description Will be used for display in GUI interface
+              @required
+              @type string
+              @attribute xml:lang {
+                @role The language-country code the description is in.
+                @required
+                @type bcp47
+              }
+            --></Text>
+          </LocationName>
+        </PlaceRef>
+        <DepArrTime>2018-02-07T09:00:00+01:00<!--
+          @role Time when arrival to location is required.
+          @description If this parameter is present under <Origin> is interpreted as departure time. If this parameter is present under <Destination> is interpreted as arrival time.
+          @type dateTime
+          @optional
+        --></DepArrTime>
+        <IndividualTransportOptions><!--
+          @role Options how to access/leave the location by individual transport.
+          @optional
+        -->
+          <Mode>walk<!--
+            @role The individual transport mode to access/leave the location by.
+            @enum walk|cycle|taxi|self-drive-car|others-drive-car|motorcycle|truck
+            @type siri:IndividualModesEnumeration
+            @optional
+          --></Mode>
+          <MaxDistance>100<!--
+            @role Maximum distance in meters.
+            @description If given, it restricts the maximum distance of routes with the given mode.
+            @type integer
+            @optional
+          --></MaxDistance>
+          <MaxDuration>PT1H<!--
+            @role Maximum duration.
+            @description If given, it restricts the maximum time of routes with the given mode.
+            @type duration
+            @optional
+          --></MaxDuration>
+          <MinDistance>50<!--
+            @role Minimum distance in meters.
+            @description If given, it restricts the minimum distance of routes with the given mode.
+            @type integer
+            @optional
+          --></MinDistance>
+          <MinDuration>PT15M<!--
+            @role Minimum duration.
+            @description If given, it restricts the minimum time of routes with the given mode.
+            @type duration
+            @optional
+          --></MinDuration>
+          <Speed>100<!--
+            @role Relative speed in percent.
+            @description If given slows the standard speed (below 100) or fastens it (above 100).
+            @type integer
+            @optional
+          --></Speed>
+        </IndividualTransportOptions>
+        <!-- additional IndividualTransportOptions filters -->
+      </Destination>
+      <Destination>
+        <PlaceRef>
+          <StopPlaceRef>asdas</StopPlaceRef>
+          <LocationName>
+            <Text>asdasdasd</Text>
+          </LocationName>
+        </PlaceRef>
+      </Destination>
+      <!-- additional Destinations -->
+
+      <Via><!--
+        @role Ordered series of points where the journey must pass through.
+        @description If more than one via point is given all of them must be obeyed - in the correct order. The server is allowed to replace a via stop by equivalent stops.
+        @multiple 0 any
+        @optional
+      -->
+        <ViaPoint><!--
+          @role Reference to specify the via location
+          @required
+        -->
+          <PointOfInterestRef>AT:AT130:POI:123:VAO<!--
+            @role Reference to a Stop Point
+            @optional
+            @type netexPOI
+            @oneOf StopPlaceRef|siri:StopPointRef|TopographicPlaceRef|AddressRef|PointOfInterestRef|GeoPosition
+          --></PointOfInterestRef>
+          <!--
+            Could also be one of:
+            @tag siri:StopPointRef {
+              @role Reference to a Stop Point.
+              @required
+              @type netexStopPoint
+              @example AT:AT130:StopPoint:123:VAO
+              @oneOf StopPlaceRef|siri:StopPointRef|TopographicPlaceRef|AddressRef|PointOfInterestRef|GeoPosition
+            }
+            @tag StopPlaceRef {
+              @role Reference to a Stop Place.
+              @required
+              @type netexStopPlace
+              @example AT:AT130:StopPlace:123:VAO
+              @oneOf StopPlaceRef|siri:StopPointRef|TopographicPlaceRef|AddressRef|PointOfInterestRef|GeoPosition
+            }
+            @tag TopographicPlaceRef {
+              @role Reference to a Topographic Place.
+              @required
+              @type netexTopographicPlace
+              @example AT:AT130:District:14:VAO
+              @oneOf StopPlaceRef|siri:StopPointRef|TopographicPlaceRef|AddressRef|PointOfInterestRef|GeoPosition
+            }
+            @tag AddressRef {
+              @role Reference to an Address.
+              @required
+              @type netexAddress
+              @example AT:AT130:Address:123:VAO
+              @oneOf StopPlaceRef|siri:StopPointRef|TopographicPlaceRef|AddressRef|PointOfInterestRef|GeoPosition
+            }
+            @tag PointOfInterestRef {
+              @role Reference to a Point Of Interest.
+              @required
+              @type netexPOI
+              @example AT:AT130:POI:123:VAO
+              @oneOf StopPlaceRef|siri:StopPointRef|TopographicPlaceRef|AddressRef|PointOfInterestRef|GeoPosition
+            }
+            @tag GeoPosition {
+              @role Reference to an GeoPosition.
+              @required
+              @oneOf StopPlaceRef|siri:StopPointRef|TopographicPlaceRef|AddressRef|PointOfInterestRef|GeoPosition
+              @tag siri:Latitude {
+                @role Latitude.
+                @required
+                @type wgs84
+                @example 41.132512
+              }
+              @tag siri:Longitude {
+                @role Longitude
+                @required
+                @type wgs84
+                @example 39.151233
+              }
+            }
+          -->
+          <LocationName><!--
+            @role Public name of the location.
+            @required
+            @type ojp:InternationalTextStructure
+          -->
+            <Text xml:lang="en-GB">Schloss Schönbrunn<!--
+              @role A localized name of the location.
+              @description Will be used for display in GUI interface
+              @required
+              @type string
+              @attribute xml:lang {
+                @role The language-country code the description is in.
+                @required
+                @type bcp47
+              }
+            --></Text>
+          </LocationName>
+        </ViaPoint>
+      </Via>
+      <Via>
+        <ViaPoint><!--
+          @role Reference to specify the via location
+          @required
+        -->
+          <AddressRef>AT:AT130:Address:123:VAO<!--
+            @role Reference to an Address
+            @optional
+            @type netexAddress
+            @oneOf StopPlaceRef|siri:StopPointRef|TopographicPlaceRef|AddressRef|PointOfInterestRef|GeoPosition
+          --></AddressRef>
+          <!--
+            Could also be one of:
+            @tag siri:StopPointRef {
+              @role Reference to a Stop Point.
+              @required
+              @type netexStopPoint
+              @example AT:AT130:StopPoint:123:VAO
+              @oneOf StopPlaceRef|siri:StopPointRef|TopographicPlaceRef|AddressRef|PointOfInterestRef|GeoPosition
+            }
+            @tag StopPlaceRef {
+              @role Reference to a Stop Place.
+              @required
+              @type netexStopPlace
+              @example AT:AT130:StopPlace:123:VAO
+              @oneOf StopPlaceRef|siri:StopPointRef|TopographicPlaceRef|AddressRef|PointOfInterestRef|GeoPosition
+            }
+            @tag TopographicPlaceRef {
+              @role Reference to a Topographic Place.
+              @required
+              @type netexTopographicPlace
+              @example AT:AT130:District:14:VAO
+              @oneOf StopPlaceRef|siri:StopPointRef|TopographicPlaceRef|AddressRef|PointOfInterestRef|GeoPosition
+            }
+            @tag AddressRef {
+              @role Reference to an Address.
+              @required
+              @type netexAddress
+              @example AT:AT130:Address:123:VAO
+              @oneOf StopPlaceRef|siri:StopPointRef|TopographicPlaceRef|AddressRef|PointOfInterestRef|GeoPosition
+            }
+            @tag PointOfInterestRef {
+              @role Reference to a Point Of Interest.
+              @required
+              @type netexPOI
+              @example AT:AT130:POI:123:VAO
+              @oneOf StopPlaceRef|siri:StopPointRef|TopographicPlaceRef|AddressRef|PointOfInterestRef|GeoPosition
+            }
+            @tag GeoPosition {
+              @role Reference to an GeoPosition.
+              @required
+              @oneOf StopPlaceRef|siri:StopPointRef|TopographicPlaceRef|AddressRef|PointOfInterestRef|GeoPosition
+              @tag siri:Latitude {
+                @role Latitude.
+                @required
+                @type wgs84
+                @example 41.132512
+              }
+              @tag siri:Longitude {
+                @role Longitude
+                @required
+                @type wgs84
+                @example 39.151233
+              }
+            }
+          -->
+          <LocationName><!--
+            @role Public name of the location.
+            @required
+            @type ojp:InternationalTextStructure
+          -->
+            <Text xml:lang="en-GB">Schönbrunner Schlossstrasse 47, 1130 Wien<!--
+              @role A localized name of the location.
+              @description Will be used for display in GUI interface
+              @required
+              @type string
+              @attribute xml:lang {
+                @role The language-country code the description is in.
+                @required
+                @type bcp47
+              }
+            --></Text>
+          </LocationName>
+        </ViaPoint>
+      </Via>
+
+      <Params><!--
+        @role Trip request parameter structure
+        @description Options to control the search behaviour and response contents.
+        @optional
+      -->
+        <!-- TripDataFilterGroup -->
+        <PtModeFilter><!--
+          @role Modes to be considered in trip calculation.
+          @optional
+        -->
+          <Exclude>false<!--
+            @role Whether modes in list are to include or exclude from search. Default is exclude.
+            @description Should always be false within the scope of OJP4Danube.
+            @type boolean
+            @optional
+            @assertFalse
+          --></Exclude>
+          <PtMode>bus<!--
+            @role A public transport mode.
+            @enum pti1_0|unknown|pti1_1|railwayService|rail|pti1_2|coachService|coach|pti1_3|suburbanRailwayService|suburbanRail|pti1_4|urbanRailwayService|urbanRail|pti1_5|metroService|metro|pti1_6|undergroundService|underground|pti1_7|busService|bus|pti1_8|trolleyBusService|trolleyBus|pti1_9|tramService|tram|pti1_10|waterTransportService|waterTransport|pti1_11|airService|air|pti1_12|ferryService|water|pti1_13|telecabinService|telecabin|pti1_14|funicularService|funicular|pti1_15|taxiService|taxi|pti1_16|selfDrive|pti1_17|allServices|all|pti1_18|allServicesExcept
+            @multiple
+            @required
+          --></PtMode>
+          <PtMode>trolleyBus</PtMode>
+          <!-- additional PtModes -->
+
+          <siri:BusSubmode>expressBus<!--
+            @role TPEG pti05 Bus submodes
+            @oneOf siri:AirSubmode|siri:BusSubmode|siri:CoachSubmode|siri:FunicularSubmode|siri:MetroSubmode|siri:TramSubmode|siri:TelecabinSubmode|siri:RailSubmode|siri:WaterSubmode
+            @enum pti5_0|loc10_0|unknown|pti5_1|loc10_6|regionalBus|pti5_2|loc10_1|expressBus|pti5_3|bus|pti5_4|loc10_5|localBusService|pti5_5|loc10_2|nightBus|pti5_6|loc10_4|postBus|pti5_7|loc10_8|specialNeedsBus|pti5_8|mobilityBus|pti5_9|mobilityBusForRegisteredDisabled|pti5_10|loc10_9|sightseeingBus|pti5_11|shuttleBus|pti5_12|loc10_7|schoolBus|pti5_13|loc10_13|schoolAndPublicServiceBus|pti5_14|railReplacementBus|pti5_15|demandAndResponseBus|pti5_16|allBusServices|loc_10|airportLinkBus|pti5_255|loc10_255|undefined
+            @optional
+          --></siri:BusSubmode>
+          <!--
+            @tag siri:AirSubmode {
+              @role TPEG pti08 Air submodes
+              @optional
+              @oneOf siri:AirSubmode|siri:BusSubmode|siri:CoachSubmode|siri:FunicularSubmode|siri:MetroSubmode|siri:TramSubmode|siri:TelecabinSubmode|siri:RailSubmode|siri:WaterSubmode
+              @example domesticFlight
+              @enum pti8_0|loc15_0|unknown|pti8_1|loc15_2|internationalFlight|pti8_2|domesticFlight|pti8_3|loc15_1|intercontinentalFlight|pti8_4|loc15_4|domesticScheduledFlight|pti8_5|loc15_9|shuttleFlight|pti8_6|loc15_5|intercontinentalCharterFlight|pti8_7|loc15_6|internationalCharterFlight|pti8_8|roundTripCharterFlight|pti8_9|loc15_8|sightseeingFlight|pti8_10|loc15_10|helicopterService|pti8_11|loc15_7|domesticCharterFlight|pti8_12|SchengenAreaFlight|pti8_13|airshipService|pti8_14|allAirServices|loc14_3|shortHaulInternationalFlight|pti8_255|loc15_255|undefinedAircraftService
+            }
+            @tag siri:BusSubmode {
+              @role TPEG pti08 Bus submodes
+              @optional
+              @oneOf siri:AirSubmode|siri:BusSubmode|siri:CoachSubmode|siri:FunicularSubmode|siri:MetroSubmode|siri:TramSubmode|siri:TelecabinSubmode|siri:RailSubmode|siri:WaterSubmode
+              @enum pti5_0|loc10_0|unknown|pti5_1|loc10_6|regionalBus|pti5_2|loc10_1|expressBus|pti5_3|bus|pti5_4|loc10_5|localBusService|pti5_5|loc10_2|nightBus|pti5_6|loc10_4|postBus|pti5_7|loc10_8|specialNeedsBus|pti5_8|mobilityBus|pti5_9|mobilityBusForRegisteredDisabled|pti5_10|loc10_9|sightseeingBus|pti5_11|shuttleBus|pti5_12|loc10_7|schoolBus|pti5_13|loc10_13|schoolAndPublicServiceBus|pti5_14|railReplacementBus|pti5_15|demandAndResponseBus|pti5_16|allBusServices|loc_10|airportLinkBus|pti5_255|loc10_255|undefined
+            }
+            @tag siri:CoachSubmode {
+              @role TPEG pti08 Coach submodes
+              @optional
+              @oneOf siri:AirSubmode|siri:BusSubmode|siri:CoachSubmode|siri:FunicularSubmode|siri:MetroSubmode|siri:TramSubmode|siri:TelecabinSubmode|siri:RailSubmode|siri:WaterSubmode
+              @example nationalCoachService
+              @enum pti3_0|unknown|pti3_1|internationalCoachService|pti3_2|nationalCoachService|pti3_3|shuttleCoachService|pti3_4|regionalCoachService|pti3_5|specialCoachService|pti3_6|sightseeingCoachService|pti3_7|touristCoachService|pti3_8|commuterCoachService|pti3_9|allCoachServices|pti3_255|undefined
+            }
+            @tag siri:FunicularSubmode {
+              @role TPEG pti08 Funicular submodes
+              @optional
+              @oneOf siri:AirSubmode|siri:BusSubmode|siri:CoachSubmode|siri:FunicularSubmode|siri:MetroSubmode|siri:TramSubmode|siri:TelecabinSubmode|siri:RailSubmode|siri:WaterSubmode
+              @example nationalCoachService
+              @enum pti10_0|unknown|pti10_1|loc14_2|funicular|pti10_2|allFunicularServices|pti10_255|undefinedFunicular
+            }
+            @tag siri:MetroSubmode {
+              @role TPEG pti08 Metro submodes
+              @optional
+              @oneOf siri:AirSubmode|siri:BusSubmode|siri:CoachSubmode|siri:FunicularSubmode|siri:MetroSubmode|siri:TramSubmode|siri:TelecabinSubmode|siri:RailSubmode|siri:WaterSubmode
+              @example nationalCoachService
+              @enum pti4_0|unknown|pti4_1|metro|pti4_2|tube|pti4_3|urbanRailway|pti4_4|allRailServices|pti4_255|undefined
+            }
+            @tag siri:TramSubmode {
+              @role TPEG pti08 Tram submodes
+              @optional
+              @oneOf siri:AirSubmode|siri:BusSubmode|siri:CoachSubmode|siri:FunicularSubmode|siri:MetroSubmode|siri:TramSubmode|siri:TelecabinSubmode|siri:RailSubmode|siri:WaterSubmode
+              @example nationalCoachService
+              @enum pti6_0|loc12_0|unknown|pti6_1|loc12_1|cityTram|pti6_2|localTramService|pti6_3|regionalTram|pti6_4|loc12_2|sightseeingTram|pti6_5|shuttleTram|pti6_6|allTramServices|pti6_255|loc12_255|undefinedTramService
+            }
+            @tag siri:TelecabinSubmode {
+              @role TPEG pti08 Telecabin submodes
+              @optional
+              @oneOf siri:AirSubmode|siri:BusSubmode|siri:CoachSubmode|siri:FunicularSubmode|siri:MetroSubmode|siri:TramSubmode|siri:TelecabinSubmode|siri:RailSubmode|siri:WaterSubmode
+              @example nationalCoachService
+              @enum pti9_0|loc14_0|unknown|pti9_1|loc14_1|telecabin|pti9_2|loc14_3|cableCar|pti9_3|loc14_4|lift|pti9_4|loc14_52|chairLift|pti9_5|loc14_6|dragLift|pti9_6|smallTelecabin|pti9_7|allTelecabinServices|pti9_255|undefined|loc14_7|eggLift|loc14_8|mineralBuckets|loc14_255|telecabinLink
+            }
+            @tag siri:RailSubmode {
+              @role TPEG pti08 Rail submodes
+              @description Please note that `interbational` is incorrectly implemented within the SIRI standard.
+              @optional
+              @oneOf siri:AirSubmode|siri:BusSubmode|siri:CoachSubmode|siri:FunicularSubmode|siri:MetroSubmode|siri:TramSubmode|siri:TelecabinSubmode|siri:RailSubmode|siri:WaterSubmode
+              @example domesticFlight
+              @enum pti2_0|loc13_0|unknown|pti2_1|highSpeedRailService|pti2_2|loc13_3|longDistanceTrain|pti2_3|loc13_2|interRegionalRailService|pti2_4|carTransportRailService|pti2_5|sleeperRailService|pti2_6|loc13_4|regionalRail|pti2_7|loc13_7|touristRailway|pti2_8|railShuttle|pti2_9|loc13_5|suburbanRailway|pti2_10|replacementRailService|pti2_11|specialTrainService|pti2_12|lorryTransportRailService|pti2_13|allRailServices|pti2_14|crossCountryRailService|pti2_15|vehicleRailTransportService|pti2_16|loc13_8|rackAndPinionRailway|pti2_17|additionalTrainService|pti2_255|undefined|loc13_6|local|loc13_1|interbational
+            }
+            @tag siri:WaterSubmode {
+              @role TPEG pti08 Water submodes
+              @optional
+              @oneOf siri:AirSubmode|siri:BusSubmode|siri:CoachSubmode|siri:FunicularSubmode|siri:MetroSubmode|siri:TramSubmode|siri:TelecabinSubmode|siri:RailSubmode|siri:WaterSubmode
+              @example domesticFlight
+              @enum pti7_0|unknown|pti7_1|internationalCarFerryService|pti7_2|nationalCarFerryService|pti7_3|regionalCarFerryService|pti7_4|localCarFerryService|pti7_5|internationalPassengerFerry|pti7_6|nationalPassengerFerry|pti7_7|regionalPassengerFerry|pti7_8|localPassengerFerry|pti7_9|postBoat|pti7_10|trainFerry|pti7_11|roadFerryLink|pti7_12|airportBoatLink|pti7_13|highSpeedVehicleService|pti7_14|highSpeedPassengerService|pti7_15|sightseeingService|pti7_16|schoolBoat|pti7_17|cableFerry|pti7_18|riverBus|pti7_19|scheduledFerry|pti7_20|shuttleFerryService|pti7_21|allWaterTransportServices|pti7_255|undefinedWaterTransport
+            }
+          -->
+          <!-- additional PtSubmodes -->
+        </PtModeFilter>
+        <LineFilter><!--
+          @role Lines/Directions to include/exclude.
+          @optional
+        -->
+          <Line><!--
+            @role Reference a GROUP of DIRECTIONs  of the ROUTEs belonging to the same LINE created  for the purpose of filtering and organising timetables.
+            @required
+            @multiple
+          -->
+            <siri:LineRef>AT:Operator:OBB:Line:123<!--
+              @role Reference to a Line.
+              @required
+              @type netexLine
+            --></siri:LineRef>
+          </Line>
+          <Line>
+            <siri:LineRef>AT:Operator:OBB:Line:234</siri:LineRef>
+          </Line>
+          <!-- additional lines -->
+          <Exclude>true<!--
+            @role Whether lines in list are to include or exclude from search. Default is exclude.
+            @type boolean
+            @optional
+          --></Exclude>
+        </LineFilter>
+        <OperatorFilter><!--
+          @role Transport operators to include/exclude.
+          @optional
+        -->
+          <Exclude>true<!--
+            @role Whether operators in list are to include or exclude from search. Default is exclude.
+            @type boolean
+            @optional
+          --></Exclude>
+          <OperatorRef>AT:GVT<!--
+            @role Reference to an OPERATOR.
+            @type netexOperator
+            @multiple 1 any
+            @required
+          --></OperatorRef>
+          <OperatorRef>AT:OBB</OperatorRef>
+          <!-- additional OperatorRefs -->
+        </OperatorFilter>
+        <PrivateModeFilter><!--
+          @role List of private mobility offers to include or exclude.
+          @optional
+        -->
+          <Exclude>true<!--
+            @role Whether modes in list are to include or exclude from search. Default is exclude.
+            @type boolean
+            @optional
+          --></Exclude>
+          <PrivateMode>carPooling<!--
+            @role Private mobility options to include/exclude.
+            @type siri:PrivateModesEnumeration
+            @enum carPooling
+          --></PrivateMode>
+        </PrivateModeFilter>
+
+        <!-- TripMobilityFilterGroup -->
+        <NoSingleStep>false<!--
+          @role The user is not able to climb one step.
+          @optional
+          @type boolean
+        --></NoSingleStep>
+        <NoStairs>false<!--
+          @role The user is not able to walk up/down stairs.
+          @optional
+          @type boolean
+        --></NoStairs>
+        <NoEscalator>false<!--
+          @role The user is not able to use an escalator.
+          @optional
+          @type boolean
+        --></NoEscalator>
+        <NoElevator>false<!--
+          @role The user is not able to use an elevator.
+          @optional
+          @type boolean
+        --></NoElevator>
+        <NoRamp>false<!--
+          @role The user is not able to use a ramp.
+          @optional
+          @type boolean
+        --></NoRamp>
+        <LevelEntrance>false<!--
+          @role The user needs vehicles with level entrance between  platform and vehicle, E.g. for wheelchair access.
+          @optional
+          @type boolean
+        --></LevelEntrance>
+        <BikeTransport>true<!--
+          @role The user wants to carry a bike on public transport.
+          @optional
+          @type boolean
+        --></BikeTransport>
+        <WalkSpeed>100<!--
+          @role Deviation from average walk speed in percent.
+          @description 100% percent is average speed. Less than 100% is slower, greater than 100% is faster.
+          @optional
+          @type integer
+        --></WalkSpeed>
+
+        <!-- TripPolicyGroup -->
+        <NumberOfResults>10<!--
+          @role Tells the server to return at most the mentioned number of results in its response.
+          @type integer
+          @min 1
+          @max 100
+          @required
+        --></NumberOfResults>
+        <IgnoreRealtimeData>false<!--
+          @role
+          @optional
+          @type boolean
+        --></IgnoreRealtimeData>
+        <ImmediateTripStart>false<!--
+          @role
+          @optional
+          @type boolean
+        --></ImmediateTripStart>
+        <TransferLimit>3<!--
+          @role The maximum number of interchanges the user will accept per trip.
+          @optional
+          @type integer
+          @min 1
+        --></TransferLimit>
+        <OptimisationMethod>earliestArrival<!--
+          @role The types of algorithm that can be used for planning a journey (fastest, least walking, etc).
+          @optional
+          @type OptimisationMethodEnumeration
+          @min 1
+        --></OptimisationMethod>
+        <MultiPointType>anyPoint<!--
+          @role Defined the multiPoint planning type
+          @description If a solution for any one of multiple origin/destination points is sufficient. Or a distinct solution for each of the origin/destination points has to be found.
+          @enum anyPoint|eachOrigin|eachDestination
+          @todo Depends on what the active system will need.
+        --></MultiPointType>
+
+        <!-- TripContentFilterGroup -->
+        <IncludeTrackSections>true<!--
+          @role Whether the result should include TrackSection elements to describe the geographic route of each journey leg.
+          @optional
+          @type boolean
+        --></IncludeTrackSections>
+        <IncludeLegProjection>true<!--
+          @role Whether the result should include the geographic projection (coordinates) of each journey leg.
+          @optional
+          @type boolean
+        --></IncludeLegProjection>
+        <IncludeTurnDescription>true<!--
+          @role Whether the result should include turn-by-turn instructions for each journey leg.
+          @optional
+          @type boolean
+        --></IncludeTurnDescription>
+        <IncludeAccessibility>true<!--
+          @role Whether the result should include accessibility information.
+          @optional
+          @type boolean
+        --></IncludeAccessibility>
+        <IncludeIntermediateStops>true<!--
+          @role Whether the result should include intermediate stops (between the passenger's board and alight stops).
+          @optional
+          @type boolean
+        --></IncludeIntermediateStops>
+      </Params>
+    </OJPMultiPointTripRequest>
+  </siri:ServiceRequest>
+</siri:OJPRequest>
