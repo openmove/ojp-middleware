@@ -138,7 +138,9 @@ app.get('/stops/:id/details', async (req, result) => {
   //origin, destination, waypoints, no transfers at, ...
   const params = req.body;
   logger.debug(params);
-  const res = await planTrip(config, params.origin, params.destination, params.date, params)
+
+  const res = await planTrip(config, params.origin, params.destination, params.date, params);
+
   result.json(res);
 });
 

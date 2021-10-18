@@ -247,11 +247,16 @@ module.exports = {
         }
 
         let date = new Date().getTime();
+
         let arrivedBy = false;
+
         if(dateStart != null){
           date = new Date(dateStart).getTime();
-        }else if(dateEnd != null){
+        }
+        else if(dateEnd != null){
+
           arrivedBy = true;
+
           date = new Date(dateEnd).getTime();
         }
 
