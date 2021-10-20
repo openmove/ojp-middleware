@@ -48,7 +48,7 @@ services:
   OJPStopEventRequest: true
   OJPTripRequest: true
   OJPTripInfoRequest: true
-  OJPMultiPointTripRequest: false
+  OJPMultiPointTripRequest: true
 
 errors:
   notagrequest: NO_TAG_REQUEST_FOUND
