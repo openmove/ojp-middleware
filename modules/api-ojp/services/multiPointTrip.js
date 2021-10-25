@@ -29,7 +29,7 @@ const createResponse = (results, startTime) => {
 	const context = tag.ele('ojp:MultiPointResponseContext');
 	const stops = [];
 
-	for(const {itineraries, showIntermediates, config, question} of results){
+	for(const {itineraries, intermediateStops, config, question} of results){
 		for(const itinerary of itineraries){
 			const tripresponse = tag.ele('ojp:MultiPointTripResult');
 			const tripId = uuidv4();
@@ -110,7 +110,7 @@ const createResponse = (results, startTime) => {
 					board.ele('ojp:Order', 1);
 					for(const intermediatePoint of leg.intermediatePlaces){
 						sequence += 1;
-						if(showIntermediates){
+						if(intermediateStops) {
 							const intermediate = timedLeg.ele('ojp:LegIntermediates')
 							intermediate.ele('ojp:StopPointName').ele('ojp:Text', `${intermediatePoint.name}`);
 							if(intermediatePoint.stop){
@@ -191,6 +191,8 @@ module.exports = {
 
 		const { limit, skip, ptModes } = parseParamsRestrictions(doc, serviceTag, config);
 
+		const {transferLimit, includeAccessibility, intermediateStops, dateStart, dateEnd} = parseTripRestrictions(doc, serviceTag, config);
+
 		try {
 			const responses = [];
 			const origins = queryNodes(doc, "//*[name()='ojp:OJPMultiPointTripRequest']/*[name()='ojp:Origin']/*[name()='ojp:PlaceRef']")
@@ -200,8 +202,6 @@ module.exports = {
 				&&
 				destinations.length > 0
 			){
-
-				const {transfersValue, useWheelchair, dateStart, dateEnd} = parseTripRestrictions(doc,serviceTag, config);
 
 				const intermediatePlaces = [];
 
@@ -299,8 +299,8 @@ module.exports = {
 							date,
 							limit: 1,
 							arrivedBy,
-							transfers: Number(transfersValue) || 2,
-							wheelchair: useWheelchair === 'true',
+							transfers: transferLimit,
+							wheelchair: includeAccessibility,
 							intermediatePlaces
 						}
 						const data = JSON.stringify(questionObj);
@@ -318,11 +318,12 @@ module.exports = {
 						};
 						logger.info(options);
 						const response = await doRequest(options, data);
+
 						responses.push({
 							'itineraries' : response.plan.itineraries, 
 							startTime, 
-							'showIntermediates': intermediateStops === 'true', 
-							config, 
+							intermediateStops,
+							config,
 							'question': questionObj
 						});
 					}

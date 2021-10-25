@@ -38,6 +38,9 @@ dev:
     colorize: false
 
 default_restrictions:
+  transfer_limit: 2
+  include_accessibility: false
+  include_intermediate_stops: false
   limit: 10000
   skip: 0
 

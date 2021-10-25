@@ -39,16 +39,41 @@ module.exports = {
 
 	'parseTripRestrictions': (doc, serviceTag, config) => {
 
-		const transfersValue = queryTags(doc, [serviceTag, 'ojp:Params','ojp:TransferLimit']);
+		const transferLimit = queryTags(doc, [serviceTag, 'ojp:Params','ojp:TransferLimit']);
 
-		const useWheelchair = queryTags(doc, [serviceTag, 'ojp:Params','ojp:IncludeAccessibility']);
+		const accessibility = queryTags(doc, [serviceTag, 'ojp:Params','ojp:IncludeAccessibility']);
+
+        const intermediateStops = queryText(doc, [serviceTag, 'ojp:Params', 'ojp:IncludeIntermediateStops']);
 
         const dateStart = queryTags(doc, [serviceTag, 'ojp:Origin','ojp:DepArrTime']);
         const dateEnd = queryTags(doc, [serviceTag, 'ojp:Destination','ojp:DepArrTime']);
 
+        transferLimit = Number(transferLimit) || config.default_restrictions.transfer_limit;
+
+        if (accessibility === 'true') {
+        	accessibility = true;
+        }
+        else if(accessibility === 'false') {
+        	accessibility = false
+        }
+        else {
+	    	accessibility = config.default_restrictions.include_accessibility;
+	    }
+
+        if (intermediateStops === 'true') {
+        	intermediateStops = true;
+        }
+        else if(intermediateStops === 'false') {
+        	intermediateStops = false
+        }
+        else {
+	    	intermediateStops = config.default_restrictions.include_intermediate_stops;
+	    }
+
 		return {
-			transfersValue,
-			useWheelchair,
+			transferLimit,
+			accessibility,
+			intermediateStops,
 			dateStart,
 			dateEnd
 		}

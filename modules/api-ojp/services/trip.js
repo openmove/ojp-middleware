@@ -13,7 +13,7 @@ const {createErrorResponse} = require('../lib/response');
 
 const serviceName = 'OJPTrip';
 
-const createResponse = (itineraries, startTime, showIntermediates, config, question) => {
+const createResponse = (itineraries, startTime, intermediateStops, config, question) => {
 
   const now = new Date()
     , tag = xmlbuilder.create(`ojp:${serviceName}Delivery`);
@@ -111,7 +111,7 @@ const createResponse = (itineraries, startTime, showIntermediates, config, quest
           board.ele('ojp:Order', 1);
           for(const intermediatePoint of leg.intermediatePlaces){
             sequence += 1;
-            if(showIntermediates){
+            if(intermediateStops){
               const intermediate = timedLeg.ele('ojp:LegIntermediates')
               intermediate.ele('ojp:StopPointName').ele('ojp:Text', `${intermediatePoint.name}`);
               if(intermediatePoint.stop){
@@ -208,9 +208,7 @@ module.exports = {
           destinationId = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Destination']/*[name()='ojp:PlaceRef']/*[name()='ojp:StopPlaceRef']");
         }
 
-        const {transfersValue, useWheelchair, dateStart, dateEnd} = parseTripRestrictions(doc,serviceTag, config);
-
-        const intermediateStops = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Params']/*[name()='ojp:IncludeIntermediateStops']")
+        const {transferLimit, accessibility, intermediateStops, dateStart, dateEnd} = parseTripRestrictions(doc,serviceTag, config);
 
         const originLat = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Origin']/*[name()='ojp:PlaceRef']/*[name()='ojp:GeoPosition']/*[name()='Latitude']"); 
         const originLon = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Origin']/*[name()='ojp:PlaceRef']/*[name()='ojp:GeoPosition']/*[name()='Longitude']"); 
@@ -260,9 +258,9 @@ module.exports = {
           date,
           limit,
           arrivedBy,
-          transfers: Number(transfersValue) || 2,
-          wheelchair: useWheelchair === 'true',
-          intermediatePlaces
+          transfers: transferLimit,
+          wheelchair: accessibility,
+          intermediateStops
         }
         const data = JSON.stringify(questionObj);
         
@@ -279,7 +277,7 @@ module.exports = {
         };
         logger.info(options);
         const response = await doRequest(options, data);
-        return createResponse(response.plan.itineraries, startTime, intermediateStops === 'true', config, questionObj);
+        return createResponse(response.plan.itineraries, startTime, intermediateStops, config, questionObj);
       }else{
         return createErrorResponse(serviceName, config.errors.notagcondition, startTime);
       }
