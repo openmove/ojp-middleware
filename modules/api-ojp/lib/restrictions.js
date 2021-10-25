@@ -117,9 +117,9 @@ module.exports = {
 			'ojp:ContinueAt'
 		]);
 
-		let limit = Number( Number(limitRestrictions) || Number(limitParams) || undefined )
-		  	, skip = Number( Number(skipRestrictions) || Number(skipParams) || undefined )
-		  	, ptModes = ptModesRestrictions === 'true' || ptModesParams === 'true';
+		let ptModes = ''
+			,limit = Number( Number(limitRestrictions) || Number(limitParams) || undefined )
+		  	, skip = Number( Number(skipRestrictions) || Number(skipParams) || undefined );
 
 		if (_.isNaN(limit)) {
 			limit = Number(config.default_restrictions.limit);
@@ -128,6 +128,23 @@ module.exports = {
 		if (_.isNaN(skip)) {
 			skip = Number(config.default_restrictions.skip);
 		}
+
+		if (_.isString(ptModesRestrictions)) {
+			ptModes = ptModesRestrictions;
+		}
+		else if (_.isString(ptModesParams)) {
+			ptModes = ptModesParams;
+		}
+
+        if (ptModes === 'true') {
+        	ptModes = true;
+        }
+        else if(ptModes === 'false') {
+        	ptModes = false;
+        }
+        else {
+	    	ptModes = config.default_restrictions.include_include_pt_modes;
+	    }
 
 		return {
 			limit,

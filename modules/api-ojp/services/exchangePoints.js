@@ -31,7 +31,8 @@ const createResponse = (stops, startTime, ptModes) => {
     geo.ele('siri:Latitude', Number(stop['lat']));
     loc.ele('ojp:Complete', true);
     loc.ele('ojp:Probability', (1 / stops.length).toFixed(2));
-    if(ptModes === true) {
+
+    if(ptModes) {
 
       const mode = loc.ele('ojp:Mode');
       

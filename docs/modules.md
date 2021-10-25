@@ -10,16 +10,9 @@
 
 ### api-ojp
 
-OJP entrypoint
+OJP entrypoint, implements OJP requests
 
-implements this OJP entrypoints:
-
-- OJPLocationInformation
-- OJPTrip
-- OJPStopEvent
-- OJPTripInfo
-- OJPExchangePoints
-- OJPMultiPointTrip
+[learn more](api-ojp.md)
 
 ### api-otp
 

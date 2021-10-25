@@ -189,7 +189,7 @@ module.exports = {
 
 		const {logger} = config;
 
-		const { limit, skip, ptModes } = parseParamsRestrictions(doc, serviceTag, config);
+		const {limit, skip, ptModes} = parseParamsRestrictions(doc, serviceTag, config);
 
 		const {transferLimit, includeAccessibility, intermediateStops, dateStart, dateEnd} = parseTripRestrictions(doc, serviceTag, config);
 
@@ -205,7 +205,8 @@ module.exports = {
 
 				const intermediatePlaces = [];
 
-				const vias = queryNodes(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Via']/*[name()='ojp:ViaPoint']")
+				const vias = queryNodes(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Via']/*[name()='ojp:ViaPoint']");
+
 				for(const via of vias){
 					if(via.childNodes[1].localName === 'StopPointRef'){
 						intermediatePlaces.push(via.childNodes[1].firstChild.data);
