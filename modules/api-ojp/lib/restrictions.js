@@ -37,6 +37,23 @@ module.exports = {
 		}
 	},
 
+	'parseTripRestrictions': (doc, serviceTag, config) => {
+
+		const transfersValue = queryTags(doc, [serviceTag, 'ojp:Params','ojp:TransferLimit']);
+
+		const useWheelchair = queryTags(doc, [serviceTag, 'ojp:Params','ojp:IncludeAccessibility']);
+
+        const dateStart = queryTags(doc, [serviceTag, 'ojp:Origin','ojp:DepArrTime']);
+        const dateEnd = queryTags(doc, [serviceTag, 'ojp:Destination','ojp:DepArrTime']);
+
+		return {
+			transfersValue,
+			useWheelchair,
+			dateStart,
+			dateEnd
+		}
+	},
+
 	'parseParamsRestrictions': (doc, serviceTag, config) => {
 
 		const ptModesRestrictions = queryTags(doc, [

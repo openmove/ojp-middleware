@@ -3,7 +3,7 @@ const qstr = require('querystring');
 
 const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {doRequest} = require('../lib/request');
-const {parseParamsRestrictions} = require('../lib/restrictions');
+const {parseParamsRestrictions, parseTripRestrictions} = require('../lib/restrictions');
 const {createErrorResponse} = require('../lib/response');
 
 const serviceName = 'OJPMultiPointTrip';
@@ -28,6 +28,7 @@ const createResponse = (results, startTime) => {
 	tag.ele('siri:Status', true);
 	const context = tag.ele('ojp:MultiPointResponseContext');
 	const stops = [];
+
 	for(const {itineraries, showIntermediates, config, question} of results){
 		for(const itinerary of itineraries){
 			const tripresponse = tag.ele('ojp:MultiPointTripResult');
@@ -200,11 +201,8 @@ module.exports = {
 				destinations.length > 0
 			){
 
-				const transfersValue = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Params']/*[name()='ojp:TransferLimit']");
-				//TODO move inside parseParamsRestrictions() 
+				const {transfersValue, useWheelchair, dateStart, dateEnd} = parseTripRestrictions(doc,serviceTag, config);
 
-				const useWheelchair = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Params']/*[name()='ojp:IncludeAccessibility']");
-				
 				const intermediatePlaces = [];
 
 				const vias = queryNodes(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Via']/*[name()='ojp:ViaPoint']")

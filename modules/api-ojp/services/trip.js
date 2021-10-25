@@ -8,7 +8,7 @@ const mongoClient = require("mongodb").MongoClient;
 
 const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {doRequest} = require('../lib/request');
-const {parseParamsRestrictions} = require('../lib/restrictions');
+const {parseParamsRestrictions, parseTripRestrictions} = require('../lib/restrictions');
 const {createErrorResponse} = require('../lib/response');
 
 const serviceName = 'OJPTrip';
@@ -208,8 +208,7 @@ module.exports = {
           destinationId = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Destination']/*[name()='ojp:PlaceRef']/*[name()='ojp:StopPlaceRef']");
         }
 
-        const dateStart = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Origin']/*[name()='ojp:DepArrTime']");
-        const dateEnd = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Destination']/*[name()='ojp:DepArrTime']");
+        const {transfersValue, useWheelchair, dateStart, dateEnd} = parseTripRestrictions(doc,serviceTag, config);
 
         const intermediateStops = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Params']/*[name()='ojp:IncludeIntermediateStops']")
 
@@ -221,11 +220,6 @@ module.exports = {
         const originName = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Origin']/*[name()='ojp:PlaceRef']/*[name()='ojp:LocationName']/*[name()='ojp:Text']"); 
         const destinationName = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Destination']/*[name()='ojp:PlaceRef']/*[name()='ojp:LocationName']/*[name()='ojp:Text']"); 
 
-        const transfersValue = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Params']/*[name()='ojp:TransferLimit']");
-        //TODO move inside parseParamsRestrictions() 
-
-        const useWheelchair = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Params']/*[name()='ojp:IncludeAccessibility']");
-        
         const intermediatePlaces = [];
 
         const vias = queryNodes(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Via']/*[name()='ojp:ViaPoint']")
