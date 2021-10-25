@@ -9,3 +9,9 @@ npm start
 ```
 
 open: http://localhost:8086/
+
+clean xmls from comments(require install pkg starlet)
+
+```bash
+xmlstarlet ed -d '//comment()' file.xml > newfile.xml
+```
