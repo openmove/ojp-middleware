@@ -2,7 +2,7 @@ const xmlbuilder = require('xmlbuilder');
 const qstr = require('querystring');
 const _ = require('lodash');
 const moment = require('moment-timezone');
-const { v4: uuidv4 } = require('uuid');
+const { 'v4': uuidv4 } = require('uuid');
 const { time } = require('console');
 const mongoClient = require("mongodb").MongoClient;
 
@@ -224,24 +224,27 @@ module.exports = {
         const intermediatePlaces = [];
 
         const vias = queryNodes(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Via']/*[name()='ojp:ViaPoint']")
-        for(const via of vias) {
 
-          if( via.childNodes[1].localName === 'StopPointRef' ||
-              via.childNodes[1].localName === 'ojp:StopPlaceRef' ) {
+        if(Array.isArray(vias) && vias.length > 0) {
+          for(const via of vias) {
 
-            intermediatePlaces.push(via.childNodes[1].firstChild.data);
-          }
-          else if(via.childNodes[1].localName === 'GeoPosition'){
-            let lat, lon = 0;
-            for (const key in via.childNodes[1].childNodes){
-              const child = via.childNodes[1].childNodes[key];
-              if(child.localName === 'Longitude'){
-                lon = child.firstChild.data;
-              }else if (child.localName === 'Latitude'){
-                lat = child.firstChild.data;
-              }
+            if( via.childNodes[1].localName === 'StopPointRef' ||
+                via.childNodes[1].localName === 'ojp:StopPlaceRef' ) {
+
+              intermediatePlaces.push(via.childNodes[1].firstChild.data);
             }
-            intermediatePlaces.push([lon,lat]);
+            else if(via.childNodes[1].localName === 'GeoPosition'){
+              let lat, lon = 0;
+              for (const key in via.childNodes[1].childNodes){
+                const child = via.childNodes[1].childNodes[key];
+                if(child.localName === 'Longitude'){
+                  lon = child.firstChild.data;
+                }else if (child.localName === 'Latitude'){
+                  lat = child.firstChild.data;
+                }
+              }
+              intermediatePlaces.push([lon,lat]);
+            }
           }
         }
 

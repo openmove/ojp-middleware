@@ -1,5 +1,10 @@
 const xmlbuilder = require('xmlbuilder');
 const qstr = require('querystring');
+const _ = require('lodash');
+const moment = require('moment-timezone');
+const { 'v4': uuidv4 } = require('uuid');
+const { time } = require('console');
+const mongoClient = require("mongodb").MongoClient;
 
 const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {doRequest} = require('../lib/request');
@@ -8,7 +13,7 @@ const {createErrorResponse} = require('../lib/response');
 
 const serviceName = 'OJPMultiPointTrip';
 
-const createResponse = (results, startTime) => {
+const createResponse = (results, startTime, config) => {
 
   const now = new Date()
     , tag = xmlbuilder.create(`ojp:${serviceName}Delivery`);
@@ -195,35 +200,41 @@ module.exports = {
 
 		try {
 			const responses = [];
-			const origins = queryNodes(doc, "//*[name()='ojp:OJPMultiPointTripRequest']/*[name()='ojp:Origin']/*[name()='ojp:PlaceRef']")
-			const destinations = queryNodes(doc, "//*[name()='ojp:OJPMultiPointTripRequest']/*[name()='ojp:Destination']/*[name()='ojp:PlaceRef']")
+
+			const origins = queryNodes(doc, "//*[name()='ojp:OJPMultiPointTripRequest']/*[name()='ojp:Origin']")
+			const destinations = queryNodes(doc, "//*[name()='ojp:OJPMultiPointTripRequest']/*[name()='ojp:Destination']")
+
+console.log('ORIGINS count', origins.length);
+console.log('DESTINATIONS count', destinations.length);
 
 			if(
 				origins.length > 0
 				&&
 				destinations.length > 0
-			){
+			) {
 
 				const intermediatePlaces = [];
 
-				const vias = queryNodes(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Via']/*[name()='ojp:ViaPoint']");
+				const vias = queryNodes(doc, "//*[name()='ojp:OJPMultiPointTripRequest']/*[name()='ojp:Via']/*[name()='ojp:ViaPoint']");
 
-				for(const via of vias){
-					if( via.childNodes[1].localName === 'StopPointRef'||
-              via.childNodes[1].localName === 'ojp:StopPlaceRef') {
+				if(Array.isArray(vias) && vias.length > 0) {
+					for(const via of vias){
+						if( via.childNodes[1].localName === 'StopPointRef'||
+	              via.childNodes[1].localName === 'ojp:StopPlaceRef') {
 
-						intermediatePlaces.push(via.childNodes[1].firstChild.data);
-					} else if(via.childNodes[1].localName === 'ojp:GeoPosition'){
-						let lat, lon = 0;
-						for (const key in via.childNodes[1].childNodes){
-							const child = via.childNodes[1].childNodes[key];
-							if(child.localName === 'siri:Longitude'){
-								lon = child.firstChild.data;
-							}else if (child.localName === 'siri:Latitude'){
-								lat = child.firstChild.data;
+							intermediatePlaces.push(via.childNodes[1].firstChild.data);
+						} else if(via.childNodes[1].localName === 'ojp:GeoPosition'){
+							let lat, lon = 0;
+							for (const key in via.childNodes[1].childNodes){
+								const child = via.childNodes[1].childNodes[key];
+								if(child.localName === 'siri:Longitude'){
+									lon = child.firstChild.data;
+								}else if (child.localName === 'siri:Latitude'){
+									lat = child.firstChild.data;
+								}
 							}
+							intermediatePlaces.push([lon,lat]);
 						}
-						intermediatePlaces.push([lon,lat]);
 					}
 				}
 
@@ -241,61 +252,86 @@ module.exports = {
 					date = new Date(dateEnd).getTime();
 				}
 
-				for(const origin of origins){
-					const originId = null
+				for(const origin of origins) {
+					let originId = null
 					, originLon = null
 					, originLat = null
 					, originName = null;
 
-					for(const child of origin.childNodes){
-						if(child.localName === 'StopPointRef' || child.localName === 'ojp:StopPlaceRef'){
+
+					let originPlace;
+          if( origin.childNodes[1].localName === 'PlaceRef' ) {
+          	originPlace = origin.childNodes[1];
+          }
+
+					for(const childkey in originPlace.childNodes){
+
+						const child = originPlace.childNodes[childkey];
+
+						if(child.localName === 'StopPointRef' || child.localName === 'StopPlaceRef'){
+
 							originId = child.firstChild.data;
-						} else if(child.localName === 'ojp:GeoPosition'){
+
+						} else if(child.localName === 'GeoPosition'){
 							for (const key in child.childNodes){
-								const child = child.childNodes[key];
-								if(child.localName === 'siri:Longitude'){
-									originLon = child.firstChild.data;
-								}else if (child.localName === 'siri:Latitude'){
-									originLat = child.firstChild.data;
+								const c = child.childNodes[key];
+								if(c.localName === 'Longitude'){
+									originLon = c.firstChild.data;
+								}else if (c.localName === 'Latitude'){
+									originLat = c.firstChild.data;
 								}
 							}
-						} else if (child.localName === 'ojp:LocationName'){
+						} else if (child.localName === 'LocationName'){
 							for (const key in child.childNodes){
-								const child = child.childNodes[key];
-								if(child.localName === 'ojp:Text'){
-									originName = child.firstChild.data;
+								const c = child.childNodes[key];
+								if(c.localName === 'Text'){
+									originName = c.firstChild.data;
 								}
 							}
 						}
 					}
+
+console.log('ORIGIN', originId, originName);
+
 					
 					for(const destination of destinations){
-						const destinationId = null
+						let destinationId = null
 						, destinationLon = null
 						, destinationLat = null
 						, destinationName = null;
 
-						for(const child of destination.childNodes){
-							if(child.localName === 'StopPointRef' || child.localName === 'ojp:StopPlaceRef'){
+					let destinationPlace;
+          if( destination.childNodes[1].localName === 'PlaceRef' ) {
+          	destinationPlace = destination.childNodes[1];
+          }
+
+						for(const childkeyDst in destinationPlace.childNodes){
+
+							const child = destinationPlace.childNodes[childkeyDst];
+
+							if(child.localName === 'StopPointRef' || child.localName === 'StopPlaceRef'){
 								destinationId = child.firstChild.data;
-							} else if(child.localName === 'ojp:GeoPosition'){
+
+							} else if(child.localName === 'GeoPosition'){
 								for (const key in child.childNodes){
-									const child = child.childNodes[key];
-									if(child.localName === 'siri:Longitude'){
-										destinationLon = child.firstChild.data;
-									}else if (child.localName === 'siri:Latitude'){
-										destinationLat = child.firstChild.data;
+									const c = child.childNodes[key];
+									if(c.localName === 'Longitude'){
+										destinationLon = c.firstChild.data;
+									}else if (c.localName === 'Latitude'){
+										destinationLat = c.firstChild.data;
 									}
 								}
-							} else if (child.localName === 'ojp:LocationName'){
+							} else if (child.localName === 'LocationName'){
 								for (const key in child.childNodes){
-									const child = child.childNodes[key];
-									if(child.localName === 'ojp:Text'){
-										destinationName = child.firstChild.data;
+									const c = child.childNodes[key];
+									if(c.localName === 'Text'){
+										destinationName = c.firstChild.data;
 									}
 								}
 							}
 						}
+
+console.log('DESTINATION COSE',{destinationLat, destinationLon, destinationId, destinationName})
 
 						const questionObj = {
 							origin: originId || [originLon, originLat, originName || "Origin"],
@@ -320,7 +356,7 @@ module.exports = {
 								'Content-Length': Buffer.byteLength(data)
 							}
 						};
-						logger.info(options);
+						//logger.info(options);
 						const response = await doRequest(options, data);
 
 						responses.push({
@@ -332,7 +368,7 @@ module.exports = {
 						});
 					}
 				}
-				createResponse(responses, startTime);	
+				createResponse(responses, startTime, config);
 			}
 			else{
 				return createErrorResponse(serviceName, config.errors.notagcondition, startTime);

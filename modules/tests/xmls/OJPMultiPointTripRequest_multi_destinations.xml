@@ -6,6 +6,7 @@
       <RequestorRef>OJP/OTP Middleware API Tester</RequestorRef>
       <ojp:OJPMultiPointTripRequest>
         <RequestTimestamp>2021-11-07T09:55:53.297Z</RequestTimestamp>
+
         <ojp:Origin>
           <ojp:PlaceRef>
             <ojp:LocationName>
@@ -15,20 +16,25 @@
           </ojp:PlaceRef>
           <ojp:DepArrTime>2021-11-15T16:55:53</ojp:DepArrTime>
         </ojp:Origin>
+
         <ojp:Destination>
           <ojp:PlaceRef>
-             <ojp:GeoPosition>
+            <ojp:GeoPosition>
               <Longitude>7.4962</Longitude>
               <Latitude>44.64464</Latitude>
             </ojp:GeoPosition>
           </ojp:PlaceRef>
         </ojp:Destination>
-        <ojp:Params>
-          <ojp:TransferLimit>0</ojp:TransferLimit>
-          <ojp:IncludeTrackSections>false</ojp:IncludeTrackSections>
-          <ojp:IncludeTurnDescription>false</ojp:IncludeTurnDescription>
-          <ojp:IncludeIntermediateStops>false</ojp:IncludeIntermediateStops>
-        </ojp:Params>
+
+        <ojp:Destination>
+          <ojp:PlaceRef>
+            <ojp:GeoPosition>
+              <Longitude>7.3107</Longitude>
+              <Latitude>44.4642</Latitude>
+            </ojp:GeoPosition>
+          </ojp:PlaceRef>
+        </ojp:Destination>
+
       </ojp:OJPMultiPointTripRequest>
     </ServiceRequest>
   </OJPRequest>
