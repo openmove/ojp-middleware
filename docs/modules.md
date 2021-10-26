@@ -18,6 +18,8 @@ OJP entrypoint, implements OJP requests
 
 maintain connection to OTP instance
 
+[learn more](api-otp.md)
+
 
 ### ep-manager
 

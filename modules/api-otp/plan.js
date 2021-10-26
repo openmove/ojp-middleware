@@ -46,6 +46,8 @@ module.exports = {
       }
     }
 
+    const intermediatePlacesQuery = intermediatePlacesStrings.length>0 ? `intermediatePlaces: [${intermediatePlacesStrings.join(",")}]` : '';
+
     const query = gql`{
       plan(
         ${from}, 
@@ -56,7 +58,7 @@ module.exports = {
         arriveBy: ${extra.arriveBy || false},
         maxTransfers: ${extra.transfers || 2},
         wheelchair: ${extra.wheelchair || false},
-        intermediatePlaces: [${intermediatePlacesStrings.join(",")}]
+        ${intermediatePlacesQuery}
         ) {
         date
         from {
@@ -182,6 +184,10 @@ module.exports = {
         }
       }
     }`
+
+    if(process.env['QUERY_DEBUG']) {
+      console.log(query);
+    }
 
     return await clientQL.request(query, {});
   }

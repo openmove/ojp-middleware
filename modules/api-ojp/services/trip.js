@@ -111,7 +111,9 @@ const createResponse = (itineraries, startTime, intermediateStops, config, quest
           board.ele('ojp:Order', 1);
           for(const intermediatePoint of leg.intermediatePlaces){
             sequence += 1;
-            if(intermediateStops){
+
+            if(intermediateStops) {
+
               const intermediate = timedLeg.ele('ojp:LegIntermediates')
               intermediate.ele('ojp:StopPointName').ele('ojp:Text', `${intermediatePoint.name}`);
               if(intermediatePoint.stop){
@@ -222,10 +224,14 @@ module.exports = {
         const intermediatePlaces = [];
 
         const vias = queryNodes(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Via']/*[name()='ojp:ViaPoint']")
-        for(const via of vias){
-          if(via.childNodes[1].localName === 'StopPointRef'){
+        for(const via of vias) {
+
+          if( via.childNodes[1].localName === 'StopPointRef' ||
+              via.childNodes[1].localName === 'ojp:StopPlaceRef' ) {
+
             intermediatePlaces.push(via.childNodes[1].firstChild.data);
-          } else if(via.childNodes[1].localName === 'GeoPosition'){
+          }
+          else if(via.childNodes[1].localName === 'GeoPosition'){
             let lat, lon = 0;
             for (const key in via.childNodes[1].childNodes){
               const child = via.childNodes[1].childNodes[key];
@@ -261,7 +267,7 @@ module.exports = {
           arrivedBy,
           transfers: transferLimit,
           wheelchair: accessibility,
-          intermediateStops
+          intermediatePlaces
         }
         const json = JSON.stringify(questionObj);
 

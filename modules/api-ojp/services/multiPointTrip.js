@@ -198,8 +198,6 @@ module.exports = {
 			const origins = queryNodes(doc, "//*[name()='ojp:OJPMultiPointTripRequest']/*[name()='ojp:Origin']/*[name()='ojp:PlaceRef']")
 			const destinations = queryNodes(doc, "//*[name()='ojp:OJPMultiPointTripRequest']/*[name()='ojp:Destination']/*[name()='ojp:PlaceRef']")
 
-console.log('ORIGINS DESTINATIONS',origins, destinations)
-return
 			if(
 				origins.length > 0
 				&&
@@ -211,7 +209,9 @@ return
 				const vias = queryNodes(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Via']/*[name()='ojp:ViaPoint']");
 
 				for(const via of vias){
-					if(via.childNodes[1].localName === 'StopPointRef'){
+					if( via.childNodes[1].localName === 'StopPointRef'||
+              via.childNodes[1].localName === 'ojp:StopPlaceRef') {
+
 						intermediatePlaces.push(via.childNodes[1].firstChild.data);
 					} else if(via.childNodes[1].localName === 'ojp:GeoPosition'){
 						let lat, lon = 0;
