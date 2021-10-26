@@ -33,7 +33,6 @@ app.use(express.json());
  */
 app.get('/stops/:id?', async (req, result) => {
 
-  console.log('STOPS/', req.params, req.query)
   //search a stop by id in PlaceRef
   //if id is undefined return all stops
   const extra = {

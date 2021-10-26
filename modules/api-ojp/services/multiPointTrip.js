@@ -197,6 +197,9 @@ module.exports = {
 			const responses = [];
 			const origins = queryNodes(doc, "//*[name()='ojp:OJPMultiPointTripRequest']/*[name()='ojp:Origin']/*[name()='ojp:PlaceRef']")
 			const destinations = queryNodes(doc, "//*[name()='ojp:OJPMultiPointTripRequest']/*[name()='ojp:Destination']/*[name()='ojp:PlaceRef']")
+
+console.log('ORIGINS DESTINATIONS',origins, destinations)
+return
 			if(
 				origins.length > 0
 				&&

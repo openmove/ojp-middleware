@@ -7,7 +7,7 @@
       <ojp:OJPLocationInformationRequest>
         <RequestTimestamp>2021-05-06T11:57:52.438Z</RequestTimestamp>
         <ojp:PlaceRef>
-          <ojp:StopPlaceRef>9:9</ojp:StopPlaceRef>
+          <ojp:StopPlaceRef>8:8</ojp:StopPlaceRef>
         </ojp:PlaceRef>
         <ojp:Restrictions>
           <ojp:Type>stop</ojp:Type>

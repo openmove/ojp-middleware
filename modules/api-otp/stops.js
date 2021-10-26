@@ -10,6 +10,7 @@ const Cache = new NodeCache({
 
 module.exports = {
   'getStopById': async (config, stopId, extra) => {
+
     const options = {
       host: config.otp.hostname,
       path: config.otp.path + config.graphql.path,
@@ -18,7 +19,8 @@ module.exports = {
     const endpoint = `https://${options.host}${options.path}`;
     const clientQL = new GraphQLClient(endpoint, { headers: config.otp.headers });
 
-    let filter = `stops (id : ["${stopId}"])`;
+    let filter = `stops (ids : ["${stopId}"])`;
+
     if(!stopId) {
 
       const maxResults = Number(extra.limit || config.default_max_results);

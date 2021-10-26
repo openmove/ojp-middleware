@@ -9,7 +9,7 @@ const express = require('express')
     , pino = require('pino')
     , nocache = require('nocache');
 
-const pkg = require('./package.json');
+const {version} = require('./package.json');
 
 const dotenv = require('dotenv').config()
     , config = require('@stefcud/configyml')
@@ -88,7 +88,7 @@ app.use(xmlparser({strict:false}));
 app.get('/ojp/', async (req, result) => {
   result.send({
     status: 'OK',
-    version: pkg.version,    
+    version,
     description: 'POST XML OJP requests to /ojp',
     services: config.services,
   });
@@ -206,21 +206,20 @@ app.post('/ojp/', async (req, result) => {
   ojpXML.att('xmlns:ojp', 'http://www.vdv.de/ojp');
   ojpXML.att('version', '1.0');
 
-  const xmlServiceResponse = ojpXML.ele('siri:OJPResponse').ele('siri:ServiceDelivery');
+  const xmlServiceDelivery = ojpXML.ele('siri:OJPResponse').ele('siri:ServiceDelivery');
 
   const responseTimestamp = new Date().toISOString();
-  xmlServiceResponse.ele('siri:ResponseTimestamp', responseTimestamp);
-  xmlServiceResponse.ele('siri:ProducerRef', 'OJP OpenMove Middleware');
-  xmlServiceResponse.ele('siri:Status', true);
-
-  const tagRequests = [];
+  xmlServiceDelivery.ele('siri:ResponseTimestamp', responseTimestamp);
+  xmlServiceDelivery.ele('siri:ProducerRef', 'OJP OpenMove Middleware');
+  xmlServiceDelivery.ele('siri:Status', true);
+  //minimum response tags
 
   if(queryNode(doc, "//*[name()='ojp:OJPExchangePointsRequest']")){
     if(!config.services.OJPExchangePointsRequest) {
       logger.warn('OJPExchangePointsRequest disabled by config');
     }
     else {
-      xmlServiceResponse.importXMLBuilder(await exchangePointsExecution(doc, startTime, config));
+      xmlServiceDelivery.importXMLBuilder(await exchangePointsExecution(doc, startTime, config));
     }
   }
 
@@ -229,7 +228,7 @@ app.post('/ojp/', async (req, result) => {
       logger.warn('OJPLocationInformationRequest disabled by config')
     }
     else {
-      xmlServiceResponse.importXMLBuilder(await locationExecution(doc, startTime, config));
+      xmlServiceDelivery.importXMLBuilder(await locationExecution(doc, startTime, config));
     }
   }
 
@@ -238,7 +237,7 @@ app.post('/ojp/', async (req, result) => {
       logger.warn('OJPMultiPointTripRequest disabled by config');
     }
     else {
-      xmlServiceResponse.importXMLBuilder(await multipointTripExecution(doc, startTime, config));
+      xmlServiceDelivery.importXMLBuilder(await multipointTripExecution(doc, startTime, config));
     }
   }
 
@@ -247,8 +246,8 @@ app.post('/ojp/', async (req, result) => {
       logger.warn('OJPStopEventRequest disabled by config');
     }
     else {
-      xmlServiceResponse.importXMLBuilder(await eventExecution(doc, startTime, config));
-    }    
+      xmlServiceDelivery.importXMLBuilder(await eventExecution(doc, startTime, config));
+    }
   }
 
   if(queryNode(doc, "//*[name()='ojp:OJPTripInfoRequest']")){
@@ -256,8 +255,8 @@ app.post('/ojp/', async (req, result) => {
       logger.warn('OJPTripInfoRequest disabled by config');
     }
     else {
-      xmlServiceResponse.importXMLBuilder(await tripInfoExecution(doc, startTime, config));
-    }  
+      xmlServiceDelivery.importXMLBuilder(await tripInfoExecution(doc, startTime, config));
+    }
   }
 
   if(queryNode(doc, "//*[name()='ojp:OJPTripRequest']")){
@@ -265,13 +264,13 @@ app.post('/ojp/', async (req, result) => {
       logger.warn('OJPTripRequest disabled by config');
     }
     else {
-      xmlServiceResponse.importXMLBuilder(await tripsExecution(doc, startTime, config));
-    }  
+      xmlServiceDelivery.importXMLBuilder(await tripsExecution(doc, startTime, config));
+    }
   }
 
-  if(tagRequests.length===0) {
+  if(xmlServiceDelivery.children.length === 3) { //3 is minimum response tags, look above
     logger.warn('OJPRequest not found');
-    xmlServiceResponse.importXMLBuilder(createErrorResponse('OJP', config.errors.notagrequest, startTime));
+    xmlServiceDelivery.importXMLBuilder(createErrorResponse('OJP', config.errors.notagrequest, startTime));
   }
 
   const resXml = ojpXML.end({pretty: true});
