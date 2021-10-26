@@ -197,8 +197,9 @@ module.exports = {
         &&
         queryNodes(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Destination']/*[name()='ojp:PlaceRef']").length > 0
         ){
+
         let originId = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Origin']/*[name()='ojp:PlaceRef']/*[name()='StopPointRef']"); 
-        let destinationId = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Destination']/*[name()='ojp:PlaceRef']/*[name()='StopPointRef']"); 
+        let destinationId = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Destination']/*[name()='ojp:PlaceRef']/*[name()='StopPointRef']");
 
         if(originId == null){
           originId = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Origin']/*[name()='ojp:PlaceRef']/*[name()='ojp:StopPlaceRef']");
@@ -208,7 +209,7 @@ module.exports = {
           destinationId = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Destination']/*[name()='ojp:PlaceRef']/*[name()='ojp:StopPlaceRef']");
         }
 
-        const {transferLimit, accessibility, intermediateStops, dateStart, dateEnd} = parseTripRestrictions(doc,serviceTag, config);
+        const {transferLimit, accessibility, intermediateStops, dateStart, dateEnd} = parseTripRestrictions(doc, serviceTag, config);
 
         const originLat = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Origin']/*[name()='ojp:PlaceRef']/*[name()='ojp:GeoPosition']/*[name()='Latitude']"); 
         const originLon = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Origin']/*[name()='ojp:PlaceRef']/*[name()='ojp:GeoPosition']/*[name()='Longitude']"); 
@@ -262,8 +263,8 @@ module.exports = {
           wheelchair: accessibility,
           intermediateStops
         }
-        const data = JSON.stringify(questionObj);
-        
+        const json = JSON.stringify(questionObj);
+
         const options = {
           path: `/plan`,
           host: config['api-otp'].host,
@@ -272,11 +273,11 @@ module.exports = {
           json:true,
           headers: {
             'Content-Type': 'application/json',
-            'Content-Length': Buffer.byteLength(data)
+            'Content-Length': Buffer.byteLength(json)
          }
         };
         logger.info(options);
-        const response = await doRequest(options, data);
+        const response = await doRequest(options, json);
         return createResponse(response.plan.itineraries, startTime, intermediateStops, config, questionObj);
       }else{
         return createErrorResponse(serviceName, config.errors.notagcondition, startTime);

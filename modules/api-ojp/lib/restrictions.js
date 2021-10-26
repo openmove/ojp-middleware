@@ -39,11 +39,11 @@ module.exports = {
 
 	'parseTripRestrictions': (doc, serviceTag, config) => {
 
-		const transferLimit = queryTags(doc, [serviceTag, 'ojp:Params','ojp:TransferLimit']);
+		let transferLimit = queryTags(doc, [serviceTag, 'ojp:Params','ojp:TransferLimit']);
 
-		const accessibility = queryTags(doc, [serviceTag, 'ojp:Params','ojp:IncludeAccessibility']);
+		let accessibility = queryTags(doc, [serviceTag, 'ojp:Params','ojp:IncludeAccessibility']);
 
-        const intermediateStops = queryText(doc, [serviceTag, 'ojp:Params', 'ojp:IncludeIntermediateStops']);
+        let intermediateStops = queryTags(doc, [serviceTag, 'ojp:Params', 'ojp:IncludeIntermediateStops']);
 
         const dateStart = queryTags(doc, [serviceTag, 'ojp:Origin','ojp:DepArrTime']);
         const dateEnd = queryTags(doc, [serviceTag, 'ojp:Destination','ojp:DepArrTime']);
