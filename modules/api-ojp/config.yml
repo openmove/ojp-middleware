@@ -58,9 +58,11 @@ errors:
   notagrequest: NO_TAG_REQUEST_FOUND
   notagcondition: NO_CONDITIONS_REQUEST_FOUND
   noparsing: NO_PARSING_XML_REQUEST
+  maxmultipoint: MULTIPOINTTRIP_TOOMANYPOINTS
   noresults:
     exchangepoints: EXCHANGEPOINTS_NO_RESULTS
     locations: LOCATION_NO_RESULTS
     stopevents: STOPEVENT_LOCATION_UNSERVED
     tripinfo: TRIPINFO_TRIP_UNAVAILABLE
     trip: TRIP_NO_TRIP_FOUND
+    multipoint: MULTIPOINTTRIP_NOTALLPOINTSCOVERED
