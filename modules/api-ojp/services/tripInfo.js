@@ -109,12 +109,11 @@ module.exports = {
 
     try {
 			if(
-        queryNodes(doc, "//*[name()='ojp:OJPTripInfoRequest']/*[name()='ojp:JourneyRef']").length > 0
-        &&
-        queryNodes(doc, "//*[name()='ojp:OJPTripInfoRequest']/*[name()='ojp:OperatingDayRef']").length > 0
+        queryNodes(doc, [serviceTag, 'ojp:JourneyRef']).length > 0 &&
+        queryNodes(doc, [serviceTag, 'ojp:OperatingDayRef']).length > 0
         ){
-					const tripId = queryText(doc, "//*[name()='ojp:OJPTripInfoRequest']/*[name()='ojp:JourneyRef']");
-					const date = queryText(doc, "//*[name()='ojp:OJPTripInfoRequest']/*[name()='ojp:OperatingDayRef']");
+					const tripId = queryTags(doc, [serviceTag, 'ojp:JourneyRef']);
+					const date = queryTags(doc, [serviceTag, 'ojp:OperatingDayRef']);
 
 					const options = {
 						host: config['api-otp'].host,

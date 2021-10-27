@@ -89,7 +89,7 @@ module.exports = {
 
       const { limit, skip, ptModes } = parseParamsRestrictions(doc, serviceTag, config);
 
-      if(queryNodes(doc, [serviceTag,'ojp:Location','ojp:PlaceRef']).length > 0) {
+      if(queryNodes(doc, [serviceTag, 'ojp:Location', 'ojp:PlaceRef']).length > 0) {
 
         let stopId = queryTags(doc, [serviceTag, 'ojp:Location', 'ojp:PlaceRef', 'ojp:StopPlaceRef']);
 
@@ -122,8 +122,10 @@ module.exports = {
         let isDeparture = true;
         let isArrival = false;
         let showRealtime = false;
-        const eventType = queryText(doc, "//*[name()='ojp:OJPStopEventRequest']/*[name()='ojp:Params']/*[name()='ojp:StopEventType']");
-        const realtime = queryText(doc, "//*[name()='ojp:OJPStopEventRequest']/*[name()='ojp:Params']/*[name()='ojp:IncludeRealtimeData']");
+
+        const eventType = queryTags(doc, [serviceTag, 'ojp:Params', 'ojp:StopEventType']);
+        const realtime = queryTags(doc, [serviceTag, 'ojp:Params', 'ojp:IncludeRealtimeData']);
+
         if(eventType === 'arrival'){
           isDeparture = false;
           isArrival = true;
