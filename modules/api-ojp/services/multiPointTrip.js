@@ -199,8 +199,8 @@ module.exports = {
 		const {transferLimit, includeAccessibility, intermediateStops, dateStart, dateEnd} = parseTripRestrictions(doc, serviceTag, config);
 
 		try {
-			const requests = [];
-			const responses = [];
+			let requests = [];
+			let responses = [];
 
 			const origins = queryNodes(doc, [serviceTag, 'ojp:Origin']);
 			const destinations = queryNodes(doc, [serviceTag, 'ojp:Destination']);
@@ -373,27 +373,34 @@ module.exports = {
 						const response = await doRequest(options, json);
 
 						requests.push({
-							options, json,
-							startTime,
-							intermediateStops,
-							config,
-							'question': questionObj
+							options,
+							json,
+							questionObj
 						});
 
-						responses.push({
+/*						responses.push({
 							'itineraries' : response.plan.itineraries, 
 							startTime, 
 							intermediateStops,
 							config,
 							'question': questionObj
-						});
+						});*/
 
 					} //end of destinations
 
 				} //end for origins
 
+				const multiResponses = await doMultiRequests(requests);
 
-				await doMultiRequests(requests);
+				responses = multiResponses.map(resp => {
+					return {
+						'itineraries': resp.plan.itineraries,
+						startTime,
+						intermediateStops,
+						config,
+						'question': resp.questionObj  //TODO include in returns inside doMultiRequests
+					}
+				})
 
 				return createResponse(responses, startTime, config);
 			}
