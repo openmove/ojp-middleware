@@ -1,6 +1,6 @@
 {
   "name": "exchangepoint-manager",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "OJP exchangepoint mananger",
   "main": "index.js",
   "scripts": {
