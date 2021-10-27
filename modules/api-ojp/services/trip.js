@@ -229,7 +229,7 @@ module.exports = {
           for(const via of vias) {
 
             if( via.childNodes[1].localName === 'StopPointRef' ||
-                via.childNodes[1].localName === 'ojp:StopPlaceRef' ) {
+                via.childNodes[1].localName === 'StopPlaceRef' ) {
 
               intermediatePlaces.push(via.childNodes[1].firstChild.data);
             }

@@ -204,8 +204,8 @@ module.exports = {
 			const origins = queryNodes(doc, "//*[name()='ojp:OJPMultiPointTripRequest']/*[name()='ojp:Origin']")
 			const destinations = queryNodes(doc, "//*[name()='ojp:OJPMultiPointTripRequest']/*[name()='ojp:Destination']")
 
-console.log('ORIGINS count', origins.length);
-console.log('DESTINATIONS count', destinations.length);
+			console.log('ORIGINS count', origins.length);
+			console.log('DESTINATIONS count', destinations.length);
 
 			if(
 				origins.length > 0
@@ -252,11 +252,11 @@ console.log('DESTINATIONS count', destinations.length);
 					date = new Date(dateEnd).getTime();
 				}
 
-				for(const origin of origins) {
+				for (const origin of origins) {
 					let originId = null
-					, originLon = null
-					, originLat = null
-					, originName = null;
+						, originLon = null
+						, originLat = null
+						, originName = null;
 
 
 					let originPlace;
@@ -264,7 +264,7 @@ console.log('DESTINATIONS count', destinations.length);
           	originPlace = origin.childNodes[1];
           }
 
-					for(const childkey in originPlace.childNodes){
+					for (const childkey in originPlace.childNodes) {
 
 						const child = originPlace.childNodes[childkey];
 
@@ -272,16 +272,19 @@ console.log('DESTINATIONS count', destinations.length);
 
 							originId = child.firstChild.data;
 
-						} else if(child.localName === 'GeoPosition'){
+						}
+						else if (child.localName === 'GeoPosition') {
 							for (const key in child.childNodes){
 								const c = child.childNodes[key];
-								if(c.localName === 'Longitude'){
+								if (c.localName === 'Longitude') {
 									originLon = c.firstChild.data;
-								}else if (c.localName === 'Latitude'){
+								}
+								else if (c.localName === 'Latitude') {
 									originLat = c.firstChild.data;
 								}
 							}
-						} else if (child.localName === 'LocationName'){
+						}
+						else if (child.localName === 'LocationName'){
 							for (const key in child.childNodes){
 								const c = child.childNodes[key];
 								if(c.localName === 'Text'){
@@ -291,47 +294,50 @@ console.log('DESTINATIONS count', destinations.length);
 						}
 					}
 
-console.log('ORIGIN', originId, originName);
+					console.log('ORIGIN', originId, originName);
 
-					
-					for(const destination of destinations){
+					for (const destination of destinations) {
 						let destinationId = null
-						, destinationLon = null
-						, destinationLat = null
-						, destinationName = null;
+							, destinationLon = null
+							, destinationLat = null
+							, destinationName = null;
 
-					let destinationPlace;
-          if( destination.childNodes[1].localName === 'PlaceRef' ) {
-          	destinationPlace = destination.childNodes[1];
-          }
+						let destinationPlace;
 
-						for(const childkeyDst in destinationPlace.childNodes){
+	          if (destination.childNodes[1].localName === 'PlaceRef') {
+	          	destinationPlace = destination.childNodes[1];
+	          }
+
+						for (const childkeyDst in destinationPlace.childNodes) {
 
 							const child = destinationPlace.childNodes[childkeyDst];
 
 							if(child.localName === 'StopPointRef' || child.localName === 'StopPlaceRef'){
 								destinationId = child.firstChild.data;
 
-							} else if(child.localName === 'GeoPosition'){
-								for (const key in child.childNodes){
+							}
+							else if(child.localName === 'GeoPosition'){
+								for (const key in child.childNodes) {
 									const c = child.childNodes[key];
-									if(c.localName === 'Longitude'){
+									if (c.localName === 'Longitude') {
 										destinationLon = c.firstChild.data;
-									}else if (c.localName === 'Latitude'){
+									}
+									else if (c.localName === 'Latitude') {
 										destinationLat = c.firstChild.data;
 									}
 								}
-							} else if (child.localName === 'LocationName'){
-								for (const key in child.childNodes){
+							}
+							else if (child.localName === 'LocationName'){
+								for (const key in child.childNodes) {
 									const c = child.childNodes[key];
-									if(c.localName === 'Text'){
+									if (c.localName === 'Text') {
 										destinationName = c.firstChild.data;
 									}
 								}
 							}
 						}
 
-console.log('DESTINATION COSE',{destinationLat, destinationLon, destinationId, destinationName})
+						console.log('DESTINATION',{destinationLat, destinationLon, destinationId, destinationName})
 
 						const questionObj = {
 							origin: originId || [originLon, originLat, originName || "Origin"],
@@ -343,8 +349,10 @@ console.log('DESTINATION COSE',{destinationLat, destinationLon, destinationId, d
 							wheelchair: includeAccessibility,
 							intermediatePlaces
 						}
-						const data = JSON.stringify(questionObj);
+						const json = JSON.stringify(questionObj);
 						
+						console.log(json)
+
 						const options = {
 							path: `/plan`,
 							host: config['api-otp'].host,
@@ -353,11 +361,11 @@ console.log('DESTINATION COSE',{destinationLat, destinationLon, destinationId, d
 							json:true,
 							headers: {
 								'Content-Type': 'application/json',
-								'Content-Length': Buffer.byteLength(data)
+								'Content-Length': Buffer.byteLength(json)
 							}
 						};
-						//logger.info(options);
-						const response = await doRequest(options, data);
+
+						const response = await doRequest(options, json);
 
 						responses.push({
 							'itineraries' : response.plan.itineraries, 
@@ -367,7 +375,8 @@ console.log('DESTINATION COSE',{destinationLat, destinationLon, destinationId, d
 							'question': questionObj
 						});
 					}
-				}
+				} //end for origins
+
 				createResponse(responses, startTime, config);
 			}
 			else{
