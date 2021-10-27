@@ -7,7 +7,7 @@ const { time } = require('console');
 const mongoClient = require("mongodb").MongoClient;
 
 const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
-const {doRequest} = require('../lib/request');
+const {doRequest, doMultiRequests} = require('../lib/request');
 const {parseParamsRestrictions, parseTripRestrictions} = require('../lib/restrictions');
 const {createErrorResponse} = require('../lib/response');
 
@@ -199,6 +199,7 @@ module.exports = {
 		const {transferLimit, includeAccessibility, intermediateStops, dateStart, dateEnd} = parseTripRestrictions(doc, serviceTag, config);
 
 		try {
+			const requests = [];
 			const responses = [];
 
 			const origins = queryNodes(doc, [serviceTag, 'ojp:Origin']);
@@ -371,6 +372,14 @@ module.exports = {
 
 						const response = await doRequest(options, json);
 
+						requests.push({
+							options, json,
+							startTime,
+							intermediateStops,
+							config,
+							'question': questionObj
+						});
+
 						responses.push({
 							'itineraries' : response.plan.itineraries, 
 							startTime, 
@@ -382,6 +391,9 @@ module.exports = {
 					} //end of destinations
 
 				} //end for origins
+
+
+				await doMultiRequests(requests);
 
 				return createResponse(responses, startTime, config);
 			}
