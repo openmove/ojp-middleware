@@ -204,14 +204,16 @@ module.exports = {
 			const origins = queryNodes(doc, "//*[name()='ojp:OJPMultiPointTripRequest']/*[name()='ojp:Origin']")
 			const destinations = queryNodes(doc, "//*[name()='ojp:OJPMultiPointTripRequest']/*[name()='ojp:Destination']")
 
-			console.log('ORIGINS count', origins.length);
-			console.log('DESTINATIONS count', destinations.length);
+			logger.info(`Origins count ${origins.length}`);
+			logger.info(`Destinations count ${destinations.length}`);
 
 			if(
 				origins.length > 0
 				&&
 				destinations.length > 0
 			) {
+
+				//TODO limit length
 
 				const intermediatePlaces = [];
 
@@ -220,16 +222,16 @@ module.exports = {
 				if(Array.isArray(vias) && vias.length > 0) {
 					for(const via of vias){
 						if( via.childNodes[1].localName === 'StopPointRef'||
-	              via.childNodes[1].localName === 'ojp:StopPlaceRef') {
+	              via.childNodes[1].localName === 'StopPlaceRef') {
 
 							intermediatePlaces.push(via.childNodes[1].firstChild.data);
-						} else if(via.childNodes[1].localName === 'ojp:GeoPosition'){
+						} else if(via.childNodes[1].localName === 'GeoPosition'){
 							let lat, lon = 0;
 							for (const key in via.childNodes[1].childNodes){
 								const child = via.childNodes[1].childNodes[key];
-								if(child.localName === 'siri:Longitude'){
+								if(child.localName === 'Longitude'){
 									lon = child.firstChild.data;
-								}else if (child.localName === 'siri:Latitude'){
+								}else if (child.localName === 'Latitude'){
 									lat = child.firstChild.data;
 								}
 							}
@@ -253,6 +255,8 @@ module.exports = {
 				}
 
 				for (const origin of origins) {
+
+
 					let originId = null
 						, originLon = null
 						, originLat = null
@@ -294,7 +298,7 @@ module.exports = {
 						}
 					}
 
-					console.log('ORIGIN', originId, originName);
+					logger.info(`Origin ${originId}, ${originName}`);
 
 					for (const destination of destinations) {
 						let destinationId = null
@@ -337,7 +341,7 @@ module.exports = {
 							}
 						}
 
-						console.log('DESTINATION',{destinationLat, destinationLon, destinationId, destinationName})
+						logger.info(`Destination ${destinationLat}, ${destinationLon}, ${destinationId}, ${destinationName}`)
 
 						const questionObj = {
 							origin: originId || [originLon, originLat, originName || "Origin"],
@@ -351,14 +355,14 @@ module.exports = {
 						}
 						const json = JSON.stringify(questionObj);
 						
-						console.log(json)
+						//logger.debug('REQUEST',json)
 
 						const options = {
 							path: `/plan`,
 							host: config['api-otp'].host,
 							port: config['api-otp'].port,
 							method: 'POST',
-							json:true,
+							json: true,
 							headers: {
 								'Content-Type': 'application/json',
 								'Content-Length': Buffer.byteLength(json)
@@ -374,10 +378,12 @@ module.exports = {
 							config,
 							'question': questionObj
 						});
-					}
+
+					} //end of destinations
+
 				} //end for origins
 
-				createResponse(responses, startTime, config);
+				return createResponse(responses, startTime, config);
 			}
 			else{
 				return createErrorResponse(serviceName, config.errors.notagcondition, startTime);

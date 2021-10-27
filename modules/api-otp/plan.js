@@ -32,7 +32,7 @@ module.exports = {
       if(Array.isArray(iplace)){
         intermediatePlacesStrings.push(`{lat: ${iplace[1]}, lon: ${iplace[0]}, address: "${iplace[2] || 'Via-Point'}"}`);
       }else{
-        const stopQuery =   gql`{
+        const stopQuery = gql`{
           stop (id:"${iplace}"){
             lat
             lon

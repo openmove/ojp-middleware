@@ -4,12 +4,14 @@ const http = require('http');
 module.exports = {
   'doRequest': (options, data) => {
     
-    console.log('doRequest', options, data);
+    //console.log('doRequest', options, data);
 
     return new Promise((resolve, reject) => {
       const req = http.request(options, (res) => {
-        res.setEncoding('utf8');
+
         let responseBody = '';
+
+        res.setEncoding('utf8');
 
         res.on('data', (chunk) => {
           responseBody += chunk;

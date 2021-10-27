@@ -286,8 +286,11 @@ module.exports = {
          }
         };
         logger.info(options);
+
         const response = await doRequest(options, json);
+
         return createResponse(response.plan.itineraries, startTime, intermediateStops, config, questionObj);
+
       }else{
         return createErrorResponse(serviceName, config.errors.notagcondition, startTime);
       }
