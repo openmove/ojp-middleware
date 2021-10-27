@@ -13,7 +13,7 @@ const {createErrorResponse} = require('../lib/response');
 
 const serviceName = 'OJPTrip';
 
-const createResponse = (itineraries, startTime, intermediateStops, config, question) => {
+const createResponse = (itineraries, startTime, intermediateStops, question, config) => {
 
   const now = new Date()
     , tag = xmlbuilder.create(`ojp:${serviceName}Delivery`);
@@ -195,35 +195,34 @@ module.exports = {
       const { limit, skip, ptModes } = parseParamsRestrictions(doc, serviceTag, config);
 
       if(
-        queryNodes(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Origin']/*[name()='ojp:PlaceRef']").length > 0
-        &&
-        queryNodes(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Destination']/*[name()='ojp:PlaceRef']").length > 0
+        queryNodes(doc, [serviceTag, 'ojp:Origin', 'ojp:PlaceRef']).length > 0 &&
+        queryNodes(doc, [serviceTag, 'ojp:Destination', 'ojp:PlaceRef']).length > 0
         ){
 
-        let originId = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Origin']/*[name()='ojp:PlaceRef']/*[name()='StopPointRef']"); 
-        let destinationId = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Destination']/*[name()='ojp:PlaceRef']/*[name()='StopPointRef']");
+        let originId = queryTags(doc, [serviceTag, 'ojp:Origin', 'ojp:PlaceRef', 'StopPointRef']);
+        let destinationId = queryTags(doc, [serviceTag, 'ojp:Destination', 'ojp:PlaceRef', 'StopPointRef']);
 
         if(originId == null){
-          originId = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Origin']/*[name()='ojp:PlaceRef']/*[name()='ojp:StopPlaceRef']");
+          originId = queryTags(doc, [serviceTag, 'ojp:Origin', 'ojp:PlaceRef', 'ojp:StopPlaceRef']);
         }
 
         if(destinationId == null){
-          destinationId = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Destination']/*[name()='ojp:PlaceRef']/*[name()='ojp:StopPlaceRef']");
+          destinationId = queryTags(doc, [serviceTag, 'ojp:Destination', 'ojp:PlaceRef', 'ojp:StopPlaceRef']);
         }
 
         const {transferLimit, accessibility, intermediateStops, dateStart, dateEnd} = parseTripRestrictions(doc, serviceTag, config);
 
-        const originLat = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Origin']/*[name()='ojp:PlaceRef']/*[name()='ojp:GeoPosition']/*[name()='Latitude']"); 
-        const originLon = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Origin']/*[name()='ojp:PlaceRef']/*[name()='ojp:GeoPosition']/*[name()='Longitude']"); 
-        const destinationLat = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Destination']/*[name()='ojp:PlaceRef']/*[name()='ojp:GeoPosition']/*[name()='Latitude']"); 
-        const destinationLon = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Destination']/*[name()='ojp:PlaceRef']/*[name()='ojp:GeoPosition']/*[name()='Longitude']"); 
-        
-        const originName = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Origin']/*[name()='ojp:PlaceRef']/*[name()='ojp:LocationName']/*[name()='ojp:Text']"); 
-        const destinationName = queryText(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Destination']/*[name()='ojp:PlaceRef']/*[name()='ojp:LocationName']/*[name()='ojp:Text']"); 
+        const originName = queryTags(doc, serviceTag, ['ojp:Origin', 'ojp:PlaceRef', 'ojp:LocationName', 'ojp:Text']);
+        const originLat = queryTags(doc, serviceTag, ['ojp:Origin', 'ojp:PlaceRef', 'ojp:GeoPosition', 'Latitude']);
+        const originLon = queryTags(doc, serviceTag, ['ojp:Origin', 'ojp:PlaceRef', 'ojp:GeoPosition', 'Longitude']);
+
+        const destinationName = queryTags(doc, serviceTag, ['ojp:Destination', 'ojp:PlaceRef', 'ojp:LocationName', 'ojp:Text']);
+        const destinationLat = queryTags(doc, serviceTag, ['ojp:Destination', 'ojp:PlaceRef', 'ojp:GeoPosition', 'Latitude']);
+        const destinationLon = queryTags(doc, serviceTag, ['ojp:Destination', 'ojp:PlaceRef', 'ojp:GeoPosition', 'Longitude']);
 
         const intermediatePlaces = [];
 
-        const vias = queryNodes(doc, "//*[name()='ojp:OJPTripRequest']/*[name()='ojp:Via']/*[name()='ojp:ViaPoint']")
+        const vias = queryNodes(doc, [serviceTag, 'ojp:Via', 'ojp:ViaPoint']);
 
         if(Array.isArray(vias) && vias.length > 0) {
           for(const via of vias) {
@@ -289,7 +288,7 @@ module.exports = {
 
         const response = await doRequest(options, json);
 
-        return createResponse(response.plan.itineraries, startTime, intermediateStops, config, questionObj);
+        return createResponse(response.plan.itineraries, startTime, intermediateStops, questionObj, config);
 
       }else{
         return createErrorResponse(serviceName, config.errors.notagcondition, startTime);
