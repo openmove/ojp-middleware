@@ -370,7 +370,7 @@ module.exports = {
 							}
 						};
 
-						const response = await doRequest(options, json);
+						//const response = await doRequest(options, json);
 
 						requests.push({
 							options,
@@ -378,21 +378,21 @@ module.exports = {
 							questionObj
 						});
 
-						responses.push({
+						/*responses.push({
 							'itineraries' : response.plan.itineraries, 
 							startTime, 
 							intermediateStops,
 							config,
 							'question': questionObj
-						});
+						});*/
 
 					} //end of destinations
 
 				} //end for origins
 
-				//const multiResponses = await doMultiRequests(requests);
+				const multiResponses = await doMultiRequests(requests);
 
-				/*responses = multiResponses.map(resp => {
+				responses = multiResponses.map(resp => {
 					return {
 						'itineraries': resp.plan.itineraries,
 						startTime,
@@ -400,7 +400,7 @@ module.exports = {
 						config,
 						'question': resp.questionObj  //TODO include in returns inside doMultiRequests
 					}
-				})*/
+				})
 
 				return createResponse(responses, startTime, config);
 			}
