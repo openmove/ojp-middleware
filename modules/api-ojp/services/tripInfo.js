@@ -10,7 +10,7 @@ const {createErrorResponse} = require('../lib/response');
 
 const serviceName = 'OJPTripInfo';
 
-const createResponse = (trip, date, startTime) => {
+const createResponse = (trip, date, startTime, config) => {
 
   const now = new Date()
       , tag = xmlbuilder.create(`ojp:${serviceName}Delivery`);
@@ -109,12 +109,11 @@ module.exports = {
 
     try {
 			if(
-        queryNodes(doc, "//*[name()='ojp:OJPTripInfoRequest']/*[name()='ojp:JourneyRef']").length > 0
-        &&
-        queryNodes(doc, "//*[name()='ojp:OJPTripInfoRequest']/*[name()='ojp:OperatingDayRef']").length > 0
+        queryNodes(doc, [serviceTag, 'ojp:JourneyRef']).length > 0 &&
+        queryNodes(doc, [serviceTag, 'ojp:OperatingDayRef']).length > 0
         ){
-					const tripId = queryText(doc, "//*[name()='ojp:OJPTripInfoRequest']/*[name()='ojp:JourneyRef']");
-					const date = queryText(doc, "//*[name()='ojp:OJPTripInfoRequest']/*[name()='ojp:OperatingDayRef']");
+					const tripId = queryTags(doc, [serviceTag, 'ojp:JourneyRef']);
+					const date = queryTags(doc, [serviceTag, 'ojp:OperatingDayRef']);
 
 					const options = {
 						host: config['api-otp'].host,
@@ -124,8 +123,10 @@ module.exports = {
 						method: 'GET'
 					}
 					const response = await doRequest(options)   
-					logger.info(response)
-					return createResponse(response.trip, date, startTime);
+
+					logger.info(response);
+
+					return createResponse(response.trip, date, startTime, config);
 
 				}else{
 					return createErrorResponse(serviceName, config.errors.notagcondition, startTime);

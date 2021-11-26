@@ -36,7 +36,7 @@ const createResponse = (results, startTime, config) => {
 
 	for(const {itineraries, intermediateStops, config, question} of results){
 		for(const itinerary of itineraries){
-			const tripresponse = tag.ele('ojp:MultiPointTripResult');
+			const tripresponse = tag.ele(`ojp:MultiPointTripResult`);
 			const tripId = uuidv4();
 
 			try{
@@ -201,8 +201,8 @@ module.exports = {
 		try {
 			const responses = [];
 
-			const origins = queryNodes(doc, "//*[name()='ojp:OJPMultiPointTripRequest']/*[name()='ojp:Origin']")
-			const destinations = queryNodes(doc, "//*[name()='ojp:OJPMultiPointTripRequest']/*[name()='ojp:Destination']")
+			const origins = queryNodes(doc, [serviceTag, 'ojp:Origin']);
+			const destinations = queryNodes(doc, [serviceTag, 'ojp:Destination']);
 
 			logger.info(`Origins count ${origins.length}`);
 			logger.info(`Destinations count ${destinations.length}`);
@@ -217,7 +217,7 @@ module.exports = {
 
 				const intermediatePlaces = [];
 
-				const vias = queryNodes(doc, "//*[name()='ojp:OJPMultiPointTripRequest']/*[name()='ojp:Via']/*[name()='ojp:ViaPoint']");
+				const vias = queryNodes(doc, [serviceTag, 'ojp:Via', 'ojp:ViaPoint']);
 
 				if(Array.isArray(vias) && vias.length > 0) {
 					for(const via of vias){
