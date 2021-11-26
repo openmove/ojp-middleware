@@ -1,34 +1,80 @@
 
-const http = require('http');
+const http = require('http')
+    , _ = require('lodash');
 
 const doRequest = (options, data) => {
 
-    //console.log('doRequest', options, data);
+  console.log('doRequest:', options.path);
 
-    return new Promise((resolve, reject) => {
-      const req = http.request(options, (res) => {
+  return new Promise((resolve, reject) => {
+    const req = http.request(options, (res) => {
 
-        let responseBody = '';
+      let responseBody = '';
 
-        res.setEncoding('utf8');
+      res.setEncoding('utf8');
 
-        res.on('data', (chunk) => {
-          responseBody += chunk;
-        });
-
-        res.on('end', () => {
-          resolve(JSON.parse(responseBody));
-        });
+      res.on('data', (chunk) => {
+        responseBody += chunk;
       });
 
-      req.on('error', (err) => {
-        reject(err);
+      res.on('end', () => {
+        console.log('doRequest, response:', responseBody);
+        resolve(JSON.parse(responseBody));
       });
-
-      req.write(data || '')
-      req.end();
     });
-  }
+
+    req.on('error', (err) => {
+      reject(err);
+    });
+
+    req.write(data || '')
+    req.end();
+  });
+}
+
+const doRequestFake = (options, data) => {
+
+  console.log('doRequestFAKE:', options.path);
+
+  return new Promise((resolve, reject) => {
+
+    setTimeout(() => {
+      resolve({
+        response: {
+          plan: {
+            itineraries: [
+            {
+
+            }
+            ]
+          }
+        }
+      })
+    }, _.random(500, 3000));
+
+    const req = http.request(options, (res) => {
+
+      let responseBody = '';
+
+      res.setEncoding('utf8');
+
+      res.on('data', (chunk) => {
+        responseBody += chunk;
+      });
+
+      res.on('end', () => {
+        resolve(JSON.parse(responseBody));
+      });
+    });
+
+    req.on('error', (err) => {
+      reject(err);
+    });
+
+    req.write(data || '')
+    req.end();
+  });
+}
 
 module.exports = {
   doRequest,
@@ -36,10 +82,13 @@ module.exports = {
   'doMultiRequests': (requests) => {
 
     //console.log('doRequest', options, data);
+    //
+    const promises = requests.map(req => {
+      return doRequestFake(req.options, req.data);
+    })
 
-    return new Promise.all(requests.map(req => {
-      return doRequest(req.options, req.data);
-    })).then( results => {
+    return new Promise.all(promises).then(results => {
+      console.log('PROMISE.ALL', results)
       return results
     });
   }
