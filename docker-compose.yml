@@ -20,6 +20,7 @@ services:
       - db
     environment:
       - LOG_REQUEST=true
+      - OTP_MAX_PARALLEL_REQUESTS=10
 
   api-otp:
     container_name: api-otp

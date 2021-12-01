@@ -37,6 +37,8 @@ dev:
     level: 'debug'
     colorize: false
 
+default_otp_max_parallel_requests: 10
+otp_max_parallel_requests: ${OTP_MAX_PARALLEL_REQUESTS}
 default_restrictions:
   transfer_limit: 2
   include_accessibility: false

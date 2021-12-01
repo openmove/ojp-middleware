@@ -19,3 +19,7 @@ implements this OJP entrypoints:
 - include_intermediate_stops (default: false, ojp:IncludeIntermediateStops)
 - limit: 10000
 - skip: 0
+
+## default environments variables
+
+`OTP_MAX_PARALLEL_REQUESTS` maximum number of parallel request to OpenTripPlanner

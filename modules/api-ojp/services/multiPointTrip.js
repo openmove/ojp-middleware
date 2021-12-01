@@ -24,7 +24,7 @@ const createResponse = (results, startTime, config) => {
 
 	if(results.length === 0){
 		tag.ele('siri:Status', false);
-		const err = trip.ele('siri:ErrorCondition');
+		const err = tag.ele('siri:ErrorCondition');
 		err.ele('siri:OtherError')
 		err.ele('siri:Description', config.errors.noresults.trip);
 		return tag;
@@ -390,7 +390,13 @@ module.exports = {
 
 				} //end for origins
 
-				const multiResponses = await doMultiRequests(requests);
+				const maxReqs = Number(config.otp_max_parallel_requests) || config.default_otp_max_parallel_requests;
+
+        const multiRequests = _.slice(requests, 0, maxReqs);
+
+				console.log(maxReqs, {multiRequests})
+
+				const multiResponses = await doMultiRequests(multiRequests);
 
 				responses = multiResponses.map(resp => {
 					return {

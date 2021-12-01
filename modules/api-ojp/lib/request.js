@@ -34,6 +34,27 @@ const doRequest = (options, json) => {
   });
 }
 
+module.exports = {
+  doRequest,
+
+  'doMultiRequests': (requests) => {
+    const st = new Date().getTime();
+
+    //console.log('doRequest', options, data);
+    //
+    const promises = requests.map(req => {
+      return doRequest(req.options, req.json);
+    });
+
+    return Promise.all(promises).then(results => {
+      //console.log('PROMISE.ALL', results);
+      console.log('doMultiRequests response time:', (new Date().getTime()) - st, 'ms')
+      return results
+    });
+  }
+}
+
+
 /*const doRequestFake = (options, data) => {
   return new Promise((resolve, reject) => {
     const delay = _.random(500, 4000);
@@ -68,23 +89,3 @@ const doRequest = (options, json) => {
     }, delay);
   });
 }*/
-
-module.exports = {
-  doRequest,
-
-  'doMultiRequests': (requests) => {
-    const st = new Date().getTime();
-
-    //console.log('doRequest', options, data);
-    //
-    const promises = requests.map(req => {
-      return doRequest(req.options, req.json);
-    });
-
-    return Promise.all(promises).then(results => {
-      //console.log('PROMISE.ALL', results);
-      console.log('doMultiRequests response time:', (new Date().getTime()) - st, 'ms')
-      return results
-    });
-  }
-}
