@@ -1,5 +1,4 @@
 const { request, GraphQLClient, gql } = require('graphql-request');
-const https = require('https');
 
 const NodeCache = require('node-cache');
 
@@ -11,13 +10,7 @@ const Cache = new NodeCache({
 module.exports = {
   'getStopById': async (config, stopId, extra) => {
 
-    const options = {
-      host: config.otp.host,
-      path: config.otp.path,
-      port: config.otp.port
-    };
-    const endpoint = `https://${options.host}${options.path}`;
-    const clientQL = new GraphQLClient(endpoint, { headers: config.otp.headers });
+    const clientQL = new GraphQLClient(config.otp.baseUrl, { headers: config.otp.headers });
 
     let filter = `stops (ids : ["${stopId}"])`;
 
@@ -58,14 +51,8 @@ module.exports = {
   },
   'getAllStops': async (config, extra) => {
 
-    const options = {
-      host: config.otp.host,
-      path: config.otp.path,
-      port: config.otp.port
-    };
     const {logger} = config;
-    const endpoint = `https://${options.host}${options.path}`;
-    const clientQL = new GraphQLClient(endpoint, { headers: config.otp.headers });
+    const clientQL = new GraphQLClient(config.otp.baseUrl, { headers: config.otp.headers });
     
     const maxResults = Number(extra.limit || config.default_max_results);
 
@@ -123,14 +110,9 @@ module.exports = {
     }
   },
   'searchByName': async (config, name, extra) => {
-    const options = {
-      host: config.otp.host,
-      path: config.otp.path,
-      port: config.otp.port
-    };
+
     const {logger} = config;
-    const endpoint = `https://${options.host}${options.path}`;
-    const clientQL = new GraphQLClient(endpoint, { headers: config.otp.headers });
+    const clientQL = new GraphQLClient(config.otp.baseUrl, { headers: config.otp.headers });
 
     const maxResults = Number(extra.limit || config.default_max_results);
     
@@ -167,13 +149,8 @@ module.exports = {
   
   },
   'searchByRadius': async (config, params, extra) => {
-    const options = {
-      host: config.otp.host,
-      path: config.otp.path,
-      port: config.otp.port
-    };
-    const endpoint = `https://${options.host}${options.path}`;
-    const clientQL = new GraphQLClient(endpoint, { headers: config.otp.headers });
+
+    const clientQL = new GraphQLClient(config.otp.baseUrl, { headers: config.otp.headers });
 
     //const maxResults = Number(extra.limit || config.default_max_results);
 
@@ -217,13 +194,8 @@ module.exports = {
     }
   },
   'searchByBBox': async (config, params, extra) => {
-    const options = {
-      host: config.otp.host,
-      path: config.otp.path,
-      port: config.otp.port
-    };
-    const endpoint = `https://${options.host}${options.path}`;
-    const clientQL = new GraphQLClient(endpoint, { headers: config.otp.headers });
+
+    const clientQL = new GraphQLClient(config.otp.baseUrl, { headers: config.otp.headers });
     
     const query = gql`
                 {

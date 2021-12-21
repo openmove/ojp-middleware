@@ -20,9 +20,12 @@ dev:
     colorize: false
 
 otp:
-  host: map.muoversinpiemonte.it
-  path: /otp/routers/mip/index/graphql
-  port: 443
+  # host: map.muoversinpiemonte.it
+  # path: /otp/routers/mip/index/graphql
+  # port: 443
+  host: ${OTP_HOST}
+  path: ${OTP_PATH}
+  port: ${OTP_PORT}
   headers:
     User-Agent: ojp-middleware
 

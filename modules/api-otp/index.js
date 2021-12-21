@@ -22,9 +22,16 @@ const dotenv = require('dotenv').config()
       },
     });
 
-logger.info(_.omit(config,['dev','prod','environments']));
 
 config.logger = logger;
+
+if (!config.otp.baseUrl) {
+  const port = Number(config.otp.port)
+     ,  proto = port===443 ? 'https' : 'http'
+  config.otp.baseUrl = `${proto}://${config.otp.host}:${port}${config.otp.path}`;
+}
+
+logger.info(_.omit(config,['dev','prod','environments']));
 
 app.use(express.json());
 

@@ -1,16 +1,10 @@
 const { request, GraphQLClient, gql } = require('graphql-request');
-const https = require('https');
 
 module.exports = {
   'getTripsByIdAndDate': async (config, tripId, date, extra) => {
-    const options = {
-      host: config.otp.host,
-      path: config.otp.path,
-      port: config.otp.port
-    };
+
     const {logger} = config;
-    const endpoint = `https://${options.host}${options.path}`;
-    const clientQL = new GraphQLClient(endpoint, { headers: config.otp.headers });
+    const clientQL = new GraphQLClient(config.otp.baseUrl, { headers: config.otp.headers });
     const query = gql`{
                 trip (id: "${tripId}") {
                   gtfsId

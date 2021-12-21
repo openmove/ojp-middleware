@@ -1,16 +1,10 @@
 const { request, GraphQLClient, gql } = require('graphql-request');
 const moment = require('moment-timezone');
-const https = require('https');
 
 module.exports = {
   'planTrip': async(config, origin, destination, date, extra) => {
-    const options = {
-      host: config.otp.host,
-      path: config.otp.path,
-      port: config.otp.port
-    };
-    const endpoint = `https://${options.host}${options.path}`;
-    const clientQL = new GraphQLClient(endpoint, { headers: config.otp.headers });
+
+    const clientQL = new GraphQLClient(config.otp.baseUrl, { headers: config.otp.headers });
 
     let from = null
       , to = null;
