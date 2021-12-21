@@ -6,7 +6,7 @@ module.exports = {
   'planTrip': async(config, origin, destination, date, extra) => {
     const options = {
       host: config.otp.host,
-      path: config.otp.path + config.graphql.path,
+      path: config.otp.path,
       port: config.otp.port
     };
     const endpoint = `https://${options.host}${options.path}`;

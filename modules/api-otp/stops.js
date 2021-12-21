@@ -13,7 +13,7 @@ module.exports = {
 
     const options = {
       host: config.otp.host,
-      path: config.otp.path + config.graphql.path,
+      path: config.otp.path,
       port: config.otp.port
     };
     const endpoint = `https://${options.host}${options.path}`;
@@ -60,7 +60,7 @@ module.exports = {
 
     const options = {
       host: config.otp.host,
-      path: config.otp.path + config.graphql.path,
+      path: config.otp.path,
       port: config.otp.port
     };
     const {logger} = config;
@@ -125,7 +125,7 @@ module.exports = {
   'searchByName': async (config, name, extra) => {
     const options = {
       host: config.otp.host,
-      path: config.otp.path + config.graphql.path,
+      path: config.otp.path,
       port: config.otp.port
     };
     const {logger} = config;
@@ -169,7 +169,7 @@ module.exports = {
   'searchByRadius': async (config, params, extra) => {
     const options = {
       host: config.otp.host,
-      path: config.otp.path + config.graphql.path,
+      path: config.otp.path,
       port: config.otp.port
     };
     const endpoint = `https://${options.host}${options.path}`;
@@ -219,7 +219,7 @@ module.exports = {
   'searchByBBox': async (config, params, extra) => {
     const options = {
       host: config.otp.host,
-      path: config.otp.path + config.graphql.path,
+      path: config.otp.path,
       port: config.otp.port
     };
     const endpoint = `https://${options.host}${options.path}`;

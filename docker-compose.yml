@@ -30,8 +30,10 @@ services:
     ports:
       - "9092:9092"
     environment:
-      - OTP_HOST=
-      - OTP_PORT=
+      #- QUERY_DEBUG=true
+      - OTP_HOST=map.muoversinpiemonte.it
+      - OTP_PATH=/otp/routers/mip/index/graphql
+      - OTP_PORT=443
 
   ep-manager:
     container_name: ep-manager

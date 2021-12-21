@@ -21,14 +21,10 @@ dev:
 
 otp:
   host: map.muoversinpiemonte.it
-  path: /otp/routers/mip
+  path: /otp/routers/mip/index/graphql
   port: 443
   headers:
     User-Agent: ojp-middleware
-rest:
-  path: /index
-graphql:
-  path: /index/graphql
 
 default_max_results: 10000
 

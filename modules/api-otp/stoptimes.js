@@ -5,7 +5,7 @@ module.exports = {
   'getStopTimesById': async (config, stopId, extra) => {
     const options = {
       host: config.otp.host,
-      path: config.otp.path + config.graphql.path,
+      path: config.otp.path,
       port: config.otp.port
     };
     const {logger} = config;
