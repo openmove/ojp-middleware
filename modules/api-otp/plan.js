@@ -5,7 +5,7 @@ const https = require('https');
 module.exports = {
   'planTrip': async(config, origin, destination, date, extra) => {
     const options = {
-      host: config.otp.hostname,
+      host: config.otp.host,
       path: config.otp.path + config.graphql.path,
       port: config.otp.port
     };

@@ -4,7 +4,7 @@ const https = require('https');
 module.exports = {
   'getStopTimesById': async (config, stopId, extra) => {
     const options = {
-      host: config.otp.hostname,
+      host: config.otp.host,
       path: config.otp.path + config.graphql.path,
       port: config.otp.port
     };

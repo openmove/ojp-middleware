@@ -29,6 +29,9 @@ services:
       context: ./modules/api-otp
     ports:
       - "9092:9092"
+    environment:
+      - OTP_HOST=
+      - OTP_PORT=
 
   ep-manager:
     container_name: ep-manager

@@ -20,7 +20,7 @@ dev:
     colorize: false
 
 otp:
-  hostname: map.muoversinpiemonte.it
+  host: map.muoversinpiemonte.it
   path: /otp/routers/mip
   port: 443
   headers:

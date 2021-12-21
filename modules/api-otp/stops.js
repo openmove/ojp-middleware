@@ -12,7 +12,7 @@ module.exports = {
   'getStopById': async (config, stopId, extra) => {
 
     const options = {
-      host: config.otp.hostname,
+      host: config.otp.host,
       path: config.otp.path + config.graphql.path,
       port: config.otp.port
     };
@@ -59,7 +59,7 @@ module.exports = {
   'getAllStops': async (config, extra) => {
 
     const options = {
-      host: config.otp.hostname,
+      host: config.otp.host,
       path: config.otp.path + config.graphql.path,
       port: config.otp.port
     };
@@ -124,7 +124,7 @@ module.exports = {
   },
   'searchByName': async (config, name, extra) => {
     const options = {
-      host: config.otp.hostname,
+      host: config.otp.host,
       path: config.otp.path + config.graphql.path,
       port: config.otp.port
     };
@@ -168,7 +168,7 @@ module.exports = {
   },
   'searchByRadius': async (config, params, extra) => {
     const options = {
-      host: config.otp.hostname,
+      host: config.otp.host,
       path: config.otp.path + config.graphql.path,
       port: config.otp.port
     };
@@ -218,7 +218,7 @@ module.exports = {
   },
   'searchByBBox': async (config, params, extra) => {
     const options = {
-      host: config.otp.hostname,
+      host: config.otp.host,
       path: config.otp.path + config.graphql.path,
       port: config.otp.port
     };
