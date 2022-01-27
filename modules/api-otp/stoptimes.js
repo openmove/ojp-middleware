@@ -6,7 +6,7 @@ module.exports = {
 
     const clientQL = new GraphQLClient(config.otp.baseUrl, { headers: config.otp.headers });
 
-    const maxResults = Number(extra.limit || config.default_max_results);
+    const limit = Number(extra.limit || config.default_limit);
 
     const query = gql`{
                 stop(id: "${stopId}"){
@@ -17,10 +17,10 @@ module.exports = {
                   zoneId
                   desc
                   code
-                  vehicleMode
+                  vehicleType
                   stoptimesWithoutPatterns(
                     startTime: ${((extra.start || new Date().getTime()) / 1000).toFixed(0)}, 
-                    numberOfDepartures: ${maxResults},
+                    numberOfDepartures: ${limit},
                     omitNonPickups: true
                   ){
                     trip {

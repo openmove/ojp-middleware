@@ -43,7 +43,8 @@ app.get('/stops/:id?', async (req, result) => {
   //search a stop by id in PlaceRef
   //if id is undefined return all stops
   const extra = {
-    'limit': Number(req.query.limit) || 0
+    'limit': Number(req.query.limit) || 0,
+    'skip': Number(req.query.skip) || 0
   };
 
   let res = {stops: []};
@@ -75,6 +76,7 @@ app.post('/search/', async (req, result) => {
 
   const extra = {
     'limit': Number(params.limit) || 0,
+    'skip': Number(req.query.skip) || 0,
     'arriveBy': params.arriveBy || false
   };
   
@@ -126,6 +128,7 @@ app.get('/stops/:id/details', async (req, result) => {
   //return stoptimes and other schedule details for stop
   const extra = {
     'limit': Number(req.query.limit) || 0,
+    'skip': Number(req.query.skip) || 0,
     'start': req.query.start || new Date().getTime()
   };
   const res = await getStopTimesById(config, req.params.id, extra);

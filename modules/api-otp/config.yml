@@ -29,6 +29,6 @@ otp:
   headers:
     User-Agent: ojp-middleware
 
-default_max_results: 10000
+default_limit: 10000
 
 caching: true

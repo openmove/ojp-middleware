@@ -16,11 +16,10 @@ module.exports = {
 
     if(!stopId) {
 
-      const maxResults = Number(extra.limit || config.default_max_results);
+      const limit = Number(extra.limit || config.default_limit);
 
-      filter = `stops (maxResults: ${maxResults})`;
+      filter = `stops (limit: ${limit})`;
     }
-
     const query = gql`
                 {${filter} {
                   gtfsId
@@ -30,7 +29,7 @@ module.exports = {
                   desc
                   lat
                   lon
-                  vehicleMode
+                  vehicleType
                 }
               }`
 
@@ -54,11 +53,11 @@ module.exports = {
     const {logger} = config;
     const clientQL = new GraphQLClient(config.otp.baseUrl, { headers: config.otp.headers });
     
-    const maxResults = Number(extra.limit || config.default_max_results);
+    const limit = Number(extra.limit || config.default_limit);
 
     const query = gql`
                 {
-                stops (maxResults: ${maxResults}) {
+                stops (limit: ${limit}) {
                   gtfsId
                   name
                   code
@@ -66,7 +65,7 @@ module.exports = {
                   desc
                   lat
                   lon
-                  vehicleMode
+                  vehicleType
                 }
               }`
   
@@ -74,7 +73,7 @@ module.exports = {
 
     let data = null;
 
-    const cacheKey = `getAllStops_${maxResults}`;
+    const cacheKey = `getAllStops_${limit}`;
 
     if(config.caching ===  true) {
 
@@ -114,11 +113,11 @@ module.exports = {
     const {logger} = config;
     const clientQL = new GraphQLClient(config.otp.baseUrl, { headers: config.otp.headers });
 
-    const maxResults = Number(extra.limit || config.default_max_results);
+    const limit = Number(extra.limit || config.default_limit);
     
     const query = gql`
                 {
-                stopsByName (name: "${name}", maxResults: ${maxResults}) {
+                stopsByName (name: "${name}", limit: ${limit}) {
                   gtfsId
                   name
                   code
@@ -126,7 +125,7 @@ module.exports = {
                   desc
                   lat
                   lon
-                  vehicleMode
+                  vehicleType
                 }
               }`
   
@@ -152,7 +151,7 @@ module.exports = {
 
     const clientQL = new GraphQLClient(config.otp.baseUrl, { headers: config.otp.headers });
 
-    //const maxResults = Number(extra.limit || config.default_max_results);
+    //const limit = Number(extra.limit || config.default_limit);
 
     const query = gql`
                 {
@@ -170,7 +169,7 @@ module.exports = {
                         desc
                         lat
                         lon
-                        vehicleMode
+                        vehicleType
                       }
                     }
                   }
@@ -211,7 +210,7 @@ module.exports = {
                       desc
                       lat
                       lon
-                      vehicleMode
+                      vehicleType
                   }
               }`
   
