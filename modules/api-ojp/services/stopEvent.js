@@ -104,7 +104,7 @@ module.exports = {
           startDate = new Date(date).getTime();
         }
         
-        const querystr = qstr.stringify({limit/*, skip*/, start: startDate})
+        const querystr = qstr.stringify({limit, skip, start: startDate})
             , options = {
               host: config['api-otp'].host,
               port: config['api-otp'].port,
@@ -117,7 +117,7 @@ module.exports = {
 
         const response = await doRequest(options);
 
-        const stops = _.slice(response.stops, skip, limit);
+        //const stops = _.slice(response.stops, skip, limit);
         
         let isDeparture = true;
         let isArrival = false;
@@ -136,7 +136,7 @@ module.exports = {
           isArrival = true;
         }
         showRealtime = realtime === 'true';
-        return createResponse(response.stop, startTime, isDeparture, isArrival, showRealtime);
+        return createResponse(response.stops, startTime, isDeparture, isArrival, showRealtime);
       }
       else{
         return createErrorResponse(serviceName, config.errors.notagcondition, startTime);

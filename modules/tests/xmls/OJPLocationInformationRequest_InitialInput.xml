@@ -12,7 +12,8 @@
           </ojp:InitialInput>
           <ojp:Restrictions>
             <ojp:Type>stop</ojp:Type>
-            <ojp:NumberOfResults>3</ojp:NumberOfResults>
+            <ojp:NumberOfResults>10</ojp:NumberOfResults>
+            <ojp:ContinueAt>3</ojp:ContinueAt>
           </ojp:Restrictions>
         </ojp:OJPLocationInformationRequest>
       </ServiceRequest>

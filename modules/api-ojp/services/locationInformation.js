@@ -73,7 +73,7 @@ module.exports = {
 
         if (stopId) {
 
-          const querystr = qstr.stringify({limit/*, skip*/});
+          const querystr = qstr.stringify({limit, skip});
 
           options = {
             host: config['api-otp'].host,
@@ -101,7 +101,7 @@ module.exports = {
         }
         else if(locationName) { //GET ALL
 
-          const querystr = qstr.stringify({limit/*, skip*/});
+          const querystr = qstr.stringify({limit, skip});
 
           options = {
             host: config['api-otp'].host,
@@ -114,9 +114,9 @@ module.exports = {
 
         const response = await doRequest(options, json);
 
-        const stops = _.slice(response.stops, skip, limit);
+        //const stops = _.slice(response.stops, skip, limit);
 
-        return createResponse(stops, startTime, ptModes);
+        return createResponse(response.stops, startTime, ptModes);
       }
       else if(queryNodes(doc, [serviceTag, 'ojp:InitialInput']).length > 0) {
 
@@ -124,7 +124,8 @@ module.exports = {
 
         const params = {
           value: LocationName,
-          limit: limit
+          limit,
+          skip
         };
         
         const geoRestriction = queryNode(doc, [serviceTag,'ojp:InitialInput','ojp:GeoRestriction']);
@@ -172,10 +173,10 @@ module.exports = {
 
         const response = await doRequest(options, json);
 
-        const stops = _.slice(response.stops, skip, limit);
+        //const stops = _.slice(response.stops, skip, limit);
 
         //logger.info(response)
-        return createResponse(stops, startTime, ptModes);
+        return createResponse(response.stops, startTime, ptModes);
       }
       else {
         return createErrorResponse(serviceName, config.errors.notagcondition, startTime);

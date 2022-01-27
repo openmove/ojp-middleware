@@ -118,7 +118,7 @@ module.exports = {
 		]);
 
 		let ptModes = ''
-			,limit = Number( Number(limitRestrictions) || Number(limitParams) || undefined )
+			, limit = Number( Number(limitRestrictions) || Number(limitParams) || undefined )
 		  	, skip = Number( Number(skipRestrictions) || Number(skipParams) || undefined );
 
 		if (_.isNaN(limit)) {
