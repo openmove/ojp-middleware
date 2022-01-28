@@ -8,25 +8,20 @@
 - utils
 - xsd2json
 
-### api-ojp
+### [api-ojp](api-ojp.md)
 
 OJP entrypoint, implements OJP requests
 
-[learn more](api-ojp.md)
 
-### api-otp
+### [api-otp](api-otp.md)
 
 maintain connection to OTP instance
 
-[learn more](api-otp.md)
 
-
-### ep-manager
+### [ep-manager](ep-manager.md)
 
 OJP exchangepoint mananger
 exchange point collect stops
-
-[learn more](ep-manager.md)
 
 
 ### ojp-loader
