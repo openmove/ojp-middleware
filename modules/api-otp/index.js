@@ -76,7 +76,7 @@ app.post('/search/', async (req, result) => {
 
   const extra = {
     'limit': Number(params.limit) || 0,
-    'skip': Number(req.query.skip) || 0,
+    'skip': Number(params.skip) || 0,
     'arriveBy': params.arriveBy || false
   };
   
