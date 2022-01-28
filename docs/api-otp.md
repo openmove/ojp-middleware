@@ -4,6 +4,13 @@
 maintain connection to OpenTripPlanner instance
 
 
+## default query parameters by config.yml
+
+- caching: true
+- default_limit: 10000
+- default_skip: 0
+
+
 ### environment
 
 ```OTP_HOST``` hostname instance of OpenTripPlanner
