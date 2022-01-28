@@ -29,7 +29,7 @@ module.exports = {
                   desc
                   lat
                   lon
-                  vehicleType
+                  vehicleMode
                 }
               }`
 
@@ -65,7 +65,7 @@ module.exports = {
                   desc
                   lat
                   lon
-                  vehicleType
+                  vehicleMode
                 }
               }`
   
@@ -125,7 +125,7 @@ module.exports = {
                   desc
                   lat
                   lon
-                  vehicleType
+                  vehicleMode
                 }
               }`
   
@@ -169,7 +169,7 @@ module.exports = {
                         desc
                         lat
                         lon
-                        vehicleType
+                        vehicleMode
                       }
                     }
                   }
@@ -210,7 +210,7 @@ module.exports = {
                       desc
                       lat
                       lon
-                      vehicleType
+                      vehicleMode
                   }
               }`
   

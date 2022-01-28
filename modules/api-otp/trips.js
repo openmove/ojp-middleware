@@ -52,7 +52,7 @@ module.exports = {
                       lon
                       name
                       desc
-                      vehicleType
+                      vehicleMode
                     }
                   }
                 }

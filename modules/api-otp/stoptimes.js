@@ -17,7 +17,7 @@ module.exports = {
                   zoneId
                   desc
                   code
-                  vehicleType
+                  vehicleMode
                   stoptimesWithoutPatterns(
                     startTime: ${((extra.start || new Date().getTime()) / 1000).toFixed(0)}, 
                     numberOfDepartures: ${limit},
