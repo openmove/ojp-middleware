@@ -117,8 +117,6 @@ module.exports = {
 
         const response = await doRequest(options);
 
-        //const stops = _.slice(response.stops, skip, limit);
-        
         let isDeparture = true;
         let isArrival = false;
         let showRealtime = false;
@@ -136,7 +134,7 @@ module.exports = {
           isArrival = true;
         }
         showRealtime = realtime === 'true';
-        return createResponse(response.stops, startTime, isDeparture, isArrival, showRealtime);
+        return createResponse(response.stop, startTime, isDeparture, isArrival, showRealtime);
       }
       else{
         return createErrorResponse(serviceName, config.errors.notagcondition, startTime);
