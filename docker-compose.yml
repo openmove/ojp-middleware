@@ -15,9 +15,9 @@ services:
       - "9091:9091"
     #environment:
     depends_on:
-      - ep-manager
-      - api-otp
       - db
+      - api-otp
+      - ep-manager
     environment:
       - LOG_REQUEST=true
       - OTP_MAX_PARALLEL_REQUESTS=10
@@ -31,12 +31,9 @@ services:
       - "9092:9092"
     environment:
       #- QUERY_DEBUG=true
-      # - OTP_HOST=map.muoversinpiemonte.it
-      # - OTP_PATH=/otp/routers/mip/index/graphql
-      # - OTP_PORT=443
-      - OTP_HOST=mip-r-loadb-14949k90kol75-1272452334.eu-south-1.elb.amazonaws.com
-      - OTP_PATH=/otp/routers/default/index/graphql
-      - OTP_PORT=8080
+      - OTP_HOST=map.muoversinpiemonte.it
+      - OTP_PATH=/otp/routers/mip/index/graphql
+      - OTP_PORT=443
   ep-manager:
     container_name: ep-manager
     image: ojp/ep-manager:latest
@@ -72,6 +69,8 @@ services:
       - "9096:9096"
     environment:
       - API_HOST=localhost
+    depends_on:
+      - api-ojp
 
   #TODO maybe un useful, used as library
   #  xsd2json:

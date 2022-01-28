@@ -30,7 +30,7 @@ API XSD schemas: https://github.com/VDVde/OJP
 ### quick start
 
 ```bash
-docker-compose up -d testss
+docker-compose up -d tests
 ```
 
 ### API tester
