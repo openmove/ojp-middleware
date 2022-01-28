@@ -54,20 +54,21 @@ module.exports = {
     const clientQL = new GraphQLClient(config.otp.baseUrl, { headers: config.otp.headers });
     
     const limit = Number(extra.limit || config.default_limit);
+    const skip = Number(extra.skip || config.default_skip);
 
     const query = gql`
                 {
-                stops (limit: ${limit}) {
-                  gtfsId
-                  name
-                  code
-                  zoneId
-                  desc
-                  lat
-                  lon
-                  vehicleMode
-                }
-              }`
+                  stops (limit: ${limit}, skip: ${skip}) {
+                    gtfsId
+                    name
+                    code
+                    zoneId
+                    desc
+                    lat
+                    lon
+                    vehicleMode
+                  }
+                }`
   
     logger.debug(query);
 
@@ -114,20 +115,21 @@ module.exports = {
     const clientQL = new GraphQLClient(config.otp.baseUrl, { headers: config.otp.headers });
 
     const limit = Number(extra.limit || config.default_limit);
-    
+    const skip = Number(extra.skip || config.default_skip);
+
     const query = gql`
                 {
-                stopsByName (name: "${name}", limit: ${limit}) {
-                  gtfsId
-                  name
-                  code
-                  zoneId
-                  desc
-                  lat
-                  lon
-                  vehicleMode
-                }
-              }`
+                  stopsByName (name: "${name}", limit: ${limit}, skip: ${skip}) {
+                    gtfsId
+                    name
+                    code
+                    zoneId
+                    desc
+                    lat
+                    lon
+                    vehicleMode
+                  }
+                }`
   
     logger.debug(query);
     
@@ -155,25 +157,25 @@ module.exports = {
 
     const query = gql`
                 {
-                stopsByRadius (
-                    lat : ${params[1]},
-                    lon : ${params[0]},
-                    radius: ${params[2] || 1000}) {
-                  edges {
-                    node {
-                      stop {
-                        gtfsId
-                        name
-                        code
-                        zoneId
-                        desc
-                        lat
-                        lon
-                        vehicleMode
+                  stopsByRadius (
+                      lat : ${params[1]},
+                      lon : ${params[0]},
+                      radius: ${params[2] || 1000}) {
+                    edges {
+                      node {
+                        stop {
+                          gtfsId
+                          name
+                          code
+                          zoneId
+                          desc
+                          lat
+                          lon
+                          vehicleMode
+                        }
                       }
                     }
-                  }
-              }`
+                }`
   
     const data = await clientQL.request(query, {});
 
@@ -212,7 +214,7 @@ module.exports = {
                       lon
                       vehicleMode
                   }
-              }`
+                }`
   
     const data = await clientQL.request(query, {});
 
