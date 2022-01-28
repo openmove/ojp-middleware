@@ -10,11 +10,6 @@
         <ojp:InitialInput>
           <ojp:LocationName>Torino</ojp:LocationName>
         </ojp:InitialInput>
-        <!--aggiunto Restrictions per avere response anche se opzionale-->
-        <!--<ojp:Restrictions>
-        aggiunto NumberOf Results per avere response anche se opzionale
-        <ojp:NumberOfResults>2</ojp:NumberOfResults>
-        </ojp:Restrictions>-->
       </ojp:OJPLocationInformationRequest>
     </ServiceRequest>
   </OJPRequest>

@@ -6,10 +6,9 @@ maintain connection to OpenTripPlanner instance
 
 ## default query parameters by config.yml
 
-- caching: true
+- caching: false
 - default_limit: 10000
 - default_skip: 0
-
 
 ### environment
 

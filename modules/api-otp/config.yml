@@ -8,6 +8,8 @@ prod:
     level: 'info'
     colorize: true
     ignore: 'pid,hostname'
+  #caching: true
+
 dev:
   server:
     port: 8082
@@ -18,7 +20,6 @@ dev:
   logs:
     level: 'debug'
     colorize: false
-  caching: false
 
 otp:
   # host: map.muoversinpiemonte.it
@@ -33,4 +34,5 @@ otp:
 default_limit: 10000
 default_skip: 0
 
-caching: true
+caching: false
+#caching OTP graphql query results
