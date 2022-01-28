@@ -21,10 +21,6 @@ API XSD schemas: https://github.com/VDVde/OJP
 
 [OpenTripPlanner](https://github.com/opentripplanner)
 
-## System Architecture
-
-![macro](docs/images/OJP_Architecture_macro.png)
-
 ## Setup
 
 ### quick start
@@ -35,4 +31,9 @@ docker-compose up -d tests
 
 ### API tester
 
-Inside ```/tests``` a web application has been implemented which facilitates single service testing process
+Inside ```/modules/tests``` a web application has been implemented which facilitates single service testing process
+
+
+## System Architecture
+
+![macro](docs/images/OJP_Architecture_macro.png)
