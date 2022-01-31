@@ -6,6 +6,8 @@ The project is structured as a Monorepo that implements Docker microservices.
 
 *Support [OpenTripPlanner Openmove fork >= 1.5.4](https://github.com/openmove/OpenTripPlanner)*
 
+*Legacy Support Official OpenTripPlanner 1.5.0 [this branch](https://github.com/openmove/ojp-middleware/tree/legacy-otp-v1.5.0)*
+
 ## Documentation
 
 [Main Docs](docs/README.md)
