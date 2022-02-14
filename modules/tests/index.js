@@ -5,6 +5,8 @@ const app = express();
 const pino = require('pino');
 const _ = require('lodash');
 
+const {version} = require('./package.json');
+
 const dotenv = require('dotenv').config()
     , config = require('@stefcud/configyml')
     , logger = pino({

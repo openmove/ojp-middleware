@@ -69,7 +69,7 @@ module.exports = {
         limit,
         skip
       };
-      let path = '/';
+      let path = '/all';
 
       if(queryNodes(doc, [serviceTag, 'ojp:PlaceRef']).length > 0) {
 
@@ -127,7 +127,7 @@ module.exports = {
 
       }
       else if(queryNodes(doc, [serviceTag]).length > 0) {
-        path = '/';  //return all points
+        path = '/all';  //return all points
       }
       else {
         return createErrorResponse(serviceName, config.errors.notagcondition, startTime);

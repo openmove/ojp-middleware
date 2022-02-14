@@ -10,6 +10,8 @@ const express = require('express')
     , {request} = require('express')
     , pino = require('pino');
 
+const {version} = require('./package.json');
+
 const dotenv = require('dotenv').config()
     , config = require('@stefcud/configyml')
     , logger = pino({
@@ -21,7 +23,6 @@ const dotenv = require('dotenv').config()
         messageFormat: `{msg}`
       },
     });
-
 
 config.logger = logger;
 
@@ -174,6 +175,13 @@ app.get('/stops/:id/details', async (req, result) => {
  app.post('/multi-plan/', (req, result) => {
   //same as plan but with multiple origin-destinations
   //TODO: check if this is viable with otp
+});
+
+app.get(['/','/otp'], async (req, res) => {
+  res.send({
+    status: 'OK',   //TODO check otp is reachable
+    version
+  });
 });
 
 app.listen(Number(config.server.port), () => {

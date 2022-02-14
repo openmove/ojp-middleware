@@ -6,6 +6,8 @@ const mongoClient = require("mongodb").MongoClient;
 const pino = require('pino');
 const _ = require('lodash');
 
+const {version} = require('./package.json');
+
 const dotenv = require('dotenv').config()
     , config = require('@stefcud/configyml')
     , logger = pino({
@@ -43,7 +45,7 @@ app.use(express.json());
 
 const getAll = async (req, getres) => {
 
-  logger.info(`request GET / ${new Date().toISOString()}`);
+  logger.info(`request getAll ${req.url} ${new Date().toISOString()}`);
 
   mongoClient.connect(config.db.uri, {
     useNewUrlParser: true,
@@ -72,11 +74,11 @@ const getAll = async (req, getres) => {
 
 const getByName = async (req, getres) => {
 
-  logger.info(`request GET ${req.url} ${new Date().toISOString()}`);
+  logger.info(`request getByName ${req.url} ${new Date().toISOString()}`);
 
   mongoClient.connect(config.db.uri, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
   }, (err, client) => {
     if (err) throw err;
 
@@ -142,7 +144,7 @@ const getByName = async (req, getres) => {
   });
 }
 
-app.get('/', getAll);
+app.get('/all', getAll);
 
 app.get('/searchByName/', getByName);
 app.get('/searchByName/:name', getByName);
@@ -153,7 +155,7 @@ app.get('/searchByNetexId/', async (req, getres) => {
 
 app.get('/searchByNetexId/:id', async (req, getres) => {
   
-  logger.info(`request GET /searchById ${new Date().toISOString()}`);
+  logger.info(`request GET /searchById ${req.url} ${new Date().toISOString()}`);
 
   mongoClient.connect(config.db.uri, {
     useNewUrlParser: true,
@@ -182,7 +184,7 @@ app.get('/searchByNetexId/:id', async (req, getres) => {
 
 app.get('/geojson', async (req, getres) => {
   
-  logger.info(`request GET /geojson ${new Date().toISOString()}`);
+  logger.info(`request GET /geojson ${req.url} ${new Date().toISOString()}`);
 
   mongoClient.connect(config.db.uri, {
     useNewUrlParser: true,
@@ -220,19 +222,50 @@ app.get('/geojson', async (req, getres) => {
   });
 });
 
+let status = 'CONNECTING';
+
+app.get(['/','/ep-manager'], async (req, res) => {
+  if(status!=='OK') {
+    res.statusCode = 503;
+  }
+  res.send({
+    status,
+    version
+  });
+});
+
+app.listen(Number(config.server.port), () => {
+  logger.info( app._router.stack.filter(r => r.route).map(r => `${Object.keys(r.route.methods)[0]} ${r.route.path}`) );
+  logger.info(`listening at http://localhost:${config.server.port}`)
+});
+
 mongoClient.connect(config.db.uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+//TODO
+/*  reconnectTries: 10, // Never stop trying to reconnect
+  reconnectInterval: 500,
+*/
   serverSelectionTimeoutMS: 100 //mseconds
 }, err => {
   if (!err) {
     logger.info(`MongoDb connected ${config.db.uri}`);
-    app.listen(Number(config.server.port), () => {
+
+    status = 'OK';
+
+    //TODO move outside connection and return status != 'OK'
+    //https://github.com/openmove/ojp-middleware/issues/17
+    //
+    /*app.listen(Number(config.server.port), () => {
       logger.info( app._router.stack.filter(r => r.route).map(r => `${Object.keys(r.route.methods)[0]} ${r.route.path}`) );
       logger.info(`listening at http://localhost:${config.server.port}`)
-    });
+    });*/
   }
   else {
     logger.error(`MongoDb error ${config.db.uri} ${err.message}`);
+
+    status = 'DB_ERROR';
+
+    //process.exit(1)
   }
 });

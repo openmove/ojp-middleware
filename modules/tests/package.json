@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon -e js,yml,json,env index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev": "NODE_ENV=dev nodemon -e js,yml,json index.js"
   },
   "author": "Stefano Cudini <stefano.cudini@gmail.com>",
   "license": "ISC",

@@ -85,15 +85,6 @@ app.use(cors());
 
 app.use(xmlparser({strict:false}));
 
-app.get('/ojp/', async (req, result) => {
-  result.send({
-    status: 'OK',
-    version,
-    description: 'POST XML OJP requests to /ojp',
-    services: config.services,
-  });
-});
-
 app.get('/ojp/logs', async (req, getres) => {
 
   const limit = Number(req.query.limit) || 10;
@@ -282,6 +273,15 @@ app.post('/ojp/', async (req, result) => {
 
   result.send(resXml);
 
+});
+
+app.get(['/ojp/','/'], async (req, result) => {
+  result.send({
+    status: 'OK',   //TODO check other services and mongo db is reachable
+    version,
+    description: 'POST XML OJP requests to /ojp',
+    services: config.services,
+  });
 });
 
 app.listen(Number(config.server.port), () => {
