@@ -9,9 +9,6 @@ module.exports = {
     let from = null
       , to = null;
 
-console.log('origin', origin);
-console.log('destination', destination)
-
     if(Array.isArray(origin)){
       from = `from: {lat: ${origin[1]}, lon: ${origin[0]}, address: "${origin[2]}"}`;   
     }else{
