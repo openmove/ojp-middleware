@@ -19,7 +19,7 @@ module.exports = {
                   code
                   vehicleMode
                   stoptimesWithoutPatterns(
-                    startTime: ${((extra.start || new Date().getTime()) / 1000).toFixed(0)}, 
+                    startTime: `${((extra.start || new Date().getTime()) / 1000).toFixed(0)}`,
                     numberOfDepartures: ${limit},
                     omitNonPickups: true
                   ){
