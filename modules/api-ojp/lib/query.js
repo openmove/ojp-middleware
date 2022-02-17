@@ -39,7 +39,8 @@ const queryTags = (doc, paths) => {
   }).join('/*');
 
   const query = `//*${tags}`;
-  
+  if(paths[0]=='ojp:Destination')
+    console.log('QUERY',query)
   return queryText(doc, query);
 }
 

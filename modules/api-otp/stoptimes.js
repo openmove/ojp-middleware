@@ -8,7 +8,7 @@ module.exports = {
 
     const limit = Number(extra.limit || config.default_limit);
 
-    const startime = `"${((extra.start || new Date().getTime()) / 1000).toFixed(0)}"`;
+    const startime = ((extra.start || new Date().getTime()) / 1000).toFixed(0);
 
     const query = gql`{
                 stop(id: "${stopId}"){
@@ -21,7 +21,7 @@ module.exports = {
                   code
                   vehicleMode
                   stoptimesWithoutPatterns(
-                    startTime: ${startime},
+                    startTime: "${startime}",
                     numberOfDepartures: ${limit},
                     omitNonPickups: true
                   ){

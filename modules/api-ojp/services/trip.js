@@ -212,13 +212,13 @@ module.exports = {
 
         const {transferLimit, accessibility, intermediateStops, dateStart, dateEnd} = parseTripRestrictions(doc, serviceTag, config);
 
-        const originName = queryTags(doc, serviceTag, ['ojp:Origin', 'ojp:PlaceRef', 'ojp:LocationName', 'ojp:Text']);
-        const originLat = queryTags(doc, serviceTag, ['ojp:Origin', 'ojp:PlaceRef', 'ojp:GeoPosition', 'Latitude']);
-        const originLon = queryTags(doc, serviceTag, ['ojp:Origin', 'ojp:PlaceRef', 'ojp:GeoPosition', 'Longitude']);
+        const originName = queryTags(doc, [serviceTag, 'ojp:Origin', 'ojp:PlaceRef', 'ojp:LocationName', 'ojp:Text']);
+        const originLat = queryTags(doc, [serviceTag, 'ojp:Origin', 'ojp:PlaceRef', 'ojp:GeoPosition', 'Latitude']);
+        const originLon = queryTags(doc, [serviceTag, 'ojp:Origin', 'ojp:PlaceRef', 'ojp:GeoPosition', 'Longitude']);
 
-        const destinationName = queryTags(doc, serviceTag, ['ojp:Destination', 'ojp:PlaceRef', 'ojp:LocationName', 'ojp:Text']);
-        const destinationLat = queryTags(doc, serviceTag, ['ojp:Destination', 'ojp:PlaceRef', 'ojp:GeoPosition', 'Latitude']);
-        const destinationLon = queryTags(doc, serviceTag, ['ojp:Destination', 'ojp:PlaceRef', 'ojp:GeoPosition', 'Longitude']);
+        const destinationName = queryTags(doc, [serviceTag, 'ojp:Destination', 'ojp:PlaceRef', 'ojp:LocationName', 'ojp:Text']);
+        const destinationLat = queryTags(doc, [serviceTag, 'ojp:Destination', 'ojp:PlaceRef', 'ojp:GeoPosition', 'Latitude']);
+        const destinationLon = queryTags(doc, [serviceTag, 'ojp:Destination', 'ojp:PlaceRef', 'ojp:GeoPosition', 'Longitude']);
 
         const intermediatePlaces = [];
 
@@ -271,6 +271,11 @@ module.exports = {
           wheelchair: accessibility,
           intermediatePlaces
         }
+
+console.log('questionObj',questionObj)
+
+        ////config, origin, destination, date, extra
+        ///
         const json = JSON.stringify(questionObj);
 
         const options = {
