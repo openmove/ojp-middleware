@@ -59,6 +59,6 @@ app.get('/list.json', async (req, res) => {
 });
 
 app.listen(Number(config.server.port), () => {
-  console.log( app._router.stack.filter(r => r.route).map(r => `${Object.keys(r.route.methods)[0]} ${r.route.path}`) );
-  console.log(`service ${serviceName} listening at http://localhost:${config.server.port}`)
+  logger.info( app._router.stack.filter(r => r.route).map(r => `${Object.keys(r.route.methods)[0]} ${r.route.path}`) );
+  logger.info(`service ${serviceName} listening at http://localhost:${config.server.port}`)
 })
