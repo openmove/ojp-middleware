@@ -5,7 +5,7 @@ const app = express();
 const pino = require('pino');
 const _ = require('lodash');
 
-const {version} = require('./package.json');
+const {version,'name':serviceName} = require('./package.json');
 
 const dotenv = require('dotenv').config()
     , config = require('@stefcud/configyml')
@@ -19,7 +19,7 @@ const dotenv = require('dotenv').config()
       },
     });
 
-logger.info(_.omit(config,['dev','prod','test','environments']));
+logger.debug(_.omit(config,['dev','prod','test','environments']));
 
 app.use('/', express.static('static', {
   etag: false,
@@ -60,5 +60,5 @@ app.get('/list.json', async (req, res) => {
 
 app.listen(Number(config.server.port), () => {
   console.log( app._router.stack.filter(r => r.route).map(r => `${Object.keys(r.route.methods)[0]} ${r.route.path}`) );
-  console.log(`listening at http://localhost:${config.server.port}`)
+  console.log(`service ${serviceName} listening at http://localhost:${config.server.port}`)
 })

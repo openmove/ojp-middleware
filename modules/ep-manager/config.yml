@@ -26,7 +26,7 @@ dev:
 geoPositionSearchRadius: 10
 
 import:
-  version: 0.16
+  version: '0.16'
   #version: ${CSV_VERSION}
   csvFile: 5T.csvd
   columnLatitude: lat

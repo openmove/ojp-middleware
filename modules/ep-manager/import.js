@@ -37,7 +37,7 @@ const importCsv = (ver, basedir) => {
       files = fs.readdirSync(basepath);
       
     } catch(err) {
-      logger.warn(`version ${version} not found ${basepath}`)
+      logger.error(`import error! version '${version}' directory not found: '${basepath}'`)
       return;
     }
 

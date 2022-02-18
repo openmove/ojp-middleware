@@ -10,7 +10,7 @@ const express = require('express')
     , {request} = require('express')
     , pino = require('pino');
 
-const {version} = require('./package.json');
+const {version,'name':serviceName} = require('./package.json');
 
 const dotenv = require('dotenv').config()
     , config = require('@stefcud/configyml')
@@ -32,7 +32,7 @@ if (!config.otp.baseUrl) {
   config.otp.baseUrl = `${proto}://${config.otp.host}:${port}${config.otp.path}`;
 }
 
-logger.info(_.omit(config,['dev','prod','environments']));
+logger.debug(_.omit(config,['dev','prod','environments']));
 
 app.use(express.json());
 
@@ -186,5 +186,5 @@ app.get(['/','/otp'], async (req, res) => {
 
 app.listen(Number(config.server.port), () => {
   logger.info( app._router.stack.filter(r => r.route).map(r => `${Object.keys(r.route.methods)[0]} ${r.route.path}`) );
-  logger.info(`listening at http://localhost:${config.server.port}`)
+  logger.info(`service ${serviceName} listening at http://localhost:${config.server.port}`)
 })

@@ -9,7 +9,7 @@ const express = require('express')
     , pino = require('pino')
     , nocache = require('nocache');
 
-const {version} = require('./package.json');
+const {version,'name':serviceName} = require('./package.json');
 
 const dotenv = require('dotenv').config()
     , config = require('@stefcud/configyml')
@@ -33,7 +33,7 @@ const {exchangePointsExecution} = require('./services/exchangePoints')
     , {tripInfoExecution} = require('./services/tripInfo')
     , {tripsExecution} = require('./services/trip');
 
-logger.info(_.omit(config,['dev','prod','environments']));
+logger.debug(_.omit(config,['dev','prod','environments']));
 
 config.logger = logger;
 
@@ -286,6 +286,6 @@ app.get(['/ojp/','/'], async (req, result) => {
 
 app.listen(Number(config.server.port), () => {
   logger.info( app._router.stack.filter(r => r.route).map(r => `${Object.keys(r.route.methods)[0]} ${r.route.path}`) );
-  logger.info(`listening at http://localhost:${config.server.port}`)
+  logger.info(`service ${serviceName} listening at http://localhost:${config.server.port}`)
 });
 

@@ -6,7 +6,9 @@ const mongoClient = require("mongodb").MongoClient;
 const pino = require('pino');
 const _ = require('lodash');
 
-const {version} = require('./package.json');
+const {importCsv} = require('./import');
+
+const {version,'name':serviceName} = require('./package.json');
 
 const dotenv = require('dotenv').config()
     , config = require('@stefcud/configyml')
@@ -20,17 +22,16 @@ const dotenv = require('dotenv').config()
       },
     });
 
-logger.info(_.omit(config,['dev','prod','environments']));
+logger.debug(_.omit(config,['dev','prod','environments']));
 
 config.logger = logger;
 
-const {importCsv} = require('./import');
+const CSV_AUTOIMPORT = _.toLower(process.env['CSV_AUTOIMPORT']);
 
-if (process.env['IMPORT']==='true') {
+if (CSV_AUTOIMPORT==='true') {
   importCsv(process.env['CSV_VERSION']);
   //TODO sleep https://stackoverflow.com/questions/14249506/how-can-i-wait-in-node-js-javascript-l-need-to-pause-for-a-period-of-time
 }
-
 
 app.use(express.json());
 
@@ -236,7 +237,7 @@ app.get(['/','/ep-manager'], async (req, res) => {
 
 app.listen(Number(config.server.port), () => {
   logger.info( app._router.stack.filter(r => r.route).map(r => `${Object.keys(r.route.methods)[0]} ${r.route.path}`) );
-  logger.info(`listening at http://localhost:${config.server.port}`)
+  logger.info(`service ${serviceName} listening at http://localhost:${config.server.port}`)
 });
 
 mongoClient.connect(config.db.uri, {

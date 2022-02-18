@@ -34,6 +34,7 @@ services:
       - OTP_HOST=map.muoversinpiemonte.it
       - OTP_PATH=/otp/routers/mip/index/graphql
       - OTP_PORT=443
+
   ep-manager:
     container_name: ep-manager
     image: ojp/ep-manager:latest
@@ -42,8 +43,8 @@ services:
     ports:
       - "9093:9093"
     environment:
-      - IMPORT=true
-      - CSV_VERSION=0.16
+      - CSV_AUTOIMPORT=false
+      - CSV_VERSION='0.16'
     # volumes:
     #   - ./csvs:/home/csvs
     depends_on:

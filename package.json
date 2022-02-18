@@ -1,6 +1,6 @@
 {
   "name": "ojp-middleware",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "private": true,
   "devDependencies": {
     "lerna": "^4.0.0",
