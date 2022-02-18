@@ -100,7 +100,6 @@ module.exports = {
               name
             }
             realTime
-            realtimeState
             distance
             transitLeg
             from {
