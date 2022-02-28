@@ -41,3 +41,23 @@ dev:
   validator:
     host: 'https://validate-st.verkehrsauskunft.at/ojp/'
     port: 443
+
+#test local docker containers
+devdocker:
+  server:
+    port: 9096
+  api-ojp:
+    host: localhost
+    port: 9091
+  api-otp:
+    host: localhost
+    port: 9092
+  ep-manager:
+    host: localhost
+    port: 9093
+  logs:
+    level: 'debug'
+    colorize: false
+  validator:
+    host: 'https://validate-st.verkehrsauskunft.at/ojp/'
+    port: 443
