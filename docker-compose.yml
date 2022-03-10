@@ -13,14 +13,13 @@ services:
       context: ./modules/api-ojp
     ports:
       - "9091:9091"
-    #environment:
+    environment:
+      - LOG_REQUEST=true
+      - OTP_MAX_PARALLEL_REQUESTS=10
     depends_on:
       - db
       - api-otp
       - ep-manager
-    environment:
-      - LOG_REQUEST=true
-      - OTP_MAX_PARALLEL_REQUESTS=10
 
   api-otp:
     container_name: api-otp
@@ -55,7 +54,8 @@ services:
     image: mongo:latest
     ports:
       - "9095:27017"
-      - "8085:27017" #used also by dev environment
+      - "8085:27017"
+      #used also by dev environment
     volumes:
       - ./modules/db/data:/data/db
     environment:
