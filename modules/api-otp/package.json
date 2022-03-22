@@ -1,6 +1,6 @@
 {
   "name": "api-otp",
-  "version": "1.5.2",
+  "version": "1.6.0",
   "description": "maintain connection to OTP instance",
   "main": "index.js",
   "scripts": {

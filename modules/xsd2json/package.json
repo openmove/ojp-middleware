@@ -1,6 +1,6 @@
 {
   "name": "xsd2json",
-  "version": "1.5.2",
+  "version": "1.6.0",
   "description": "traductor of XSD schema definitions into JSONschema or JSON for nodejs",
   "main": "index.js",
   "scripts": {
