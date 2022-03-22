@@ -70,6 +70,8 @@ services:
       - "9096:9096"
     environment:
       - API_HOST=localhost
+      - NODE_ENV=devdocker
+      #only for local docke-compose
     depends_on:
       - api-ojp
 
