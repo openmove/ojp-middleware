@@ -26,9 +26,9 @@ dev:
 geoPositionSearchRadius: 10
 
 import:
-  version: '0.16'
-  #version: ${CSV_VERSION}
-  csvFile: 5T.csvd
+  version: ${CSV_VERSION}
+  csvFile: 5T.csv
+  csvUrl: ${CSV_URL}
   columnLatitude: lat
   columnLongitude: long
   headerIndex: NeTExId
@@ -46,6 +46,8 @@ import:
     - epPrio
     - CheckIn
     - Checkout
+    - MainOperator
+    - Country
     # - VAORemarks
     # - (ARIA only) Name as found in time tables
     # - (ARIA only) ARIA Name
@@ -72,7 +74,5 @@ import:
     # - VAO Id (HAFAS ID)
     # - VAO Relevant?
     # - (EU Spirit only) Additional EPs
-    - MainOperator
-    - Country
     # - Remark
     # - TODO

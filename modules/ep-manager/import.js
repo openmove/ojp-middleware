@@ -28,7 +28,11 @@ const importCsv = (ver, basedir) => {
     const version = ver || lastVersion;
     const basepath = basedir || __dirname+'/csvs/'+version+'/';
 
-    logger.info(`import csv: ${version}, ${basepath}`)
+    if ( config.import.csvUrl) {
+      logger.info(`import csv url: ${version}, ${basepath}`);
+    }
+
+    logger.info(`import csv file: ${version}, ${basepath}`)
     
     let files = [];
 
@@ -52,7 +56,7 @@ const importCsv = (ver, basedir) => {
         }
         else {
           csvFile = files[i];  //if csvFile not specified use the first .csv file
-          break;    
+          break;
         }
       }
     }

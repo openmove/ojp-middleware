@@ -43,7 +43,8 @@ services:
       - "9093:9093"
     environment:
       - CSV_AUTOIMPORT=false
-      - CSV_VERSION='0.16'
+      - CSV_VERSION=0.16
+      #- CSV_URL=https://remote.resource.com/exchangepoints.csv
     # volumes:
     #   - ./csvs:/home/csvs
     depends_on:
