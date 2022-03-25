@@ -15,6 +15,10 @@ https://github.com/NeTEx-CEN/NeTEx/blob/master/xsd/ifopt.xsd
 ```bash
 CSV_VERSION=10 node import.js
 ```
+or
+```bash
+CSV_URL=https://remote.resource.com/exchangepoints.csv node import.js
+```
 
 ### environment
 

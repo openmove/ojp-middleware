@@ -122,10 +122,9 @@ const importCsvFile = (ver, basedir) => {
     });
 };
 
-const importCsvUrl = (ver, csvUrl) => {
+const importCsvUrl = (csvUrl) => {
 
-    if (csvUrl) {
-      logger.info(`import csv url: ${version}, ${basepath}`);
+    logger.info(`import csv url: ${csvUrl}`);
 
     csvtojson({
       noheader: false,
@@ -133,7 +132,7 @@ const importCsvUrl = (ver, csvUrl) => {
       delimiter: ',',
       headers: config.import.headers
     })
-    .fromStream(request.get(url))
+    .fromStream(request.get(csvUrl))
     .then(objs => {
 
       MongoClient.connect(config.db.uri, {
@@ -177,11 +176,17 @@ const importCsvUrl = (ver, csvUrl) => {
 
 if (require.main === module) {
 
-  importCsv(process.env['CSV_VERSION']);
+  if (process.env['CSV_URL']) {
+    importCsvUrl(process.env['CSV_URL']);
+  }
+  else {
+    importCsvFile(process.env['CSV_VERSION']);
+  }
 
 }
 else {
   module.exports = {
-    importCsv
+    importCsvFile,
+    importCsvUrl
   };
 }
