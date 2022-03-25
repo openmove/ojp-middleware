@@ -8,6 +8,8 @@ const csvtojson = require('csvtojson');
 const {MongoClient} = require("mongodb");
 const pino = require('pino');
 
+const request = require('request');
+
 const dotenv = require('dotenv').config()
     , config = require('@stefcud/configyml')
     , logger = pino({
@@ -19,18 +21,15 @@ const dotenv = require('dotenv').config()
         messageFormat: `{msg}`
       },
     });
+
 config.logger = logger;
 
 const lastVersion = config.import.version
 
-const importCsv = (ver, basedir) => {  
+const importCsvFile = (ver, basedir) => {
 
     const version = ver || lastVersion;
     const basepath = basedir || __dirname+'/csvs/'+version+'/';
-
-    if ( config.import.csvUrl) {
-      logger.info(`import csv url: ${version}, ${basepath}`);
-    }
 
     logger.info(`import csv file: ${version}, ${basepath}`)
     
@@ -118,6 +117,59 @@ const importCsv = (ver, basedir) => {
           client.close();
         });
         
+      });
+
+    });
+};
+
+const importCsvUrl = (ver, csvUrl) => {
+
+    if (csvUrl) {
+      logger.info(`import csv url: ${version}, ${basepath}`);
+
+    csvtojson({
+      noheader: false,
+      checkType: true,
+      delimiter: ',',
+      headers: config.import.headers
+    })
+    .fromStream(request.get(url))
+    .then(objs => {
+
+      MongoClient.connect(config.db.uri, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+      }, (err, client) => {
+
+        const db = client.db(config.db.name)
+            , col = db.collection(config.db.collection)
+            , indexOpts = {};
+        indexOpts[config.import.headerIndex]= 1;
+
+        col.createIndex(indexOpts, {
+          unique: true,
+          sparse: true,
+        });
+        col.createIndex({'location': '2dsphere'});
+
+        const objsIns = objs.map(obj => {
+
+          const lon = Number(obj[config.import.columnLongitude])
+              , lat = Number(obj[config.import.columnLatitude]);
+
+          obj['location'] = {
+            'type': 'Point',
+            'coordinates': [lon, lat]
+          };
+
+          return obj
+        });
+
+        col.insertMany(objsIns, (insertErr, res) => {
+          if(insertErr) logger.warn(insertErr.message);
+          client.close();
+        });
+
       });
 
     });
