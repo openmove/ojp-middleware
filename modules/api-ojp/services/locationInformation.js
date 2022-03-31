@@ -9,14 +9,18 @@ const {createErrorResponse} = require('../lib/response');
 
 const serviceName = 'OJPLocationInformation';
 
-const createResponse = (stops, startTime, ptModes) => {
+const createResponse = (stops, startTime, ptModes, continueAt) => {
 
   const now = new Date()
     , tag = xmlbuilder.create(`ojp:${serviceName}Delivery`);
   tag.ele('siri:ResponseTimestamp', now.toISOString());
+  tag.ele('siri:Status', stops.length === 0 ? false : true);
+
   tag.ele('ojp:CalcTime', now.getTime() - startTime);
 
-  tag.ele('siri:Status', stops.length === 0 ? false : true);
+  if ( continueAt ) {
+    tag.ele('ojp:ContinueAt', continueAt);
+  }
 
   for(const stop of stops){
     const loc = tag.ele('ojp:Location')
@@ -116,7 +120,7 @@ module.exports = {
 
         //const stops = _.slice(response.stops, skip, limit);
 
-        return createResponse(response.stops, startTime, ptModes);
+        return createResponse(response.stops, startTime, ptModes, skip);
       }
       else if(queryNodes(doc, [serviceTag, 'ojp:InitialInput']).length > 0) {
 
@@ -176,7 +180,7 @@ module.exports = {
         //const stops = _.slice(response.stops, skip, limit);
 
         //logger.info(response)
-        return createResponse(response.stops, startTime, ptModes);
+        return createResponse(response.stops, startTime, ptModes, skip);
       }
       else {
         return createErrorResponse(serviceName, config.errors.notagcondition, startTime);
