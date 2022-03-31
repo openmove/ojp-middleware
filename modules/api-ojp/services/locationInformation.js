@@ -9,7 +9,7 @@ const {createErrorResponse} = require('../lib/response');
 
 const serviceName = 'OJPLocationInformation';
 
-const createResponse = (stops, startTime, ptModes, continueAt) => {
+const createResponse = (stops, startTime, ptModes, continueAt = null) => {
 
   const now = new Date()
     , tag = xmlbuilder.create(`ojp:${serviceName}Delivery`);
@@ -18,7 +18,7 @@ const createResponse = (stops, startTime, ptModes, continueAt) => {
 
   tag.ele('ojp:CalcTime', now.getTime() - startTime);
 
-  if ( continueAt ) {
+  if ( continueAt !== null ) {
     tag.ele('ojp:ContinueAt', continueAt);
   }
 

@@ -9,14 +9,18 @@ const {createErrorResponse} = require('../lib/response');
 
 const serviceName = 'OJPExchangePoints';
 
-const createResponse = (stops, startTime, ptModes) => {
+const createResponse = (stops, startTime, ptModes, continueAt) => {
 
   const now = new Date()
     , tag = xmlbuilder.create(`ojp:${serviceName}Delivery`);
   tag.ele('siri:ResponseTimestamp', now.toISOString());
+  tag.ele('siri:Status', stops.length === 0 ? false : true);
+
   tag.ele('ojp:CalcTime', now.getTime() - startTime);
 
-  tag.ele('siri:Status', stops.length === 0 ? false : true);
+  if ( continueAt !== null ) {
+    tag.ele('ojp:ContinueAt', continueAt);
+  }
 
   for(const stop of stops) {
     const loc = tag.ele('ojp:Location')
@@ -144,7 +148,7 @@ module.exports = {
       
       const response = await doRequest(options);
 
-      return createResponse(response, startTime, ptModes);
+      return createResponse(response, startTime, ptModes, skip);
       
     }
     catch(err){
