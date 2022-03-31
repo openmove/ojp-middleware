@@ -11,13 +11,19 @@ const {createErrorResponse} = require('../lib/response');
 
 const serviceName = 'OJPStopEvent';
 
-const createResponse = (stop, startTime, isDeparture, isArrival, realtimeData) => {
+const createResponse = (stop, startTime, isDeparture, isArrival, realtimeData, continueAt) => {
 
   const now = new Date()
     , tag = xmlbuilder.create(`ojp:${serviceName}Delivery`);
   tag.ele('siri:ResponseTimestamp', now.toISOString());
+  tag.ele('siri:Status', stops.length === 0 ? false : true);
+
   tag.ele('ojp:CalcTime', now.getTime() - startTime);
-  
+
+  if ( continueAt !== null ) {
+    tag.ele('ojp:ContinueAt', continueAt);
+  }
+
   if(stop === null || stop.stoptimesWithoutPatterns.length === 0){
     tag.ele('siri:Status', false);
     const err = tag.ele('siri:ErrorCondition');
@@ -134,7 +140,7 @@ module.exports = {
           isArrival = true;
         }
         showRealtime = realtime === 'true';
-        return createResponse(response.stop, startTime, isDeparture, isArrival, showRealtime);
+        return createResponse(response.stop, startTime, isDeparture, isArrival, showRealtime, skip);
       }
       else{
         return createErrorResponse(serviceName, config.errors.notagcondition, startTime);
