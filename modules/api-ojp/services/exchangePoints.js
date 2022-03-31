@@ -9,7 +9,7 @@ const {createErrorResponse} = require('../lib/response');
 
 const serviceName = 'OJPExchangePoints';
 
-const createResponse = (stops, startTime, ptModes, continueAt) => {
+const createResponse = (stops, startTime, ptModes, continueAt = null) => {
 
   const now = new Date()
     , tag = xmlbuilder.create(`ojp:${serviceName}Delivery`);

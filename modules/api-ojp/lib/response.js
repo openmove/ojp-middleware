@@ -8,12 +8,13 @@ module.exports = {
   'createResponse': (stops, startTime, ptModes) => {
       //TODO
   },
-  'createErrorResponse': (serviceName, errorDesc = 'GENERIC_ERROR', startTime, continueAt) => {
+  'createErrorResponse': (serviceName, errorDesc = 'GENERIC_ERROR', startTime, continueAt = null ) => {
 
     const now = new Date()
         , tag = xmlbuilder.create(`ojp:${serviceName}Delivery`);
     tag.ele('siri:ResponseTimestamp', now.toISOString());
     tag.ele('siri:Status', false);
+
     tag.ele('ojp:CalcTime', now.getTime() - startTime);
 
     if ( continueAt !== null ) {
