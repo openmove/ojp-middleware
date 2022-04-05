@@ -79,7 +79,7 @@ module.exports = {
 
         const stopId = queryTags(doc, [serviceTag,'ojp:PlaceRef','ojp:StopPlaceRef']);
 
-        const pointId = queryTags(doc, [serviceTag,'ojp:PlaceRef','ojp:StopPointRef']);
+        const pointId = queryTags(doc, [serviceTag,'ojp:PlaceRef','StopPointRef']);
 
         const LocationName = queryTags(doc, [serviceTag,'ojp:PlaceRef','ojp:LocationName','ojp:Text']);
 

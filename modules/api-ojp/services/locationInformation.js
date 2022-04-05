@@ -66,7 +66,7 @@ module.exports = {
         let stopId = queryTags(doc, [serviceTag, 'ojp:PlaceRef', 'ojp:StopPlaceRef']);
 
         if(stopId == null){
-          stopId = queryTags(doc, [serviceTag, 'ojp:PlaceRef', 'ojp:StopPointRef']);
+          stopId = queryTags(doc, [serviceTag, 'ojp:PlaceRef', 'StopPointRef']);
         }
 
         const stopName = queryTags(doc, [serviceTag, 'ojp:PlaceRef', 'ojp:LocationName', 'ojp:Text']);

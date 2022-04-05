@@ -66,7 +66,7 @@ const getAll = async (req, getres) => {
     .collection(config.db.collection)
     .find({})
     .skip( Number(req.query.skip) || 0 )
-    .limit( Number(req.query.limit) || 0 )
+    .limit( Number(req.query.limit) || 10000 )
     .toArray(function(err, queryres) {
       if (err) {
         getres.send(err);
@@ -138,7 +138,7 @@ const getByName = async (req, getres) => {
     .collection(config.db.collection)
     .find(where)
     .skip( Number(req.query.skip) || 0 )
-    .limit( Number(req.query.limit) || 0 )
+    .limit( Number(req.query.limit) || 10000 )
     .toArray(function(err, queryres) {
       console.log(queryres)
       if (err) {
