@@ -126,7 +126,7 @@ module.exports = {
 		let ptModes = ''
 			, limit = Number( Number(limitRestrictions) || Number(limitParams) || undefined )
 		  , skip = Number( Number(skipRestrictions) || Number(skipParams) || undefined )
-			, type = null	;
+			, type = 'stop'	;
 
 		if (_.isNaN(limit)) {
 			limit = Number(config.default_restrictions.limit);
