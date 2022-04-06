@@ -37,7 +37,7 @@ const createResponse = (stops, startTime, ptModes, continueAt = null) => {
     loc.ele('ojp:Probability', (1 / stops.length).toFixed(2)); //TODO: other criteria?
     if(ptModes === true){
       const mode = loc.ele('ojp:Mode');
-      mode.ele('ojp:PtMode', stop.vehicleMode.toLowerCase());
+      mode.ele('ojp:PtMode', stop.vehicleMode != null ? stop.vehicleMode.toLowerCase() : 'unknown');
     }
   }
 
@@ -59,7 +59,13 @@ module.exports = {
 
     try {
 
-      const { limit, skip, ptModes } = parseParamsRestrictions(doc, serviceTag, config);
+      const { limit, skip, ptModes, type } = parseParamsRestrictions(doc, serviceTag, config);
+
+      if(type != 'stop'){
+        //XXX: we supports only stops
+        return createErrorResponse(serviceName, config.errors.noresults.locations, startTime);
+      }
+
 
       if(queryNodes(doc, [serviceTag,'ojp:PlaceRef']).length > 0) {
 

@@ -117,9 +117,16 @@ module.exports = {
 			'ojp:ContinueAt'
 		]);
 
+		const typeRestrictions = queryTags(doc, [
+			serviceTag,
+			'ojp:Restrictions',
+			'ojp:Type'
+		]);
+
 		let ptModes = ''
 			, limit = Number( Number(limitRestrictions) || Number(limitParams) || undefined )
-		  	, skip = Number( Number(skipRestrictions) || Number(skipParams) || undefined );
+		  , skip = Number( Number(skipRestrictions) || Number(skipParams) || undefined )
+			, type = null	;
 
 		if (_.isNaN(limit)) {
 			limit = Number(config.default_restrictions.limit);
@@ -127,6 +134,10 @@ module.exports = {
 
 		if (_.isNaN(skip)) {
 			skip = Number(config.default_restrictions.skip);
+		}
+
+		if (_.isString(typeRestrictions)) {
+			type = typeRestrictions;
 		}
 
 		if (_.isString(ptModesRestrictions)) {
@@ -154,7 +165,8 @@ module.exports = {
 			limitRestrictions,
 			limitParams,
 			skipRestrictions,
-			skipParams
+			skipParams,
+			type
 		};
 	}
 
