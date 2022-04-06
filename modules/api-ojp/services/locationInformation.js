@@ -9,14 +9,18 @@ const {createErrorResponse} = require('../lib/response');
 
 const serviceName = 'OJPLocationInformation';
 
-const createResponse = (stops, startTime, ptModes) => {
+const createResponse = (stops, startTime, ptModes, continueAt = null) => {
 
   const now = new Date()
     , tag = xmlbuilder.create(`ojp:${serviceName}Delivery`);
   tag.ele('siri:ResponseTimestamp', now.toISOString());
+  tag.ele('siri:Status', stops.length === 0 ? false : true);
+
   tag.ele('ojp:CalcTime', now.getTime() - startTime);
 
-  tag.ele('siri:Status', stops.length === 0 ? false : true);
+  if ( continueAt !== null ) {
+    tag.ele('ojp:ContinueAt', continueAt);
+  }
 
   for(const stop of stops){
     const loc = tag.ele('ojp:Location')
@@ -33,7 +37,7 @@ const createResponse = (stops, startTime, ptModes) => {
     loc.ele('ojp:Probability', (1 / stops.length).toFixed(2)); //TODO: other criteria?
     if(ptModes === true){
       const mode = loc.ele('ojp:Mode');
-      mode.ele('ojp:PtMode', stop.vehicleMode.toLowerCase());
+      mode.ele('ojp:PtMode', stop.vehicleMode != null ? stop.vehicleMode.toLowerCase() : 'unknown');
     }
   }
 
@@ -55,14 +59,20 @@ module.exports = {
 
     try {
 
-      const { limit, skip, ptModes } = parseParamsRestrictions(doc, serviceTag, config);
+      const { limit, skip, ptModes, type } = parseParamsRestrictions(doc, serviceTag, config);
+
+      if(type != 'stop'){
+        //XXX: we supports only stops
+        return createErrorResponse(serviceName, config.errors.noresults.locations, startTime);
+      }
+
 
       if(queryNodes(doc, [serviceTag,'ojp:PlaceRef']).length > 0) {
 
         let stopId = queryTags(doc, [serviceTag, 'ojp:PlaceRef', 'ojp:StopPlaceRef']);
 
         if(stopId == null){
-          stopId = queryTags(doc, [serviceTag, 'ojp:PlaceRef', 'ojp:StopPointRef']);
+          stopId = queryTags(doc, [serviceTag, 'ojp:PlaceRef', 'StopPointRef']);
         }
 
         const stopName = queryTags(doc, [serviceTag, 'ojp:PlaceRef', 'ojp:LocationName', 'ojp:Text']);
@@ -116,7 +126,7 @@ module.exports = {
 
         //const stops = _.slice(response.stops, skip, limit);
 
-        return createResponse(response.stops, startTime, ptModes);
+        return createResponse(response.stops, startTime, ptModes, skip);
       }
       else if(queryNodes(doc, [serviceTag, 'ojp:InitialInput']).length > 0) {
 
@@ -176,7 +186,7 @@ module.exports = {
         //const stops = _.slice(response.stops, skip, limit);
 
         //logger.info(response)
-        return createResponse(response.stops, startTime, ptModes);
+        return createResponse(response.stops, startTime, ptModes, skip);
       }
       else {
         return createErrorResponse(serviceName, config.errors.notagcondition, startTime);

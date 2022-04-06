@@ -9,3 +9,4 @@
 "it:itc:StopPlace:ITRP-ST0050059001:",,"ITRP-ST0050059001","Asti","5T","ARIA,5T",,"8.207666","44.89486399","~Train~",,5,5,,"IT"
 "it:itc:StopPlace:ITRP-ST0060039003:",,"ITRP-ST0060039003","ALESSANDRIA","5T","ARIA,5T",,"8.607510","44.908659999","~Train~",,5,5,,"IT"
 "it:itc:StopPlace:ITRP-ST1030289001:","ch:1:sloid:1607","ITRP-ST1030289001","Domodossola","5T","ARIA,DE,SBB,5T",,"8.296400","46.11542","~Train~","0,2",5,5,,"IT"
+"it:itc:StopPlace:ITRP-ST0070039001:",,"ITRP-ST0070039001","AOSTA F.S.","5T","5T,SBB",,"7.325321","45.734711","~Train~",,5,5,,"IT"

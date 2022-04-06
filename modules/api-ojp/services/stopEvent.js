@@ -11,13 +11,18 @@ const {createErrorResponse} = require('../lib/response');
 
 const serviceName = 'OJPStopEvent';
 
-const createResponse = (stop, startTime, isDeparture, isArrival, realtimeData) => {
+const createResponse = (stop, startTime, isDeparture, isArrival, realtimeData, continueAt = null) => {
 
   const now = new Date()
     , tag = xmlbuilder.create(`ojp:${serviceName}Delivery`);
   tag.ele('siri:ResponseTimestamp', now.toISOString());
+
   tag.ele('ojp:CalcTime', now.getTime() - startTime);
-  
+
+  if ( continueAt !== null ) {
+    tag.ele('ojp:ContinueAt', continueAt);
+  }
+
   if(stop === null || stop.stoptimesWithoutPatterns.length === 0){
     tag.ele('siri:Status', false);
     const err = tag.ele('siri:ErrorCondition');
@@ -94,7 +99,7 @@ module.exports = {
         let stopId = queryTags(doc, [serviceTag, 'ojp:Location', 'ojp:PlaceRef', 'ojp:StopPlaceRef']);
 
         if(stopId == null){
-          stopId = queryTags(doc, [serviceTag, 'ojp:Location', 'ojp:PlaceRef', 'ojp:StopPointRef']);
+          stopId = queryTags(doc, [serviceTag, 'ojp:Location', 'ojp:PlaceRef', 'StopPointRef']);
         }
 
         const date = queryTags(doc, [serviceTag, 'ojp:Location', 'ojp:DepArrTime']);
@@ -134,7 +139,7 @@ module.exports = {
           isArrival = true;
         }
         showRealtime = realtime === 'true';
-        return createResponse(response.stop, startTime, isDeparture, isArrival, showRealtime);
+        return createResponse(response.stop, startTime, isDeparture, isArrival, showRealtime, skip);
       }
       else{
         return createErrorResponse(serviceName, config.errors.notagcondition, startTime);
