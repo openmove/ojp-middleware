@@ -71,8 +71,8 @@ const createResponse = (stop, startTime, isDeparture, isArrival, realtimeData, p
         for(const sequenceStop of schedule.trip.stoptimes){
           if(previousStop && (sequenceStop.stopSequence < schedule.stopSequence)){
 
-            if(stopsIds.indexOf(stop.gtfsId) === -1){
-              stopsIds.push(stop.gtfsId);
+            if(stopsIds.indexOf(sequenceStop.stop.gtfsId) === -1){
+              stopsIds.push(sequenceStop.stop.gtfsId);
               const previousPlace = loc.ele('ojp:Location');
               const stopPlace = previousPlace.ele('ojp:StopPlace');
               stopPlace.ele('ojp:StopPlaceRef', sequenceStop.stop.gtfsId);
@@ -108,10 +108,10 @@ const createResponse = (stop, startTime, isDeparture, isArrival, realtimeData, p
           }
     
           if(nextStop && (sequenceStop.stopSequence > schedule.stopSequence)){
-            if(stopsIds.indexOf(stop.gtfsId) === -1){
-              stopsIds.push(stop.gtfsId);
+            if(stopsIds.indexOf(sequenceStop.stop.gtfsId) === -1){
+              stopsIds.push(sequenceStop.stop.gtfsId);
               const onWardPlace = loc.ele('ojp:Location');
-              const stopPlace = previousPlace.ele('ojp:StopPlace');
+              const stopPlace = onWardPlace.ele('ojp:StopPlace');
               stopPlace.ele('ojp:StopPlaceRef', sequenceStop.stop.gtfsId);
               stopPlace.ele('ojp:StopPlaceName').ele('ojp:Text', `${sequenceStop.stop.name}`);
               stopPlace.ele('ojp:TopographicPlaceRef', sequenceStop.stop.zoneId);
@@ -140,7 +140,7 @@ const createResponse = (stop, startTime, isDeparture, isArrival, realtimeData, p
               }
             }
       
-            previousCall.ele('ojp:Order', sequenceStop.stopSequence)
+            onWardCall.ele('ojp:Order', sequenceStop.stopSequence)
           }
         }
         
