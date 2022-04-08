@@ -43,6 +43,22 @@ module.exports = {
                           name
                           desc
                         }
+                      }
+                      stoptimes {
+                        stopSequence
+                        scheduledDeparture
+                        scheduledArrival
+                        realtimeArrival
+                        realtimeDeparture
+                        stop {
+                          gtfsId
+                          name
+                          lat
+                          lon
+                          zoneId
+                          desc
+                          code
+                        }
                       }      
                       route {
                         gtfsId

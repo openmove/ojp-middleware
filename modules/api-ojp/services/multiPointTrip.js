@@ -120,7 +120,7 @@ const createResponse = (results, startTime, config) => {
 							intermediate.ele('ojp:StopPointName').ele('ojp:Text', `${intermediatePoint.name}`);
 							if(intermediatePoint.stop){
 								stops.push(intermediatePoint.stop);
-								intermediate.ele('siri:StopPointRef', leg.from.stop.gtfsId);
+								intermediate.ele('siri:StopPointRef', intermediatePoint.stop.gtfsId);
 							}
 							const serviceIntermediateDep = intermediate.ele('ojp:ServiceDeparture');
 							serviceIntermediateDep.ele('ojp:TimetabledTime', moment(intermediatePoint.departureTime).toISOString())

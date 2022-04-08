@@ -11,17 +11,13 @@ const {createErrorResponse} = require('../lib/response');
 
 const serviceName = 'OJPStopEvent';
 
-const createResponse = (stop, startTime, isDeparture, isArrival, realtimeData, continueAt = null) => {
+const createResponse = (stop, startTime, isDeparture, isArrival, realtimeData, previousStop = false, nextStop = false ) => {
 
   const now = new Date()
     , tag = xmlbuilder.create(`ojp:${serviceName}Delivery`);
   tag.ele('siri:ResponseTimestamp', now.toISOString());
 
   tag.ele('ojp:CalcTime', now.getTime() - startTime);
-
-  if ( continueAt !== null ) {
-    tag.ele('ojp:ContinueAt', continueAt);
-  }
 
   if(stop === null || stop.stoptimesWithoutPatterns.length === 0){
     tag.ele('siri:Status', false);
@@ -41,6 +37,8 @@ const createResponse = (stop, startTime, isDeparture, isArrival, realtimeData, c
     const geo = place.ele('ojp:GeoPosition');
     geo.ele('siri:Longitude', stop.lon);
     geo.ele('siri:Latitude', stop.lat);
+    const stopsIds = [];
+    stopsIds.push(stop.gtfsId);
     for(const schedule of stop.stoptimesWithoutPatterns){
       const eventresponse = tag.ele('ojp:StopEventResult');
       eventresponse.ele('ojp:ResultId', uuidv4())
@@ -63,7 +61,93 @@ const createResponse = (stop, startTime, isDeparture, isArrival, realtimeData, c
           arr.ele('ojp:EstimatedTime', moment((schedule.serviceDay + schedule.realtimeArrival) * 1000).tz(schedule.trip.route.agency.timezone).toISOString());
         }
       }
-      call.ele('ojp:Order', schedule.stopSequence)        
+
+      
+      
+
+      call.ele('ojp:Order', schedule.stopSequence)
+      
+      if(previousStop || nextStop){
+        for(const sequenceStop of schedule.trip.stoptimes){
+          if(previousStop && (sequenceStop.stopSequence < schedule.stopSequence)){
+
+            if(stopsIds.indexOf(stop.gtfsId) === -1){
+              stopsIds.push(stop.gtfsId);
+              const previousPlace = loc.ele('ojp:Location');
+              const stopPlace = previousPlace.ele('ojp:StopPlace');
+              stopPlace.ele('ojp:StopPlaceRef', sequenceStop.stop.gtfsId);
+              stopPlace.ele('ojp:StopPlaceName').ele('ojp:Text', `${sequenceStop.stop.name}`);
+              stopPlace.ele('ojp:TopographicPlaceRef', sequenceStop.stop.zoneId);
+              previousPlace.ele('ojp:LocationName').ele('ojp:Text', `${sequenceStop.stop.name}`);
+              const geo = previousPlace.ele('ojp:GeoPosition');
+              geo.ele('siri:Longitude', sequenceStop.stop.lon);
+              geo.ele('siri:Latitude', sequenceStop.stop.lat);
+            }
+            
+
+            const previousCall = stopevent.ele('ojp:PreviousCall').ele('ojp:CallAtStop');
+            previousCall.ele('siri:StopPointRef', sequenceStop.stop.gtfsId);
+            previousCall.ele('ojp:StopPointName').ele('ojp:Text', `${sequenceStop.stop.name}`);
+            if(isDeparture){
+              const dep = previousCall.ele('ojp:ServiceDeparture');
+              dep.ele('ojp:TimetabledTime', moment((schedule.serviceDay + sequenceStop.scheduledDeparture) * 1000).tz(schedule.trip.route.agency.timezone).toISOString());
+              if(realtimeData){
+                dep.ele('ojp:EstimatedTime', moment((schedule.serviceDay + sequenceStop.realtimeDeparture) * 1000).tz(schedule.trip.route.agency.timezone).toISOString());
+              }
+            }
+            
+            if(isArrival){
+              const arr = previousCall.ele('ojp:ServiceArrival');
+              arr.ele('ojp:TimetabledTime', moment((schedule.serviceDay + sequenceStop.scheduledArrival) * 1000).tz(schedule.trip.route.agency.timezone).toISOString());
+              if(realtimeData){
+                arr.ele('ojp:EstimatedTime', moment((schedule.serviceDay + sequenceStop.realtimeArrival) * 1000).tz(schedule.trip.route.agency.timezone).toISOString());
+              }
+            }
+      
+            previousCall.ele('ojp:Order', sequenceStop.stopSequence)
+          }
+    
+          if(nextStop && (sequenceStop.stopSequence > schedule.stopSequence)){
+            if(stopsIds.indexOf(stop.gtfsId) === -1){
+              stopsIds.push(stop.gtfsId);
+              const onWardPlace = loc.ele('ojp:Location');
+              const stopPlace = previousPlace.ele('ojp:StopPlace');
+              stopPlace.ele('ojp:StopPlaceRef', sequenceStop.stop.gtfsId);
+              stopPlace.ele('ojp:StopPlaceName').ele('ojp:Text', `${sequenceStop.stop.name}`);
+              stopPlace.ele('ojp:TopographicPlaceRef', sequenceStop.stop.zoneId);
+              onWardPlace.ele('ojp:LocationName').ele('ojp:Text', `${sequenceStop.stop.name}`);
+              const geo = onWardPlace.ele('ojp:GeoPosition');
+              geo.ele('siri:Longitude', sequenceStop.stop.lon);
+              geo.ele('siri:Latitude', sequenceStop.stop.lat);
+            }
+
+            const onWardCall = stopevent.ele('ojp:OnwardCall').ele('ojp:CallAtStop');
+            onWardCall.ele('siri:StopPointRef', sequenceStop.stop.gtfsId);
+            onWardCall.ele('ojp:StopPointName').ele('ojp:Text', `${sequenceStop.stop.name}`);
+            if(isDeparture){
+              const dep = onWardCall.ele('ojp:ServiceDeparture');
+              dep.ele('ojp:TimetabledTime', moment((schedule.serviceDay + sequenceStop.scheduledDeparture) * 1000).tz(schedule.trip.route.agency.timezone).toISOString());
+              if(realtimeData){
+                dep.ele('ojp:EstimatedTime', moment((schedule.serviceDay + sequenceStop.realtimeDeparture) * 1000).tz(schedule.trip.route.agency.timezone).toISOString());
+              }
+            }
+            
+            if(isArrival){
+              const arr = onWardCall.ele('ojp:ServiceArrival');
+              arr.ele('ojp:TimetabledTime', moment((schedule.serviceDay + sequenceStop.scheduledArrival) * 1000).tz(schedule.trip.route.agency.timezone).toISOString());
+              if(realtimeData){
+                arr.ele('ojp:EstimatedTime', moment((schedule.serviceDay + sequenceStop.realtimeArrival) * 1000).tz(schedule.trip.route.agency.timezone).toISOString());
+              }
+            }
+      
+            previousCall.ele('ojp:Order', sequenceStop.stopSequence)
+          }
+        }
+        
+      }
+
+
+
       const service = stopevent.ele('ojp:Service');
       service.ele('ojp:OperatingDayRef', moment(schedule.serviceDay * 1000).tz(schedule.trip.route.agency.timezone).format("YYYY-MM-DD"));
       service.ele('ojp:JourneyRef', schedule.trip.gtfsId);
@@ -94,6 +178,9 @@ module.exports = {
 
       const { limit, skip, ptModes } = parseParamsRestrictions(doc, serviceTag, config);
 
+      
+  
+
       if(queryNodes(doc, [serviceTag, 'ojp:Location', 'ojp:PlaceRef']).length > 0) {
 
         let stopId = queryTags(doc, [serviceTag, 'ojp:Location', 'ojp:PlaceRef', 'ojp:StopPlaceRef']);
@@ -122,9 +209,24 @@ module.exports = {
 
         const response = await doRequest(options);
 
+
+        const includePreviousStopsString = queryTags(doc, [
+          serviceTag,
+          'ojp:Params',
+          'ojp:IncludePreviousCalls'
+        ]);
+    
+        const includeNextStopsString = queryTags(doc, [
+          serviceTag,
+          'ojp:Params',
+          'ojp:IncludeOnwardCalls'
+        ]);
+
         let isDeparture = true;
         let isArrival = false;
         let showRealtime = false;
+        let includePreviousStops = includePreviousStopsString === 'true';
+        let includeNextStops = includeNextStopsString === 'true'
 
         const eventType = queryTags(doc, [serviceTag, 'ojp:Params', 'ojp:StopEventType']);
         const realtime = queryTags(doc, [serviceTag, 'ojp:Params', 'ojp:IncludeRealtimeData']);
@@ -139,7 +241,7 @@ module.exports = {
           isArrival = true;
         }
         showRealtime = realtime === 'true';
-        return createResponse(response.stop, startTime, isDeparture, isArrival, showRealtime, skip);
+        return createResponse(response.stop, startTime, isDeparture, isArrival, showRealtime, includePreviousStops, includeNextStops);
       }
       else{
         return createErrorResponse(serviceName, config.errors.notagcondition, startTime);

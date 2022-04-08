@@ -9,7 +9,7 @@ const {createErrorResponse} = require('../lib/response');
 
 const serviceName = 'OJPExchangePoints';
 
-const createResponse = (stops, startTime, ptModes, continueAt = null) => {
+const createResponse = (stops, startTime, ptModes, skip = 0, limit = null) => {
 
   const now = new Date()
     , tag = xmlbuilder.create(`ojp:${serviceName}Delivery`);
@@ -18,8 +18,8 @@ const createResponse = (stops, startTime, ptModes, continueAt = null) => {
 
   tag.ele('ojp:CalcTime', now.getTime() - startTime);
 
-  if ( continueAt !== null ) {
-    tag.ele('ojp:ContinueAt', continueAt);
+  if ( limit !== null && limit === stops.length) {
+    tag.ele('ojp:ContinueAt', skip + limit);
   }
 
   for(const stop of stops) {
@@ -148,7 +148,7 @@ module.exports = {
       
       const response = await doRequest(options);
 
-      return createResponse(response, startTime, ptModes, skip);
+      return createResponse(response, startTime, ptModes, skip, limit);
       
     }
     catch(err){
