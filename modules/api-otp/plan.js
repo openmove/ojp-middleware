@@ -181,7 +181,11 @@ module.exports = {
     if(process.env['QUERY_DEBUG']) {
       console.log(query);
     }
-
-    return await clientQL.request(query, {});
+    try{
+      return await clientQL.request(query, {});
+    }catch(err){
+      config.logger.error(err);
+      return {};
+    }    
   }
 }
