@@ -23,8 +23,8 @@ const createResponse = (stops, startTime, ptModes, skip = 0, limit = null) => {
   }
 
   for(const stop of stops) {
-    const loc = tag.ele('ojp:Location')
-    const place = loc.ele('ojp:Location');
+    const loc = tag.ele('ojp:Place')
+    const place = loc.ele('ojp:Place');
     const stopPlace = place.ele('ojp:StopPlace');
     stopPlace.ele('ojp:StopPlaceRef', stop['MetaID']);
     stopPlace.ele('ojp:StopPlaceName').ele('ojp:Text', `${stop.Name}`);
