@@ -201,7 +201,7 @@ app.post('/ojp/', async (req, result) => {
 
   const responseTimestamp = new Date().toISOString();
   xmlServiceDelivery.ele('siri:ResponseTimestamp', responseTimestamp);
-  xmlServiceDelivery.ele('siri:ProducerRef', 'OJP OpenMove Middleware');
+  xmlServiceDelivery.ele('siri:ProducerRef', 'OJPOpenMoveMiddleware');
   xmlServiceDelivery.ele('siri:Status', true);
   //minimum response tags
 

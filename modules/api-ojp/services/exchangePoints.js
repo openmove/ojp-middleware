@@ -28,16 +28,14 @@ const createResponse = (stops, startTime, ptModes, skip = 0, limit = null) => {
     const stopPlace = place.ele('ojp:StopPlace');
     stopPlace.ele('ojp:StopPlaceRef', stop['MetaID']);
     stopPlace.ele('ojp:StopPlaceName').ele('ojp:Text', `${stop.Name}`);
-    stopPlace.ele('ojp:TopographicPlaceRef', stop.zoneId);
     const private = stopPlace.ele('ojp:PrivateCode');
     private.ele('ojp:System', 'LinkingAlps');
     private.ele('ojp:Value', stop['GlobalID'])
+    stopPlace.ele('ojp:TopographicPlaceRef', stop.zoneId);
     place.ele('ojp:LocationName').ele('ojp:Text', `${stop.Name}`);
     const geo = place.ele('ojp:GeoPosition');
     geo.ele('siri:Longitude', Number(stop['long']));
     geo.ele('siri:Latitude', Number(stop['lat']));
-    loc.ele('ojp:Complete', true);
-    loc.ele('ojp:Probability', (1 / stops.length).toFixed(2));
 
     if(ptModes) {
 
