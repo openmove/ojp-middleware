@@ -7,7 +7,7 @@ const { v4: uuidv4 } = require('uuid');
 const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {doRequest} = require('../lib/request');
 const {parseParamsRestrictions} = require('../lib/restrictions');
-const {createErrorResponse} = require('../lib/response');
+const {createErrorResponse, ptModesResponse} = require('../lib/response');
 
 const serviceName = 'OJPStopEvent';
 
@@ -152,8 +152,13 @@ const createResponse = (stop, startTime, isDeparture, isArrival, realtimeData, p
       service.ele('ojp:OperatingDayRef', moment(schedule.serviceDay * 1000).tz(schedule.trip.route.agency.timezone).format("YYYY-MM-DD"));
       service.ele('ojp:JourneyRef', schedule.trip.gtfsId);
       service.ele('siri:LineRef', schedule.trip.route.gtfsId);
+
       const mode = service.ele('ojp:Mode');
-      mode.ele('ojp:PtMode', stop.vehicleMode.toLowerCase());
+
+      const ojpMode = ptModesResponse( stop.vehicleMode );
+
+      mode.ele('ojp:PtMode', ojpMode);
+
       service.ele('siri:DirectionRef', schedule.trip.directionId);
       service.ele('ojp:PublishedLineName').ele('ojp:Text', schedule.trip.route.longName || schedule.trip.route.shortName || schedule.trip.route.gtfsId)
       service.ele('ojp:OperatorRef', schedule.trip.route.agency.gtfsId);

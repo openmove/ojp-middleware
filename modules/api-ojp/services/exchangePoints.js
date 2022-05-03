@@ -5,7 +5,7 @@ const _ = require('lodash');
 const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {doRequest} = require('../lib/request');
 const {parseParamsRestrictions, parseGeoRestriction} = require('../lib/restrictions');
-const {createErrorResponse} = require('../lib/response');
+const {createErrorResponse, ptModesResponse} = require('../lib/response');
 
 const serviceName = 'OJPExchangePoints';
 
@@ -41,12 +41,16 @@ const createResponse = (stops, startTime, ptModes, skip = 0, limit = null) => {
 
       const mode = loc.ele('ojp:Mode');
       
-      if(stop['MainMode'].toLowerCase() === '~bus~'){
+      const ojpMode = ptModesResponse( stop['MainMode'] );
+
+      mode.ele('ojp:PtMode', ojpMode);
+
+     /* if(stop['MainMode'].toLowerCase() === '~bus~'){
         mode.ele('ojp:PtMode', 'BUS');
       }
       if(stop['MainMode'].toLowerCase() === '~train~'){
         mode.ele('ojp:PtMode', 'RAIL');
-      }
+      }*/
     }
   }
 

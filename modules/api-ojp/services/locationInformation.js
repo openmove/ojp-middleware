@@ -5,7 +5,7 @@ const _ = require('lodash');
 const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {doRequest} = require('../lib/request');
 const {parseParamsRestrictions, parseGeoRestriction} = require('../lib/restrictions');
-const {createErrorResponse} = require('../lib/response');
+const {createErrorResponse, ptModesResponse} = require('../lib/response');
 
 const serviceName = 'OJPLocationInformation';
 
@@ -38,13 +38,17 @@ const createResponse = (stops, startTime, ptModes, skip = 0, limit = null) => {
     loc.ele('ojp:Probability', (1 / stops.length).toFixed(2)); //TODO: other criteria?
     if(ptModes === true){
       const mode = loc.ele('ojp:Mode');
-      mode.ele('ojp:PtMode', stop.vehicleMode != null ? stop.vehicleMode.toLowerCase() : 'unknown');
+
+      const ojpMode = ptModesResponse( stop.vehicleMode );
+
+      //mode.ele('ojp:PtMode', stop.vehicleMode != null ? stop.vehicleMode.toLowerCase() : 'unknown');
+      mode.ele('ojp:PtMode', ojpMode);
     }
   }
 
   if(stops.length === 0){
     const err = tag.ele('siri:ErrorCondition');
-    err.ele('siri:OtherError')
+    err.ele('siri:OtherError');
     err.ele('siri:Description', 'LOCATION_NO_RESULTS');
   }
 

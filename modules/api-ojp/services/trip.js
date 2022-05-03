@@ -9,7 +9,7 @@ const mongoClient = require("mongodb").MongoClient;
 const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {doRequest} = require('../lib/request');
 const {parseParamsRestrictions, parseTripRestrictions} = require('../lib/restrictions');
-const {createErrorResponse} = require('../lib/response');
+const {createErrorResponse, ptModesResponse} = require('../lib/response');
 
 const serviceName = 'OJPTrip';
 
@@ -146,8 +146,13 @@ const createResponse = (itineraries, startTime, intermediateStops, question, con
           service.ele('ojp:OperatingDayRef', moment(leg.serviceDate).tz(leg.route.agency.timezone).format("YYYY-MM-DD"));
           service.ele('ojp:JourneyRef', leg.trip.gtfsId);
           service.ele('siri:LineRef', leg.route.gtfsId);
+
           const mode = service.ele('ojp:Mode');
-          mode.ele('ojp:PtMode', leg.mode.toLowerCase());
+
+          const ojpMode = ptModesResponse( leg.mode );
+
+          mode.ele('ojp:PtMode', ojpMode);
+
           service.ele('siri:DirectionRef', leg.trip.directionId);
           service.ele('ojp:PublishedLineName').ele('ojp:Text', leg.route.longName || leg.route.shortName || leg.route.gtfsId)
           service.ele('ojp:OperatorRef', leg.route.agency.gtfsId);

@@ -11,7 +11,8 @@
         </ojp:PlaceRef>
         <ojp:Params>
           <ojp:NumberOfResults>1</ojp:NumberOfResults>
-          <ojp:ContinueAt>0</ojp:ContinueAt>   
+          <ojp:ContinueAt>0</ojp:ContinueAt>
+          <ojp:IncludePtModes>true</ojp:IncludePtModes>
         </ojp:Params>
       </ojp:OJPLocationInformationRequest>
     </ServiceRequest>

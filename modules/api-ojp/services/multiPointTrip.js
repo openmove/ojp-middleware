@@ -9,7 +9,7 @@ const mongoClient = require("mongodb").MongoClient;
 const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {doRequest, doMultiRequests} = require('../lib/request');
 const {parseParamsRestrictions, parseTripRestrictions} = require('../lib/restrictions');
-const {createErrorResponse} = require('../lib/response');
+const {createErrorResponse, ptModesResponse} = require('../lib/response');
 
 const serviceName = 'OJPMultiPointTrip';
 

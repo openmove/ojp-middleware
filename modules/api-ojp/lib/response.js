@@ -26,5 +26,25 @@ module.exports = {
     err.ele('siri:Description', `${serviceName}_${errorDesc}`);
     //TODO siri:ErrorText
     return tag;
+  },
+  'ptModesResponse': (mode, parent) => {
+
+    const m = mode.toLowerCase();
+
+    const modes = {
+      '~bus~': 'BUS',
+      '~train~': 'RAIL',
+      //exchangepoints db values
+      //
+      'bus': 'BUS',
+      'train': 'RAIL',
+      'rail': 'RAIL',
+      //
+      'ferry': 'ferryService',
+      'subway': 'underground',
+      //funicolar,tram,...
+    };
+
+    return m ? (modes[m] || m.toUpperCase()) : 'unknown';
   }
 }
