@@ -51,6 +51,6 @@ module.exports = {
 
     mode =  mode ? (modes[mode] || mode) : 'unknown';
 
-    return mode.toUpperCase();
+    return mode.toLowerCase();
   }
 }
