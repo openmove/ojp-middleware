@@ -27,24 +27,30 @@ module.exports = {
     //TODO siri:ErrorText
     return tag;
   },
-  'ptModesResponse': (mode, parent) => {
+  'ptModesResponse': (mod, parent) => {
 
-    const m = mode.toLowerCase();
+    const m = mod.toLowerCase();
 
-    const modes = {
-      '~bus~': 'BUS',
-      '~train~': 'RAIL',
+    let mode = m.replace('~','');
+      //'~bus~': 'BUS',
+      //'~train~': 'RAIL',
       //exchangepoints db values
-      //
+
+    //siri MODES https://github.com/VDVde/OJP/blob/master/siri_model/siri_modes-v1.1.xsd
+    //
+    const modes = {
+      ' ': 'unknown',
       'bus': 'BUS',
       'train': 'RAIL',
       'rail': 'RAIL',
-      //
-      'ferry': 'ferryService',
+      'gondola': 'telecabin',
+      'ferry': 'water',
       'subway': 'underground',
       //funicolar,tram,...
     };
 
-    return m ? (modes[m] || m.toUpperCase()) : 'unknown';
+    mode =  mode ? (modes[mode] || mode) : 'unknown';
+
+    return mode.toUpperCase();
   }
 }
