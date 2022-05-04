@@ -394,8 +394,6 @@ module.exports = {
 
         const multiRequests = _.slice(requests, 0, maxReqs);
 
-				console.log(maxReqs, {multiRequests})
-
 				const multiResponses = await doMultiRequests(multiRequests);
 
 				responses = multiResponses.map(resp => {

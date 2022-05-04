@@ -32,7 +32,9 @@ const createResponse = (itineraries, startTime, intermediateStops, question, con
     const context = tag.ele('ojp:TripResponseContext');
     const stops = [];
     for(const itinerary of itineraries){
+
       const tripresponse = tag.ele('ojp:TripResult');
+
       const tripId = uuidv4();
 
       try{
@@ -71,12 +73,15 @@ const createResponse = (itineraries, startTime, intermediateStops, question, con
       let tripDistance = 0;
       let tripTransfers = 0;
       let legId = 0;
-      for(const leg of itinerary.legs){
+      for(const leg of itinerary.legs) {
+
         legId += 1
         const tripLeg = trip.ele('ojp:TripLeg');
+
         tripLeg.ele('ojp:LegId', legId);
         tripDistance += leg.distance;
-        if(leg.transitLeg === false){
+
+        if(leg.transitLeg === false) {
           if(leg.mode === 'WALK'){
             const transferLeg = tripLeg.ele('ojp:TransferLeg');
             transferLeg.ele('ojp:TransferMode', 'walk');
@@ -95,7 +100,7 @@ const createResponse = (itineraries, startTime, intermediateStops, question, con
             transferLeg.ele('ojp:Duration', moment.duration(leg.duration, 's').toISOString());
             transferLeg.ele('ojp:WalkDuration', moment.duration(leg.duration, 's').toISOString())
           }
-        }else{
+        } else {
           tripTransfers += 1;
           let sequence = 1;
           const timedLeg = tripLeg.ele('ojp:TimedLeg');
@@ -109,7 +114,8 @@ const createResponse = (itineraries, startTime, intermediateStops, question, con
           serviceFrom.ele('ojp:TimetabledTime', moment(leg.startTime).toISOString())
           serviceFrom.ele('ojp:EstimatedTime', moment(leg.startTime - leg.departureDelay).toISOString())
           board.ele('ojp:Order', 1);
-          for(const intermediatePoint of leg.intermediatePlaces){
+
+          for(const intermediatePoint of leg.intermediatePlaces) {
             sequence += 1;
 
             if(intermediateStops) {
@@ -276,8 +282,6 @@ module.exports = {
           wheelchair: accessibility,
           intermediatePlaces
         }
-
-console.log('questionObj',questionObj)
 
         ////config, origin, destination, date, extra
         ///
