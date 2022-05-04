@@ -44,7 +44,7 @@ module.exports = {
       'train': 'RAIL',
       'rail': 'RAIL',
       'gondola': 'telecabin',
-      'ferry': 'water',
+      'ferry': 'ferryService',
       'subway': 'underground',
       //funicolar,tram,...
     };
