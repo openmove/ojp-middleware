@@ -107,6 +107,8 @@ const createResponse = (itineraries, startTime, intermediateStops, question, con
               legEnd.ele('siri:StopPointRef', question.destination);
             }
 
+            //TODO mange if question origin/destination is a location
+
             transferLeg.ele('ojp:TimeWindowStart', moment(leg.startTime).toISOString());
             transferLeg.ele('ojp:TimeWindowEnd', moment(leg.endTime).toISOString());
             transferLeg.ele('ojp:Duration', moment.duration(leg.duration, 's').toISOString());
