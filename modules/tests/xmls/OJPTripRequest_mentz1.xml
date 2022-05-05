@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<OJP xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.siri.org.uk/siri" version="1.0" xmlns:ojp="http://www.vdv.de/ojp" xsi:schemaLocation="http://www.siri.org.uk/siri ../ojp-xsd-v1.0/OJP.xsd">
+
+    <OJPRequest>
+
+        <ServiceRequest>
+
+            <RequestTimestamp>2020-06-16T10:00:00Z</RequestTimestamp>
+
+            <RequestorRef>IRMA</RequestorRef>
+
+            <ojp:OJPTripRequest>
+
+                <RequestTimestamp>2020-06-16T10:00:00Z</RequestTimestamp>
+
+                <ojp:Origin>
+
+                    <ojp:PlaceRef>
+
+                        <StopPointRef>gtt:3239</StopPointRef>
+
+                        <ojp:LocationName>
+
+                            <ojp:Text>ABETI</ojp:Text>
+
+                        </ojp:LocationName>
+
+                    </ojp:PlaceRef>
+
+                    <ojp:DepArrTime>2022-04-22T15:00:00Z</ojp:DepArrTime>
+
+                </ojp:Origin>
+
+                <ojp:Destination>
+
+                    <ojp:PlaceRef>
+
+                        <StopPointRef>gtt:66</StopPointRef>
+
+                        <ojp:LocationName>
+
+                            <ojp:Text>Baiardi</ojp:Text>
+
+                        </ojp:LocationName>
+
+                    </ojp:PlaceRef>
+
+                </ojp:Destination>
+
+                <ojp:Params>
+
+                    <ojp:NumberOfResults>1</ojp:NumberOfResults>
+
+                    <ojp:IncludeTrackSections>false</ojp:IncludeTrackSections>
+
+                    <ojp:IncludeLegProjection>false</ojp:IncludeLegProjection>
+
+                    <ojp:IncludeTurnDescription>false</ojp:IncludeTurnDescription>
+
+                    <ojp:IncludeIntermediateStops>true</ojp:IncludeIntermediateStops>
+
+                </ojp:Params>
+
+            </ojp:OJPTripRequest>
+
+        </ServiceRequest>
+
+    </OJPRequest>
+
+</OJP>
