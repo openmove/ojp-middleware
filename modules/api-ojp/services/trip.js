@@ -73,6 +73,7 @@ const createResponse = (itineraries, startTime, intermediateStops, question, con
       let tripDistance = 0;
       let tripTransfers = 0;
       let legId = 0;
+
       for(const leg of itinerary.legs) {
 
         legId += 1
@@ -82,19 +83,30 @@ const createResponse = (itineraries, startTime, intermediateStops, question, con
         tripDistance += leg.distance;
 
         if(leg.transitLeg === false) {
-          if(leg.mode === 'WALK'){
+
+          if(leg.mode === 'WALK') {
             const transferLeg = tripLeg.ele('ojp:TransferLeg');
+
             transferLeg.ele('ojp:TransferMode', 'walk');
+
             const legStart = transferLeg.ele('ojp:LegStart');
+
             legStart.ele('ojp:LocationName').ele('ojp:Text', `${leg.from.name}`);
-            if(leg.from.stop){
+
+            if(leg.from.stop) {
               legStart.ele('siri:StopPointRef', leg.from.stop.gtfsId);
             }
+
             const legEnd = transferLeg.ele('ojp:LegEnd');
             legEnd.ele('ojp:LocationName').ele('ojp:Text', `${leg.to.name}`);
-            if(leg.to.stop){
+
+            if(leg.to.stop) {
               legEnd.ele('siri:StopPointRef', leg.to.stop.gtfsId);
             }
+            else if(_.isString(question.destination)) {
+              legEnd.ele('siri:StopPointRef', question.destination);
+            }
+
             transferLeg.ele('ojp:TimeWindowStart', moment(leg.startTime).toISOString());
             transferLeg.ele('ojp:TimeWindowEnd', moment(leg.endTime).toISOString());
             transferLeg.ele('ojp:Duration', moment.duration(leg.duration, 's').toISOString());
