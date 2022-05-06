@@ -132,6 +132,7 @@ app.get('/stops/:id/details', async (req, result) => {
     'skip': Number(req.query.skip) || 0,
     'start': req.query.start || new Date().getTime()
   };
+  console.log('STOPPPSS',req.params)
   const res = await getStopTimesById(config, req.params.id, extra);
   
   logger.debug(extra);

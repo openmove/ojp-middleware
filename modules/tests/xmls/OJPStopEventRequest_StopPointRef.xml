@@ -8,7 +8,7 @@
         <RequestTimestamp>2022-06-04T13:10:17.283Z</RequestTimestamp>
         <ojp:Location>
           <ojp:PlaceRef>
-            <ojp:StopPointRef>gtt:740</ojp:StopPointRef>
+            <StopPointRef>gtt:740</StopPointRef>
           </ojp:PlaceRef>
           <ojp:DepArrTime>2022-10-14T16:40:56</ojp:DepArrTime>
         </ojp:Location>

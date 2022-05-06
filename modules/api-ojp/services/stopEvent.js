@@ -62,14 +62,11 @@ const createResponse = (stop, startTime, isDeparture, isArrival, realtimeData, p
         }
       }
 
-      
-      
-
       call.ele('ojp:Order', schedule.stopSequence)
       
       if(previousStop || nextStop){
         for(const sequenceStop of schedule.trip.stoptimes){
-          if(previousStop && (sequenceStop.stopSequence < schedule.stopSequence)){
+          if(previousStop && (sequenceStop.stopSequence < schedule.stopSequence)) {
 
             if(stopsIds.indexOf(sequenceStop.stop.gtfsId) === -1){
               stopsIds.push(sequenceStop.stop.gtfsId);
@@ -84,7 +81,6 @@ const createResponse = (stop, startTime, isDeparture, isArrival, realtimeData, p
               geo.ele('siri:Latitude', sequenceStop.stop.lat);
             }
             
-
             const previousCall = stopevent.ele('ojp:PreviousCall').ele('ojp:CallAtStop');
             previousCall.ele('siri:StopPointRef', sequenceStop.stop.gtfsId);
             previousCall.ele('ojp:StopPointName').ele('ojp:Text', `${sequenceStop.stop.name}`);
@@ -143,10 +139,7 @@ const createResponse = (stop, startTime, isDeparture, isArrival, realtimeData, p
             onWardCall.ele('ojp:Order', sequenceStop.stopSequence)
           }
         }
-        
       }
-
-
 
       const service = stopevent.ele('ojp:Service');
       service.ele('ojp:OperatingDayRef', moment(schedule.serviceDay * 1000).tz(schedule.trip.route.agency.timezone).format("YYYY-MM-DD"));
@@ -183,15 +176,13 @@ module.exports = {
 
       const { limit, skip, ptModes } = parseParamsRestrictions(doc, serviceTag, config);
 
-      
-  
-
       if(queryNodes(doc, [serviceTag, 'ojp:Location', 'ojp:PlaceRef']).length > 0) {
 
         let stopId = queryTags(doc, [serviceTag, 'ojp:Location', 'ojp:PlaceRef', 'ojp:StopPlaceRef']);
 
         if(stopId == null){
           stopId = queryTags(doc, [serviceTag, 'ojp:Location', 'ojp:PlaceRef', 'StopPointRef']);
+          //don't add ojp: in tag StopPointRef
         }
 
         const date = queryTags(doc, [serviceTag, 'ojp:Location', 'ojp:DepArrTime']);
@@ -200,12 +191,16 @@ module.exports = {
         if(date != null){
           startDate = new Date(date).getTime();
         }
-        
+
         const querystr = qstr.stringify({limit, skip, start: startDate})
-            , options = {
+        const path = `/stops/${stopId}/details?${querystr}`;
+
+console.log(path);
+
+        const options = {
               host: config['api-otp'].host,
               port: config['api-otp'].port,
-              path: `/stops/${stopId}/details?${querystr}`,
+              path,
               method: 'GET',
               json:true
             };
@@ -213,7 +208,6 @@ module.exports = {
         logger.info(options);
 
         const response = await doRequest(options);
-
 
         const includePreviousStopsString = queryTags(doc, [
           serviceTag,
