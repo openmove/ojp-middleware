@@ -28,6 +28,9 @@ module.exports = {
     return tag;
   },
   'ptModesResponse': (mod, parent) => {
+    if(!mod){
+      return 'unknown';
+    }
 
     const m = mod.toLowerCase();
 
@@ -54,7 +57,6 @@ module.exports = {
     };
 
     mode =  mode ? (modes[mode] || mode) : 'unknown';
-
     return mode.toLowerCase();
   }
 }
