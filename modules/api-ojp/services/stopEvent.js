@@ -192,11 +192,8 @@ module.exports = {
           startDate = new Date(date).getTime();
         }
 
-        const querystr = qstr.stringify({limit, skip, start: startDate})
+        const querystr = qstr.stringify({limit, skip, start: startDate});
         const path = `/stops/${stopId}/details?${querystr}`;
-
-console.log(path);
-
         const options = {
               host: config['api-otp'].host,
               port: config['api-otp'].port,
@@ -225,7 +222,7 @@ console.log(path);
         let isArrival = false;
         let showRealtime = false;
         let includePreviousStops = includePreviousStopsString === 'true';
-        let includeNextStops = includeNextStopsString === 'true'
+        let includeNextStops = includeNextStopsString === 'true';
 
         const eventType = queryTags(doc, [serviceTag, 'ojp:Params', 'ojp:StopEventType']);
         const realtime = queryTags(doc, [serviceTag, 'ojp:Params', 'ojp:IncludeRealtimeData']);
@@ -240,7 +237,12 @@ console.log(path);
           isArrival = true;
         }
         showRealtime = realtime === 'true';
-        return createResponse(response.stop, startTime, isDeparture, isArrival, showRealtime, includePreviousStops, includeNextStops);
+        return createResponse(response.stop,
+                              startTime,
+                              isDeparture,
+                              isArrival,
+                              showRealtime,
+                              includePreviousStops, includeNextStops);
       }
       else{
         return createErrorResponse(serviceName, config.errors.notagcondition, startTime);
