@@ -29,6 +29,10 @@ module.exports = {
   },
   'ptModesResponse': (mod, parent) => {
 
+    if(!mod) {
+      return 'unknown';
+    }
+
     const m = mod.toLowerCase();
 
     let mode = m.replace('~','');
@@ -44,16 +48,16 @@ module.exports = {
     //
     const modes = {
       ' ': 'unknown',
-      'bus': 'BUS',
+      //'bus': 'BUS',
+      //'rail': 'RAIL',
       'train': 'RAIL',
-      'rail': 'RAIL',
       'gondola': 'telecabin',
       'ferry': 'ferryService',
       'subway': 'underground',
       //funicolar,tram,...
     };
 
-    mode =  mode ? (modes[mode] || mode) : 'unknown';
+    mode =  modes[mode] || mode;
 
     return mode.toLowerCase();
   }
