@@ -35,7 +35,7 @@ module.exports = {
 
     const m = mod.toLowerCase();
 
-    let mode = m.replace('~','');
+    let mode = m.replace(/~/g,'');
       //'~bus~': 'BUS',
       //'~train~': 'RAIL',
       //exchangepoints db values
@@ -46,19 +46,30 @@ module.exports = {
     //        || this == AIRPLANE;
     //SIRI MODES https://github.com/VDVde/OJP/blob/master/siri_model/siri_modes-v1.1.xsd
     //
+    //MIP
+/*  <transitModes>
+      TRAM
+      SUBWAY
+      RAIL
+      FERRY
+      BUS
+      FUNICULAR
+    </transitModes>
+*/
+
     const modes = {
       ' ': 'unknown',
-      //'bus': 'BUS',
-      //'rail': 'RAIL',
-      'train': 'RAIL',
+      'airplane': 'airService',
+      'train': 'rail',
       'gondola': 'telecabin',
       'ferry': 'ferryService',
       'subway': 'underground',
-      //funicolar,tram,...
+      'funicular': 'funicularService',
+     // 'tram': 'tramService'
     };
 
     mode =  modes[mode] || mode;
 
-    return mode.toLowerCase();
+    return mode;
   }
 }
