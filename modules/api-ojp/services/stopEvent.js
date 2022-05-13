@@ -11,7 +11,14 @@ const {createErrorResponse, ptModesResponse} = require('../lib/response');
 
 const serviceName = 'OJPStopEvent';
 
-const createResponse = (stop, startTime, isDeparture, isArrival, realtimeData, previousStop = false, nextStop = false ) => {
+const createResponse = (stop,
+                        startTime,
+                        isDeparture,
+                        isArrival,
+                        realtimeData,
+                        previousStop = false, /* IncludePreviousCalls */
+                        nextStop = false      /* IncludeOnwardCalls */
+                      ) => {
 
   const now = new Date()
     , tag = xmlbuilder.create(`ojp:${serviceName}Delivery`);
@@ -43,6 +50,7 @@ const createResponse = (stop, startTime, isDeparture, isArrival, realtimeData, p
       const eventresponse = tag.ele('ojp:StopEventResult');
       eventresponse.ele('ojp:ResultId', uuidv4())
       const stopevent = eventresponse.ele('ojp:StopEvent');
+
       const call = stopevent.ele('ojp:ThisCall').ele('ojp:CallAtStop');
       call.ele('siri:StopPointRef', stop.gtfsId);
       call.ele('ojp:StopPointName').ele('ojp:Text', `${stop.name}`);
@@ -227,11 +235,6 @@ module.exports = {
         const eventType = queryTags(doc, [serviceTag, 'ojp:Params', 'ojp:StopEventType']);
         const realtime = queryTags(doc, [serviceTag, 'ojp:Params', 'ojp:IncludeRealtimeData']);
 
-        if(eventType === 'departure') {
-          isDeparture = true;
-          isArrival = false;
-        }
-
         if(eventType === 'arrival') {
           isDeparture = false;
           isArrival = true;
@@ -240,6 +243,11 @@ module.exports = {
         if(eventType === 'both') {
           isDeparture = true;
           isArrival = true;
+        }
+
+        if(eventType === 'departure') {
+          isDeparture = true;
+          isArrival = false;
         }
 
         showRealtime = realtime === 'true';
