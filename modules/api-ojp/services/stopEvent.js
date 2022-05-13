@@ -227,22 +227,30 @@ module.exports = {
         const eventType = queryTags(doc, [serviceTag, 'ojp:Params', 'ojp:StopEventType']);
         const realtime = queryTags(doc, [serviceTag, 'ojp:Params', 'ojp:IncludeRealtimeData']);
 
-        if(eventType === 'arrival'){
+        if(eventType === 'departure') {
+          isDeparture = true;
+          isArrival = false;
+        }
+
+        if(eventType === 'arrival') {
           isDeparture = false;
           isArrival = true;
         }
 
-        if(eventType === 'both'){
+        if(eventType === 'both') {
           isDeparture = true;
           isArrival = true;
         }
+
         showRealtime = realtime === 'true';
         return createResponse(response.stop,
                               startTime,
                               isDeparture,
                               isArrival,
                               showRealtime,
-                              includePreviousStops, includeNextStops);
+                              includePreviousStops, // IncludePreviousCalls
+                              includeNextStops      // IncludeOnwardCalls
+                            );
       }
       else{
         return createErrorResponse(serviceName, config.errors.notagcondition, startTime);
