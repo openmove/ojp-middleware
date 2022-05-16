@@ -15,7 +15,7 @@
     "clean": "find ./modules -name package-lock.json -delete"
   },
   "engines": {
-    "node": "14.16.0"
+    "node": "16.14.0"
   },
   "author": "Stefano Cudini stefano.cudini@gmail.com",
   "license": "MIT"
