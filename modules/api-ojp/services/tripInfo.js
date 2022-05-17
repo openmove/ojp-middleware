@@ -10,7 +10,9 @@ const {createErrorResponse, ptModesResponse} = require('../lib/response');
 
 const serviceName = 'OJPTripInfo';
 
-const createResponse = (trip, date, startTime, config, includeCalls = true, includeService = true) => {
+const createResponse = (config, trip, date, startTime, includeCalls = true, includeService = true) => {
+
+  const {location_digits} = config;
 
   const now = new Date()
       , tag = xmlbuilder.create(`ojp:${serviceName}Delivery`);
@@ -42,9 +44,10 @@ const createResponse = (trip, date, startTime, config, includeCalls = true, incl
 				stopPlace.ele('ojp:StopPlaceName').ele('ojp:Text', `${stop.name}`);
 				stopPlace.ele('ojp:TopographicPlaceRef', stop.zoneId);
 				place.ele('ojp:LocationName').ele('ojp:Text', `${stop.name}`);
-				const geo = place.ele('ojp:GeoPosition');
-				geo.ele('siri:Longitude', stop.lon);
-				geo.ele('siri:Latitude', stop.lat);
+
+		    const geo = place.ele('ojp:GeoPosition');
+		    geo.ele('siri:Longitude', _.round(stop.lon, location_digits) );
+		    geo.ele('siri:Latitude', _.round(stop.lat, location_digits) );
 			}
 
 
@@ -149,7 +152,7 @@ module.exports = {
 						'ojp:IncludeCalls'
 					]);
 
-					return createResponse(response.trip, date, startTime, config, includeCallsString === 'true', includeServiceString === 'true');
+					return createResponse(config, response.trip, date, startTime, includeCallsString === 'true', includeServiceString === 'true');
 
 				}else{
 					return createErrorResponse(serviceName, config.errors.notagcondition, startTime);

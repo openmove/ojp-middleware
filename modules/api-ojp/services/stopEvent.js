@@ -11,7 +11,8 @@ const {createErrorResponse, ptModesResponse} = require('../lib/response');
 
 const serviceName = 'OJPStopEvent';
 
-const createResponse = (stop,
+const createResponse = (config,
+                        stop,
                         startTime,
                         isDeparture,
                         isArrival,
@@ -19,6 +20,8 @@ const createResponse = (stop,
                         previousStop = false, /* IncludePreviousCalls */
                         nextStop = false      /* IncludeOnwardCalls */
                       ) => {
+
+  const {location_digits} = config;
 
   const now = new Date()
     , tag = xmlbuilder.create(`ojp:${serviceName}Delivery`);
@@ -41,9 +44,11 @@ const createResponse = (stop,
     stopPlace.ele('ojp:StopPlaceName').ele('ojp:Text', `${stop.name}`);
     stopPlace.ele('ojp:TopographicPlaceRef', stop.zoneId);
     place.ele('ojp:LocationName').ele('ojp:Text', `${stop.name}`);
+
     const geo = place.ele('ojp:GeoPosition');
-    geo.ele('siri:Longitude', stop.lon);
-    geo.ele('siri:Latitude', stop.lat);
+    geo.ele('siri:Longitude', _.round(stop.lon, location_digits) );
+    geo.ele('siri:Latitude', _.round(stop.lat, location_digits) );
+
     const stopsIds = [];
     stopsIds.push(stop.gtfsId);
     for(const schedule of stop.stoptimesWithoutPatterns){
@@ -286,7 +291,8 @@ module.exports = {
         }
 
         showRealtime = realtime === 'true';
-        return createResponse(response.stop,
+        return createResponse(config,
+                              response.stop,
                               startTime,
                               isDeparture,
                               isArrival,
