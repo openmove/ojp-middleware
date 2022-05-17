@@ -94,13 +94,20 @@ const createResponse = (config, itineraries, startTime, intermediateStops, quest
             const legStart = transferLeg.ele('ojp:LegStart');
 
             legStart.ele('ojp:LocationName').ele('ojp:Text', `${leg.from.name}`);
+            const geoS = legStart.ele('ojp:GeoPosition');
+            geoS.ele('siri:Longitude', _.round(leg.from.lon, location_digits) );
+            geoS.ele('siri:Latitude', _.round(leg.from.lat, location_digits) );
 
             if(leg.from.stop) {
               legStart.ele('siri:StopPointRef', leg.from.stop.gtfsId);
             }
 
             const legEnd = transferLeg.ele('ojp:LegEnd');
+
             legEnd.ele('ojp:LocationName').ele('ojp:Text', `${leg.to.name}`);
+            const geoE = legEnd.ele('ojp:GeoPosition');
+            geoE.ele('siri:Longitude', _.round(leg.to.lon, location_digits) );
+            geoE.ele('siri:Latitude', _.round(leg.to.lat, location_digits) );
 
             if(leg.to.stop) {
               legEnd.ele('siri:StopPointRef', leg.to.stop.gtfsId);
@@ -108,8 +115,6 @@ const createResponse = (config, itineraries, startTime, intermediateStops, quest
             else if(_.isString(question.destination)) {
               legEnd.ele('siri:StopPointRef', question.destination);
             }
-
-            //TODO mange if question origin/destination is a location
 
             transferLeg.ele('ojp:TimeWindowStart', moment(leg.startTime).toISOString());
             transferLeg.ele('ojp:TimeWindowEnd', moment(leg.endTime).toISOString());
