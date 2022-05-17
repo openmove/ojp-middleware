@@ -13,7 +13,7 @@ const {createErrorResponse, ptModesResponse} = require('../lib/response');
 
 const serviceName = 'OJPMultiPointTrip';
 
-const createResponse = (config, results, startTime, config) => {
+const createResponse = (config, results, startTime) => {
 
   const {location_digits} = config;
 
@@ -410,7 +410,7 @@ module.exports = {
 					}
 				})
 
-				return createResponse(responses, startTime, config);
+				return createResponse(config, responses, startTime);
 			}
 			else{
 				return createErrorResponse(serviceName, config.errors.notagcondition, startTime);
