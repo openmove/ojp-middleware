@@ -13,7 +13,9 @@ const {createErrorResponse, ptModesResponse} = require('../lib/response');
 
 const serviceName = 'OJPTrip';
 
-const createResponse = (itineraries, startTime, intermediateStops, question, config) => {
+const createResponse = (config, itineraries, startTime, intermediateStops, question) => {
+
+  const {location_digits} = config;
 
   const now = new Date()
     , tag = xmlbuilder.create(`ojp:${serviceName}Delivery`);
@@ -198,9 +200,11 @@ const createResponse = (itineraries, startTime, intermediateStops, question, con
         stopPlace.ele('ojp:StopPlaceName').ele('ojp:Text', `${stop.name}`);
         //stopPlace.ele('ojp:TopographicPlaceRef', stop.zoneId);
         place.ele('ojp:LocationName').ele('ojp:Text', `${stop.name}`);
+
         const geo = place.ele('ojp:GeoPosition');
-        geo.ele('siri:Longitude', stop.lon);
-        geo.ele('siri:Latitude', stop.lat);
+        geo.ele('siri:Longitude', _.round(stop.lon, location_digits) );
+        geo.ele('siri:Latitude', _.round(stop.lat, location_digits) )
+
       }
     }
   }
@@ -316,7 +320,7 @@ module.exports = {
 
         const response = await doRequest(options, json);
 
-        return createResponse(response.plan.itineraries, startTime, intermediateStops, questionObj, config);
+        return createResponse(config, response.plan.itineraries, startTime, intermediateStops, questionObj);
 
       }else{
         return createErrorResponse(serviceName, config.errors.notagcondition, startTime);
