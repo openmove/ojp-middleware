@@ -9,7 +9,9 @@ const {createErrorResponse, ptModesResponse} = require('../lib/response');
 
 const serviceName = 'OJPLocationInformation';
 
-const createResponse = (stops, startTime, ptModes, skip = 0, limit = null) => {
+const createResponse = (config, stops, startTime, ptModes, skip = 0, limit = null) => {
+
+  const {location_digits} = config;
 
   const now = new Date()
     , tag = xmlbuilder.create(`ojp:${serviceName}Delivery`);
@@ -31,9 +33,11 @@ const createResponse = (stops, startTime, ptModes, skip = 0, limit = null) => {
     stopPlace.ele('ojp:StopPlaceName').ele('ojp:Text', `${stop.name}`);
     stopPlace.ele('ojp:TopographicPlaceRef', stop.zoneId);
     place.ele('ojp:LocationName').ele('ojp:Text', `${stop.name}`);
+
     const geo = place.ele('ojp:GeoPosition');
-    geo.ele('siri:Longitude', stop.lon);
-    geo.ele('siri:Latitude', stop.lat);
+    geo.ele('siri:Longitude', _.round(stop.lon, location_digits) );
+    geo.ele('siri:Latitude', _.round(stop.lat, location_digits) );
+
     loc.ele('ojp:Complete', true);
     loc.ele('ojp:Probability', (1 / stops.length).toFixed(2)); //TODO: other criteria?
     if(ptModes === true){
@@ -194,7 +198,7 @@ module.exports = {
         //const stops = _.slice(response.stops, skip, limit);
 
         //logger.info(response)
-        return createResponse(response.stops, startTime, ptModes, skip, limit);
+        return createResponse(config, response.stops, startTime, ptModes, skip, limit);
       }
       else {
         return createErrorResponse(serviceName, config.errors.notagcondition, startTime);

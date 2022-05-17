@@ -9,7 +9,9 @@ const {createErrorResponse, ptModesResponse} = require('../lib/response');
 
 const serviceName = 'OJPExchangePoints';
 
-const createResponse = (stops, startTime, ptModes, skip = 0, limit = null) => {
+const createResponse = (config, stops, startTime, ptModes, skip = 0, limit = null) => {
+
+  const {location_digits} = config;
 
   const now = new Date()
     , tag = xmlbuilder.create(`ojp:${serviceName}Delivery`);
@@ -33,9 +35,10 @@ const createResponse = (stops, startTime, ptModes, skip = 0, limit = null) => {
     private.ele('ojp:Value', stop['GlobalID'])
     stopPlace.ele('ojp:TopographicPlaceRef', stop.zoneId);
     place.ele('ojp:LocationName').ele('ojp:Text', `${stop.Name}`);
+
     const geo = place.ele('ojp:GeoPosition');
-    geo.ele('siri:Longitude', Number(stop['long']));
-    geo.ele('siri:Latitude', Number(stop['lat']));
+    geo.ele('siri:Longitude', _.round(stop['long'], location_digits) );
+    geo.ele('siri:Latitude', _.round(stop['lat'], location_digits) );
 
     if(ptModes) {
 
@@ -153,7 +156,7 @@ module.exports = {
       
       const response = await doRequest(options);
 
-      return createResponse(response, startTime, ptModes, skip, limit);
+      return createResponse(config, response, startTime, ptModes, skip, limit);
       
     }
     catch(err){

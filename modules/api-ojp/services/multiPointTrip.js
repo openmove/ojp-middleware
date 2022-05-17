@@ -13,7 +13,9 @@ const {createErrorResponse, ptModesResponse} = require('../lib/response');
 
 const serviceName = 'OJPMultiPointTrip';
 
-const createResponse = (results, startTime, config) => {
+const createResponse = (config, results, startTime, config) => {
+
+  const {location_digits} = config;
 
   const now = new Date()
     , tag = xmlbuilder.create(`ojp:${serviceName}Delivery`);
@@ -178,9 +180,11 @@ const createResponse = (results, startTime, config) => {
 			stopPlace.ele('ojp:StopPlaceName').ele('ojp:Text', `${stop.name}`);
 			//stopPlace.ele('ojp:TopographicPlaceRef', stop.zoneId);
 			place.ele('ojp:LocationName').ele('ojp:Text', `${stop.name}`);
-			const geo = place.ele('ojp:GeoPosition');
-			geo.ele('siri:Longitude', stop.lon);
-			geo.ele('siri:Latitude', stop.lat);
+
+	    const geo = place.ele('ojp:GeoPosition');
+	    geo.ele('siri:Longitude', _.round(stop.lon, location_digits) );
+	    geo.ele('siri:Latitude', _.round(stop.lat, location_digits) );
+
 		}
 	}
 
