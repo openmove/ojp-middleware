@@ -94,9 +94,10 @@ if(isArrival===false && nextStop===false) {
               stopPlace.ele('ojp:StopPlaceName').ele('ojp:Text', `${sequenceStop.stop.name}`);
               stopPlace.ele('ojp:TopographicPlaceRef', sequenceStop.stop.zoneId);
               previousPlace.ele('ojp:LocationName').ele('ojp:Text', `${sequenceStop.stop.name}`);
+
               const geo = previousPlace.ele('ojp:GeoPosition');
-              geo.ele('siri:Longitude', sequenceStop.stop.lon);
-              geo.ele('siri:Latitude', sequenceStop.stop.lat);
+              geo.ele('siri:Longitude', _.round(sequenceStop.stop.lon, location_digits) );
+              geo.ele('siri:Latitude', _.round(sequenceStop.stop.lat, location_digits) );
             }
             
             const previousCall = stopevent.ele('ojp:PreviousCall').ele('ojp:CallAtStop');
@@ -134,9 +135,10 @@ if(isArrival===false && nextStop===false) {
               stopPlace.ele('ojp:StopPlaceName').ele('ojp:Text', `${sequenceStop.stop.name}`);
               stopPlace.ele('ojp:TopographicPlaceRef', sequenceStop.stop.zoneId);
               onWardPlace.ele('ojp:LocationName').ele('ojp:Text', `${sequenceStop.stop.name}`);
+
               const geo = onWardPlace.ele('ojp:GeoPosition');
-              geo.ele('siri:Longitude', sequenceStop.stop.lon);
-              geo.ele('siri:Latitude', sequenceStop.stop.lat);
+              geo.ele('siri:Longitude', _.round(sequenceStop.stop.lon, location_digits) );
+              geo.ele('siri:Latitude', _.round(sequenceStop.stop.lat, location_digits) );
             }
 
             const onWardCall = stopevent.ele('ojp:OnwardCall').ele('ojp:CallAtStop');
