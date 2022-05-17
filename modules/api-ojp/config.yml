@@ -46,6 +46,7 @@ default_restrictions:
   include_include_pt_modes: false
   limit: 10000
   skip: 0
+default_locations_digits: 5
 
 #enable disable services
 services:
