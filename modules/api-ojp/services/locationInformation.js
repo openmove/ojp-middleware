@@ -21,8 +21,7 @@ const createResponse = (config, stops, startTime, ptModes, skip = 0, limit = nul
   tag.ele('ojp:CalcTime', now.getTime() - startTime);
 
   if ( limit !== null && limit === stops.length) {
-      tag.ele('ojp:ContinueAt', skip + limit);
-    
+    tag.ele('ojp:ContinueAt', skip + limit);
   }
 
   for(const stop of stops){
@@ -32,6 +31,7 @@ const createResponse = (config, stops, startTime, ptModes, skip = 0, limit = nul
     stopPlace.ele('ojp:StopPlaceRef', stop.gtfsId);
     stopPlace.ele('ojp:StopPlaceName').ele('ojp:Text', `${stop.name}`);
     stopPlace.ele('ojp:TopographicPlaceRef', stop.zoneId);
+
     place.ele('ojp:LocationName').ele('ojp:Text', `${stop.name}`);
 
     const geo = place.ele('ojp:GeoPosition');
@@ -40,7 +40,7 @@ const createResponse = (config, stops, startTime, ptModes, skip = 0, limit = nul
 
     loc.ele('ojp:Complete', true);
     loc.ele('ojp:Probability', (1 / stops.length).toFixed(2)); //TODO: other criteria?
-    if(ptModes === true){
+    if(ptModes === true) {
       const mode = loc.ele('ojp:Mode');
 
       const ojpMode = ptModesResponse( stop.vehicleMode );
@@ -70,11 +70,10 @@ module.exports = {
 
       const { limit, skip, ptModes, type } = parseParamsRestrictions(doc, serviceTag, config);
 
-      if(type != 'stop'){
+      if(type != 'stop') {
         //XXX: we supports only stops
         return createErrorResponse(serviceName, config.errors.noresults.locations, startTime);
       }
-
 
       if(queryNodes(doc, [serviceTag,'ojp:PlaceRef']).length > 0) {
 
@@ -88,9 +87,9 @@ module.exports = {
 
         const locationName = queryNodes(doc, [serviceTag, 'ojp:PlaceRef', 'ojp:LocationName']);
 
-//
-//TODO TopographicPlace here
-//
+        //
+        //TODO TopographicPlace here
+        //
         let json = '', options = {};
 
         if (stopId) {

@@ -167,7 +167,7 @@ const createResponse = (config, itineraries, startTime, intermediateStops, quest
             alight.ele('siri:StopPointRef', leg.to.stop.gtfsId);
             stops.push(leg.to.stop);
           }
-          const serviceTo = alight.ele('ojp:ServiceDeparture');
+          const serviceTo = alight.ele('ojp:ServiceArrival');
           serviceTo.ele('ojp:TimetabledTime', moment(leg.endTime).toISOString())
           serviceTo.ele('ojp:EstimatedTime', moment(leg.endTime - leg.arrivalDelay).toISOString())
           alight.ele('ojp:Order', sequence+1);
