@@ -93,21 +93,16 @@ const createResponse = (config, itineraries, startTime, intermediateStops, quest
 
             const legStart = transferLeg.ele('ojp:LegStart');
 
+            if(leg.from.stop) {
+              legStart.ele('siri:StopPointRef', leg.from.stop.gtfsId);
+            }
+
             legStart.ele('ojp:LocationName').ele('ojp:Text', `${leg.from.name}`);
             const geoS = legStart.ele('ojp:GeoPosition');
             geoS.ele('siri:Longitude', _.round(leg.from.lon, location_digits) );
             geoS.ele('siri:Latitude', _.round(leg.from.lat, location_digits) );
 
-            if(leg.from.stop) {
-              legStart.ele('siri:StopPointRef', leg.from.stop.gtfsId);
-            }
-
             const legEnd = transferLeg.ele('ojp:LegEnd');
-
-            legEnd.ele('ojp:LocationName').ele('ojp:Text', `${leg.to.name}`);
-            const geoE = legEnd.ele('ojp:GeoPosition');
-            geoE.ele('siri:Longitude', _.round(leg.to.lon, location_digits) );
-            geoE.ele('siri:Latitude', _.round(leg.to.lat, location_digits) );
 
             if(leg.to.stop) {
               legEnd.ele('siri:StopPointRef', leg.to.stop.gtfsId);
@@ -116,12 +111,20 @@ const createResponse = (config, itineraries, startTime, intermediateStops, quest
               legEnd.ele('siri:StopPointRef', question.destination);
             }
 
+            legEnd.ele('ojp:LocationName').ele('ojp:Text', `${leg.to.name}`);
+            const geoE = legEnd.ele('ojp:GeoPosition');
+            geoE.ele('siri:Longitude', _.round(leg.to.lon, location_digits) );
+            geoE.ele('siri:Latitude', _.round(leg.to.lat, location_digits) );
+
+
             transferLeg.ele('ojp:TimeWindowStart', moment(leg.startTime).toISOString());
             transferLeg.ele('ojp:TimeWindowEnd', moment(leg.endTime).toISOString());
             transferLeg.ele('ojp:Duration', moment.duration(leg.duration, 's').toISOString());
             transferLeg.ele('ojp:WalkDuration', moment.duration(leg.duration, 's').toISOString())
           }
-        } else {
+        }
+        else {
+
           tripTransfers += 1;
           let sequence = 1;
           const timedLeg = tripLeg.ele('ojp:TimedLeg');
@@ -194,6 +197,7 @@ const createResponse = (config, itineraries, startTime, intermediateStops, quest
       trip.ele('ojp:Distance', tripDistance.toFixed(0)); 
       trip.ele('ojp:Transfers', tripTransfers -1 ); 
     }
+
     const places = context.ele('ojp:Places');
     const ids = [];
     for(const stop of stops){
