@@ -146,7 +146,8 @@ const createResponse = (config, itineraries, startTime, intermediateStops, quest
 
             if(intermediateStops) {
 
-              const intermediate = timedLeg.ele('ojp:LegIntermediates')
+              const intermediate = timedLeg.ele('ojp:LegIntermediates');
+
               intermediate.ele('ojp:StopPointName').ele('ojp:Text', `${intermediatePoint.name}`);
               if(intermediatePoint.stop){
                 stops.push(intermediatePoint.stop);
