@@ -138,6 +138,7 @@ const createResponse = (config, itineraries, startTime, intermediateStops, quest
           const serviceFrom = board.ele('ojp:ServiceDeparture');
           serviceFrom.ele('ojp:TimetabledTime', moment(leg.startTime).toISOString())
           serviceFrom.ele('ojp:EstimatedTime', moment(leg.startTime - leg.departureDelay).toISOString())
+
           board.ele('ojp:Order', 1);
 
           for(const intermediatePoint of leg.intermediatePlaces) {
