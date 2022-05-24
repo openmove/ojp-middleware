@@ -129,11 +129,14 @@ const createResponse = (config, itineraries, startTime, intermediateStops, quest
           let sequence = 1;
           const timedLeg = tripLeg.ele('ojp:TimedLeg');
           const board = timedLeg.ele('ojp:LegBoard');
-          board.ele('ojp:StopPointName').ele('ojp:Text', `${leg.from.name}`);
+
           if(leg.from.stop){
             stops.push(leg.from.stop);
             board.ele('siri:StopPointRef', leg.from.stop.gtfsId);
           }
+
+          board.ele('ojp:StopPointName').ele('ojp:Text', `${leg.from.name}`);
+
 
           const serviceFrom = board.ele('ojp:ServiceDeparture');
           serviceFrom.ele('ojp:TimetabledTime', moment(leg.startTime).toISOString())
@@ -166,12 +169,13 @@ const createResponse = (config, itineraries, startTime, intermediateStops, quest
           }
 
           const alight = timedLeg.ele('ojp:LegAlight');
-          alight.ele('ojp:StopPointName').ele('ojp:Text', `${leg.to.name}`);
-          
+
           if(leg.to.stop){
             alight.ele('siri:StopPointRef', leg.to.stop.gtfsId);
             stops.push(leg.to.stop);
           }
+
+          alight.ele('ojp:StopPointName').ele('ojp:Text', `${leg.to.name}`);
 
           const serviceTo = alight.ele('ojp:ServiceArrival');
           serviceTo.ele('ojp:TimetabledTime', moment(leg.endTime).toISOString())
