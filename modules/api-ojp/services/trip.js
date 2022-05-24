@@ -134,9 +134,11 @@ const createResponse = (config, itineraries, startTime, intermediateStops, quest
             stops.push(leg.from.stop);
             board.ele('siri:StopPointRef', leg.from.stop.gtfsId);
           }
+
           const serviceFrom = board.ele('ojp:ServiceDeparture');
           serviceFrom.ele('ojp:TimetabledTime', moment(leg.startTime).toISOString())
           serviceFrom.ele('ojp:EstimatedTime', moment(leg.startTime - leg.departureDelay).toISOString())
+
           board.ele('ojp:Order', 1);
 
           for(const intermediatePoint of leg.intermediatePlaces) {
@@ -150,12 +152,14 @@ const createResponse = (config, itineraries, startTime, intermediateStops, quest
                 stops.push(intermediatePoint.stop);
                 intermediate.ele('siri:StopPointRef', intermediatePoint.stop.gtfsId);
               }
-              const serviceIntermediateDep = intermediate.ele('ojp:ServiceDeparture');
-              serviceIntermediateDep.ele('ojp:TimetabledTime', moment(intermediatePoint.departureTime).toISOString())
-              serviceIntermediateDep.ele('ojp:EstimatedTime', moment(intermediatePoint.departureTime - leg.departureDelay).toISOString())
               const serviceIntermediateArr = intermediate.ele('ojp:ServiceArrival');
               serviceIntermediateArr.ele('ojp:TimetabledTime', moment(intermediatePoint.arrivalTime).toISOString())
               serviceIntermediateArr.ele('ojp:EstimatedTime', moment(intermediatePoint.arrivalTime - leg.departureDelay).toISOString())
+
+              const serviceIntermediateDep = intermediate.ele('ojp:ServiceDeparture');
+              serviceIntermediateDep.ele('ojp:TimetabledTime', moment(intermediatePoint.departureTime).toISOString())
+              serviceIntermediateDep.ele('ojp:EstimatedTime', moment(intermediatePoint.departureTime - leg.departureDelay).toISOString())
+
               intermediate.ele('ojp:Order', sequence);
             }
           }
@@ -167,6 +171,7 @@ const createResponse = (config, itineraries, startTime, intermediateStops, quest
             alight.ele('siri:StopPointRef', leg.to.stop.gtfsId);
             stops.push(leg.to.stop);
           }
+
           const serviceTo = alight.ele('ojp:ServiceArrival');
           serviceTo.ele('ojp:TimetabledTime', moment(leg.endTime).toISOString())
           serviceTo.ele('ojp:EstimatedTime', moment(leg.endTime - leg.arrivalDelay).toISOString())
