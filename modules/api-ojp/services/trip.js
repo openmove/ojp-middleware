@@ -69,17 +69,24 @@ const createResponse = (config, itineraries, startTime, intermediateStops, quest
       tripresponse.ele('ojp:ResultId', tripId)
       const trip = tripresponse.ele('ojp:Trip');
       trip.ele('ojp:TripId', tripId);
+      trip.ele('ojp:Duration', moment.duration(itinerary.duration, 's').toISOString() )
       trip.ele('ojp:StartTime', moment(itinerary.startTime).toISOString());
       trip.ele('ojp:EndTime', moment(itinerary.endTime).toISOString());
-      trip.ele('ojp:Duration', moment.duration(itinerary.duration, 's').toISOString() )
+
       let tripDistance = 0;
       let tripTransfers = 0;
       let legId = 0;
+
+      let firstLeg;
 
       for(const leg of itinerary.legs) {
 
         legId += 1
         const tripLeg = trip.ele('ojp:TripLeg');
+
+        if(!firstLeg) {
+          firstLeg = tripLeg;
+        }
 
         tripLeg.ele('ojp:LegId', legId);
         tripDistance += leg.distance;
@@ -136,7 +143,6 @@ const createResponse = (config, itineraries, startTime, intermediateStops, quest
           }
 
           board.ele('ojp:StopPointName').ele('ojp:Text', `${leg.from.name}`);
-
 
           const serviceFrom = board.ele('ojp:ServiceDeparture');
           serviceFrom.ele('ojp:TimetabledTime', moment(leg.startTime).toISOString())
@@ -202,10 +208,10 @@ const createResponse = (config, itineraries, startTime, intermediateStops, quest
           service.ele('ojp:DestinationStopPointRef', leg.trip.arrivalStoptime.stop.gtfsId);
           stops.push(leg.trip.arrivalStoptime.stop);
           service.ele('ojp:DestinationText').ele('ojp:Text', `${leg.trip.arrivalStoptime.stop.name}`);
-        }
+        }//end else
       }
-      trip.ele('ojp:Distance', tripDistance.toFixed(0)); 
-      trip.ele('ojp:Transfers', tripTransfers -1 ); 
+      firstLeg.insertBefore('ojp:Transfers', tripTransfers -1 );
+      firstLeg.insertBefore('ojp:Distance', tripDistance.toFixed(0));
     }
 
     const places = context.ele('ojp:Places');
