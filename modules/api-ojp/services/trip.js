@@ -21,7 +21,7 @@ const createResponse = (config,
 
   const {location_digits} = config;
 
-console.log('QUESTION',question)
+//console.log('QUESTION',question)
 
   const {origin, destination, origin_type, destin_type} = question;
 
