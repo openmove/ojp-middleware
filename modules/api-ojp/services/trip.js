@@ -13,9 +13,17 @@ const {createErrorResponse, ptModesResponse} = require('../lib/response');
 
 const serviceName = 'OJPTrip';
 
-const createResponse = (config, itineraries, startTime, intermediateStops, question) => {
+const createResponse = (config,
+                        itineraries,
+                        startTime,
+                        intermediateStops,
+                        question) => {
 
   const {location_digits} = config;
+
+console.log('QUESTION',question)
+
+  const {origin, destination, origin_type, destin_type} = question;
 
   const now = new Date()
     , tag = xmlbuilder.create(`ojp:${serviceName}Delivery`);
@@ -98,30 +106,38 @@ const createResponse = (config, itineraries, startTime, intermediateStops, quest
 
             transferLeg.ele('ojp:TransferMode', 'walk');
 
+          //LegStart
             const legStart = transferLeg.ele('ojp:LegStart');
 
-            if(leg.from.stop) {
-              legStart.ele('siri:StopPointRef', leg.from.stop.gtfsId);
+            if (origin_type==='PointRef') {
+              legStart.ele('siri:StopPointRef', leg.from.stop ? leg.from.stop.gtfsId : origin);
             }
-
-            const geoS = legStart.ele('ojp:GeoPosition');
-            geoS.ele('siri:Longitude', _.round(leg.from.lon, location_digits) );
-            geoS.ele('siri:Latitude', _.round(leg.from.lat, location_digits) );
+            else if (origin_type==='PlaceRef') {
+              legStart.ele('ojp:StopPlaceRef', origin);
+            }
+            else if (origin_type==='Position') {
+              const geoS = legStart.ele('ojp:GeoPosition');
+              geoS.ele('siri:Longitude', _.round(leg.from.lon, location_digits) );
+              geoS.ele('siri:Latitude', _.round(leg.from.lat, location_digits) );
+            }
 
             legStart.ele('ojp:LocationName').ele('ojp:Text', `${leg.from.name}`);
 
+          //LegEnd
             const legEnd = transferLeg.ele('ojp:LegEnd');
 
-            if(leg.to.stop) {
-              legEnd.ele('siri:StopPointRef', leg.to.stop.gtfsId);
+            //PATCH this https://github.com/openmove/ojp-middleware/issues/28
+            if (destin_type==='PointRef') {
+              legEnd.ele('siri:StopPointRef', leg.to.stop ? leg.to.stop.gtfsId : destination);
             }
-            else if(_.isString(question.destination)) {
-              legEnd.ele('siri:StopPointRef', question.destination);
+            else if (destin_type==='PlaceRef') {
+              legEnd.ele('ojp:StopPlaceRef', destination);
             }
-
-            const geoE = legEnd.ele('ojp:GeoPosition');
-            geoE.ele('siri:Longitude', _.round(leg.to.lon, location_digits) );
-            geoE.ele('siri:Latitude', _.round(leg.to.lat, location_digits) );
+            else if (destin_type==='Position') {
+              const geoE = legEnd.ele('ojp:GeoPosition');
+              geoE.ele('siri:Longitude', _.round(leg.to.lon, location_digits) );
+              geoE.ele('siri:Latitude', _.round(leg.to.lat, location_digits) );
+            }
 
             legEnd.ele('ojp:LocationName').ele('ojp:Text', `${leg.to.name}`);
 
@@ -275,6 +291,13 @@ module.exports = {
         const destinationLat = queryTags(doc, [serviceTag, 'ojp:Destination', 'ojp:PlaceRef', 'ojp:GeoPosition', 'Latitude']);
         const destinationLon = queryTags(doc, [serviceTag, 'ojp:Destination', 'ojp:PlaceRef', 'ojp:GeoPosition', 'Longitude']);
 
+        //PATCH this https://github.com/openmove/ojp-middleware/issues/28
+        let origin_type = originId ? 'PointRef' : 'PlaceRef';
+        origin_type = originLat || originLon ? 'Position' : origin_type;
+
+        let destin_type = destinationId ? 'PointRef' : 'PlaceRef';
+        destin_type = destinationLat || destinationLon ? 'Position' : destin_type;
+
         const intermediatePlaces = [];
 
         const vias = queryNodes(doc, [serviceTag, 'ojp:Via', 'ojp:ViaPoint']);
@@ -319,6 +342,8 @@ module.exports = {
         const questionObj = {
           origin: originId || [originLon, originLat, originName || "Origin"],
           destination: destinationId || [destinationLon, destinationLat, destinationName || "Destination"],
+          origin_type,
+          destin_type,
           date,
           limit,
           arrivedBy,
@@ -346,7 +371,12 @@ module.exports = {
 
         const response = await doRequest(options, json);
 
-        return createResponse(config, response.plan.itineraries, startTime, intermediateStops, questionObj);
+        return createResponse(config,
+                              response.plan.itineraries,
+                              startTime,
+                              intermediateStops,
+                              questionObj
+                              );
 
       }else{
         return createErrorResponse(serviceName, config.errors.notagcondition, startTime);
