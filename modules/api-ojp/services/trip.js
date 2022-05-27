@@ -104,10 +104,11 @@ const createResponse = (config, itineraries, startTime, intermediateStops, quest
               legStart.ele('siri:StopPointRef', leg.from.stop.gtfsId);
             }
 
-            legStart.ele('ojp:LocationName').ele('ojp:Text', `${leg.from.name}`);
             const geoS = legStart.ele('ojp:GeoPosition');
             geoS.ele('siri:Longitude', _.round(leg.from.lon, location_digits) );
             geoS.ele('siri:Latitude', _.round(leg.from.lat, location_digits) );
+
+            legStart.ele('ojp:LocationName').ele('ojp:Text', `${leg.from.name}`);
 
             const legEnd = transferLeg.ele('ojp:LegEnd');
 
@@ -118,11 +119,11 @@ const createResponse = (config, itineraries, startTime, intermediateStops, quest
               legEnd.ele('siri:StopPointRef', question.destination);
             }
 
-            legEnd.ele('ojp:LocationName').ele('ojp:Text', `${leg.to.name}`);
             const geoE = legEnd.ele('ojp:GeoPosition');
             geoE.ele('siri:Longitude', _.round(leg.to.lon, location_digits) );
             geoE.ele('siri:Latitude', _.round(leg.to.lat, location_digits) );
 
+            legEnd.ele('ojp:LocationName').ele('ojp:Text', `${leg.to.name}`);
 
             transferLeg.ele('ojp:TimeWindowStart', moment(leg.startTime).toISOString());
             transferLeg.ele('ojp:TimeWindowEnd', moment(leg.endTime).toISOString());
@@ -224,12 +225,12 @@ const createResponse = (config, itineraries, startTime, intermediateStops, quest
         stopPlace.ele('ojp:StopPlaceRef', stop.gtfsId);
         stopPlace.ele('ojp:StopPlaceName').ele('ojp:Text', `${stop.name}`);
         //stopPlace.ele('ojp:TopographicPlaceRef', stop.zoneId);
-        place.ele('ojp:LocationName').ele('ojp:Text', `${stop.name}`);
 
         const geo = place.ele('ojp:GeoPosition');
         geo.ele('siri:Longitude', _.round(stop.lon, location_digits) );
         geo.ele('siri:Latitude', _.round(stop.lat, location_digits) )
 
+        place.ele('ojp:LocationName').ele('ojp:Text', `${stop.name}`);
       }
     }
   }
