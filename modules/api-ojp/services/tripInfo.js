@@ -10,7 +10,12 @@ const {createErrorResponse, ptModesResponse} = require('../lib/response');
 
 const serviceName = 'OJPTripInfo';
 
-const createResponse = (config, trip, date, startTime, includeCalls = true, includeService = true) => {
+const createResponse = (config,
+												trip,
+												date,
+												startTime,
+												includeCalls = true,
+												includeService = true) => {
 
   const {location_digits} = config;
 
@@ -19,23 +24,24 @@ const createResponse = (config, trip, date, startTime, includeCalls = true, incl
   tag.ele('siri:ResponseTimestamp', now.toISOString());
   tag.ele('ojp:CalcTime', now.getTime() - startTime);
   
-  if(trip === null || trip.stoptimesForDate.length === 0){
+  if(trip === null || trip.stoptimesForDate.length === 0) {
     tag.ele('siri:Status', false);
     const err = tag.ele('siri:ErrorCondition');
     err.ele('siri:OtherError')
     err.ele('siri:Description', config.errors.noresults.tripinfo);
-  } else {
+  }
+  else {
     tag.ele('siri:Status', true);
     const context = tag.ele('ojp:TripInfoResponseContext');
 		const loc = context.ele('ojp:Places');
 		const tripResponse = tag.ele('ojp:TripInfoResult');
     const stopsIds = [];
 		
-    for(const schedule of trip.stoptimesForDate){
+    for(const schedule of trip.stoptimesForDate) {
       const stop = schedule.stop;
 			const realtimeData = schedule.realtime;
 
-			if(stopsIds.indexOf(stop.gtfsId) === -1){
+			if(stopsIds.indexOf(stop.gtfsId) === -1) {
 				stopsIds.push(stop.gtfsId);
 				
 				const place = loc.ele('ojp:Location');
@@ -51,12 +57,12 @@ const createResponse = (config, trip, date, startTime, includeCalls = true, incl
 			}
 
 
-			if(includeCalls){
+			if(includeCalls) {
 				const timeStop = (schedule.serviceDay + schedule.scheduledDeparture) * 1000;
 				const now = new Date().getTime();
 	
 				let isOnward = false;
-				if(now < timeStop){
+				if(now < timeStop) {
 					isOnward = true;
 				}
 	
@@ -64,23 +70,23 @@ const createResponse = (config, trip, date, startTime, includeCalls = true, incl
 	
 				
 				let call = null;
-				if(isOnward){
+				if(isOnward) {
 					call = tripResponse.ele('ojp:OnwardCall')
 				}else{
 					call = tripResponse.ele('ojp:PreviousCall')
 				}			
 				call.ele('siri:StopPointRef', stop.gtfsId);
 				call.ele('ojp:StopPointName').ele('ojp:Text', `${stop.name}`);
-				if(stop.gtfsId != arrivalStopId){
+				if(stop.gtfsId != arrivalStopId) {
 					const dep = call.ele('ojp:ServiceDeparture');
 					dep.ele('ojp:TimetabledTime', moment((schedule.serviceDay + schedule.scheduledDeparture) * 1000).tz(trip.route.agency.timezone).toISOString());
-					if(realtimeData){
+					if(realtimeData) {
 						dep.ele('ojp:EstimatedTime', moment((schedule.serviceDay + schedule.realtimeDeparture) * 1000).tz(trip.route.agency.timezone).toISOString());
 					}
 				}else{
 					const arr = call.ele('ojp:ServiceArrival');
 					arr.ele('ojp:TimetabledTime', moment((schedule.serviceDay + schedule.scheduledArrival) * 1000).tz(trip.route.agency.timezone).toISOString());
-					if(realtimeData){
+					if(realtimeData) {
 						arr.ele('ojp:EstimatedTime', moment((schedule.serviceDay + schedule.realtimeArrival) * 1000).tz(trip.route.agency.timezone).toISOString());
 					}
 				}
@@ -89,7 +95,7 @@ const createResponse = (config, trip, date, startTime, includeCalls = true, incl
 			}
 			
     }
-		if(includeService){
+		if(includeService) {
 			const service = tripResponse.ele('ojp:Service');
 			service.ele('ojp:OperatingDayRef', moment(date, "YYYYMMDD").tz(trip.route.agency.timezone).format("YYYY-MM-DD"));
 			service.ele('ojp:JourneyRef', trip.gtfsId);
@@ -125,7 +131,7 @@ module.exports = {
 			if(
         queryNodes(doc, [serviceTag, 'ojp:JourneyRef']).length > 0 &&
         queryNodes(doc, [serviceTag, 'ojp:OperatingDayRef']).length > 0
-        ){
+        ) {
 					const tripId = queryTags(doc, [serviceTag, 'ojp:JourneyRef']);
 					const date = queryTags(doc, [serviceTag, 'ojp:OperatingDayRef']);
 
@@ -157,7 +163,7 @@ module.exports = {
 				}else{
 					return createErrorResponse(serviceName, config.errors.notagcondition, startTime);
 				}
-		} catch (err){
+		} catch (err) {
       logger.error(err);
       return createErrorResponse(serviceName, config.errors.noparsing, startTime);
     }
