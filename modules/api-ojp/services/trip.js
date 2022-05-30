@@ -21,8 +21,6 @@ const createResponse = (config,
 
   const {location_digits} = config;
 
-console.log('QUESTION',question)
-
   const {origin, destination, origin_type, destin_type} = question;
 
   const now = new Date()
@@ -32,19 +30,19 @@ console.log('QUESTION',question)
 
   const {logger} = config;
 
-  if(itineraries === null || itineraries.length === 0){
+  if(itineraries === null || itineraries.length === 0) {
     tag.ele('siri:Status', false);
     const err = trip.ele('siri:ErrorCondition');
     err.ele('siri:OtherError')
     err.ele('siri:Description', config.errors.noresults.trip);
-  } else {
+  }
+  else {
     tag.ele('siri:Status', true);
     const context = tag.ele('ojp:TripResponseContext');
     const stops = [];
-    for(const itinerary of itineraries){
+    for(const itinerary of itineraries) {
 
       const tripresponse = tag.ele('ojp:TripResult');
-
       const tripId = uuidv4();
 
       try{
@@ -70,7 +68,7 @@ console.log('QUESTION',question)
             });
           }          
         });
-      }catch (exc){
+      }catch (exc) {
         logger.error(exc);
       }
       
@@ -116,9 +114,9 @@ console.log('QUESTION',question)
               legStart.ele('ojp:StopPlaceRef', origin);
             }
             else if (origin_type==='Position') {
-              const geoS = legStart.ele('ojp:GeoPosition');
-              geoS.ele('siri:Longitude', _.round(leg.from.lon, location_digits) );
-              geoS.ele('siri:Latitude', _.round(leg.from.lat, location_digits) );
+              const geoStart = legStart.ele('ojp:GeoPosition');
+              geoStart.ele('siri:Longitude', _.round(leg.from.lon, location_digits) );
+              geoStart.ele('siri:Latitude', _.round(leg.from.lat, location_digits) );
             }
 
             legStart.ele('ojp:LocationName').ele('ojp:Text', `${leg.from.name}`);
@@ -134,9 +132,9 @@ console.log('QUESTION',question)
               legEnd.ele('ojp:StopPlaceRef', destination);
             }
             else if (destin_type==='Position') {
-              const geoE = legEnd.ele('ojp:GeoPosition');
-              geoE.ele('siri:Longitude', _.round(leg.to.lon, location_digits) );
-              geoE.ele('siri:Latitude', _.round(leg.to.lat, location_digits) );
+              const geoEnd = legEnd.ele('ojp:GeoPosition');
+              geoEnd.ele('siri:Longitude', _.round(leg.to.lon, location_digits) );
+              geoEnd.ele('siri:Latitude', _.round(leg.to.lat, location_digits) );
             }
 
             legEnd.ele('ojp:LocationName').ele('ojp:Text', `${leg.to.name}`);
@@ -152,20 +150,20 @@ console.log('QUESTION',question)
           tripTransfers += 1;
           let sequence = 1;
           const timedLeg = tripLeg.ele('ojp:TimedLeg');
-          const board = timedLeg.ele('ojp:LegBoard');
+          const legBoard = timedLeg.ele('ojp:LegBoard');
 
-          if(leg.from.stop){
+          if(leg.from.stop) {
             stops.push(leg.from.stop);
-            board.ele('siri:StopPointRef', leg.from.stop.gtfsId);
+            legBoard.ele('siri:StopPointRef', leg.from.stop.gtfsId);
           }
 
-          board.ele('ojp:StopPointName').ele('ojp:Text', `${leg.from.name}`);
+          legBoard.ele('ojp:StopPointName').ele('ojp:Text', `${leg.from.name}`);
 
-          const serviceFrom = board.ele('ojp:ServiceDeparture');
+          const serviceFrom = legBoard.ele('ojp:ServiceDeparture');
           serviceFrom.ele('ojp:TimetabledTime', moment(leg.startTime).toISOString())
           serviceFrom.ele('ojp:EstimatedTime', moment(leg.startTime - leg.departureDelay).toISOString())
 
-          board.ele('ojp:Order', 1);
+          legBoard.ele('ojp:Order', 1);
 
           for(const intermediatePoint of leg.intermediatePlaces) {
             sequence += 1;
@@ -175,10 +173,11 @@ console.log('QUESTION',question)
               const intermediate = timedLeg.ele('ojp:LegIntermediates');
 
               intermediate.ele('ojp:StopPointName').ele('ojp:Text', `${intermediatePoint.name}`);
-              if(intermediatePoint.stop){
+              if(intermediatePoint.stop) {
                 stops.push(intermediatePoint.stop);
                 intermediate.ele('siri:StopPointRef', intermediatePoint.stop.gtfsId);
               }
+
               const serviceIntermediateArr = intermediate.ele('ojp:ServiceArrival');
               serviceIntermediateArr.ele('ojp:TimetabledTime', moment(intermediatePoint.arrivalTime).toISOString())
               serviceIntermediateArr.ele('ojp:EstimatedTime', moment(intermediatePoint.arrivalTime - leg.departureDelay).toISOString())
@@ -193,7 +192,7 @@ console.log('QUESTION',question)
 
           const alight = timedLeg.ele('ojp:LegAlight');
 
-          if(leg.to.stop){
+          if(leg.to.stop) {
             alight.ele('siri:StopPointRef', leg.to.stop.gtfsId);
             stops.push(leg.to.stop);
           }
@@ -206,6 +205,7 @@ console.log('QUESTION',question)
           alight.ele('ojp:Order', sequence+1);
 
           const service = timedLeg.ele('ojp:Service');
+
           service.ele('ojp:OperatingDayRef', moment(leg.serviceDate).tz(leg.route.agency.timezone).format("YYYY-MM-DD"));
           service.ele('ojp:JourneyRef', leg.trip.gtfsId);
           service.ele('siri:LineRef', leg.route.gtfsId);
@@ -233,8 +233,8 @@ console.log('QUESTION',question)
 
     const places = context.ele('ojp:Places');
     const ids = [];
-    for(const stop of stops){
-      if(ids.indexOf(stop.gtfsId) === -1){
+    for(const stop of stops) {
+      if(ids.indexOf(stop.gtfsId) === -1) {
         ids.push(stop.gtfsId);
         const place = places.ele('ojp:Location');
         const stopPlace = place.ele('ojp:StopPlace');
@@ -268,16 +268,16 @@ module.exports = {
       if(
         queryNodes(doc, [serviceTag, 'ojp:Origin', 'ojp:PlaceRef']).length > 0 &&
         queryNodes(doc, [serviceTag, 'ojp:Destination', 'ojp:PlaceRef']).length > 0
-        ){
+        ) {
 
         let originId = queryTags(doc, [serviceTag, 'ojp:Origin', 'ojp:PlaceRef', 'StopPointRef']);
         let destinationId = queryTags(doc, [serviceTag, 'ojp:Destination', 'ojp:PlaceRef', 'StopPointRef']);
 
-        if(originId == null){
+        if(originId == null) {
           originId = queryTags(doc, [serviceTag, 'ojp:Origin', 'ojp:PlaceRef', 'ojp:StopPlaceRef']);
         }
 
-        if(destinationId == null){
+        if(destinationId == null) {
           destinationId = queryTags(doc, [serviceTag, 'ojp:Destination', 'ojp:PlaceRef', 'ojp:StopPlaceRef']);
         }
 
@@ -310,13 +310,13 @@ module.exports = {
 
               intermediatePlaces.push(via.childNodes[1].firstChild.data);
             }
-            else if(via.childNodes[1].localName === 'GeoPosition'){
+            else if(via.childNodes[1].localName === 'GeoPosition') {
               let lat, lon = 0;
-              for (const key in via.childNodes[1].childNodes){
+              for (const key in via.childNodes[1].childNodes) {
                 const child = via.childNodes[1].childNodes[key];
-                if(child.localName === 'Longitude'){
+                if(child.localName === 'Longitude') {
                   lon = child.firstChild.data;
-                }else if (child.localName === 'Latitude'){
+                }else if (child.localName === 'Latitude') {
                   lat = child.firstChild.data;
                 }
               }
@@ -329,10 +329,10 @@ module.exports = {
 
         let arrivedBy = false;
 
-        if(dateStart != null){
+        if(dateStart != null) {
           date = new Date(dateStart).getTime();
         }
-        else if(dateEnd != null){
+        else if(dateEnd != null) {
 
           arrivedBy = true;
 
@@ -381,7 +381,7 @@ module.exports = {
       }else{
         return createErrorResponse(serviceName, config.errors.notagcondition, startTime);
       }
-    }catch(err){
+    }catch(err) {
       logger.error(err);
       return createErrorResponse(serviceName, config.errors.noparsing, startTime);
     }
