@@ -209,14 +209,12 @@ const createResponse = (config,
           service.ele('ojp:OperatingDayRef', moment(leg.serviceDate).tz(leg.route.agency.timezone).format("YYYY-MM-DD"));
           service.ele('ojp:JourneyRef', leg.trip.gtfsId);
           service.ele('siri:LineRef', leg.route.gtfsId);
+          service.ele('siri:DirectionRef', leg.trip.directionId);
 
           const mode = service.ele('ojp:Mode');
-
           const ojpMode = ptModesResponse( leg.mode );
-
           mode.ele('ojp:PtMode', ojpMode);
 
-          service.ele('siri:DirectionRef', leg.trip.directionId);
           service.ele('ojp:PublishedLineName').ele('ojp:Text', leg.route.longName || leg.route.shortName || leg.route.gtfsId)
           service.ele('ojp:OperatorRef', leg.route.agency.gtfsId);
           service.ele('ojp:OriginStopPointRef', leg.trip.departureStoptime.stop.gtfsId);
