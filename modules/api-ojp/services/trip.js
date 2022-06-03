@@ -241,7 +241,9 @@ const createResponse = (config,
     for(const stop of stops) {
       if(ids.indexOf(stop.gtfsId) === -1) {
         ids.push(stop.gtfsId);
+
         const place = places.ele('ojp:Location');
+
         const stopPlace = place.ele('ojp:StopPlace');
         stopPlace.ele('ojp:StopPlaceRef', stop.gtfsId);
         stopPlace.ele('ojp:StopPlaceName').ele('ojp:Text', `${stop.name}`);
