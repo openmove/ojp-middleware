@@ -172,11 +172,12 @@ const createResponse = (config,
 
               const intermediate = timedLeg.ele('ojp:LegIntermediates');
 
-              intermediate.ele('ojp:StopPointName').ele('ojp:Text', `${intermediatePoint.name}`);
               if(intermediatePoint.stop) {
                 stops.push(intermediatePoint.stop);
                 intermediate.ele('siri:StopPointRef', intermediatePoint.stop.gtfsId);
               }
+
+              intermediate.ele('ojp:StopPointName').ele('ojp:Text', `${intermediatePoint.name}`);
 
               const serviceIntermediateArr = intermediate.ele('ojp:ServiceArrival');
               serviceIntermediateArr.ele('ojp:TimetabledTime', moment(intermediatePoint.arrivalTime).toISOString())
