@@ -109,17 +109,18 @@ const createResponse = (config,
 
             if (origin_type==='PointRef') {
               legStart.ele('siri:StopPointRef', leg.from.stop ? leg.from.stop.gtfsId : origin);
+              legStart.ele('ojp:LocationName').ele('ojp:Text', `${leg.from.name}`);
             }
             else if (origin_type==='PlaceRef') {
               legStart.ele('ojp:StopPlaceRef', origin);
+              legStart.ele('ojp:LocationName').ele('ojp:Text', `${leg.from.name}`);
             }
             else if (origin_type==='Position') {
               const geoStart = legStart.ele('ojp:GeoPosition');
               geoStart.ele('siri:Longitude', _.round(leg.from.lon, location_digits) );
               geoStart.ele('siri:Latitude', _.round(leg.from.lat, location_digits) );
+              legStart.ele('ojp:LocationName').ele('ojp:Text', `${leg.from.name}`);
             }
-
-            legStart.ele('ojp:LocationName').ele('ojp:Text', `${leg.from.name}`);
 
           //LegEnd
             const legEnd = transferLeg.ele('ojp:LegEnd');
