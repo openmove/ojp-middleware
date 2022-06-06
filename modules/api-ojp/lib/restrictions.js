@@ -93,10 +93,18 @@ module.exports = {
 			'ojp:IncludePtModes'
 		]);
 
-		const ptModeFilter = queryTags(doc, [
+		const ptModeFilterExclude = queryTags(doc, [
 			serviceTag,
 			'ojp:Params',
-			'ojp:PtModeFilter'
+			'PtModeFilter',
+			'Exclude'
+		]);
+
+		const ptModeFilterNodes = queryNodes(doc, [
+			serviceTag,
+			'ojp:Params',
+			'PtModeFilter',
+			'PtMode'
 		]);
 
 		const limitRestrictions = queryTags(doc, [
@@ -131,8 +139,10 @@ module.exports = {
 
 		let ptModes = ''
 			, limit = Number( Number(limitRestrictions) || Number(limitParams) || undefined )
-		  , skip = Number( Number(skipRestrictions) || Number(skipParams) || undefined )
-			, type = 'stop'	;
+		  	, skip = Number( Number(skipRestrictions) || Number(skipParams) || undefined )
+			, type = 'stop'
+			, ptModeExclude = false
+			, ptModeFilter = []
 
 		if (_.isNaN(limit)) {
 			limit = Number(config.default_restrictions.limit);
@@ -163,10 +173,28 @@ module.exports = {
 	    	ptModes = config.default_restrictions.include_include_pt_modes;
 	    }
 
+	    if (ptModeFilterExclude === 'true') {
+        	ptModeExclude = true;
+        }
+        else if(ptModeFilterExclude === 'false') {
+        	ptModeExclude = false;
+        }
+
+	    if (ptModeExclude === false && ptModeFilterNodes) {
+
+	    	for(const ptMode of ptModeFilterNodes) {
+	    		ptModeFilter.push(ptMode.childNodes[0].textContent)
+	    	}
+	    	//ptModeFilter = ptModeFilterNodes
+	    }
+
+console.log("ptModeFilterParams---------------\n", ptModeExclude, "--------\n", ptModeFilter)
+
 		return {
 			limit,
 			skip,
 			ptModes,
+			ptModeFilter,
 			//additional
 			limitRestrictions,
 			limitParams,
