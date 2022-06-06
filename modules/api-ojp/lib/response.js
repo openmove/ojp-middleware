@@ -28,7 +28,7 @@ module.exports = {
     return tag;
   },
 
-  'ptModesResponse': (mod, parent) => {
+  'ptModesResponse': mod => {
 
     if(!mod) {
       return 'unknown';

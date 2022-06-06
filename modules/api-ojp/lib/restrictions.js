@@ -173,7 +173,7 @@ module.exports = {
 	    	ptModes = config.default_restrictions.include_include_pt_modes;
 	    }
 
-	    if (ptModeFilterExclude === 'true') {
+/*	    if (ptModeFilterExclude === 'true') {
         	ptModeExclude = true;
         }
         else if(ptModeFilterExclude === 'false') {
@@ -189,13 +189,13 @@ module.exports = {
 	    }
 
 console.log("ptModeFilterParams---------------\n", ptModeExclude, "--------\n", ptModeFilter)
-
+*/
 		return {
 			limit,
 			skip,
 			ptModes,
-			ptModeFilter,
-			//additional
+			//TODO ptModeFilter,
+
 			limitRestrictions,
 			limitParams,
 			skipRestrictions,
