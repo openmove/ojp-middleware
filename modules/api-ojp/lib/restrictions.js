@@ -93,6 +93,12 @@ module.exports = {
 			'ojp:IncludePtModes'
 		]);
 
+		const ptModeFilter = queryTags(doc, [
+			serviceTag,
+			'ojp:Params',
+			'ojp:PtModeFilter'
+		]);
+
 		const limitRestrictions = queryTags(doc, [
 			serviceTag,
 			'ojp:Restrictions',
