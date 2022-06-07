@@ -7,7 +7,7 @@ module.exports = {
     const clientQL = new GraphQLClient(config.otp.baseUrl, { headers: config.otp.headers });
 
     let from = null
-      , to = null,
+      , to = null
       , modes = [];
 
     if(Array.isArray(origin)){

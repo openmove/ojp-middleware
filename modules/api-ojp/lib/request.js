@@ -65,7 +65,7 @@ module.exports = {
     //SIRI MODES https://github.com/VDVde/OJP/blob/master/siri_model/siri_modes-v1.1.xsd
     //
     //MIP
-    const modesOtp = [];
+    const modesOtp = ['walk'];
 
     const modesMap = {
       ' ': 'unknown',
@@ -92,7 +92,7 @@ module.exports = {
       }
     }
 
-    return modesOtp.map(m => {
+    return _.uniq(modesOtp).map(m => {
       return m.toUpperCase();
     });
   }
