@@ -7,9 +7,10 @@ const { time } = require('console');
 const mongoClient = require("mongodb").MongoClient;
 
 const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
-const {doRequest, ptModesRequest} = require('../lib/request');
 const {parseParamsRestrictions, parseTripRestrictions} = require('../lib/restrictions');
-const {createErrorResponse, ptModesResponse, ptModesResponse} = require('../lib/response');
+
+const {doRequest, ptModesRequest} = require('../lib/request');
+const {createErrorResponse, ptModesResponse} = require('../lib/response');
 
 const serviceName = 'OJPTrip';
 
