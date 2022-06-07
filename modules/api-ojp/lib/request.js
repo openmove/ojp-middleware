@@ -65,21 +65,36 @@ module.exports = {
     //SIRI MODES https://github.com/VDVde/OJP/blob/master/siri_model/siri_modes-v1.1.xsd
     //
     //MIP
+    const modesOtp = [];
 
-    const modes = {
+    const modesMap = {
       ' ': 'unknown',
-      'airplane': 'airService',
-      'train': 'rail',
-      'gondola': 'telecabin',
-      'ferry': 'ferryService',
-      'subway': 'underground',
-      'funicular': 'funicularService',
-     // 'tram': 'tramService'
+      'airService': 'airplane',
+      'rail': 'train',
+      'telecabin': 'gondola',
+      'ferryService': 'ferry',
+      'underground': 'subway',
+      'funicularService': 'funicular',
+      'tramService': 'tram',
+      'bus': 'bus',
+      'walk': 'walk',
+      //TODO cable car
+      //TODO manage 'all' may be -> transit
     };
+    //TODO use csv file or reg expressions
 
-    mode =  modes[mode] || mode;
+    for(const mod of mods) {
 
-    return mode;
+      let mode = modesMap[mod];//TODO default value
+
+      if(mode) {
+        modesOtp.push(mode);
+      }
+    }
+
+    return modesOtp.map(m => {
+      return m.toUpperCase();
+    });
   }
 }
 
