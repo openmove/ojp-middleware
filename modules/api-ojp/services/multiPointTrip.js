@@ -7,7 +7,7 @@ const { time } = require('console');
 const mongoClient = require("mongodb").MongoClient;
 
 const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
-const {doRequest, doMultiRequests} = require('../lib/request');
+const {doRequest, doMultiRequests, ptModesRequest} = require('../lib/request');
 const {parseParamsRestrictions, parseTripRestrictions} = require('../lib/restrictions');
 const {createErrorResponse, ptModesResponse} = require('../lib/response');
 

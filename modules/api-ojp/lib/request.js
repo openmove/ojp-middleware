@@ -51,6 +51,35 @@ module.exports = {
       console.log('doMultiRequests response time:', (new Date().getTime()) - st, 'ms')
       return results
     });
+  },
+
+  'ptModesRequest': mods => {    //siri to otp modes
+
+    if(!mods || mods.length === 0) {
+      return false;
+    }
+    //OTP
+    //return this == TRAM || this == SUBWAY || this == RAIL || this == BUS || this == FERRY
+    //        || this == CABLECAR || this == GONDOLA || this == FUNICULAR || this == TRANSIT
+    //        || this == AIRPLANE;
+    //SIRI MODES https://github.com/VDVde/OJP/blob/master/siri_model/siri_modes-v1.1.xsd
+    //
+    //MIP
+
+    const modes = {
+      ' ': 'unknown',
+      'airplane': 'airService',
+      'train': 'rail',
+      'gondola': 'telecabin',
+      'ferry': 'ferryService',
+      'subway': 'underground',
+      'funicular': 'funicularService',
+     // 'tram': 'tramService'
+    };
+
+    mode =  modes[mode] || mode;
+
+    return mode;
   }
 }
 

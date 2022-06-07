@@ -163,15 +163,15 @@ module.exports = {
 			ptModes = ptModesParams;
 		}
 
-	        if (ptModes === 'true') {
-	        	ptModes = true;
-	        }
-	        else if(ptModes === 'false') {
-	        	ptModes = false;
-	        }
-	        else {
-	    		ptModes = config.default_restrictions.include_include_pt_modes;
-	    	}
+        if (ptModes === 'true') {
+        	ptModes = true;
+        }
+        else if(ptModes === 'false') {
+        	ptModes = false;
+        }
+        else {
+    		ptModes = config.default_restrictions.include_include_pt_modes;
+    	}
 
 	    if (ptModeFilterExclude === 'true') {
         	ptModeExclude = true;
