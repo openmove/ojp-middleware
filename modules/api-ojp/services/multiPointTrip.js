@@ -151,7 +151,6 @@ const createResponse = (config, results, startTime) => {
 					service.ele('ojp:OperatingDayRef', moment(leg.serviceDate).tz(leg.route.agency.timezone).format("YYYY-MM-DD"));
 					service.ele('ojp:JourneyRef', leg.trip.gtfsId);
 					service.ele('siri:LineRef', leg.route.gtfsId);
-					service.ele('siri:DirectionRef', leg.trip.directionId);
 					const mode = service.ele('ojp:Mode');
 					mode.ele('ojp:PtMode', leg.mode.toLowerCase());
 					service.ele('ojp:PublishedLineName').ele('ojp:Text', leg.route.longName || leg.route.shortName || leg.route.gtfsId)

@@ -164,7 +164,6 @@ const createResponse = (config,
       service.ele('ojp:OperatingDayRef', moment(schedule.serviceDay * 1000).tz(schedule.trip.route.agency.timezone).format("YYYY-MM-DD"));
       service.ele('ojp:JourneyRef', schedule.trip.gtfsId);
       service.ele('siri:LineRef', schedule.trip.route.gtfsId);
-      service.ele('siri:DirectionRef', schedule.trip.directionId);
 
       const mode = service.ele('ojp:Mode');
       const ojpMode = ptModesResponse( stop.vehicleMode );

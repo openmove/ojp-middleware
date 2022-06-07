@@ -70,14 +70,14 @@ module.exports = {
     const modesMap = {
       ' ': 'unknown',
       'airService': 'airplane',
-      'rail': 'train',
+      'train': 'rail',
       'telecabin': 'gondola',
       'ferryService': 'ferry',
       'underground': 'subway',
+      'funicular': 'funicular',
       'funicularService': 'funicular',
       'tramService': 'tram',
       'bus': 'bus',
-      'walk': 'walk',
       //TODO cable car
       //TODO manage 'all' may be -> transit
     };

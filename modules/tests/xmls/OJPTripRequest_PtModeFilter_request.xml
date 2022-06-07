@@ -8,19 +8,19 @@
                 <RequestTimestamp>2022-06-01T07:50:03.507Z</RequestTimestamp>
                 <ojp:Origin>
                     <ojp:PlaceRef>
-                        <StopPointRef>OJP:STOP:STA:it:22021:2883|Pruno</StopPointRef>
-                        <LocationName>
-                            <Text>Pruno</Text>
-                        </LocationName>
+                        <StopPointRef>gtt:3239</StopPointRef>
+                        <ojp:LocationName>
+                            <ojp:Text>ABETI</ojp:Text>
+                        </ojp:LocationName>
                     </ojp:PlaceRef>
-                    <DepArrTime>2022-06-01T07:50:03.502Z</DepArrTime>
+                    <ojp:DepArrTime>2022-04-22T15:00:00Z</ojp:DepArrTime>
                 </ojp:Origin>
                 <ojp:Destination>
                     <ojp:PlaceRef>
-                        <StopPointRef>OJP:STOP:STA:it:22021:1153|Elvas</StopPointRef>
-                        <LocationName>
-                            <Text>Elvas</Text>
-                        </LocationName>
+                        <StopPointRef>gtt:66</StopPointRef>
+                        <ojp:LocationName>
+                            <ojp:Text>Baiardi</ojp:Text>
+                        </ojp:LocationName>
                     </ojp:PlaceRef>
                 </ojp:Destination>
                 <ojp:Params>

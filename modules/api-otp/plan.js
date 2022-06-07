@@ -47,7 +47,11 @@ module.exports = {
 
     const intermediatePlacesQuery = intermediatePlacesStrings.length>0 ? `intermediatePlaces: [${intermediatePlacesStrings.join(",")}]` : '';
 
-    const transportModes = modes.length>0 ? `transportModes: [${transportModes.join(",")}]` : '';
+    modes = modes.map(M => {
+      return `{mode: ${M}}`
+    });
+
+    const transportModes = modes.length > 0 ? `transportModes: [${modes.join(',')}]` : '';
 
     const query = gql`{
       plan(
@@ -59,7 +63,7 @@ module.exports = {
         arriveBy: ${extra.arriveBy || false},
         maxTransfers: ${extra.transfers || 2},
         wheelchair: ${extra.wheelchair || false},
-        ${intermediatePlacesQuery}
+        ${intermediatePlacesQuery},
         ${transportModes}
         ) {
         date

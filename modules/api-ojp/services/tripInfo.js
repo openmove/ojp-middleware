@@ -100,8 +100,6 @@ const createResponse = (config,
 			service.ele('ojp:OperatingDayRef', moment(date, "YYYYMMDD").tz(trip.route.agency.timezone).format("YYYY-MM-DD"));
 			service.ele('ojp:JourneyRef', trip.gtfsId);
 			service.ele('siri:LineRef', trip.route.gtfsId);
-			service.ele('siri:DirectionRef', trip.directionId);
-
 
 			const mode = service.ele('ojp:Mode');
 

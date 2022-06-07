@@ -217,7 +217,6 @@ const createResponse = (config,
           service.ele('ojp:OperatingDayRef', moment(leg.serviceDate).tz(leg.route.agency.timezone).format("YYYY-MM-DD"));
           service.ele('ojp:JourneyRef', leg.trip.gtfsId);
           service.ele('siri:LineRef', leg.route.gtfsId);
-          service.ele('siri:DirectionRef', leg.trip.directionId);
 
           const mode = service.ele('ojp:Mode');
           const ojpMode = ptModesResponse( leg.mode );
@@ -367,29 +366,31 @@ module.exports = {
         ///
         const json = JSON.stringify(questionObj);
 
-console.log('REQUEST-----------------', questionObj)
+        console.log('REQUEST-----------------', questionObj)
 
         const options = {
           path: `/plan`,
           host: config['api-otp'].host,
           port: config['api-otp'].port,
           method: 'POST',
-          json:true,
+          json: true,
           headers: {
             'Content-Type': 'application/json',
             'Content-Length': Buffer.byteLength(json)
-         }
+          }
         };
         logger.info(options);
 
         const response = await doRequest(options, json);
 
-        return createResponse(config,
-                              response.plan.itineraries,
-                              startTime,
-                              intermediateStops,
-                              questionObj
-                              );
+        if (response.plan && response.plan.itineraries) {
+          return createResponse(config,
+                                response.plan.itineraries,
+                                startTime,
+                                intermediateStops,
+                                questionObj
+                                );
+        }
 
       }else{
         return createErrorResponse(serviceName, config.errors.notagcondition, startTime);
