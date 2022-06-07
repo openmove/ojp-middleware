@@ -6,23 +6,23 @@
             <RequestorRef>Projektionisten</RequestorRef>
             <ojp:OJPTripRequest>
                 <RequestTimestamp>2022-06-01T07:50:03.507Z</RequestTimestamp>
-                <Origin>
-                    <PlaceRef>
+                <ojp:Origin>
+                    <ojp:PlaceRef>
                         <StopPointRef>OJP:STOP:STA:it:22021:2883|Pruno</StopPointRef>
                         <LocationName>
                             <Text>Pruno</Text>
                         </LocationName>
-                    </PlaceRef>
+                    </ojp:PlaceRef>
                     <DepArrTime>2022-06-01T07:50:03.502Z</DepArrTime>
-                </Origin>
-                <Destination>
-                    <PlaceRef>
+                </ojp:Origin>
+                <ojp:Destination>
+                    <ojp:PlaceRef>
                         <StopPointRef>OJP:STOP:STA:it:22021:1153|Elvas</StopPointRef>
                         <LocationName>
                             <Text>Elvas</Text>
                         </LocationName>
-                    </PlaceRef>
-                </Destination>
+                    </ojp:PlaceRef>
+                </ojp:Destination>
                 <ojp:Params>
                     <PtModeFilter>
                         <Exclude>false</Exclude>

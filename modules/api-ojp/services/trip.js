@@ -367,6 +367,8 @@ module.exports = {
         ///
         const json = JSON.stringify(questionObj);
 
+console.log('REQUEST-----------------', questionObj)
+
         const options = {
           path: `/plan`,
           host: config['api-otp'].host,
