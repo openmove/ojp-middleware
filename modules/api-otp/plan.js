@@ -7,7 +7,8 @@ module.exports = {
     const clientQL = new GraphQLClient(config.otp.baseUrl, { headers: config.otp.headers });
 
     let from = null
-      , to = null;
+      , to = null,
+      , modes = [];
 
     if(Array.isArray(origin)){
       from = `from: {lat: ${origin[1]}, lon: ${origin[0]}, address: "${origin[2]}"}`;   
@@ -40,7 +41,13 @@ module.exports = {
       }
     }
 
+    if(Array.isArray(extra.modes)) {
+      modes = extra.modes;
+    }
+
     const intermediatePlacesQuery = intermediatePlacesStrings.length>0 ? `intermediatePlaces: [${intermediatePlacesStrings.join(",")}]` : '';
+
+    const transportModes = modes.length>0 ? `transportModes: [${transportModes.join(",")}]` : '';
 
     const query = gql`{
       plan(
@@ -53,6 +60,7 @@ module.exports = {
         maxTransfers: ${extra.transfers || 2},
         wheelchair: ${extra.wheelchair || false},
         ${intermediatePlacesQuery}
+        ${transportModes}
         ) {
         date
         from {
