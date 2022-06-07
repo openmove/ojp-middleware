@@ -163,39 +163,38 @@ module.exports = {
 			ptModes = ptModesParams;
 		}
 
-        if (ptModes === 'true') {
-        	ptModes = true;
-        }
-        else if(ptModes === 'false') {
-        	ptModes = false;
-        }
-        else {
-	    	ptModes = config.default_restrictions.include_include_pt_modes;
-	    }
+	        if (ptModes === 'true') {
+	        	ptModes = true;
+	        }
+	        else if(ptModes === 'false') {
+	        	ptModes = false;
+	        }
+	        else {
+	    		ptModes = config.default_restrictions.include_include_pt_modes;
+	    	}
 
-/*	    if (ptModeFilterExclude === 'true') {
+	    if (ptModeFilterExclude === 'true') {
         	ptModeExclude = true;
         }
         else if(ptModeFilterExclude === 'false') {
         	ptModeExclude = false;
         }
 
-	    if (ptModeExclude === false && ptModeFilterNodes) {
+	    if (ptModeExclude === false && ptModeFilterNodes.length > 0) {
 
 	    	for(const ptMode of ptModeFilterNodes) {
 	    		ptModeFilter.push(ptMode.childNodes[0].textContent)
 	    	}
-	    	//ptModeFilter = ptModeFilterNodes
 	    }
 
-console.log("ptModeFilterParams---------------\n", ptModeExclude, "--------\n", ptModeFilter)
-*/
+		//console.log("ptModeFilterParams---------------\n", ptModeExclude, "--------\n", ptModeFilter)
+
 		return {
 			limit,
 			skip,
 			ptModes,
-			//TODO ptModeFilter,
-
+			//TODO maybe also ptModeExclude pass to api-otp
+			ptModeFilter,
 			limitRestrictions,
 			limitParams,
 			skipRestrictions,

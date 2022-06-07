@@ -28,7 +28,53 @@ module.exports = {
     return tag;
   },
 
-  'ptModesResponse': mod => {
+  'ptModesResponse': mod => {   //otp to siri modes
+
+    if(!mod) {
+      return 'unknown';
+    }
+
+    const m = mod.toLowerCase();
+
+    let mode = m.replace(/~/g,'');
+      //'~bus~': 'BUS',
+      //'~train~': 'RAIL',
+      //exchangepoints db values
+
+    //OTP
+    //return this == TRAM || this == SUBWAY || this == RAIL || this == BUS || this == FERRY
+    //        || this == CABLECAR || this == GONDOLA || this == FUNICULAR || this == TRANSIT
+    //        || this == AIRPLANE;
+    //SIRI MODES https://github.com/VDVde/OJP/blob/master/siri_model/siri_modes-v1.1.xsd
+    //
+    //MIP
+/*  <transitModes>
+      TRAM
+      SUBWAY
+      RAIL
+      FERRY
+      BUS
+      FUNICULAR
+    </transitModes>
+*/
+
+    const modes = {
+      ' ': 'unknown',
+      'airplane': 'airService',
+      'train': 'rail',
+      'gondola': 'telecabin',
+      'ferry': 'ferryService',
+      'subway': 'underground',
+      'funicular': 'funicularService',
+     // 'tram': 'tramService'
+    };
+
+    mode =  modes[mode] || mode;
+
+    return mode;
+  },
+
+  'ptModesRequest': mod => {    //siri to otp modes
 
     if(!mod) {
       return 'unknown';
