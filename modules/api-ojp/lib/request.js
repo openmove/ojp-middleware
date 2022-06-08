@@ -58,28 +58,36 @@ module.exports = {
     if(!mods || mods.length === 0) {
       return false;
     }
-    //OTP
-    //return this == TRAM || this == SUBWAY || this == RAIL || this == BUS || this == FERRY
-    //        || this == CABLECAR || this == GONDOLA || this == FUNICULAR || this == TRANSIT
-    //        || this == AIRPLANE;
-    //SIRI MODES https://github.com/VDVde/OJP/blob/master/siri_model/siri_modes-v1.1.xsd
+    //OTP MODES:
+    //  TRAM, SUBWAY, RAIL, BUS, FERRY, CABLECAR, GONDOLA, FUNICULAR, TRANSIT, AIRPLANE;
     //
-    //MIP
-    const modesOtp = ['walk'];
+    //SIRI MODES
+    //  ./lib/siri_modes.txt
+    //
+    const modesOtp = ['WALK'];
+
+console.log('ptModesRequest------------------------', mods)
+
+    mods.forEach( (m, key) => {
+      mods[key] = m.replace('Services','').replace('Service','');
+    });
+
+console.log('ptModesRequest TRUNC------------------------', mods)
 
     const modesMap = {
       ' ': 'unknown',
-      'airService': 'airplane',
-      'train': 'rail',
-      'telecabin': 'gondola',
+      'all':  'transit',
+      'bus':  'bus',
+      'rail': 'rail',
+      'train':        'rail',
+      'cableCar':     'cablecar',
+      'telecabin':    'gondola',
+      'funicular':    'funicular',
+      'airService':   'airplane',
+      'tramService':  'tram',
+      'underground':  'subway',
       'ferryService': 'ferry',
-      'underground': 'subway',
-      'funicular': 'funicular',
-      'funicularService': 'funicular',
-      'tramService': 'tram',
-      'bus': 'bus',
-      //TODO cable car
-      //TODO manage 'all' may be -> transit
+      'funicularService': 'funicular'
     };
     //TODO use csv file or reg expressions
 
@@ -92,9 +100,13 @@ module.exports = {
       }
     }
 
-    return _.uniq(modesOtp).map(m => {
+    const returnModes = _.uniq(modesOtp).map(m => {
       return m.toUpperCase();
     });
+
+    console.log('ptModesRequest TOP MODES------------------------', returnModes)
+
+    return returnModes;
   }
 }
 

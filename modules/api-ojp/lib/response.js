@@ -41,22 +41,13 @@ module.exports = {
       //'~train~': 'RAIL',
       //exchangepoints db values
 
-    //OTP
-    //return this == TRAM || this == SUBWAY || this == RAIL || this == BUS || this == FERRY
-    //        || this == CABLECAR || this == GONDOLA || this == FUNICULAR || this == TRANSIT
-    //        || this == AIRPLANE;
-    //SIRI MODES https://github.com/VDVde/OJP/blob/master/siri_model/siri_modes-v1.1.xsd
+    //OTP MODES:
+    //  TRAM, SUBWAY, RAIL, BUS, FERRY, CABLECAR, GONDOLA, FUNICULAR, TRANSIT, AIRPLANE;
+    //
+    //SIRI MODES
+    //  lib/siri_modes.txt
     //
     //MIP
-/*  <transitModes>
-      TRAM
-      SUBWAY
-      RAIL
-      FERRY
-      BUS
-      FUNICULAR
-    </transitModes>
-*/
 
     const modes = {
       ' ': 'unknown',
