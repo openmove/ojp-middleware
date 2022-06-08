@@ -64,43 +64,41 @@ module.exports = {
     //SIRI MODES
     //  ./lib/siri_modes.txt
     //
-    const modesOtp = ['WALK'];
+    const allOTPModes = [
+      'WALK','TRAM','SUBWAY','RAIL','BUS','FERRY','CABLECAR','GONDOLA','FUNICULAR','AIRPLANE'
+    ];
+    const optModes = ['WALK'];
 
-console.log('ptModesRequest------------------------', mods)
+    const modesMap = {
+      'all':   'transit',
+      'bus':   'bus',
+      'air':   'airplane',
+      'tram':  'tram',
+      'rail':  'rail',
+      'train': 'rail',
+      'ferry': 'ferry',
+      'cableCar':     'cablecar',
+      'telecabin':    'gondola',
+      'funicular':    'funicular',
+      'funicular':    'funicular',
+      'underground':  'subway',
+    };
+    //TODO use csv file or reg expressions
 
     mods.forEach( (m, key) => {
       mods[key] = m.replace('Services','').replace('Service','');
     });
-
-console.log('ptModesRequest TRUNC------------------------', mods)
-
-    const modesMap = {
-      ' ': 'unknown',
-      'all':  'transit',
-      'bus':  'bus',
-      'rail': 'rail',
-      'train':        'rail',
-      'cableCar':     'cablecar',
-      'telecabin':    'gondola',
-      'funicular':    'funicular',
-      'airService':   'airplane',
-      'tramService':  'tram',
-      'underground':  'subway',
-      'ferryService': 'ferry',
-      'funicularService': 'funicular'
-    };
-    //TODO use csv file or reg expressions
 
     for(const mod of mods) {
 
       let mode = modesMap[mod];//TODO default value
 
       if(mode) {
-        modesOtp.push(mode);
+        optModes.push(mode);
       }
     }
 
-    const returnModes = _.uniq(modesOtp).map(m => {
+    const returnModes = _.uniq(optModes).map(m => {
       return m.toUpperCase();
     });
 

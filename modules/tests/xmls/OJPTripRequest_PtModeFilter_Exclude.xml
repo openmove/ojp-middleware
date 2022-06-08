@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<OJP xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.siri.org.uk/siri" version="1.0" xmlns:ojp="http://www.vdv.de/ojp" xsi:schemaLocation="http://www.siri.org.uk/siri ../ojp-xsd-v1.0/OJP.xsd">
+  <OJPRequest>
+        <ServiceRequest>
+            <RequestTimestamp>2022-06-01T07:50:03.507Z</RequestTimestamp>
+            <RequestorRef>Projektionisten</RequestorRef>
+            <ojp:OJPTripRequest>
+                <RequestTimestamp>2022-06-01T07:50:03.507Z</RequestTimestamp>
+                <ojp:Origin>
+                    <ojp:PlaceRef>
+                        <StopPointRef>gtt:3239</StopPointRef>
+                        <ojp:LocationName>
+                            <ojp:Text>ABETI</ojp:Text>
+                        </ojp:LocationName>
+                    </ojp:PlaceRef>
+                    <ojp:DepArrTime>2022-04-22T15:00:00Z</ojp:DepArrTime>
+                </ojp:Origin>
+                <ojp:Destination>
+                    <ojp:PlaceRef>
+                        <StopPointRef>gtt:66</StopPointRef>
+                        <ojp:LocationName>
+                            <ojp:Text>Baiardi</ojp:Text>
+                        </ojp:LocationName>
+                    </ojp:PlaceRef>
+                </ojp:Destination>
+                <ojp:Params>
+                    <PtModeFilter>
+                        <Exclude>true</Exclude>
+                        <PtMode>bus</PtMode>
+                        <PtMode>funicular</PtMode>
+                    </PtModeFilter>
+                    <NumberOfResultsBefore>4</NumberOfResultsBefore>
+                    <NumberOfResultsAfter>4</NumberOfResultsAfter>
+                    <OptimisationMethod>fastest</OptimisationMethod>
+                    <IncludeTrackSections>true</IncludeTrackSections>
+                    <IncludeLegProjection>true</IncludeLegProjection>
+                    <IncludeIntermediateStops>true</IncludeIntermediateStops>
+                </ojp:Params>
+            </ojp:OJPTripRequest>
+        </ServiceRequest>
+    </OJPRequest>
+</OJP>
