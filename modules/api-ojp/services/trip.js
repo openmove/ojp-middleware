@@ -5,6 +5,7 @@ const moment = require('moment-timezone');
 const { 'v4': uuidv4 } = require('uuid');
 const { time } = require('console');
 const mongoClient = require("mongodb").MongoClient;
+const polyline = require('@mapbox/polyline');
 
 const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {parseParamsRestrictions, parseTripRestrictions} = require('../lib/restrictions');
@@ -33,7 +34,7 @@ const createResponse = (config,
 
   if(itineraries === null || itineraries.length === 0) {
     tag.ele('siri:Status', false);
-    const err = trip.ele('siri:ErrorCondition');
+    const err = tag.ele('siri:ErrorCondition');
     err.ele('siri:OtherError')
     err.ele('siri:Description', config.errors.noresults.trip);
   }
@@ -154,6 +155,8 @@ const createResponse = (config,
         }
         else {
 
+          /// leg.transitLeg ===  true
+
           tripTransfers += 1;
           let sequence = 1;
           const timedLeg = tripLeg.ele('ojp:TimedLeg');
@@ -231,6 +234,55 @@ const createResponse = (config,
           service.ele('ojp:DestinationStopPointRef', leg.trip.arrivalStoptime.stop.gtfsId);
           stops.push(leg.trip.arrivalStoptime.stop);
           service.ele('ojp:DestinationText').ele('ojp:Text', `${leg.trip.arrivalStoptime.stop.name}`);
+
+          /* APPEND structure
+          </ojp:Service>
+          <ojp:LegTrack>
+            <ojp:TrackSection>
+              <ojp:TrackStart>
+                <siri:StopPointRef>it:22021:2883:0:2596</siri:StopPointRef>
+                <ojp:LocationName>
+                  <ojp:Text xml:lang="it">Pruno</ojp:Text>
+                </ojp:LocationName>
+              </ojp:TrackStart>
+              <ojp:TrackEnd>
+                <siri:StopPointRef>it:22021:1488:0:7932</siri:StopPointRef>
+                <ojp:LocationName>
+                  <ojp:Text xml:lang="it">Castelpietra</ojp:Text>
+                </ojp:LocationName>
+              </ojp:  TrackEnd>
+              <ojp:LinkProjection>
+                <ojp:Position>
+                  <siri:Longitude>11.44546</siri:Longitude>
+                  <siri:Latitude>46.87577</siri:Latitude>
+                </ojp:Position>
+                ...
+            */
+
+//TODO add condition by params <IncludeTrackSections>true</IncludeTrackSections>
+
+          const legTrack = timedLeg.ele('ojp:LegTrack');
+
+          const trackPoints = polyline.decode(leg.legGeometry.points, location_digits);
+
+          console.log('legGeometry',leg.legGeometry, trackPoints.length);
+
+          //for (const trackPoints of tracks) {
+
+            const trackSection = legTrack.ele('ojp:TrackSection');
+            trackSection.ele('ojp:TrackStart','...');
+            //TODO
+            trackSection.ele('ojp:TrackEnd','...');
+            //TODO
+
+            const linkProjection = trackSection.ele('ojp:LinkProjection');
+            for (const point of trackPoints) {
+              const pos = linkProjection.ele('ojp:Position');
+              const [lat, lon] = point;
+              pos.ele('siri:Latitude', lat)
+              pos.ele('siri:Longitude', lon);
+            }
+          //}
         }//end else
       }
       firstLeg.insertBefore('ojp:Transfers', tripTransfers -1 );

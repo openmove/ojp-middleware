@@ -70,6 +70,8 @@ module.exports = {
 	    	intermediateStops = config.default_restrictions.include_intermediate_stops;
 	    }
 
+	    //TODO add condition by params <IncludeTrackSections>true</IncludeTrackSections>
+
 		return {
 			transferLimit,
 			accessibility,

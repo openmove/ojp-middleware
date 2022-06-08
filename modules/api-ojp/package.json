@@ -13,6 +13,7 @@
     "node": "16.14.0"
   },
   "dependencies": {
+    "@mapbox/polyline": "^1.1.1",
     "@stefcud/configyml": "^0.0.3",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
