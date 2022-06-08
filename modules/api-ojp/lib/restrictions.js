@@ -180,20 +180,18 @@ module.exports = {
         	ptModeExclude = false;
         }
 
-	    if (ptModeExclude === false && ptModeFilterNodes.length > 0) {
+	    if (ptModeFilterNodes.length > 0) {
 
 	    	for(const ptMode of ptModeFilterNodes) {
 	    		ptModeFilter.push(ptMode.childNodes[0].textContent)
 	    	}
 	    }
 
-		//console.log("ptModeFilterParams---------------\n", ptModeExclude, "--------\n", ptModeFilter)
-
 		return {
 			limit,
 			skip,
 			ptModes,
-			//TODO maybe also ptModeExclude pass to api-otp
+			ptModeExclude,
 			ptModeFilter,
 			limitRestrictions,
 			limitParams,

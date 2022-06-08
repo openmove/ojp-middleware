@@ -270,9 +270,9 @@ module.exports = {
 
     try{
 
-      const { limit, ptModes, ptModeFilter } = parseParamsRestrictions(doc, serviceTag, config);
+      const { limit, ptModes, ptModeFilter, ptModeExclude } = parseParamsRestrictions(doc, serviceTag, config);
 
-      const modes = ptModesRequest(ptModeFilter);  //convert siri to otp modes
+      const modes = ptModesRequest(ptModeFilter, ptModeExclude);  //convert siri to otp modes
 
       if(
         queryNodes(doc, [serviceTag, 'ojp:Origin', 'ojp:PlaceRef']).length > 0 &&

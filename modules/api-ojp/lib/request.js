@@ -53,10 +53,10 @@ module.exports = {
     });
   },
 
-  'ptModesRequest': mods => {    //siri to otp modes
+  'ptModesRequest': (mods, excludeMode = false) => {    //siri to otp modes
 
     if(!mods || mods.length === 0) {
-      return false;
+      return undefined;
     }
     //OTP MODES:
     //  TRAM, SUBWAY, RAIL, BUS, FERRY, CABLECAR, GONDOLA, FUNICULAR, TRANSIT, AIRPLANE;
@@ -101,6 +101,15 @@ module.exports = {
     const returnModes = _.uniq(optModes).map(m => {
       return m.toUpperCase();
     });
+
+    if (excludeMode===true) {
+
+      console.log('excludeMode!');
+
+      returnModes = allOTPModes.filter(m => {
+        return !returnModes.includes(m);
+      })
+    }
 
     console.log('ptModesRequest TOP MODES------------------------', returnModes)
 
