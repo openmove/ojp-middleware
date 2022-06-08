@@ -219,6 +219,7 @@ const createResponse = (config,
           service.ele('siri:LineRef', leg.route.gtfsId);
 
           const mode = service.ele('ojp:Mode');
+
           const ojpMode = ptModesResponse( leg.mode );
           mode.ele('ojp:PtMode', ojpMode);
 

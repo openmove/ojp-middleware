@@ -67,7 +67,7 @@ module.exports = {
     const allOTPModes = [
       'WALK','TRAM','SUBWAY','RAIL','BUS','FERRY','CABLE_CAR','GONDOLA','FUNICULAR','AIRPLANE'
     ];
-    const optModes = ['WALK'];
+    const optModes = [];
 
     const modesMap = {
       'all':   'transit',
@@ -98,23 +98,20 @@ module.exports = {
       }
     }
 
-    let returnModes = _.uniq(optModes).map(m => {
+    let returnModes = optModes.map(m => {
       return m.toUpperCase();
     });
 
     if (excludeMode===true) {
 
-      console.log('excludeMode!');
-
       returnModes = allOTPModes.filter(m => {
         return !returnModes.includes(m);
       });
-      returnModes.push('WALK');
     }
 
-    console.log('ptModesRequest TOP MODES------------------------', returnModes)
+    returnModes.push('WALK');
 
-    return returnModes;
+    return _.uniq(returnModes);
   }
 }
 
