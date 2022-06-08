@@ -65,7 +65,7 @@ module.exports = {
     //  ./lib/siri_modes.txt
     //
     const allOTPModes = [
-      'WALK','TRAM','SUBWAY','RAIL','BUS','FERRY','CABLECAR','GONDOLA','FUNICULAR','AIRPLANE'
+      'WALK','TRAM','SUBWAY','RAIL','BUS','FERRY','CABLE_CAR','GONDOLA','FUNICULAR','AIRPLANE'
     ];
     const optModes = ['WALK'];
 
@@ -77,7 +77,7 @@ module.exports = {
       'rail':  'rail',
       'train': 'rail',
       'ferry': 'ferry',
-      'cableCar':     'cablecar',
+      'cableCar':     'cable_car',
       'telecabin':    'gondola',
       'funicular':    'funicular',
       'funicular':    'funicular',
@@ -98,7 +98,7 @@ module.exports = {
       }
     }
 
-    const returnModes = _.uniq(optModes).map(m => {
+    let returnModes = _.uniq(optModes).map(m => {
       return m.toUpperCase();
     });
 
@@ -108,7 +108,8 @@ module.exports = {
 
       returnModes = allOTPModes.filter(m => {
         return !returnModes.includes(m);
-      })
+      });
+      returnModes.push('WALK');
     }
 
     console.log('ptModesRequest TOP MODES------------------------', returnModes)
