@@ -236,43 +236,49 @@ const createResponse = (config,
           stops.push(leg.trip.arrivalStoptime.stop);
           service.ele('ojp:DestinationText').ele('ojp:Text', `${leg.trip.arrivalStoptime.stop.name}`);
 
-          /* APPEND structure
-          </ojp:Service>
-          <ojp:LegTrack>
-            <ojp:TrackSection>
-              <ojp:TrackStart>
-                <siri:StopPointRef>it:22021:2883:0:2596</siri:StopPointRef>
-                <ojp:LocationName>
-                  <ojp:Text xml:lang="it">Pruno</ojp:Text>
-                </ojp:LocationName>
-              </ojp:TrackStart>
-              <ojp:TrackEnd>
-                <siri:StopPointRef>it:22021:1488:0:7932</siri:StopPointRef>
-                <ojp:LocationName>
-                  <ojp:Text xml:lang="it">Castelpietra</ojp:Text>
-                </ojp:LocationName>
-              </ojp:  TrackEnd>
-              <ojp:LinkProjection>
-                <ojp:Position>
-                  <siri:Longitude>11.44546</siri:Longitude>
-                  <siri:Latitude>46.87577</siri:Latitude>
-                </ojp:Position>
-                ...
-            */
-
           if (includeTracks===true) {
             const legTrack = timedLeg.ele('ojp:LegTrack');
 
             const trackPoints = polyline.decode(leg.legGeometry.points, location_digits);
 
             //console.log('legGeometry',leg.legGeometry, trackPoints.length);
-            //console.log('legGeometry decoded', trackPoints)
+            //console.log('legGeometry decoded', leg)
 
             const trackSection = legTrack.ele('ojp:TrackSection');
-            trackSection.ele('ojp:TrackStart','...');
-            //TODO
-            trackSection.ele('ojp:TrackEnd','...');
-            //TODO
+
+            //TrackStart
+            //TrackEnd
+            const start = trackSection.ele('ojp:TrackStart');
+
+            if (origin_type==='PointRef') {
+              start.ele('siri:StopPointRef', leg.from.stop ? leg.from.stop.gtfsId : origin);
+              start.ele('ojp:LocationName').ele('ojp:Text', `${leg.from.name}`);
+            }
+            else if (origin_type==='PlaceRef') {
+              start.ele('ojp:StopPlaceRef', origin);
+              start.ele('ojp:LocationName').ele('ojp:Text', `${leg.from.name}`);
+            }
+            else if (origin_type==='Position') {
+              start.ele('ojp:LocationName').ele('ojp:Text', `${leg.from.name}`);
+              const geoStart = start.ele('ojp:GeoPosition');
+              geoStart.ele('siri:Longitude', _.round(leg.from.lon, location_digits) );
+              geoStart.ele('siri:Latitude', _.round(leg.from.lat, location_digits) );
+            }
+            const end = trackSection.ele('ojp:TrackEnd');
+            if (destin_type==='PointRef') {
+              end.ele('siri:StopPointRef', leg.to.stop ? leg.to.stop.gtfsId : destination);
+              end.ele('ojp:LocationName').ele('ojp:Text', `${leg.to.name}`);
+            }
+            else if (destin_type==='PlaceRef') {
+              end.ele('ojp:StopPlaceRef', destination);
+              end.ele('ojp:LocationName').ele('ojp:Text', `${leg.to.name}`);
+            }
+            else if (destin_type==='Position') {
+              end.ele('ojp:LocationName').ele('ojp:Text', `${leg.to.name}`);
+              const geoEnd = end.ele('ojp:GeoPosition');
+              geoEnd.ele('siri:Longitude', _.round(leg.to.lon, location_digits) );
+              geoEnd.ele('siri:Latitude', _.round(leg.to.lat, location_digits) );
+            }
 
             const linkProjection = trackSection.ele('ojp:LinkProjection');
             for (const point of trackPoints) {
@@ -426,7 +432,7 @@ module.exports = {
         ///
         const json = JSON.stringify(questionObj);
 
-        console.log('REQUEST-----------------', questionObj)
+        //console.log('REQUEST-----------------', questionObj)
 
         const options = {
           path: `/plan`,
