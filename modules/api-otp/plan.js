@@ -47,11 +47,13 @@ module.exports = {
 
     const intermediatePlacesQuery = intermediatePlacesStrings.length>0 ? `intermediatePlaces: [${intermediatePlacesStrings.join(",")}]` : '';
 
-    modes = modes.map(M => {
+//PATCH after this https://github.com/openmove/OpenTripPlanner/issues/12
+/*    modes = modes.map(M => {
       return `{mode: ${M}}`
     });
+    const transportModes = modes.length > 0 ? `transportModes: [${modes.join(',')}]` : '';*/
 
-    const transportModes = modes.length > 0 ? `transportModes: [${modes.join(',')}]` : '';
+    const transportModes = modes.length > 0 ? `modes: "${modes.join(',')}"` : '';
 
     const query = gql`{
       plan(

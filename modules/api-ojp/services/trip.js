@@ -260,29 +260,27 @@ const createResponse = (config,
             */
 
 //TODO add condition by params <IncludeTrackSections>true</IncludeTrackSections>
-
+//console.log(leg)
           const legTrack = timedLeg.ele('ojp:LegTrack');
 
           const trackPoints = polyline.decode(leg.legGeometry.points, location_digits);
 
           console.log('legGeometry',leg.legGeometry, trackPoints.length);
+          console.log('legGeometry decoded', trackPoints)
 
-          //for (const trackPoints of tracks) {
+          const trackSection = legTrack.ele('ojp:TrackSection');
+          trackSection.ele('ojp:TrackStart','...');
+          //TODO
+          trackSection.ele('ojp:TrackEnd','...');
+          //TODO
 
-            const trackSection = legTrack.ele('ojp:TrackSection');
-            trackSection.ele('ojp:TrackStart','...');
-            //TODO
-            trackSection.ele('ojp:TrackEnd','...');
-            //TODO
-
-            const linkProjection = trackSection.ele('ojp:LinkProjection');
-            for (const point of trackPoints) {
-              const pos = linkProjection.ele('ojp:Position');
-              const [lat, lon] = point;
-              pos.ele('siri:Latitude', lat)
-              pos.ele('siri:Longitude', lon);
-            }
-          //}
+          const linkProjection = trackSection.ele('ojp:LinkProjection');
+          for (const point of trackPoints) {
+            const pos = linkProjection.ele('ojp:Position');
+            const [lat, lon] = point;
+            pos.ele('siri:Latitude', lat)
+            pos.ele('siri:Longitude', lon);
+          }
         }//end else
       }
       firstLeg.insertBefore('ojp:Transfers', tripTransfers -1 );

@@ -65,7 +65,9 @@ module.exports = {
     //  ./lib/siri_modes.txt
     //
     const allOTPModes = [
-      'WALK','TRAM','SUBWAY','RAIL','BUS','FERRY','CABLE_CAR','GONDOLA','FUNICULAR','AIRPLANE'
+      'WALK','TRAM','SUBWAY','RAIL','BUS','FERRY',
+      //'CABLE_CAR','GONDOLA',
+      'FUNICULAR','AIRPLANE'
     ];
     const optModes = [];
 
