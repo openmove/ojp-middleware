@@ -19,6 +19,7 @@ const createResponse = (config,
                         itineraries,
                         startTime,
                         intermediateStops,
+                        includeTracks,
                         question) => {
 
   const {location_digits} = config;
@@ -259,28 +260,29 @@ const createResponse = (config,
                 ...
             */
 
-//TODO add condition by params <IncludeTrackSections>true</IncludeTrackSections>
-//console.log(leg)
-          const legTrack = timedLeg.ele('ojp:LegTrack');
+          if (includeTracks===true) {
+            const legTrack = timedLeg.ele('ojp:LegTrack');
 
-          const trackPoints = polyline.decode(leg.legGeometry.points, location_digits);
+            const trackPoints = polyline.decode(leg.legGeometry.points, location_digits);
 
-          console.log('legGeometry',leg.legGeometry, trackPoints.length);
-          console.log('legGeometry decoded', trackPoints)
+            //console.log('legGeometry',leg.legGeometry, trackPoints.length);
+            //console.log('legGeometry decoded', trackPoints)
 
-          const trackSection = legTrack.ele('ojp:TrackSection');
-          trackSection.ele('ojp:TrackStart','...');
-          //TODO
-          trackSection.ele('ojp:TrackEnd','...');
-          //TODO
+            const trackSection = legTrack.ele('ojp:TrackSection');
+            trackSection.ele('ojp:TrackStart','...');
+            //TODO
+            trackSection.ele('ojp:TrackEnd','...');
+            //TODO
 
-          const linkProjection = trackSection.ele('ojp:LinkProjection');
-          for (const point of trackPoints) {
-            const pos = linkProjection.ele('ojp:Position');
-            const [lat, lon] = point;
-            pos.ele('siri:Latitude', lat)
-            pos.ele('siri:Longitude', lon);
+            const linkProjection = trackSection.ele('ojp:LinkProjection');
+            for (const point of trackPoints) {
+              const pos = linkProjection.ele('ojp:Position');
+              const [lat, lon] = point;
+              pos.ele('siri:Latitude', lat)
+              pos.ele('siri:Longitude', lon);
+            }
           }
+
         }//end else
       }
       firstLeg.insertBefore('ojp:Transfers', tripTransfers -1 );
@@ -341,7 +343,12 @@ module.exports = {
           destinationId = queryTags(doc, [serviceTag, 'ojp:Destination', 'ojp:PlaceRef', 'ojp:StopPlaceRef']);
         }
 
-        const {transferLimit, accessibility, intermediateStops, dateStart, dateEnd} = parseTripRestrictions(doc, serviceTag, config);
+        const {
+          transferLimit,
+          accessibility,
+          intermediateStops,
+          trackSections, legProjection,
+          dateStart, dateEnd} = parseTripRestrictions(doc, serviceTag, config);
 
         const originName = queryTags(doc, [serviceTag, 'ojp:Origin', 'ojp:PlaceRef', 'ojp:LocationName', 'ojp:Text']);
         const originLat = queryTags(doc, [serviceTag, 'ojp:Origin', 'ojp:PlaceRef', 'ojp:GeoPosition', 'Latitude']);
@@ -399,6 +406,8 @@ module.exports = {
           date = new Date(dateEnd).getTime();
         }
 
+        const includeTracks = (legProjection===true || trackSections ===true);
+
         const questionObj = {
           origin: originId || [originLon, originLat, originName || "Origin"],
           destination: destinationId || [destinationLon, destinationLat, destinationName || "Destination"],
@@ -439,6 +448,7 @@ module.exports = {
                                 response.plan.itineraries,
                                 startTime,
                                 intermediateStops,
+                                includeTracks,
                                 questionObj
                                 );
         }
