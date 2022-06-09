@@ -17,10 +17,14 @@
                     <ojp:DepArrTime>2022-06-27T07:00:00Z</ojp:DepArrTime>
                 </ojp:Location>
                 <ojp:Params>
+                    <PtModeFilter>
+                        <Exclude>false</Exclude>
+                        <PtMode>bus</PtMode>
+                    </PtModeFilter>
                     <ojp:NumberOfResults>5</ojp:NumberOfResults>
                     <ojp:StopEventType>departure</ojp:StopEventType>
                     <ojp:IncludePreviousCalls>false</ojp:IncludePreviousCalls>
-                    <ojp:IncludeOnwardCalls>true</ojp:IncludeOnwardCalls>
+                    <ojp:IncludeOnwardCalls>false</ojp:IncludeOnwardCalls>
                     <ojp:IncludeRealtimeData>true</ojp:IncludeRealtimeData>
                 </ojp:Params>
             </ojp:OJPStopEventRequest>

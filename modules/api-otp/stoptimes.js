@@ -10,6 +10,13 @@ module.exports = {
 
     const startime = ((extra.start || new Date().getTime()) / 1000).toFixed(0);
 
+    const modes = _.compact(extra.modes.split(','));
+
+console.log('MODES',modes)
+
+    const transportModes = modes.length > 0 ? `modes: "${modes.join(',')}"` : '';
+//TODO
+//
     const query = gql`{
                 stop(id: "${stopId}"){
                   gtfsId,

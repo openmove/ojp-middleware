@@ -45,8 +45,8 @@ module.exports = {
 
         let intermediateStops = queryTags(doc, [serviceTag, 'ojp:Params', 'ojp:IncludeIntermediateStops']);
 
-
 		let trackSections = queryTags(doc, [serviceTag, 'ojp:Params','ojp:IncludeTrackSections']);
+
 		let legProjection = queryTags(doc, [serviceTag, 'ojp:Params','ojp:IncludeLegProjection']);
 
         const dateStart = queryTags(doc, [serviceTag, 'ojp:Origin','ojp:DepArrTime']);

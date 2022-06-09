@@ -5,8 +5,9 @@ const moment = require('moment-timezone');
 const { v4: uuidv4 } = require('uuid');
 
 const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
-const {doRequest} = require('../lib/request');
 const {parseParamsRestrictions} = require('../lib/restrictions');
+
+const {doRequest, ptModesRequest} = require('../lib/request');
 const {createErrorResponse, ptModesResponse} = require('../lib/response');
 
 const serviceName = 'OJPStopEvent';
@@ -190,7 +191,9 @@ module.exports = {
 
     try{
 
-      const { limit, skip, ptModes } = parseParamsRestrictions(doc, serviceTag, config);
+      const { limit, skip, ptModes, ptModeFilter, ptModeExclude } = parseParamsRestrictions(doc, serviceTag, config);
+
+      const modes = ptModesRequest(ptModeFilter, ptModeExclude);  //convert siri to otp modes
 
       if(queryNodes(doc, [serviceTag, 'ojp:Location', 'ojp:PlaceRef']).length > 0) {
 
@@ -208,7 +211,7 @@ module.exports = {
           startDate = new Date(date).getTime();
         }
 
-        const querystr = qstr.stringify({limit, skip, start: startDate});
+        const querystr = qstr.stringify({limit, skip, start: startDate, modes});
         const path = `/stops/${stopId}/details?${querystr}`;
         const options = {
               host: config['api-otp'].host,

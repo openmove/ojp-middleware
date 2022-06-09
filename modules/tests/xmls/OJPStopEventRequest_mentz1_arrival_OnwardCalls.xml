@@ -19,7 +19,6 @@
                 <ojp:Params>
                     <ojp:StopEventType>arrival</ojp:StopEventType>
                     <ojp:IncludeOnwardCalls>true</ojp:IncludeOnwardCalls>
-
                     <ojp:IncludePreviousCalls>false</ojp:IncludePreviousCalls>
                     <ojp:IncludeRealtimeData>true</ojp:IncludeRealtimeData>
                     <ojp:NumberOfResults>5</ojp:NumberOfResults>
