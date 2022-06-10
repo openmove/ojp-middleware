@@ -75,11 +75,9 @@ const createResponse = (config,
             geo.ele('siri:Latitude', _.round(sequenceStop.stop.lat, location_digits) );
           }
 
-
           const previousCall = stopevent.ele('ojp:PreviousCall').ele('ojp:CallAtStop');
           previousCall.ele('siri:StopPointRef', sequenceStop.stop.gtfsId);
           previousCall.ele('ojp:StopPointName').ele('ojp:Text', `${sequenceStop.stop.name}`);
-
 
           const arr = previousCall.ele('ojp:ServiceArrival');
           arr.ele('ojp:TimetabledTime', moment((schedule.serviceDay + sequenceStop.scheduledArrival) * 1000).tz(schedule.trip.route.agency.timezone).toISOString());

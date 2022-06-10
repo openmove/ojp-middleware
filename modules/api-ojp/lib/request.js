@@ -113,7 +113,7 @@ module.exports = {
 
     returnModes.push('WALK');
 
-    return _.uniq(returnModes);
+    return _.compact(_.uniq(returnModes));
   }
 }
 
