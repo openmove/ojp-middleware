@@ -107,43 +107,42 @@ const createResponse = (config,
 
             transferLeg.ele('ojp:TransferMode', 'walk');
 
-          //LegStart
-            const legStart = transferLeg.ele('ojp:LegStart');
+            const start = transferLeg.ele('ojp:LegStart');
 
             if (origin_type==='PointRef') {
-              legStart.ele('siri:StopPointRef', leg.from.stop ? leg.from.stop.gtfsId : origin);
-              legStart.ele('ojp:LocationName').ele('ojp:Text', `${leg.from.name}`);
+              start.ele('siri:StopPointRef', leg.from.stop ? leg.from.stop.gtfsId : origin);
+              start.ele('ojp:LocationName').ele('ojp:Text', `${leg.from.name}`);
             }
             else if (origin_type==='PlaceRef') {
-              legStart.ele('ojp:StopPlaceRef', origin);
-              legStart.ele('ojp:LocationName').ele('ojp:Text', `${leg.from.name}`);
+              start.ele('ojp:StopPlaceRef', origin);
+              start.ele('ojp:LocationName').ele('ojp:Text', `${leg.from.name}`);
             }
             else if (origin_type==='Position') {
 
-              legStart.ele('ojp:LocationName').ele('ojp:Text', `${leg.from.name}`);
+              start.ele('ojp:LocationName').ele('ojp:Text', `${leg.from.name}`);
 
-              const geoStart = legStart.ele('ojp:GeoPosition');
+              const geoStart = start.ele('ojp:GeoPosition');
               geoStart.ele('siri:Longitude', _.round(leg.from.lon, location_digits) );
               geoStart.ele('siri:Latitude', _.round(leg.from.lat, location_digits) );
             }
 
           //LegEnd
-            const legEnd = transferLeg.ele('ojp:LegEnd');
+            const end = transferLeg.ele('ojp:LegEnd');
 
             //PATCH this https://github.com/openmove/ojp-middleware/issues/28
             if (destin_type==='PointRef') {
-              legEnd.ele('siri:StopPointRef', leg.to.stop ? leg.to.stop.gtfsId : destination);
-              legEnd.ele('ojp:LocationName').ele('ojp:Text', `${leg.to.name}`);
+              end.ele('siri:StopPointRef', leg.to.stop ? leg.to.stop.gtfsId : destination);
+              end.ele('ojp:LocationName').ele('ojp:Text', `${leg.to.name}`);
             }
             else if (destin_type==='PlaceRef') {
-              legEnd.ele('ojp:StopPlaceRef', destination);
-              legEnd.ele('ojp:LocationName').ele('ojp:Text', `${leg.to.name}`);
+              end.ele('ojp:StopPlaceRef', destination);
+              end.ele('ojp:LocationName').ele('ojp:Text', `${leg.to.name}`);
             }
             else if (destin_type==='Position') {
 
-              legEnd.ele('ojp:LocationName').ele('ojp:Text', `${leg.to.name}`);
+              end.ele('ojp:LocationName').ele('ojp:Text', `${leg.to.name}`);
 
-              const geoEnd = legEnd.ele('ojp:GeoPosition');
+              const geoEnd = end.ele('ojp:GeoPosition');
               geoEnd.ele('siri:Longitude', _.round(leg.to.lon, location_digits) );
               geoEnd.ele('siri:Latitude', _.round(leg.to.lat, location_digits) );
             }

@@ -25,7 +25,7 @@ const createResponse = (config, results, startTime) => {
 
   const {logger} = config;
 
-	if(results.length === 0){
+	if(results.length === 0) {
 		tag.ele('siri:Status', false);
 		const err = tag.ele('siri:ErrorCondition');
 		err.ele('siri:OtherError')
@@ -102,7 +102,8 @@ const createResponse = (config, results, startTime) => {
 						transferLeg.ele('ojp:Duration', moment.duration(leg.duration, 's').toISOString());
 						transferLeg.ele('ojp:WalkDuration', moment.duration(leg.duration, 's').toISOString())
 					}
-				}else{
+				}
+				else {
 					tripTransfers += 1;
 					let sequence = 1;
 					const timedLeg = tripLeg.ele('ojp:TimedLeg');
