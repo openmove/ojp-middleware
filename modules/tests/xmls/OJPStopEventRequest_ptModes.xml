@@ -20,6 +20,7 @@
                     <PtModeFilter>
                         <Exclude>false</Exclude>
                         <PtMode>bus</PtMode>
+                        <PtMode>tram</PtMode>
                     </PtModeFilter>
                     <ojp:NumberOfResults>5</ojp:NumberOfResults>
                     <ojp:StopEventType>departure</ojp:StopEventType>
