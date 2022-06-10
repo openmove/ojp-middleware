@@ -107,6 +107,7 @@ const createResponse = (config,
 
             transferLeg.ele('ojp:TransferMode', 'walk');
 
+            //legStart
             const start = transferLeg.ele('ojp:LegStart');
 
             if (origin_type==='PointRef') {
@@ -126,7 +127,7 @@ const createResponse = (config,
               geoStart.ele('siri:Latitude', _.round(leg.from.lat, location_digits) );
             }
 
-          //LegEnd
+            //LegEnd
             const end = transferLeg.ele('ojp:LegEnd');
 
             //PATCH this https://github.com/openmove/ojp-middleware/issues/28

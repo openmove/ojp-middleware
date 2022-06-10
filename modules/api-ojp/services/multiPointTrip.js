@@ -37,7 +37,18 @@ const createResponse = (config, results, startTime) => {
 	const context = tag.ele('ojp:TripResponseContext');
 	const stops = [];
 
-	for(const {itineraries, intermediateStops, config, question} of results){
+	let q=1;
+
+console.log('RESULTS', results);
+
+	for(const {itineraries, intermediateStops, config, question} of results) {
+
+console.log('QUESTION',q++, question)
+
+		const {origin, destination, origin_type, destin_type} = question;
+
+
+
 		for(const itinerary of itineraries){
 			const tripresponse = tag.ele(`ojp:MultiPointTripResult`);
 			const tripId = uuidv4();
@@ -87,7 +98,7 @@ const createResponse = (config, results, startTime) => {
 					if(leg.mode === 'WALK'){
 						const transferLeg = tripLeg.ele('ojp:TransferLeg');
 						transferLeg.ele('ojp:TransferMode', 'walk');
-						const legStart = transferLeg.ele('ojp:LegStart');
+						/*const legStart = transferLeg.ele('ojp:LegStart');
 						legStart.ele('ojp:LocationName').ele('ojp:Text', `${leg.from.name}`);
 						if(leg.from.stop){
 							legStart.ele('siri:StopPointRef', leg.from.stop.gtfsId);
@@ -96,7 +107,49 @@ const createResponse = (config, results, startTime) => {
 						legEnd.ele('ojp:LocationName').ele('ojp:Text', `${leg.to.name}`);
 						if(leg.to.stop){
 							legEnd.ele('siri:StopPointRef', leg.to.stop.gtfsId);
-						}
+						}*/
+
+						//legStart
+            const start = transferLeg.ele('ojp:LegStart');
+
+            if (origin_type==='PointRef') {
+              start.ele('siri:StopPointRef', leg.from.stop ? leg.from.stop.gtfsId : origin);
+              start.ele('ojp:LocationName').ele('ojp:Text', `${leg.from.name}`);
+            }
+            else if (origin_type==='PlaceRef') {
+              start.ele('ojp:StopPlaceRef', origin);
+              start.ele('ojp:LocationName').ele('ojp:Text', `${leg.from.name}`);
+            }
+            else if (origin_type==='Position') {
+
+              start.ele('ojp:LocationName').ele('ojp:Text', `${leg.from.name}`);
+
+              const geoStart = start.ele('ojp:GeoPosition');
+              geoStart.ele('siri:Longitude', _.round(leg.from.lon, location_digits) );
+              geoStart.ele('siri:Latitude', _.round(leg.from.lat, location_digits) );
+            }
+
+            //LegEnd
+            const end = transferLeg.ele('ojp:LegEnd');
+
+            //PATCH this https://github.com/openmove/ojp-middleware/issues/28
+            if (destin_type==='PointRef') {
+              end.ele('siri:StopPointRef', leg.to.stop ? leg.to.stop.gtfsId : destination);
+              end.ele('ojp:LocationName').ele('ojp:Text', `${leg.to.name}`);
+            }
+            else if (destin_type==='PlaceRef') {
+              end.ele('ojp:StopPlaceRef', destination);
+              end.ele('ojp:LocationName').ele('ojp:Text', `${leg.to.name}`);
+            }
+            else if (destin_type==='Position') {
+
+              end.ele('ojp:LocationName').ele('ojp:Text', `${leg.to.name}`);
+
+              const geoEnd = end.ele('ojp:GeoPosition');
+              geoEnd.ele('siri:Longitude', _.round(leg.to.lon, location_digits) );
+              geoEnd.ele('siri:Latitude', _.round(leg.to.lat, location_digits) );
+            }
+
 						transferLeg.ele('ojp:TimeWindowStart', moment(leg.startTime).toISOString());
 						transferLeg.ele('ojp:TimeWindowEnd', moment(leg.endTime).toISOString());
 						transferLeg.ele('ojp:Duration', moment.duration(leg.duration, 's').toISOString());
@@ -347,12 +400,20 @@ module.exports = {
 							}
 						}
 
+		        let origin_type = originId ? 'PointRef' : 'PlaceRef';
+		        origin_type = originLat || originLon ? 'Position' : origin_type;
+
+		        let destin_type = destinationId ? 'PointRef' : 'PlaceRef';
+		        destin_type = destinationLat || destinationLon ? 'Position' : destin_type;
+
 						logger.info(`Destination ${destinationLat}, ${destinationLon}, ${destinationId}, ${destinationName}`)
 
 						const questionObj = {
 							origin: originId || [originLon, originLat, originName || "Origin"],
 							destination: destinationId || [destinationLon, destinationLat, destinationName || "Destination"],
-							date,
+							origin_type,
+							destin_type,
+          		date,
 							limit: 1,
 							arrivedBy,
 							transfers: transferLimit,
@@ -402,12 +463,14 @@ module.exports = {
 				const multiResponses = await doMultiRequests(multiRequests);
 
 				responses = multiResponses.map(resp => {
+
+					console.log('RESP',resp)
 					return {
 						'itineraries': resp.plan.itineraries,
 						startTime,
 						intermediateStops,
 						config,
-						'question': resp.questionObj  //TODO include in returns inside doMultiRequests
+						question: resp.questionObj  //TODO include in returns inside doMultiRequests
 					}
 				})
 
