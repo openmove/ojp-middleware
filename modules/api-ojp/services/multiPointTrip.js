@@ -34,7 +34,7 @@ const createResponse = (config, results, startTime) => {
 	}
 	
 	tag.ele('siri:Status', true);
-	const context = tag.ele('ojp:MultiPointResponseContext');
+	const context = tag.ele('ojp:TripResponseContext');
 	const stops = [];
 
 	for(const {itineraries, intermediateStops, config, question} of results){
