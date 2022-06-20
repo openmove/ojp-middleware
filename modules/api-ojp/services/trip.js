@@ -114,19 +114,21 @@ const createResponse = (config,
 
             if (origin_type==='PointRef') {
               legStart.ele('siri:StopPointRef', leg.from.stop ? leg.from.stop.gtfsId : origin);
+
               legStart.ele('ojp:LocationName').ele('ojp:Text', `${leg.from.name}`);
             }
             else if (origin_type==='PlaceRef') {
               legStart.ele('ojp:StopPlaceRef', origin);
+
               legStart.ele('ojp:LocationName').ele('ojp:Text', `${leg.from.name}`);
             }
             else if (origin_type==='Position') {
 
-              legStart.ele('ojp:LocationName').ele('ojp:Text', `${leg.from.name}`);
-
               const geoStart = legStart.ele('ojp:GeoPosition');
               geoStart.ele('siri:Longitude', _.round(leg.from.lon, location_digits) );
               geoStart.ele('siri:Latitude', _.round(leg.from.lat, location_digits) );
+
+              legStart.ele('ojp:LocationName').ele('ojp:Text', `${leg.from.name}`);
             }
 
           //LegEnd
@@ -135,19 +137,21 @@ const createResponse = (config,
             //PATCH this https://github.com/openmove/ojp-middleware/issues/28
             if (destin_type==='PointRef') {
               legEnd.ele('siri:StopPointRef', leg.to.stop ? leg.to.stop.gtfsId : destination);
+
               legEnd.ele('ojp:LocationName').ele('ojp:Text', `${leg.to.name}`);
             }
             else if (destin_type==='PlaceRef') {
               legEnd.ele('ojp:StopPlaceRef', destination);
+
               legEnd.ele('ojp:LocationName').ele('ojp:Text', `${leg.to.name}`);
             }
             else if (destin_type==='Position') {
 
-              legEnd.ele('ojp:LocationName').ele('ojp:Text', `${leg.to.name}`);
-
               const geoEnd = legEnd.ele('ojp:GeoPosition');
               geoEnd.ele('siri:Longitude', _.round(leg.to.lon, location_digits) );
               geoEnd.ele('siri:Latitude', _.round(leg.to.lat, location_digits) );
+
+              legEnd.ele('ojp:LocationName').ele('ojp:Text', `${leg.to.name}`);
             }
 
             transferLeg.ele('ojp:TimeWindowStart', moment(leg.startTime).toISOString());
