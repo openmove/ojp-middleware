@@ -284,8 +284,8 @@ const createResponse = (config,
             for (const point of trackPoints) {
               const pos = linkProjection.ele('ojp:Position');
               const [lat, lon] = point;
-              pos.ele('siri:Latitude', lat)
               pos.ele('siri:Longitude', lon);
+              pos.ele('siri:Latitude', lat);
             }
           }
 
