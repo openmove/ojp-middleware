@@ -10,13 +10,15 @@ const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {parseParamsRestrictions, parseTripRestrictions} = require('../lib/restrictions');
 
 const {doRequest, doMultiRequests, ptModesRequest} = require('../lib/request');
-const {createErrorResponse, ptModesResponse} = require('../lib/response');
+const {createErrorResponse, ptModesResponse, precisionMeters} = require('../lib/response');
 
 const serviceName = 'OJPMultiPointTrip';
 
 const createResponse = (config, results, startTime) => {
 
   const {location_digits} = config;
+
+  const positionPrecision = precisionMeters(config);
 
   const now = new Date()
     , tag = xmlbuilder.create(`ojp:${serviceName}Delivery`);

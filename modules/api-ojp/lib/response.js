@@ -63,5 +63,17 @@ module.exports = {
     mode =  modes[mode] || mode;
 
     return mode;
+  },
+
+  precisionMeters: config => {
+    const preMap = {
+      '1': 11100, //0.1
+      '2': 1110,  //0.01
+      '3': 111,   //0.001
+      '4': 11,    //0.0001
+      '5': 1,     //0.00001
+    }
+
+    return preMap[ config.location_digits.toString(10) ] || 1 ;
   }
 }

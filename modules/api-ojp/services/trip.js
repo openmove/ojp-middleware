@@ -11,7 +11,7 @@ const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {parseParamsRestrictions, parseTripRestrictions} = require('../lib/restrictions');
 
 const {doRequest, ptModesRequest} = require('../lib/request');
-const {createErrorResponse, ptModesResponse} = require('../lib/response');
+const {createErrorResponse, ptModesResponse, precisionMeters} = require('../lib/response');
 
 const serviceName = 'OJPTrip';
 
@@ -23,6 +23,8 @@ const createResponse = (config,
                         question) => {
 
   const {location_digits} = config;
+
+  const positionPrecision = precisionMeters(config);
 
   const {origin, destination, origin_type, destin_type} = question;
 
@@ -286,6 +288,9 @@ const createResponse = (config,
               const [lat, lon] = point;
               pos.ele('siri:Longitude', lon);
               pos.ele('siri:Latitude', lat);
+              if (config.include_precision) {
+                pos.ele('siri:Precision', positionPrecision);
+              }
             }
           }
 

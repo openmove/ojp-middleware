@@ -47,6 +47,7 @@ default_restrictions:
   limit: 10000
   skip: 0
 
+include_precision: false
 location_digits: 5
 
 #enable disable services
