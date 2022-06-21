@@ -5,13 +5,15 @@ const _ = require('lodash');
 const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {doRequest} = require('../lib/request');
 const {parseParamsRestrictions, parseGeoRestriction} = require('../lib/restrictions');
-const {createErrorResponse, ptModesResponse} = require('../lib/response');
+const {createErrorResponse, ptModesResponse, precisionMeters} = require('../lib/response');
 
 const serviceName = 'OJPExchangePoints';
 
 const createResponse = (config, stops, startTime, ptModes, skip = 0, limit = null) => {
 
   const {location_digits} = config;
+
+  const positionPrecision = precisionMeters(config);
 
   const now = new Date()
     , tag = xmlbuilder.create(`ojp:${serviceName}Delivery`);

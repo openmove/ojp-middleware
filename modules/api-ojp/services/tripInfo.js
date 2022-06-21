@@ -6,7 +6,7 @@ const mongoClient = require("mongodb").MongoClient;
 const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {doRequest} = require('../lib/request');
 const {parseParamsRestrictions} = require('../lib/restrictions');
-const {createErrorResponse, ptModesResponse} = require('../lib/response');
+const {createErrorResponse, ptModesResponse, precisionMeters} = require('../lib/response');
 
 const serviceName = 'OJPTripInfo';
 
@@ -18,6 +18,8 @@ const createResponse = (config,
 												includeService = true) => {
 
   const {location_digits} = config;
+
+  const positionPrecision = precisionMeters(config);
 
   const now = new Date()
       , tag = xmlbuilder.create(`ojp:${serviceName}Delivery`);

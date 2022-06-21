@@ -11,7 +11,7 @@ const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {parseParamsRestrictions, parseTripRestrictions} = require('../lib/restrictions');
 
 const {doRequest, ptModesRequest} = require('../lib/request');
-const {createErrorResponse, ptModesResponse} = require('../lib/response');
+const {createErrorResponse, ptModesResponse, precisionMeters} = require('../lib/response');
 
 const serviceName = 'OJPTrip';
 
@@ -23,6 +23,8 @@ const createResponse = (config,
                         question) => {
 
   const {location_digits} = config;
+
+  const positionPrecision = precisionMeters(config);
 
   const {origin, destination, origin_type, destin_type} = question;
 
@@ -112,19 +114,20 @@ const createResponse = (config,
 
             if (origin_type==='PointRef') {
               start.ele('siri:StopPointRef', leg.from.stop ? leg.from.stop.gtfsId : origin);
+
               start.ele('ojp:LocationName').ele('ojp:Text', `${leg.from.name}`);
             }
             else if (origin_type==='PlaceRef') {
               start.ele('ojp:StopPlaceRef', origin);
+
               start.ele('ojp:LocationName').ele('ojp:Text', `${leg.from.name}`);
             }
             else if (origin_type==='Position') {
-
-              start.ele('ojp:LocationName').ele('ojp:Text', `${leg.from.name}`);
-
               const geoStart = start.ele('ojp:GeoPosition');
               geoStart.ele('siri:Longitude', _.round(leg.from.lon, location_digits) );
               geoStart.ele('siri:Latitude', _.round(leg.from.lat, location_digits) );
+
+              start.ele('ojp:LocationName').ele('ojp:Text', `${leg.from.name}`);
             }
 
             //LegEnd
@@ -133,19 +136,21 @@ const createResponse = (config,
             //PATCH this https://github.com/openmove/ojp-middleware/issues/28
             if (destin_type==='PointRef') {
               end.ele('siri:StopPointRef', leg.to.stop ? leg.to.stop.gtfsId : destination);
+
               end.ele('ojp:LocationName').ele('ojp:Text', `${leg.to.name}`);
             }
             else if (destin_type==='PlaceRef') {
               end.ele('ojp:StopPlaceRef', destination);
+
               end.ele('ojp:LocationName').ele('ojp:Text', `${leg.to.name}`);
             }
             else if (destin_type==='Position') {
 
-              end.ele('ojp:LocationName').ele('ojp:Text', `${leg.to.name}`);
-
               const geoEnd = end.ele('ojp:GeoPosition');
               geoEnd.ele('siri:Longitude', _.round(leg.to.lon, location_digits) );
               geoEnd.ele('siri:Latitude', _.round(leg.to.lat, location_digits) );
+
+              end.ele('ojp:LocationName').ele('ojp:Text', `${leg.to.name}`);
             }
 
             transferLeg.ele('ojp:TimeWindowStart', moment(leg.startTime).toISOString());
@@ -247,26 +252,29 @@ const createResponse = (config,
             const trackSection = legTrack.ele('ojp:TrackSection');
 
             //TrackStart
-            //TrackEnd
             const start = trackSection.ele('ojp:TrackStart');
 
             if (origin_type==='PointRef') {
               start.ele('siri:StopPointRef', leg.from.stop ? leg.from.stop.gtfsId : origin);
+
               start.ele('ojp:LocationName').ele('ojp:Text', `${leg.from.name}`);
             }
             else if (origin_type==='PlaceRef') {
               start.ele('ojp:StopPlaceRef', origin);
+
               start.ele('ojp:LocationName').ele('ojp:Text', `${leg.from.name}`);
             }
             else if (origin_type==='Position') {
-              start.ele('ojp:LocationName').ele('ojp:Text', `${leg.from.name}`);
               const geoStart = start.ele('ojp:GeoPosition');
               geoStart.ele('siri:Longitude', _.round(leg.from.lon, location_digits) );
               geoStart.ele('siri:Latitude', _.round(leg.from.lat, location_digits) );
+
+              start.ele('ojp:LocationName').ele('ojp:Text', `${leg.from.name}`);
             }
             const end = trackSection.ele('ojp:TrackEnd');
             if (destin_type==='PointRef') {
               end.ele('siri:StopPointRef', leg.to.stop ? leg.to.stop.gtfsId : destination);
+
               end.ele('ojp:LocationName').ele('ojp:Text', `${leg.to.name}`);
             }
             else if (destin_type==='PlaceRef') {
@@ -274,18 +282,23 @@ const createResponse = (config,
               end.ele('ojp:LocationName').ele('ojp:Text', `${leg.to.name}`);
             }
             else if (destin_type==='Position') {
-              end.ele('ojp:LocationName').ele('ojp:Text', `${leg.to.name}`);
+
               const geoEnd = end.ele('ojp:GeoPosition');
               geoEnd.ele('siri:Longitude', _.round(leg.to.lon, location_digits) );
               geoEnd.ele('siri:Latitude', _.round(leg.to.lat, location_digits) );
+
+              end.ele('ojp:LocationName').ele('ojp:Text', `${leg.to.name}`);
             }
 
             const linkProjection = trackSection.ele('ojp:LinkProjection');
             for (const point of trackPoints) {
               const pos = linkProjection.ele('ojp:Position');
               const [lat, lon] = point;
-              pos.ele('siri:Latitude', lat)
               pos.ele('siri:Longitude', lon);
+              pos.ele('siri:Latitude', lat);
+              if (config.include_precision) {
+                pos.ele('siri:Precision', positionPrecision);
+              }
             }
           }
 
@@ -308,11 +321,11 @@ const createResponse = (config,
         stopPlace.ele('ojp:StopPlaceName').ele('ojp:Text', `${stop.name}`);
         //stopPlace.ele('ojp:TopographicPlaceRef', stop.zoneId);
 
-        place.ele('ojp:LocationName').ele('ojp:Text', `${stop.name}`);
-
         const geo = place.ele('ojp:GeoPosition');
         geo.ele('siri:Longitude', _.round(stop.lon, location_digits) );
-        geo.ele('siri:Latitude', _.round(stop.lat, location_digits) )
+        geo.ele('siri:Latitude', _.round(stop.lat, location_digits) );
+
+        place.ele('ojp:LocationName').ele('ojp:Text', `${stop.name}`);
       }
     }
   }
