@@ -24,11 +24,17 @@ label {
 	background-position: top center;
 	background-repeat: no-repeat;
 }
+#xml_req,
+#xml_res {
+	position: relative;
+	z-index: 20;
+}
 #ojp_logs {
 	position: absolute;
 	top: 103px;
 	right: 10px;
 	max-width: 40%;
+	z-index: 10;
 }
 #ojp_version {
 	display: inline-block;
