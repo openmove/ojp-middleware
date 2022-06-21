@@ -85,9 +85,10 @@ const createResponse = (config, results, startTime) => {
 			tripresponse.ele('ojp:ResultId', tripId)
 			const trip = tripresponse.ele('ojp:Trip');
 			trip.ele('ojp:TripId', tripId);
+			trip.ele('ojp:Duration', moment.duration(itinerary.duration, 's').toISOString() )
 			trip.ele('ojp:StartTime', moment(itinerary.startTime).toISOString());
 			trip.ele('ojp:EndTime', moment(itinerary.endTime).toISOString());
-			trip.ele('ojp:Duration', moment.duration(itinerary.duration, 's').toISOString() )
+
 			let tripDistance = 0;
 			let tripTransfers = 0;
 			let legId = 0;
@@ -185,23 +186,28 @@ const createResponse = (config, results, startTime) => {
 					}
 
 					const alight = timedLeg.ele('ojp:LegAlight');
-					alight.ele('ojp:StopPointName').ele('ojp:Text', `${leg.to.name}`);
-					
-					if(leg.to.stop){
+
+					if(leg.to.stop) {
 						alight.ele('siri:StopPointRef', leg.to.stop.gtfsId);
 						stops.push(leg.to.stop);
 					}
+
+					alight.ele('ojp:StopPointName').ele('ojp:Text', `${leg.to.name}`);
+
 					const serviceTo = alight.ele('ojp:ServiceDeparture');
 					serviceTo.ele('ojp:TimetabledTime', moment(leg.endTime).toISOString())
 					serviceTo.ele('ojp:EstimatedTime', moment(leg.endTime - leg.arrivalDelay).toISOString())
 					alight.ele('ojp:Order', sequence+1);
 
 					const service = timedLeg.ele('ojp:Service');
+
 					service.ele('ojp:OperatingDayRef', moment(leg.serviceDate).tz(leg.route.agency.timezone).format("YYYY-MM-DD"));
 					service.ele('ojp:JourneyRef', leg.trip.gtfsId);
 					service.ele('siri:LineRef', leg.route.gtfsId);
-					const mode = service.ele('ojp:Mode');
-					mode.ele('ojp:PtMode', leg.mode.toLowerCase());
+
+					const ojpMode = service.ele('ojp:Mode');
+					ojpMode.ele('ojp:PtMode', leg.mode.toLowerCase());
+
 					service.ele('ojp:PublishedLineName').ele('ojp:Text', leg.route.longName || leg.route.shortName || leg.route.gtfsId)
 					service.ele('ojp:OperatorRef', leg.route.agency.gtfsId);
 					service.ele('ojp:OriginStopPointRef', leg.trip.departureStoptime.stop.gtfsId);
