@@ -321,11 +321,11 @@ const createResponse = (config,
         stopPlace.ele('ojp:StopPlaceName').ele('ojp:Text', `${stop.name}`);
         //stopPlace.ele('ojp:TopographicPlaceRef', stop.zoneId);
 
+        place.ele('ojp:LocationName').ele('ojp:Text', `${stop.name}`);
+
         const geo = place.ele('ojp:GeoPosition');
         geo.ele('siri:Longitude', _.round(stop.lon, location_digits) );
         geo.ele('siri:Latitude', _.round(stop.lat, location_digits) );
-
-        place.ele('ojp:LocationName').ele('ojp:Text', `${stop.name}`);
       }
     }
   }
