@@ -34,6 +34,10 @@ if (!config.otp.baseUrl) {
 
 logger.debug(_.omit(config,['dev','prod','environments']));
 
+if(process.env['QUERY_DEBUG']) {
+  console.log('QUERY_DEBUG ON');
+}
+
 app.use(express.json());
 
 /**
@@ -133,7 +137,6 @@ app.get('/stops/:id/details', async (req, result) => {
     'start': req.query.start || new Date().getTime(),
     'modes': req.query.modes
   };
-  console.log('STOPPPSS',req.params)
   const res = await getStopTimesById(config, req.params.id, extra);
   
   logger.debug(extra);
