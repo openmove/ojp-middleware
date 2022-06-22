@@ -86,13 +86,21 @@ const createResponse = (config, results, startTime) => {
 			let tripDistance = 0;
 			let tripTransfers = 0;
 			let legId = 0;
+
+			let firstLeg;
+
 			for(const leg of itinerary.legs){
 				legId += 1
 				const tripLeg = trip.ele('ojp:TripLeg');
 				tripLeg.ele('ojp:LegId', legId);
 				tripDistance += leg.distance;
-				if(leg.transitLeg === false){
-					if(leg.mode === 'WALK'){
+
+				if(!firstLeg) {
+          firstLeg = tripLeg;
+        }
+
+				if(leg.transitLeg === false) {
+					if(leg.mode === 'WALK') {
 						const transferLeg = tripLeg.ele('ojp:TransferLeg');
 
 						transferLeg.ele('ojp:TransferMode', 'walk');
@@ -212,8 +220,8 @@ const createResponse = (config, results, startTime) => {
 					service.ele('ojp:DestinationText').ele('ojp:Text', `${leg.trip.arrivalStoptime.stop.name}`);
 				}
 			}
-			trip.ele('ojp:Distance', tripDistance.toFixed(0)); 
-			trip.ele('ojp:Transfers', tripTransfers -1 ); 
+			firstLeg.insertBefore('ojp:Transfers', tripTransfers -1 );
+			firstLeg.insertBefore('ojp:Distance', tripDistance.toFixed(0));
 		}
 			
 	}
