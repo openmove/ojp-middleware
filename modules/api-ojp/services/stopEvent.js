@@ -167,7 +167,7 @@ const createResponse = (config,
       service.ele('siri:LineRef', schedule.trip.route.gtfsId);
 
       const mode = service.ele('ojp:Mode');
-      const ojpMode = ptModesResponse( stop.vehicleMode );
+      const ojpMode = ptModesResponse( schedule.trip.route.mode );
       mode.ele('ojp:PtMode', ojpMode);
 
       service.ele('ojp:PublishedLineName').ele('ojp:Text', schedule.trip.route.longName || schedule.trip.route.shortName || schedule.trip.route.gtfsId)
