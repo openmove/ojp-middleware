@@ -39,17 +39,11 @@ const createResponse = (config, results, startTime) => {
 	const context = tag.ele('ojp:TripResponseContext');
 	const stops = [];
 
-	let q=1;
-
-//console.log('createResponse RESULTS', results);
+	let q = 1;
 
 	for(const {itineraries, intermediateStops, config, question} of results) {
 
-//console.log('createResponse QUESTION',q++, question)
-
 		const {origin, destination, origin_type, destin_type} = question;
-
-
 
 		for(const itinerary of itineraries){
 			const tripresponse = tag.ele(`ojp:MultiPointTripResult`);
