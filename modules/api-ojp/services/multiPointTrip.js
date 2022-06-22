@@ -158,31 +158,41 @@ const createResponse = (config, results, startTime) => {
 					tripTransfers += 1;
 					let sequence = 1;
 					const timedLeg = tripLeg.ele('ojp:TimedLeg');
-					const board = timedLeg.ele('ojp:LegBoard');
-					board.ele('ojp:StopPointName').ele('ojp:Text', `${leg.from.name}`);
+					const legBoard = timedLeg.ele('ojp:LegBoard');
+
 					if(leg.from.stop){
 						stops.push(leg.from.stop);
-						board.ele('siri:StopPointRef', leg.from.stop.gtfsId);
+						legBoard.ele('siri:StopPointRef', leg.from.stop.gtfsId);
 					}
-					const serviceFrom = board.ele('ojp:ServiceDeparture');
+
+					legBoard.ele('ojp:StopPointName').ele('ojp:Text', `${leg.from.name}`);
+
+					const serviceFrom = legBoard.ele('ojp:ServiceDeparture');
 					serviceFrom.ele('ojp:TimetabledTime', moment(leg.startTime).toISOString())
 					serviceFrom.ele('ojp:EstimatedTime', moment(leg.startTime - leg.departureDelay).toISOString())
-					board.ele('ojp:Order', 1);
+
+					legBoard.ele('ojp:Order', 1);
+
 					for(const intermediatePoint of leg.intermediatePlaces){
 						sequence += 1;
 						if(intermediateStops) {
 							const intermediate = timedLeg.ele('ojp:LegIntermediates')
-							intermediate.ele('ojp:StopPointName').ele('ojp:Text', `${intermediatePoint.name}`);
+
 							if(intermediatePoint.stop){
 								stops.push(intermediatePoint.stop);
 								intermediate.ele('siri:StopPointRef', intermediatePoint.stop.gtfsId);
 							}
-							const serviceIntermediateDep = intermediate.ele('ojp:ServiceDeparture');
-							serviceIntermediateDep.ele('ojp:TimetabledTime', moment(intermediatePoint.departureTime).toISOString())
-							serviceIntermediateDep.ele('ojp:EstimatedTime', moment(intermediatePoint.departureTime - leg.departureDelay).toISOString())
+
+							intermediate.ele('ojp:StopPointName').ele('ojp:Text', `${intermediatePoint.name}`);
+
 							const serviceIntermediateArr = intermediate.ele('ojp:ServiceArrival');
 							serviceIntermediateArr.ele('ojp:TimetabledTime', moment(intermediatePoint.arrivalTime).toISOString())
 							serviceIntermediateArr.ele('ojp:EstimatedTime', moment(intermediatePoint.arrivalTime - leg.departureDelay).toISOString())
+
+							const serviceIntermediateDep = intermediate.ele('ojp:ServiceDeparture');
+							serviceIntermediateDep.ele('ojp:TimetabledTime', moment(intermediatePoint.departureTime).toISOString())
+							serviceIntermediateDep.ele('ojp:EstimatedTime', moment(intermediatePoint.departureTime - leg.departureDelay).toISOString())
+
 							intermediate.ele('ojp:Order', sequence);
 						}
 					}
