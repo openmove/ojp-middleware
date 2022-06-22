@@ -206,7 +206,7 @@ const createResponse = (config, results, startTime) => {
 
 					alight.ele('ojp:StopPointName').ele('ojp:Text', `${leg.to.name}`);
 
-					const serviceTo = alight.ele('ojp:ServiceDeparture');
+					const serviceTo = alight.ele('ojp:ServiceArrival');
 					serviceTo.ele('ojp:TimetabledTime', moment(leg.endTime).toISOString())
 					serviceTo.ele('ojp:EstimatedTime', moment(leg.endTime - leg.arrivalDelay).toISOString())
 					alight.ele('ojp:Order', sequence+1);
