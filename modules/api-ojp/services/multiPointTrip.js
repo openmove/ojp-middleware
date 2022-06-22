@@ -207,8 +207,9 @@ const createResponse = (config, results, startTime) => {
 					service.ele('ojp:JourneyRef', leg.trip.gtfsId);
 					service.ele('siri:LineRef', leg.route.gtfsId);
 
-					const ojpMode = service.ele('ojp:Mode');
-					ojpMode.ele('ojp:PtMode', leg.mode.toLowerCase());
+          const mode = service.ele('ojp:Mode');
+          const ojpMode = ptModesResponse( leg.mode );
+          mode.ele('ojp:PtMode', ojpMode);
 
 					service.ele('ojp:PublishedLineName').ele('ojp:Text', leg.route.longName || leg.route.shortName || leg.route.gtfsId)
 					service.ele('ojp:OperatorRef', leg.route.agency.gtfsId);
