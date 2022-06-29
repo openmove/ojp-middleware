@@ -9,7 +9,13 @@ const {createErrorResponse, ptModesResponse, precisionMeters} = require('../lib/
 
 const serviceName = 'OJPExchangePoints';
 
-const createResponse = (config, stops, startTime, ptModes, skip = 0, limit = null) => {
+const createResponse = (config,
+                        stops,
+                        startTime,
+                        ptModes,
+                        skip = 0,
+                        limit = null
+                      ) => {
 
   const {location_digits} = config;
 

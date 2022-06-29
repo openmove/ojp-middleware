@@ -221,7 +221,7 @@ const createResponse = (config, results, startTime) => {
           const ojpMode = ptModesResponse( leg.mode );
           mode.ele('ojp:PtMode', ojpMode);
 
-					const publishedLineName = [leg.route.shortName, leg.route.longName, leg.route.gtfsId].join(' ');
+					const publishedLineName = _.capitalize([leg.route.shortName, leg.route.longName, leg.route.gtfsId].join(' '));
 
 					service.ele('ojp:PublishedLineName').ele('ojp:Text', publishedLineName);
 					service.ele('ojp:OperatorRef', leg.route.agency.gtfsId);

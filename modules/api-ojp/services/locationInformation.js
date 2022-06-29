@@ -9,7 +9,13 @@ const {createErrorResponse, ptModesResponse, precisionMeters} = require('../lib/
 
 const serviceName = 'OJPLocationInformation';
 
-const createResponse = (config, stops, startTime, ptModes, skip = 0, limit = null) => {
+const createResponse = (config,
+                        stops,
+                        startTime,
+                        ptModes,
+                        skip = 0,
+                        limit = null
+                      ) => {
 
   const {location_digits} = config;
 
@@ -34,7 +40,9 @@ const createResponse = (config, stops, startTime, ptModes, skip = 0, limit = nul
     stopPlace.ele('ojp:StopPlaceName').ele('ojp:Text', `${stop.name}`);
     stopPlace.ele('ojp:TopographicPlaceRef', stop.zoneId);
 
-    place.ele('ojp:LocationName').ele('ojp:Text', `${stop.name}`);
+    const locationName = _.capitalize([stop.name, stop.code, stop.desc].join(' '));
+
+    place.ele('ojp:LocationName').ele('ojp:Text', locationName);
 
     const geo = place.ele('ojp:GeoPosition');
     geo.ele('siri:Longitude', _.round(stop.lon, location_digits) );
@@ -137,8 +145,6 @@ module.exports = {
 
         const response = await doRequest(options, json);
 
-        //const stops = _.slice(response.stops, skip, limit);
-
         return createResponse(config, response.stops, startTime, ptModes, skip, limit);
       }
       else if(queryNodes(doc, [serviceTag, 'ojp:InitialInput']).length > 0) {
@@ -196,9 +202,6 @@ module.exports = {
 
         const response = await doRequest(options, json);
 
-        //const stops = _.slice(response.stops, skip, limit);
-
-        //logger.info(response)
         return createResponse(config, response.stops, startTime, ptModes, skip, limit);
       }
       else {

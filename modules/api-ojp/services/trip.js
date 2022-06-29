@@ -233,7 +233,7 @@ const createResponse = (config,
           mode.ele('ojp:PtMode', ojpMode);
 
           //const publishedLineName = leg.route.longName || leg.route.shortName || leg.route.gtfsId
-          const publishedLineName = [leg.route.shortName, leg.route.longName, leg.route.gtfsId].join(' ');
+          const publishedLineName = _.capitalize([leg.route.shortName, leg.route.longName, leg.route.gtfsId].join(' '));
 
           service.ele('ojp:PublishedLineName').ele('ojp:Text', publishedLineName);
           service.ele('ojp:OperatorRef', leg.route.agency.gtfsId);
