@@ -221,7 +221,9 @@ const createResponse = (config, results, startTime) => {
           const ojpMode = ptModesResponse( leg.mode );
           mode.ele('ojp:PtMode', ojpMode);
 
-					service.ele('ojp:PublishedLineName').ele('ojp:Text', leg.route.longName || leg.route.shortName || leg.route.gtfsId)
+					const publishedLineName = [leg.route.shortName, leg.route.longName, leg.route.gtfsId].join(' ');
+
+					service.ele('ojp:PublishedLineName').ele('ojp:Text', publishedLineName);
 					service.ele('ojp:OperatorRef', leg.route.agency.gtfsId);
 					service.ele('ojp:OriginStopPointRef', leg.trip.departureStoptime.stop.gtfsId);
 					stops.push(leg.trip.departureStoptime.stop);
