@@ -232,22 +232,22 @@ const createResponse = (config,
           const ojpMode = ptModesResponse( leg.mode );
           mode.ele('ojp:PtMode', ojpMode);
 
-          service.ele('ojp:PublishedLineName').ele('ojp:Text', leg.route.longName || leg.route.shortName || leg.route.gtfsId)
+          const publishedLineName = leg.route.longName || leg.route.shortName || leg.route.gtfsId
+          service.ele('ojp:PublishedLineName').ele('ojp:Text', publishedLineName);
           service.ele('ojp:OperatorRef', leg.route.agency.gtfsId);
           service.ele('ojp:OriginStopPointRef', leg.trip.departureStoptime.stop.gtfsId);
           stops.push(leg.trip.departureStoptime.stop);
+
           service.ele('ojp:OriginText').ele('ojp:Text', `${leg.trip.departureStoptime.stop.name}`);
           service.ele('ojp:DestinationStopPointRef', leg.trip.arrivalStoptime.stop.gtfsId);
           stops.push(leg.trip.arrivalStoptime.stop);
+
           service.ele('ojp:DestinationText').ele('ojp:Text', `${leg.trip.arrivalStoptime.stop.name}`);
 
           if (includeTracks===true) {
             const legTrack = timedLeg.ele('ojp:LegTrack');
 
             const trackPoints = polyline.decode(leg.legGeometry.points, location_digits);
-
-            //console.log('legGeometry',leg.legGeometry, trackPoints.length);
-            //console.log('legGeometry decoded', leg)
 
             const trackSection = legTrack.ele('ojp:TrackSection');
 
