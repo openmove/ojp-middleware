@@ -139,7 +139,7 @@ module.exports = {
 
         //const stops = _.slice(response.stops, skip, limit);
 
-        return createResponse(response.stops, startTime, ptModes, skip, limit);
+        return createResponse(config, response.stops, startTime, ptModes, skip, limit);
       }
       else if(queryNodes(doc, [serviceTag, 'ojp:InitialInput']).length > 0) {
 

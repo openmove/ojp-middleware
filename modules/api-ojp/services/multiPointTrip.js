@@ -227,9 +227,11 @@ const createResponse = (config, results, startTime) => {
 					service.ele('ojp:OperatorRef', leg.route.agency.gtfsId);
 					service.ele('ojp:OriginStopPointRef', leg.trip.departureStoptime.stop.gtfsId);
 					stops.push(leg.trip.departureStoptime.stop);
+
 					service.ele('ojp:OriginText').ele('ojp:Text', `${leg.trip.departureStoptime.stop.name}`);
 					service.ele('ojp:DestinationStopPointRef', leg.trip.arrivalStoptime.stop.gtfsId);
 					stops.push(leg.trip.arrivalStoptime.stop);
+
 					service.ele('ojp:DestinationText').ele('ojp:Text', `${leg.trip.arrivalStoptime.stop.name}`);
 				}
 			}
