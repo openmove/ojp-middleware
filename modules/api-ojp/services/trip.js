@@ -11,7 +11,7 @@ const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {parseParamsRestrictions, parseTripRestrictions} = require('../lib/restrictions');
 
 const {doRequest, ptModesRequest} = require('../lib/request');
-const {createErrorResponse, ptModesResponse, precisionMeters} = require('../lib/response');
+const {createErrorResponse, ptModesResponse, precisionMeters, stopText, lineText} = require('../lib/response');
 
 const serviceName = 'OJPTrip';
 
@@ -232,10 +232,8 @@ const createResponse = (config,
           const ojpMode = ptModesResponse( leg.mode );
           mode.ele('ojp:PtMode', ojpMode);
 
-          //const publishedLineName = leg.route.longName || leg.route.shortName || leg.route.gtfsId
-          const publishedLineName = _.capitalize([leg.route.shortName, leg.route.longName, leg.route.gtfsId].join(' '));
+          service.ele('ojp:PublishedLineName').ele('ojp:Text', lineText(leg.route));
 
-          service.ele('ojp:PublishedLineName').ele('ojp:Text', publishedLineName);
           service.ele('ojp:OperatorRef', leg.route.agency.gtfsId);
           service.ele('ojp:OriginStopPointRef', leg.trip.departureStoptime.stop.gtfsId);
           stops.push(leg.trip.departureStoptime.stop);

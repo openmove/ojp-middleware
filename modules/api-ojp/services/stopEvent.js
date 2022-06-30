@@ -8,7 +8,7 @@ const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {parseParamsRestrictions} = require('../lib/restrictions');
 
 const {doRequest, ptModesRequest} = require('../lib/request');
-const {createErrorResponse, ptModesResponse, precisionMeters} = require('../lib/response');
+const {createErrorResponse, ptModesResponse, precisionMeters, stopText, lineText} = require('../lib/response');
 
 const serviceName = 'OJPStopEvent';
 

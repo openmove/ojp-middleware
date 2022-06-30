@@ -75,5 +75,13 @@ module.exports = {
     }
 
     return preMap[ config.location_digits.toString(10) ] || 1 ;
+  },
+
+  lineText: route => {
+    return _.capitalize([route.shortName, route.longName/*, route.gtfsId*/].join(' '));
+  },
+
+  stopText: stop => {
+    return _.capitalize([stop.name, stop.code, stop.desc].join(' '));
   }
 }

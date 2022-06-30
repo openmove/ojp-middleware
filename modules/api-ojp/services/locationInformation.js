@@ -5,7 +5,7 @@ const _ = require('lodash');
 const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
 const {doRequest} = require('../lib/request');
 const {parseParamsRestrictions, parseGeoRestriction} = require('../lib/restrictions');
-const {createErrorResponse, ptModesResponse, precisionMeters} = require('../lib/response');
+const {createErrorResponse, ptModesResponse, precisionMeters, stopText, lineText} = require('../lib/response');
 
 const serviceName = 'OJPLocationInformation';
 
@@ -40,9 +40,7 @@ const createResponse = (config,
     stopPlace.ele('ojp:StopPlaceName').ele('ojp:Text', `${stop.name}`);
     stopPlace.ele('ojp:TopographicPlaceRef', stop.zoneId);
 
-    const locationName = _.capitalize([stop.name, stop.code, stop.desc].join(' '));
-
-    place.ele('ojp:LocationName').ele('ojp:Text', locationName);
+    place.ele('ojp:LocationName').ele('ojp:Text', stopText(stop));
 
     const geo = place.ele('ojp:GeoPosition');
     geo.ele('siri:Longitude', _.round(stop.lon, location_digits) );
