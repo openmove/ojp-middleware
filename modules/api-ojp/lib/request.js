@@ -116,39 +116,3 @@ module.exports = {
     return _.compact(_.uniq(returnModes));
   }
 }
-
-
-/*const doRequestFake = (options, data) => {
-  return new Promise((resolve, reject) => {
-    const delay = _.random(500, 4000);
-    console.log('doRequestFAKE:', options.path, delay);
-
-    setTimeout(() => {
-      console.log('doRequestFAKE resolve, delay:', delay)
-      resolve({
-        response: {
-          plan: {
-            itineraries: [
-            {
-              startTime: 1637940943,
-              endTime: 1637941943,
-              legs: [
-                {
-                  mode: 'FIRST',
-                  startTime: 1637940943,
-                  endTime: 1637941943
-                },
-                {
-                  mode: 'SECOND',
-                  startTime: 1637940943,
-                  endTime: 1637941943
-                }
-              ]
-            }
-            ]
-          }
-        }
-      })
-    }, delay);
-  });
-}*/
