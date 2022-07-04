@@ -1,0 +1,38 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<OJP xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.siri.org.uk/siri" version="1.0" xmlns:ojp="http://www.vdv.de/ojp" xsi:schemaLocation="http://www.siri.org.uk/siri ../ojp-xsd-v1.0/OJP.xsd">
+    <OJPRequest>
+        <ServiceRequest>
+            <RequestTimestamp>2021-12-10T12:00:00Z</RequestTimestamp>
+            <RequestorRef>IRMA</RequestorRef>
+            <ojp:OJPTripRequest>
+                <RequestTimestamp>2021-12-10T12:00:00Z</RequestTimestamp>
+                <ojp:Origin>
+                    <ojp:PlaceRef>
+                        <StopPointRef>16:SM118</StopPointRef>
+                        <ojp:LocationName>
+                            <ojp:Text>Arona</ojp:Text>
+                        </ojp:LocationName>
+                    </ojp:PlaceRef>
+                    <ojp:DepArrTime>2022-06-2712:00:00Z</ojp:DepArrTime>
+                </ojp:Origin>
+                <ojp:Destination>
+                    <ojp:PlaceRef>
+                        <StopPointRef>16:SM119</StopPointRef>
+                        <ojp:LocationName>
+                            <ojp:Text>Angera</ojp:Text>
+                        </ojp:LocationName>
+                    </ojp:PlaceRef>
+                </ojp:Destination>
+                <ojp:Params>
+                    <ojp:PtModeFilter>
+                        <ojp:Exclude>true</ojp:Exclude>
+                        <ojp:PtMode>ferryService</ojp:PtMode>
+                    </ojp:PtModeFilter>
+                    <ojp:NumberOfResults>1</ojp:NumberOfResults>
+                    <ojp:IncludeIntermediateStops>true</ojp:IncludeIntermediateStops>
+                </ojp:Params>
+            </ojp:OJPTripRequest>
+        </ServiceRequest>
+    </OJPRequest>
+</OJP>
