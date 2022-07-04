@@ -30,10 +30,10 @@
                     </ojp:PlaceRef>
                 </ojp:Destination>
                 <ojp:Params>
-                    <PtModeFilter>
-                        <Exclude>true</Exclude>
-                        <PtMode>bus</PtMode>
-                    </PtModeFilter>
+                    <ojp:PtModeFilter>
+                        <ojp:Exclude>true</ojp:Exclude>
+                        <ojp:PtMode>bus</ojp:PtMode>
+                    </ojp:PtModeFilter>
                     <NumberOfResultsBefore>4</NumberOfResultsBefore>
                     <NumberOfResultsAfter>4</NumberOfResultsAfter>
                 </ojp:Params>

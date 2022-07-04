@@ -24,16 +24,16 @@
                     </ojp:PlaceRef>
                 </ojp:Destination>
                 <ojp:Params>
-                    <PtModeFilter>
-                        <Exclude>false</Exclude>
-                        <PtMode>rail</PtMode>
-                        <PtMode>bus</PtMode>
-                        <PtMode>trolleyBus</PtMode>
-                        <PtMode>coach</PtMode>
-                        <PtMode>funicular</PtMode>
-                        <RailSubmode>regionalRail</RailSubmode>
-                        <RailSubmode>longDistanceTrain</RailSubmode>
-                    </PtModeFilter>
+                    <ojp:PtModeFilter>
+                        <ojp:Exclude>false</ojp:Exclude>
+                        <ojp:PtMode>rail</ojp:PtMode>
+                        <ojp:PtMode>bus</ojp:PtMode>
+                        <ojp:PtMode>trolleyBus</ojp:PtMode>
+                        <ojp:PtMode>coach</ojp:PtMode>
+                        <ojp:PtMode>funicular</ojp:PtMode>
+                        <ojp:RailSubmode>regionalRail</ojp:RailSubmode>
+                        <ojp:RailSubmode>longDistanceTrain</ojp:RailSubmode>
+                    </ojp:PtModeFilter>
                     <NumberOfResultsBefore>4</NumberOfResultsBefore>
                     <NumberOfResultsAfter>4</NumberOfResultsAfter>
                     <OptimisationMethod>fastest</OptimisationMethod>
