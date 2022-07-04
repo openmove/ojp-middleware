@@ -137,6 +137,7 @@ app.get('/stops/:id/details', async (req, result) => {
     'start': req.query.start || new Date().getTime(),
     'modes': req.query.modes
   };
+
   const res = await getStopTimesById(config, req.params.id, extra);
   
   logger.debug(extra);

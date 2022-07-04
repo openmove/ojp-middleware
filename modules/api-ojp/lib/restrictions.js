@@ -118,15 +118,15 @@ module.exports = {
 		const ptModeFilterExclude = queryTags(doc, [
 			serviceTag,
 			'ojp:Params',
-			'PtModeFilter',
-			'Exclude'
+			'ojp:PtModeFilter',
+			'ojp:Exclude'
 		]);
 
 		const ptModeFilterNodes = queryNodes(doc, [
 			serviceTag,
 			'ojp:Params',
-			'PtModeFilter',
-			'PtMode'
+			'ojp:PtModeFilter',
+			'ojp:PtMode'
 		]);
 
 		const limitRestrictions = queryTags(doc, [
