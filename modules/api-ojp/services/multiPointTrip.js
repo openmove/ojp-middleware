@@ -72,7 +72,7 @@ const createResponse = (config, results, startTime) => {
 						});
 					}          
 				});
-			}catch (exc){
+			} catch (exc){
 				logger.error(exc);
 			}
 			
@@ -152,7 +152,8 @@ const createResponse = (config, results, startTime) => {
 						transfLeg.ele('ojp:WalkDuration', moment.duration(leg.duration, 's').toISOString())
 					}
 				}
-				else {
+				else
+				{
 					tripTransfers += 1;
 					let sequence = 1;
 					const timedLeg = tripLeg.ele('ojp:TimedLeg');
@@ -235,7 +236,6 @@ const createResponse = (config, results, startTime) => {
 			firstLeg.insertBefore('ojp:Transfers', tripTransfers -1 );
 			firstLeg.insertBefore('ojp:Distance', tripDistance.toFixed(0));
 		}
-			
 	}
 
 	const places = context.ele('ojp:Places');

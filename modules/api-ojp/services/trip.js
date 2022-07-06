@@ -105,12 +105,12 @@ const createResponse = (config,
         if(leg.transitLeg === false) {
 
           if(leg.mode === 'WALK') {
-            const transferLeg = tripLeg.ele('ojp:TransferLeg');
+            const transfLeg = tripLeg.ele('ojp:TransferLeg');
 
-            transferLeg.ele('ojp:TransferMode', 'walk');
+            transfLeg.ele('ojp:TransferMode', 'walk');
 
             //legStart
-            const start = transferLeg.ele('ojp:LegStart');
+            const start = transfLeg.ele('ojp:LegStart');
 
             if (origin_type==='PointRef') {
               start.ele('siri:StopPointRef', leg.from.stop ? leg.from.stop.gtfsId : origin);
@@ -131,7 +131,7 @@ const createResponse = (config,
             }
 
             //LegEnd
-            const end = transferLeg.ele('ojp:LegEnd');
+            const end = transfLeg.ele('ojp:LegEnd');
 
             //PATCH this https://github.com/openmove/ojp-middleware/issues/28
             if (destin_type==='PointRef') {
@@ -153,10 +153,10 @@ const createResponse = (config,
               end.ele('ojp:LocationName').ele('ojp:Text', `${leg.to.name}`);
             }
 
-            transferLeg.ele('ojp:TimeWindowStart', moment(leg.startTime).toISOString());
-            transferLeg.ele('ojp:TimeWindowEnd', moment(leg.endTime).toISOString());
-            transferLeg.ele('ojp:Duration', moment.duration(leg.duration, 's').toISOString());
-            transferLeg.ele('ojp:WalkDuration', moment.duration(leg.duration, 's').toISOString())
+            transfLeg.ele('ojp:TimeWindowStart', moment(leg.startTime).toISOString());
+            transfLeg.ele('ojp:TimeWindowEnd', moment(leg.endTime).toISOString());
+            transfLeg.ele('ojp:Duration', moment.duration(leg.duration, 's').toISOString());
+            transfLeg.ele('ojp:WalkDuration', moment.duration(leg.duration, 's').toISOString())
           }
         }
         else {
