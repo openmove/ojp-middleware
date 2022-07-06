@@ -82,6 +82,6 @@ module.exports = {
   },
 
   stopText: stop => {
-    return _.capitalize([stop.name, stop.code, stop.desc].join(' '));
+    return _.capitalize([stop.code, stop.name, '-', stop.desc].join(' '));
   }
 }

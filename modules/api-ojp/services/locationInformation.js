@@ -37,7 +37,7 @@ const createResponse = (config,
     const place = loc.ele('ojp:Location');
     const stopPlace = place.ele('ojp:StopPlace');
     stopPlace.ele('ojp:StopPlaceRef', stop.gtfsId);
-    stopPlace.ele('ojp:StopPlaceName').ele('ojp:Text', `${stop.name}`);
+    stopPlace.ele('ojp:StopPlaceName').ele('ojp:Text', stopText(stop));
     stopPlace.ele('ojp:TopographicPlaceRef', stop.zoneId);
 
     place.ele('ojp:LocationName').ele('ojp:Text', stopText(stop));
