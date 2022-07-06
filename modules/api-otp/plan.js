@@ -45,13 +45,11 @@ module.exports = {
       modes = extra.modes;
     }
 
-    const intermediatePlacesQuery = intermediatePlacesStrings.length>0 ? `intermediatePlaces: [${intermediatePlacesStrings.join(",")}]` : '';
+    const intermediatePlacesQuery = intermediatePlacesStrings.length>0 ? `intermediatePlaces: [${intermediatePlacesStrings.join(",")}],` : '';
 
-//PATCH after this https://github.com/openmove/OpenTripPlanner/issues/12
-/*    modes = modes.map(M => {
-      return `{mode: ${M}}`
-    });
-    const transportModes = modes.length > 0 ? `transportModes: [${modes.join(',')}]` : '';*/
+    //TODO when otp support https://github.com/openmove/OpenTripPlanner/issues/12
+    //modes = modes.map(M => {return `{mode: ${M}}`});
+    //const transportModes = modes.length > 0 ? `transportModes: [${modes.join(',')}]` : '';*/
 
     const transportModes = modes.length > 0 ? `modes: "${modes.join(',')}"` : '';
 
@@ -65,14 +63,12 @@ module.exports = {
         arriveBy: ${extra.arriveBy || false},
         maxTransfers: ${extra.transfers || 2},
         wheelchair: ${extra.wheelchair || false},
-        ${intermediatePlacesQuery},
+        ${intermediatePlacesQuery}
         ${transportModes}
         ) {
         date
         from {
           name
-          lat
-          lon
           stop {
             gtfsId
             name
@@ -80,10 +76,8 @@ module.exports = {
             lon
           }
         }
-        to{
+        to {
           name
-          lat
-          lon
           stop {
             gtfsId
             name
