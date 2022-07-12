@@ -13,6 +13,8 @@ const queryNodesOld = (doc, path) => {
 }
 
 const queryNode = (doc, path) => {
+  path = path.replace('ojp:','');     //PATCH
+
   const nodes = queryNodes(doc, path)
   if (nodes.length === 0) {
       return null;
@@ -21,6 +23,8 @@ const queryNode = (doc, path) => {
 }
 
 const queryText = (doc, path) => {
+  path = path.replace('ojp:','');     //PATCH
+
   const queryNS = xpath.useNamespaces(mapNS);
   const node = queryNS(path, doc, true);
   if (!node) {
@@ -34,8 +38,10 @@ const queryTags = (doc, paths) => {
     paths = [paths];
   }
 
-  const tags = paths.map(str => {
-    return `[name()='${str}']`;
+  const tags = paths.map(path => {
+    path = path.replace('ojp:','');     //PATCH
+
+    return `[local-name()='${path}']`;
   }).join('/*');
 
   const query = `//*${tags}`;
@@ -48,8 +54,10 @@ const queryNodes = (doc, paths) => {
     return queryNodesOld(doc, paths)
   }
 
-  const tags = paths.map(str => {
-    return `[name()='${str}']`;
+  const tags = paths.map(path => {
+    path = path.replace('ojp:','');     //PATCH
+
+    return `[local-name()='${path}']`;
   }).join('/*');
 
   const query = `//*${tags}`;

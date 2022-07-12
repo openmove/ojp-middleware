@@ -205,7 +205,7 @@ app.post('/ojp/', async (req, result) => {
   xmlServiceDelivery.ele('siri:Status', true);
   //minimum response tags
 
-  if(queryNode(doc, "//*[name()='ojp:OJPExchangePointsRequest']")){
+  if(queryNode(doc, "//*[local-name()='OJPExchangePointsRequest']")){
     if(!config.services.OJPExchangePointsRequest) {
       logger.warn('OJPExchangePointsRequest disabled by config');
     }
@@ -214,7 +214,7 @@ app.post('/ojp/', async (req, result) => {
     }
   }
 
-  if(queryNode(doc, "//*[name()='ojp:OJPLocationInformationRequest']")){
+  if(queryNode(doc, "//*[local-name()='OJPLocationInformationRequest']")){
     if(!config.services.OJPLocationInformationRequest) {
       logger.warn('OJPLocationInformationRequest disabled by config')
     }
@@ -223,7 +223,7 @@ app.post('/ojp/', async (req, result) => {
     }
   }
 
-  if(queryNode(doc, "//*[name()='ojp:OJPMultiPointTripRequest']")){
+  if(queryNode(doc, "//*[local-name()='OJPMultiPointTripRequest']")){
     if(!config.services.OJPMultiPointTripRequest) {
       logger.warn('OJPMultiPointTripRequest disabled by config');
     }
@@ -232,7 +232,7 @@ app.post('/ojp/', async (req, result) => {
     }
   }
 
-  if(queryNode(doc, "//*[name()='ojp:OJPStopEventRequest']")){
+  if(queryNode(doc, "//*[local-name()='OJPStopEventRequest']")){
     if(!config.services.OJPStopEventRequest) {
       logger.warn('OJPStopEventRequest disabled by config');
     }
@@ -241,7 +241,7 @@ app.post('/ojp/', async (req, result) => {
     }
   }
 
-  if(queryNode(doc, "//*[name()='ojp:OJPTripInfoRequest']")){
+  if(queryNode(doc, "//*[local-name()='OJPTripInfoRequest']")){
     if(!config.services.OJPTripInfoRequest) {
       logger.warn('OJPTripInfoRequest disabled by config');
     }
@@ -250,7 +250,7 @@ app.post('/ojp/', async (req, result) => {
     }
   }
 
-  if(queryNode(doc, "//*[name()='ojp:OJPTripRequest']")){
+  if(queryNode(doc, "//*[local-name()='OJPTripRequest']")){
     if(!config.services.OJPTripRequest) {
       logger.warn('OJPTripRequest disabled by config');
     }
