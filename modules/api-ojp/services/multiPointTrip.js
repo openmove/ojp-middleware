@@ -263,7 +263,7 @@ const createResponse = (config, results, startTime) => {
 module.exports = {
 	'multipointTripExecution' : async (doc, startTime, config) => {
 	
-		const serviceTag = `ojp:${serviceName}Request`;
+		const serviceTag = `${serviceName}Request`;
 
 		const {logger} = config;
 
@@ -275,8 +275,8 @@ module.exports = {
 			let requests = [];
 			let responses = [];
 
-			const origins = queryNodes(doc, [serviceTag, 'ojp:Origin']);
-			const destinations = queryNodes(doc, [serviceTag, 'ojp:Destination']);
+			const origins = queryNodes(doc, [serviceTag, 'Origin']);
+			const destinations = queryNodes(doc, [serviceTag, 'Destination']);
 
 			logger.info(`Origins count ${origins.length}`);
 			logger.info(`Destinations count ${destinations.length}`);
@@ -291,7 +291,7 @@ module.exports = {
 
 				const intermediatePlaces = [];
 
-				const vias = queryNodes(doc, [serviceTag, 'ojp:Via', 'ojp:ViaPoint']);
+				const vias = queryNodes(doc, [serviceTag, 'Via', 'ViaPoint']);
 
 				if(Array.isArray(vias) && vias.length > 0) {
 					for(const via of vias){
