@@ -185,7 +185,7 @@ const createResponse = (config,
 module.exports = {
   'eventExecution' : async (doc, startTime, config) => {
     
-    const serviceTag = `ojp:${serviceName}Request`;
+    const serviceTag = `${serviceName}Request`;
 
     const {logger} = config;
 
@@ -195,16 +195,16 @@ module.exports = {
 
       const modes = ptModesRequest(ptModeFilter, ptModeExclude);  //convert siri to otp modes
 
-      if(queryNodes(doc, [serviceTag, 'ojp:Location', 'ojp:PlaceRef']).length > 0) {
+      if(queryNodes(doc, [serviceTag, 'Location', 'PlaceRef']).length > 0) {
 
-        let stopId = queryTags(doc, [serviceTag, 'ojp:Location', 'ojp:PlaceRef', 'ojp:StopPlaceRef']);
+        let stopId = queryTags(doc, [serviceTag, 'Location','PlaceRef','StopPlaceRef']);
 
         if(stopId == null){
-          stopId = queryTags(doc, [serviceTag, 'ojp:Location', 'ojp:PlaceRef', 'StopPointRef']);
-          //don't add ojp: in tag StopPointRef
+          stopId = queryTags(doc, [serviceTag, 'Location','PlaceRef','StopPointRef']);
+          //don't add  in tag StopPointRef
         }
 
-        const date = queryTags(doc, [serviceTag, 'ojp:Location', 'ojp:DepArrTime']);
+        const date = queryTags(doc, [serviceTag, 'Location','DepArrTime']);
 
         let startDate = new Date().getTime();
         if(date != null){
@@ -225,17 +225,9 @@ module.exports = {
 
         const response = await doRequest(options);
 
-        const includePreviousStopsString = queryTags(doc, [
-          serviceTag,
-          'ojp:Params',
-          'ojp:IncludePreviousCalls'
-        ]);
+        const includePreviousStopsString = queryTags(doc, [serviceTag, 'Params','IncludePreviousCalls']);
     
-        const includeNextStopsString = queryTags(doc, [
-          serviceTag,
-          'ojp:Params',
-          'ojp:IncludeOnwardCalls'
-        ]);
+        const includeNextStopsString = queryTags(doc, [serviceTag, 'Params','IncludeOnwardCalls']);
 
         let isDeparture = true;
         let isArrival = false;
@@ -243,8 +235,8 @@ module.exports = {
         let includePreviousStops = includePreviousStopsString === 'true';
         let includeNextStops = includeNextStopsString === 'true';
 
-        const eventType = queryTags(doc, [serviceTag, 'ojp:Params', 'ojp:StopEventType']);
-        const realtime = queryTags(doc, [serviceTag, 'ojp:Params', 'ojp:IncludeRealtimeData']);
+        const eventType = queryTags(doc, [serviceTag, 'Params', 'StopEventType']);
+        const realtime = queryTags(doc, [serviceTag, 'Params', 'IncludeRealtimeData']);
 
         if(eventType === 'arrival') {
           isDeparture = false;
