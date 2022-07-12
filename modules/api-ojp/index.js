@@ -2,7 +2,7 @@ const express = require('express')
     , _ = require('lodash')
     , app = express()
     , cors = require('cors')
-    , dom = require('xmldom').DOMParser
+    , {DOMParser} = require('xmldom')
     , xmlbuilder = require('xmlbuilder')
     , xmlparser = require('express-xml-bodyparser')
     , mongoClient = require("mongodb").MongoClient
@@ -131,7 +131,7 @@ app.post('/ojp/', async (req, result) => {
   let doc;
 
   try {
-    doc = new dom({
+    doc = new DOMParser({
       errorHandler:{
         warning: e => {console.warn('DOM WARN', e)},
         error: errorMsg => {
