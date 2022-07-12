@@ -11,17 +11,17 @@ module.exports = {
 
 	'parseGeoRestriction': (doc, serviceTag, config) => {
 
-        const rect = queryNode(doc, [serviceTag,'ojp:InitialInput','ojp:GeoRestriction','ojp:Rectangle']);
+        const rect = queryNode(doc, [serviceTag,'InitialInput','GeoRestriction','Rectangle']);
 
-        const circle = queryNode(doc, [serviceTag,'ojp:InitialInput','ojp:GeoRestriction','ojp:Circle']);
+        const circle = queryNode(doc, [serviceTag,'InitialInput','GeoRestriction','Circle']);
 
-		const upperLat = queryTags(doc, [serviceTag,'ojp:InitialInput','ojp:GeoRestriction','ojp:Rectangle','ojp:UpperLeft','Latitude']);
-		const upperLon = queryTags(doc, [serviceTag,'ojp:InitialInput','ojp:GeoRestriction','ojp:Rectangle','ojp:UpperLeft','Longitude']);
-		const lowerLat = queryTags(doc, [serviceTag,'ojp:InitialInput','ojp:GeoRestriction','ojp:Rectangle','ojp:LowerRight','Latitude']);
-		const lowerLon = queryTags(doc, [serviceTag,'ojp:InitialInput','ojp:GeoRestriction','ojp:Rectangle','ojp:LowerRight','Longitude']);
-		const centerLat = queryTags(doc, [serviceTag,'ojp:InitialInput','ojp:GeoRestriction','ojp:Circle','ojp:Center','Latitude']);
-		const centerLon = queryTags(doc, [serviceTag,'ojp:InitialInput','ojp:GeoRestriction','ojp:Circle','ojp:Center','Longitude']);
-		const radius = queryTags(doc, [serviceTag,'ojp:InitialInput','ojp:GeoRestriction','ojp:Circle','ojp:Radius']);
+		const upperLat = queryTags(doc, [serviceTag,'InitialInput','GeoRestriction','Rectangle','UpperLeft','Latitude']);
+		const upperLon = queryTags(doc, [serviceTag,'InitialInput','GeoRestriction','Rectangle','UpperLeft','Longitude']);
+		const lowerLat = queryTags(doc, [serviceTag,'InitialInput','GeoRestriction','Rectangle','LowerRight','Latitude']);
+		const lowerLon = queryTags(doc, [serviceTag,'InitialInput','GeoRestriction','Rectangle','LowerRight','Longitude']);
+		const centerLat = queryTags(doc, [serviceTag,'InitialInput','GeoRestriction','Circle','Center','Latitude']);
+		const centerLon = queryTags(doc, [serviceTag,'InitialInput','GeoRestriction','Circle','Center','Longitude']);
+		const radius = queryTags(doc, [serviceTag,'InitialInput','GeoRestriction','Circle','Radius']);
 
 		return {
 			rect,
@@ -39,18 +39,18 @@ module.exports = {
 
 	'parseTripRestrictions': (doc, serviceTag, config) => {
 
-		let transferLimit = queryTags(doc, [serviceTag, 'ojp:Params','ojp:TransferLimit']);
+		let transferLimit = queryTags(doc, [serviceTag, 'Params','TransferLimit']);
 
-		let accessibility = queryTags(doc, [serviceTag, 'ojp:Params','ojp:IncludeAccessibility']);
+		let accessibility = queryTags(doc, [serviceTag, 'Params','IncludeAccessibility']);
 
-        let intermediateStops = queryTags(doc, [serviceTag, 'ojp:Params', 'ojp:IncludeIntermediateStops']);
+        let intermediateStops = queryTags(doc, [serviceTag, 'Params', 'IncludeIntermediateStops']);
 
-		let trackSections = queryTags(doc, [serviceTag, 'ojp:Params','ojp:IncludeTrackSections']);
+		let trackSections = queryTags(doc, [serviceTag, 'Params','IncludeTrackSections']);
 
-		let legProjection = queryTags(doc, [serviceTag, 'ojp:Params','ojp:IncludeLegProjection']);
+		let legProjection = queryTags(doc, [serviceTag, 'Params','IncludeLegProjection']);
 
-        const dateStart = queryTags(doc, [serviceTag, 'ojp:Origin','ojp:DepArrTime']);
-        const dateEnd = queryTags(doc, [serviceTag, 'ojp:Destination','ojp:DepArrTime']);
+        const dateStart = queryTags(doc, [serviceTag, 'Origin','DepArrTime']);
+        const dateEnd = queryTags(doc, [serviceTag, 'Destination','DepArrTime']);
 
         transferLimit = Number(transferLimit) || config.default_restrictions.transfer_limit;
 
@@ -105,58 +105,58 @@ module.exports = {
 
 		const ptModesRestrictions = queryTags(doc, [
 			serviceTag,
-			'ojp:Restrictions',
-			'ojp:IncludePtModes'
+			'Restrictions',
+			'IncludePtModes'
 		]);
 
 		const ptModesParams = queryTags(doc, [
 			serviceTag,
-			'ojp:Params',
-			'ojp:IncludePtModes'
+			'Params',
+			'IncludePtModes'
 		]);
 
 		const ptModeFilterExclude = queryTags(doc, [
 			serviceTag,
-			'ojp:Params',
-			'ojp:PtModeFilter',
-			'ojp:Exclude'
+			'Params',
+			'PtModeFilter',
+			'Exclude'
 		]);
 
 		const ptModeFilterNodes = queryNodes(doc, [
 			serviceTag,
-			'ojp:Params',
-			'ojp:PtModeFilter',
-			'ojp:PtMode'
+			'Params',
+			'PtModeFilter',
+			'PtMode'
 		]);
 
 		const limitRestrictions = queryTags(doc, [
 			serviceTag,
-			'ojp:Restrictions',
-			'ojp:NumberOfResults'
+			'Restrictions',
+			'NumberOfResults'
 		]);
 
 		const limitParams = queryTags(doc, [
 			serviceTag,
-			'ojp:Params',
-			'ojp:NumberOfResults'
+			'Params',
+			'NumberOfResults'
 		]);
 
 		const skipRestrictions = queryTags(doc, [
 			serviceTag,
-			'ojp:Restrictions',
-			'ojp:ContinueAt'
+			'Restrictions',
+			'ContinueAt'
 		]);
 
 		const skipParams = queryTags(doc, [
 			serviceTag,
-			'ojp:Params',
-			'ojp:ContinueAt'
+			'Params',
+			'ContinueAt'
 		]);
 
 		const typeRestrictions = queryTags(doc, [
 			serviceTag,
-			'ojp:Restrictions',
-			'ojp:Type'
+			'Restrictions',
+			'Type'
 		]);
 
 		let ptModes = ''
