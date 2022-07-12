@@ -70,7 +70,7 @@ const createResponse = (config,
 module.exports = {
   'locationExecution' : async (doc, startTime, config) => {
     
-    const serviceTag = `ojp:${serviceName}Request`;
+    const serviceTag = `${serviceName}Request`;
 
     const {logger} = config;
 
@@ -78,22 +78,21 @@ module.exports = {
 
       const { limit, skip, ptModes, type } = parseParamsRestrictions(doc, serviceTag, config);
 
-      if(type != 'stop') {
-        //XXX: we supports only stops
+      if(type != 'stop') {    //we supports only stops
         return createErrorResponse(serviceName, config.errors.noresults.locations, startTime);
       }
 
-      if(queryNodes(doc, [serviceTag,'ojp:PlaceRef']).length > 0) {
+      if(queryNodes(doc, [serviceTag, 'PlaceRef']).length > 0) {
 
-        let stopId = queryTags(doc, [serviceTag, 'ojp:PlaceRef', 'ojp:StopPlaceRef']);
+        let stopId = queryTags(doc, [serviceTag, 'PlaceRef','StopPlaceRef']);
 
         if(stopId == null){
-          stopId = queryTags(doc, [serviceTag, 'ojp:PlaceRef', 'StopPointRef']);
+          stopId = queryTags(doc, [serviceTag, 'PlaceRef','StopPointRef']);
         }
 
-        const stopName = queryTags(doc, [serviceTag, 'ojp:PlaceRef', 'ojp:LocationName', 'ojp:Text']);
+        const stopName = queryTags(doc, [serviceTag, 'PlaceRef','LocationName','Text']);
 
-        const locationName = queryNodes(doc, [serviceTag, 'ojp:PlaceRef', 'ojp:LocationName']);
+        const locationName = queryNodes(doc, [serviceTag, 'PlaceRef','LocationName']);
 
         //
         //TODO TopographicPlace here
@@ -145,9 +144,9 @@ module.exports = {
 
         return createResponse(config, response.stops, startTime, ptModes, skip, limit);
       }
-      else if(queryNodes(doc, [serviceTag, 'ojp:InitialInput']).length > 0) {
+      else if(queryNodes(doc, [serviceTag, 'InitialInput']).length > 0) {
 
-        const LocationName = queryTags(doc, [serviceTag,'ojp:InitialInput','ojp:LocationName']);
+        const LocationName = queryTags(doc, [serviceTag, 'InitialInput','LocationName']);
 
         const params = {
           value: LocationName,
@@ -155,7 +154,7 @@ module.exports = {
           skip
         };
         
-        const geoRestriction = queryNode(doc, [serviceTag,'ojp:InitialInput','ojp:GeoRestriction']);
+        const geoRestriction = queryNode(doc, [serviceTag, 'InitialInput','GeoRestriction']);
 
         if(geoRestriction) {
 
@@ -177,8 +176,8 @@ module.exports = {
           }
         }
 
-        const geoPositionLat = queryTags(doc, [serviceTag,'ojp:InitialInput','ojp:GeoPosition','Latitude'])
-            , geoPositionLon = queryTags(doc, [serviceTag,'ojp:InitialInput','ojp:GeoPosition','Longitude']);
+        const geoPositionLat = queryTags(doc, [serviceTag, 'InitialInput','GeoPosition','Latitude'])
+            , geoPositionLon = queryTags(doc, [serviceTag, 'InitialInput','GeoPosition','Longitude']);
 
         if(geoPositionLat != null && geoPositionLon != null) {
           params.position = [geoPositionLon, geoPositionLat].join(',');
