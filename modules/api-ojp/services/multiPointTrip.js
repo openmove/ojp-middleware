@@ -25,7 +25,7 @@ const createResponse = (config, results, startTime) => {
   tag.ele('siri:ResponseTimestamp', now.toISOString());
   tag.ele('ojp:CalcTime', now.getTime() - startTime);
 
-  const {logger} = config;
+  const { logger } = config;
 
 	if(results.length === 0) {
 		tag.ele('siri:Status', false);

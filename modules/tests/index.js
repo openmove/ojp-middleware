@@ -5,7 +5,7 @@ const app = express();
 const pino = require('pino');
 const _ = require('lodash');
 
-const {version,'name':serviceName} = require('./package.json');
+const { version, 'name':serviceName } = require('./package.json');
 
 const dotenv = require('dotenv').config()
     , config = require('@stefcud/configyml')

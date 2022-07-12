@@ -4,7 +4,7 @@ const _ = require('lodash');
 
 module.exports = {
   'getStopTimesById': async (config, stopId, extra) => {
-    const {logger} = config;
+    const { logger } = config;
 
     const clientQL = new GraphQLClient(config.otp.baseUrl, { headers: config.otp.headers });
 

@@ -3,7 +3,7 @@ const { request, GraphQLClient, gql } = require('graphql-request');
 module.exports = {
   'getTripsByIdAndDate': async (config, tripId, date, extra) => {
 
-    const {logger} = config;
+    const { logger } = config;
     const clientQL = new GraphQLClient(config.otp.baseUrl, { headers: config.otp.headers });
     const query = gql`{
                 trip (id: "${tripId}") {

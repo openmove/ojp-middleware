@@ -3,14 +3,14 @@
 const express = require('express')
     , app = express()
     , _ = require('lodash')
-    , {getStopById, getAllStops, searchByName, searchByBBox, searchByRadius} = require('./stops')
-    , {getStopTimesById} = require('./stoptimes')
-    , {planTrip} = require('./plan')
-    , {getTripsByIdAndDate} = require('./trips')
-    , {request} = require('express')
+    , { getStopById, getAllStops, searchByName, searchByBBox, searchByRadius } = require('./stops')
+    , { getStopTimesById } = require('./stoptimes')
+    , { planTrip } = require('./plan')
+    , { getTripsByIdAndDate } = require('./trips')
+    , { request } = require('express')
     , pino = require('pino');
 
-const {version,'name':serviceName} = require('./package.json');
+const { version,'name': serviceName } = require('./package.json');
 
 const dotenv = require('dotenv').config()
     , config = require('@stefcud/configyml')

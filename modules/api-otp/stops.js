@@ -111,7 +111,7 @@ module.exports = {
   },
   'searchByName': async (config, name, extra) => {
 
-    const {logger} = config;
+    const { logger } = config;
     const clientQL = new GraphQLClient(config.otp.baseUrl, { headers: config.otp.headers });
 
     const limit = Number(extra.limit || config.default_limit);
