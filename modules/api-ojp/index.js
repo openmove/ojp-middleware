@@ -133,7 +133,9 @@ app.post('/ojp/', async (req, result) => {
   try {
     doc = new DOMParser({
       errorHandler:{
-        warning: e => {console.warn('WARNING XML PARSING', e)},
+        warning: errorMsg => {
+          console.warn('WARNING XML PARSING', errorMsg);
+        },
         error: errorMsg => {
 
           console.warn('ERROR XML PARSING',errorMsg)
