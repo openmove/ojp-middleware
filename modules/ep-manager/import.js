@@ -5,7 +5,7 @@ const path = require('path');
 //const fastcsv = require("fast-csv");
 const _ = require('lodash');
 const csvtojson = require('csvtojson');
-const {MongoClient} = require("mongodb");
+const { MongoClient } = require("mongodb");
 const pino = require('pino');
 
 const request = require('request');

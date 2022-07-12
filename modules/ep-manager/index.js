@@ -2,13 +2,13 @@
 
 const express = require('express');
 const app = express();
-const mongoClient = require("mongodb").MongoClient;
+const { MongoClient } = require("mongodb");
 const pino = require('pino');
 const _ = require('lodash');
 
-const {importCsvFile, importCsvUrl} = require('./import');
+const { importCsvFile, importCsvUrl } = require('./import');
 
-const {version, 'name': serviceName} = require('./package.json');
+const { version, 'name': serviceName } = require('./package.json');
 
 const dotenv = require('dotenv').config()
     , config = require('@stefcud/configyml')
@@ -55,7 +55,7 @@ const getAll = async (req, getres) => {
 
   logger.info(`request getAll ${req.url} ${new Date().toISOString()}`);
 
-  mongoClient.connect(config.db.uri, {
+  MongoClient.connect(config.db.uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   }, (err, client) => {
@@ -84,7 +84,7 @@ const getByName = async (req, getres) => {
 
   logger.info(`request getByName ${req.url} ${new Date().toISOString()}`);
 
-  mongoClient.connect(config.db.uri, {
+  MongoClient.connect(config.db.uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   }, (err, client) => {
@@ -165,7 +165,7 @@ app.get('/searchByNetexId/:id', async (req, getres) => {
   
   logger.info(`request GET /searchById ${req.url} ${new Date().toISOString()}`);
 
-  mongoClient.connect(config.db.uri, {
+  MongoClient.connect(config.db.uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   }, (err, client) => {
@@ -194,7 +194,7 @@ app.get('/geojson', async (req, getres) => {
   
   logger.info(`request GET /geojson ${req.url} ${new Date().toISOString()}`);
 
-  mongoClient.connect(config.db.uri, {
+  MongoClient.connect(config.db.uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   }, (err, client) => {
@@ -247,7 +247,7 @@ app.listen(Number(config.server.port), () => {
   logger.info(`service ${serviceName} listening at http://localhost:${config.server.port}`)
 });
 
-mongoClient.connect(config.db.uri, {
+MongoClient.connect(config.db.uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 //TODO

@@ -2,11 +2,11 @@ const xmlbuilder = require('xmlbuilder');
 const qstr = require('querystring');
 const _ = require('lodash');
 const moment = require('moment-timezone');
-const mongoClient = require("mongodb").MongoClient;
-const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
-const {doRequest} = require('../lib/request');
-const {parseParamsRestrictions} = require('../lib/restrictions');
-const {createErrorResponse, ptModesResponse, precisionMeters} = require('../lib/response');
+const { MongoClient } = require("mongodb");
+const { queryNode, queryNodes, queryText, queryTags } = require('../lib/query');
+const { doRequest } = require('../lib/request');
+const { parseParamsRestrictions } = require('../lib/restrictions');
+const { createErrorResponse, ptModesResponse, precisionMeters } = require('../lib/response');
 
 const serviceName = 'OJPTripInfo';
 
@@ -17,7 +17,7 @@ const createResponse = (config,
 												includeCalls = true,
 												includeService = true) => {
 
-  const {location_digits} = config;
+  const { location_digits } = config;
 
   const positionPrecision = precisionMeters(config);
 

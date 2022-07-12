@@ -4,19 +4,19 @@ const _ = require('lodash');
 const moment = require('moment-timezone');
 const { 'v4': uuidv4 } = require('uuid');
 const { time } = require('console');
-const mongoClient = require("mongodb").MongoClient;
+const { MongoClient } = require("mongodb");
 
-const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
-const {parseParamsRestrictions, parseTripRestrictions} = require('../lib/restrictions');
+const { queryNode, queryNodes, queryText, queryTags } = require('../lib/query');
+const { parseParamsRestrictions, parseTripRestrictions } = require('../lib/restrictions');
 
-const {doRequest, doMultiRequests, ptModesRequest} = require('../lib/request');
-const {createErrorResponse, ptModesResponse, precisionMeters, stopText, lineText} = require('../lib/response');
+const { doRequest, doMultiRequests, ptModesRequest } = require('../lib/request');
+const { createErrorResponse, ptModesResponse, precisionMeters, stopText, lineText } = require('../lib/response');
 
 const serviceName = 'OJPMultiPointTrip';
 
 const createResponse = (config, results, startTime) => {
 
-  const {location_digits} = config;
+  const { location_digits } = config;
 
   const positionPrecision = precisionMeters(config);
 
@@ -50,7 +50,7 @@ const createResponse = (config, results, startTime) => {
 			const tripId = uuidv4();
 
 			try{
-				mongoClient.connect(config.db.uri, {
+				MongoClient.connect(config.db.uri, {
 					useNewUrlParser: true,
 					useUnifiedTopology: true
 				}, (err, client) => {

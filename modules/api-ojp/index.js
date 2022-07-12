@@ -2,14 +2,14 @@ const express = require('express')
     , _ = require('lodash')
     , app = express()
     , cors = require('cors')
-    , {DOMParser} = require('xmldom')
+    , { DOMParser } = require('xmldom')
     , xmlbuilder = require('xmlbuilder')
     , xmlparser = require('express-xml-bodyparser')
-    , mongoClient = require("mongodb").MongoClient
+    , { MongoClient } = require("mongodb")
     , pino = require('pino')
     , nocache = require('nocache');
 
-const {version,'name':serviceName} = require('./package.json');
+const { version,'name':serviceName } = require('./package.json');
 
 const dotenv = require('dotenv').config()
     , config = require('@stefcud/configyml')
@@ -23,15 +23,15 @@ const dotenv = require('dotenv').config()
       },
     });
 
-const {queryNode, queryNodes, queryText} = require('./lib/query')
-    , {createErrorResponse} = require('./lib/response')
+const { queryNode, queryNodes, queryText } = require('./lib/query')
+    , { createErrorResponse } = require('./lib/response')
 
-const {exchangePointsExecution} = require('./services/exchangePoints')
-    , {locationExecution} = require('./services/locationInformation')
-    , {multipointTripExecution} = require('./services/multiPointTrip')
-    , {eventExecution} = require('./services/stopEvent')
-    , {tripInfoExecution} = require('./services/tripInfo')
-    , {tripsExecution} = require('./services/trip');
+const { exchangePointsExecution } = require('./services/exchangePoints')
+    , { locationExecution } = require('./services/locationInformation')
+    , { multipointTripExecution } = require('./services/multiPointTrip')
+    , { eventExecution } = require('./services/stopEvent')
+    , { tripInfoExecution } = require('./services/tripInfo')
+    , { tripsExecution } = require('./services/trip');
 
 logger.debug(_.omit(config,['dev','prod','environments']));
 
@@ -55,7 +55,7 @@ const logrequest = (xml, status = 'OK', req) => {
     };
 
   try{
-    mongoClient.connect(config.db.uri, {
+    MongoClient.connect(config.db.uri, {
       useNewUrlParser: true,
       useUnifiedTopology: true
     }, (err, client) => {
@@ -91,7 +91,7 @@ app.get('/ojp/logs', async (req, getres) => {
 
   const format = req.query.format || 'text';
 
-  mongoClient.connect(config.db.uri, {
+  MongoClient.connect(config.db.uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   }, (err, client) => {

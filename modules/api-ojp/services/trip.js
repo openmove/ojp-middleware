@@ -4,14 +4,14 @@ const _ = require('lodash');
 const moment = require('moment-timezone');
 const { 'v4': uuidv4 } = require('uuid');
 const { time } = require('console');
-const mongoClient = require("mongodb").MongoClient;
+const { MongoClient } = require("mongodb");
 const polyline = require('@mapbox/polyline');
 
-const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
-const {parseParamsRestrictions, parseTripRestrictions} = require('../lib/restrictions');
+const { queryNode, queryNodes, queryText, queryTags } = require('../lib/query');
+const { parseParamsRestrictions, parseTripRestrictions } = require('../lib/restrictions');
 
-const {doRequest, ptModesRequest} = require('../lib/request');
-const {createErrorResponse, ptModesResponse, precisionMeters, stopText, lineText} = require('../lib/response');
+const { doRequest, ptModesRequest} = require('../lib/request');
+const { createErrorResponse, ptModesResponse, precisionMeters, stopText, lineText } = require('../lib/response');
 
 const serviceName = 'OJPTrip';
 
@@ -51,7 +51,7 @@ const createResponse = (config,
       const tripId = uuidv4();
 
       try{
-        mongoClient.connect(config.db.uri, {
+        MongoClient.connect(config.db.uri, {
           useNewUrlParser: true,
           useUnifiedTopology: true
         }, (err, client) => {
