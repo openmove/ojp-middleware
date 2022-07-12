@@ -7,14 +7,13 @@ const mapNS = {
 };
 
 const queryNodesOld = (doc, path) => {
+  path = path.replace('ojp:','');     //PATCH
   const queryNS = xpath.useNamespaces(mapNS);
   const nodes = queryNS(path, doc);
   return nodes
 }
 
 const queryNode = (doc, path) => {
-  path = path.replace('ojp:','');     //PATCH
-
   const nodes = queryNodes(doc, path)
   if (nodes.length === 0) {
       return null;

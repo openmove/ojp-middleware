@@ -22,45 +22,45 @@ const createResponse = (config,
   const positionPrecision = precisionMeters(config);
 
   const now = new Date()
-    , tag = xmlbuilder.create(`ojp:${serviceName}Delivery`);
+    , tag = xmlbuilder.create(`${serviceName}Delivery`);
   tag.ele('siri:ResponseTimestamp', now.toISOString());
   tag.ele('siri:Status', stops.length === 0 ? false : true);
 
-  tag.ele('ojp:CalcTime', now.getTime() - startTime);
+  tag.ele('CalcTime', now.getTime() - startTime);
 
   if ( limit !== null && limit === stops.length) {
-    tag.ele('ojp:ContinueAt', skip + limit);
+    tag.ele('ContinueAt', skip + limit);
   }
 
   for(const stop of stops) {
-    const loc = tag.ele('ojp:Place')
-    const place = loc.ele('ojp:Place');
-    const stopPlace = place.ele('ojp:StopPlace');
-    stopPlace.ele('ojp:StopPlaceRef', stop['MetaID']);
-    stopPlace.ele('ojp:StopPlaceName').ele('ojp:Text', `${stop.Name}`);
-    const private = stopPlace.ele('ojp:PrivateCode');
-    private.ele('ojp:System', 'LinkingAlps');
-    private.ele('ojp:Value', stop['GlobalID'])
-    stopPlace.ele('ojp:TopographicPlaceRef', stop.zoneId);
-    place.ele('ojp:LocationName').ele('ojp:Text', `${stop.Name}`);
+    const loc = tag.ele('Place')
+    const place = loc.ele('Place');
+    const stopPlace = place.ele('StopPlace');
+    stopPlace.ele('StopPlaceRef', stop['MetaID']);
+    stopPlace.ele('StopPlaceName').ele('Text', `${stop.Name}`);
+    const private = stopPlace.ele('PrivateCode');
+    private.ele('System', 'LinkingAlps');
+    private.ele('Value', stop['GlobalID'])
+    stopPlace.ele('TopographicPlaceRef', stop.zoneId);
+    place.ele('LocationName').ele('Text', `${stop.Name}`);
 
-    const geo = place.ele('ojp:GeoPosition');
+    const geo = place.ele('GeoPosition');
     geo.ele('siri:Longitude', _.round(stop['long'], location_digits) );
     geo.ele('siri:Latitude', _.round(stop['lat'], location_digits) );
 
     if(ptModes) {
 
-      const mode = loc.ele('ojp:Mode');
+      const mode = loc.ele('Mode');
       
       const ojpMode = ptModesResponse( stop['MainMode'] );
 
-      mode.ele('ojp:PtMode', ojpMode);
+      mode.ele('PtMode', ojpMode);
 
      /* if(stop['MainMode'].toLowerCase() === '~bus~'){
-        mode.ele('ojp:PtMode', 'BUS');
+        mode.ele('PtMode', 'BUS');
       }
       if(stop['MainMode'].toLowerCase() === '~train~'){
-        mode.ele('ojp:PtMode', 'RAIL');
+        mode.ele('PtMode', 'RAIL');
       }*/
     }
   }
@@ -69,6 +69,7 @@ const createResponse = (config,
     const err = tag.ele('siri:ErrorCondition');
     err.ele('siri:OtherError')
     err.ele('siri:Description', 'EXCHANGEPOINTS_NO_RESULTS');
+    //TODO use config errors
   }
 
   return tag;
@@ -77,7 +78,7 @@ const createResponse = (config,
 module.exports = {
   'exchangePointsExecution' : async (doc, startTime, config) => {
     
-    const serviceTag = `ojp:${serviceName}Request`;
+    const serviceTag = `${serviceName}Request`;
 
     const {logger} = config;
     
@@ -91,13 +92,13 @@ module.exports = {
       };
       let path = '/all';
 
-      if(queryNodes(doc, [serviceTag, 'ojp:PlaceRef']).length > 0) {
+      if(queryNodes(doc, [serviceTag, 'PlaceRef']).length > 0) {
 
-        const stopId = queryTags(doc, [serviceTag,'ojp:PlaceRef','ojp:StopPlaceRef']);
+        const stopId = queryTags(doc, [serviceTag,'PlaceRef','StopPlaceRef']);
 
-        const pointId = queryTags(doc, [serviceTag,'ojp:PlaceRef','StopPointRef']);
+        const pointId = queryTags(doc, [serviceTag,'PlaceRef','StopPointRef']);
 
-        const LocationName = queryTags(doc, [serviceTag,'ojp:PlaceRef','ojp:LocationName','ojp:Text']);
+        const LocationName = queryTags(doc, [serviceTag,'PlaceRef','LocationName','Text']);
 
         if(LocationName) {
           path = `/searchByName/${encodeURIComponent(LocationName)}`;
@@ -109,11 +110,11 @@ module.exports = {
           path = `/searchByNetexId/${pointId}`;
         }
       }
-      else if(queryNodes(doc, [serviceTag, 'ojp:InitialInput']).length > 0) {
+      else if(queryNodes(doc, [serviceTag, 'InitialInput']).length > 0) {
 
-        const LocationName = queryTags(doc, [serviceTag,'ojp:InitialInput','ojp:LocationName']);
+        const LocationName = queryTags(doc, [serviceTag,'InitialInput','LocationName']);
 
-        const geoRestriction = queryNode(doc, [serviceTag,'ojp:InitialInput','ojp:GeoRestriction']);
+        const geoRestriction = queryNode(doc, [serviceTag,'InitialInput','GeoRestriction']);
 
         //if(LocationName) {
         path = `/searchByName/${encodeURIComponent(LocationName)}`;
@@ -138,8 +139,8 @@ module.exports = {
           }
         }
 
-        const geoPositionLat = queryTags(doc, [serviceTag,'ojp:InitialInput','ojp:GeoPosition','Latitude'])
-            , geoPositionLon = queryTags(doc, [serviceTag,'ojp:InitialInput','ojp:GeoPosition','Longitude']);
+        const geoPositionLat = queryTags(doc, [serviceTag,'InitialInput','GeoPosition','Latitude'])
+            , geoPositionLon = queryTags(doc, [serviceTag,'InitialInput','GeoPosition','Longitude']);
 
         if(geoPositionLat != null && geoPositionLon != null) {
           params.position = [geoPositionLon, geoPositionLat].join(',');

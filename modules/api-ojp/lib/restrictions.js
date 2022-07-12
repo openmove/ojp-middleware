@@ -11,17 +11,17 @@ module.exports = {
 
 	'parseGeoRestriction': (doc, serviceTag, config) => {
 
-        const rect = queryNode(doc, [serviceTag,'InitialInput','GeoRestriction','Rectangle']);
+        const rect = queryNode(doc, [serviceTag, 'InitialInput','GeoRestriction','Rectangle']);
 
-        const circle = queryNode(doc, [serviceTag,'InitialInput','GeoRestriction','Circle']);
+        const circle = queryNode(doc, [serviceTag, 'InitialInput','GeoRestriction','Circle']);
 
-		const upperLat = queryTags(doc, [serviceTag,'InitialInput','GeoRestriction','Rectangle','UpperLeft','Latitude']);
-		const upperLon = queryTags(doc, [serviceTag,'InitialInput','GeoRestriction','Rectangle','UpperLeft','Longitude']);
-		const lowerLat = queryTags(doc, [serviceTag,'InitialInput','GeoRestriction','Rectangle','LowerRight','Latitude']);
-		const lowerLon = queryTags(doc, [serviceTag,'InitialInput','GeoRestriction','Rectangle','LowerRight','Longitude']);
-		const centerLat = queryTags(doc, [serviceTag,'InitialInput','GeoRestriction','Circle','Center','Latitude']);
-		const centerLon = queryTags(doc, [serviceTag,'InitialInput','GeoRestriction','Circle','Center','Longitude']);
-		const radius = queryTags(doc, [serviceTag,'InitialInput','GeoRestriction','Circle','Radius']);
+		const upperLat = queryTags(doc, [serviceTag, 'InitialInput','GeoRestriction','Rectangle','UpperLeft','Latitude']);
+		const upperLon = queryTags(doc, [serviceTag, 'InitialInput','GeoRestriction','Rectangle','UpperLeft','Longitude']);
+		const lowerLat = queryTags(doc, [serviceTag, 'InitialInput','GeoRestriction','Rectangle','LowerRight','Latitude']);
+		const lowerLon = queryTags(doc, [serviceTag, 'InitialInput','GeoRestriction','Rectangle','LowerRight','Longitude']);
+		const centerLat = queryTags(doc, [serviceTag, 'InitialInput','GeoRestriction','Circle','Center','Latitude']);
+		const centerLon = queryTags(doc, [serviceTag, 'InitialInput','GeoRestriction','Circle','Center','Longitude']);
+		const radius = queryTags(doc, [serviceTag, 'InitialInput','GeoRestriction','Circle','Radius']);
 
 		return {
 			rect,
@@ -103,61 +103,23 @@ module.exports = {
 
 	'parseParamsRestrictions': (doc, serviceTag, config) => {
 
-		const ptModesRestrictions = queryTags(doc, [
-			serviceTag,
-			'Restrictions',
-			'IncludePtModes'
-		]);
+		const ptModesRestrictions = queryTags(doc, [serviceTag, 'Restrictions','IncludePtModes']);
 
-		const ptModesParams = queryTags(doc, [
-			serviceTag,
-			'Params',
-			'IncludePtModes'
-		]);
+		const ptModesParams = queryTags(doc, [serviceTag, 'Params','IncludePtModes']);
 
-		const ptModeFilterExclude = queryTags(doc, [
-			serviceTag,
-			'Params',
-			'PtModeFilter',
-			'Exclude'
-		]);
+		const ptModeFilterExclude = queryTags(doc, [serviceTag, 'Params','PtModeFilter','Exclude']);
 
-		const ptModeFilterNodes = queryNodes(doc, [
-			serviceTag,
-			'Params',
-			'PtModeFilter',
-			'PtMode'
-		]);
+		const ptModeFilterNodes = queryNodes(doc, [serviceTag, 'Params','PtModeFilter','PtMode']);
 
-		const limitRestrictions = queryTags(doc, [
-			serviceTag,
-			'Restrictions',
-			'NumberOfResults'
-		]);
+		const limitRestrictions = queryTags(doc, [serviceTag, 'Restrictions','NumberOfResults']);
 
-		const limitParams = queryTags(doc, [
-			serviceTag,
-			'Params',
-			'NumberOfResults'
-		]);
+		const limitParams = queryTags(doc, [serviceTag, 'Params','NumberOfResults']);
 
-		const skipRestrictions = queryTags(doc, [
-			serviceTag,
-			'Restrictions',
-			'ContinueAt'
-		]);
+		const skipRestrictions = queryTags(doc, [serviceTag, 'Restrictions','ContinueAt']);
 
-		const skipParams = queryTags(doc, [
-			serviceTag,
-			'Params',
-			'ContinueAt'
-		]);
+		const skipParams = queryTags(doc, [serviceTag, 'Params','ContinueAt']);
 
-		const typeRestrictions = queryTags(doc, [
-			serviceTag,
-			'Restrictions',
-			'Type'
-		]);
+		const typeRestrictions = queryTags(doc, [serviceTag, 'Restrictions','Type']);
 
 		let ptModes = ''
 			, limit = Number( Number(limitRestrictions) || Number(limitParams) || undefined )
