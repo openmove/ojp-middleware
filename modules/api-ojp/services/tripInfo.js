@@ -124,17 +124,17 @@ const createResponse = (config,
 module.exports = {
 	'tripInfoExecution' : async (doc, startTime, config) => {
 
-		const serviceTag = `ojp:${serviceName}Request`;
+		const serviceTag = `${serviceName}Request`;
 		
 		const {logger} = config;
 
     try {
 			if(
-        queryNodes(doc, [serviceTag, 'ojp:JourneyRef']).length > 0 &&
-        queryNodes(doc, [serviceTag, 'ojp:OperatingDayRef']).length > 0
+        queryNodes(doc, [serviceTag, 'JourneyRef']).length > 0 &&
+        queryNodes(doc, [serviceTag, 'OperatingDayRef']).length > 0
         ) {
-					const tripId = queryTags(doc, [serviceTag, 'ojp:JourneyRef']);
-					const date = queryTags(doc, [serviceTag, 'ojp:OperatingDayRef']);
+					const tripId = queryTags(doc, [serviceTag, 'JourneyRef']);
+					const date = queryTags(doc, [serviceTag, 'OperatingDayRef']);
 
 					const options = {
 						host: config['api-otp'].host,
@@ -147,17 +147,8 @@ module.exports = {
 
 					logger.info(response);
 
-					const includeServiceString = queryTags(doc, [
-						serviceTag,
-						'ojp:Params',
-						'ojp:IncludeService'
-					]);
-			
-					const includeCallsString = queryTags(doc, [
-						serviceTag,
-						'ojp:Params',
-						'ojp:IncludeCalls'
-					]);
+					const includeServiceString = queryTags(doc, [serviceTag, 'Params','IncludeService']);
+					const includeCallsString = queryTags(doc, [serviceTag, 'Params','IncludeCalls']);
 
 					return createResponse(config, response.trip, date, startTime, includeCallsString === 'true', includeServiceString === 'true');
 
