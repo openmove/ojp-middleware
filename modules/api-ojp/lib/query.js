@@ -13,14 +13,6 @@ const queryNodesOld = (doc, path) => {
   return nodes
 }
 
-const queryNode = (doc, path) => {
-  const nodes = queryNodes(doc, path)
-  if (nodes.length === 0) {
-      return null;
-  }
-  return nodes[0]
-}
-
 const queryNodes = (doc, paths) => {
   if (!Array.isArray(paths)) {
     return queryNodesOld(doc, paths)
@@ -69,7 +61,6 @@ const queryTags = (doc, paths) => {
 
 module.exports = {
 	'queryText': queryText,
-	'queryNode': queryNode,
 	'queryNodes': queryNodes,
   'queryTags': queryTags
 }

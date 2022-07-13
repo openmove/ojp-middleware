@@ -6,7 +6,7 @@ const { 'v4': uuidv4 } = require('uuid');
 const { time } = require('console');
 const { MongoClient } = require("mongodb");
 
-const { queryNode, queryNodes, queryText, queryTags } = require('../lib/query');
+const { queryNodes, queryText, queryTags } = require('../lib/query');
 const { parseParamsRestrictions, parseTripRestrictions } = require('../lib/restrictions');
 
 const { doRequest, doMultiRequests, ptModesRequest } = require('../lib/request');

@@ -2,10 +2,10 @@ const xmlbuilder = require('xmlbuilder');
 const qstr = require('querystring');
 const _ = require('lodash');
 
-const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
-const {doRequest} = require('../lib/request');
-const {parseParamsRestrictions, parseGeoRestriction} = require('../lib/restrictions');
-const {createErrorResponse, ptModesResponse, precisionMeters, stopText, lineText} = require('../lib/response');
+const { queryNodes, queryText, queryTags } = require('../lib/query');
+const { doRequest } = require('../lib/request');
+const { parseParamsRestrictions, parseGeoRestriction } = require('../lib/restrictions');
+const { createErrorResponse, ptModesResponse, precisionMeters, stopText, lineText } = require('../lib/response');
 
 const serviceName = 'OJPLocationInformation';
 
@@ -17,7 +17,7 @@ const createResponse = (config,
                         limit = null
                       ) => {
 
-  const {location_digits} = config;
+  const { location_digits } = config;
 
   const positionPrecision = precisionMeters(config);
 
@@ -154,20 +154,20 @@ module.exports = {
           skip
         };
         
-        const geoRestriction = queryNode(doc, [serviceTag, 'InitialInput','GeoRestriction']);
+        const geoRestriction = queryNodes(doc, [serviceTag, 'InitialInput','GeoRestriction']);
 
-        if(geoRestriction) {
-
-          logger.debug('GeoRestriction', geoRestriction);
+        if(Array.isArray(geoRestriction) && geoRestriction.length > 0) {
 
           const { rect, upperLon, upperLat, lowerLon, lowerLat
                 , circle, radius, centerLon, centerLat } = parseGeoRestriction(doc, serviceTag, config);
 
           if(rect) {
+            logger.debug('With GeoRestriction rect');
             params.restrictionType = 'bbox';
             params.restrictionValue = [upperLon, upperLat, lowerLon, lowerLat].join(',');
           }
           else if(circle) {
+            logger.debug('With GeoRestriction circle');
             params.restrictionType = 'circle';
             params.restrictionValue = [centerLon, centerLat, radius].join(',');
           }

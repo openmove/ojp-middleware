@@ -7,7 +7,7 @@ const { time } = require('console');
 const { MongoClient } = require("mongodb");
 const polyline = require('@mapbox/polyline');
 
-const { queryNode, queryNodes, queryText, queryTags } = require('../lib/query');
+const { queryNodes, queryText, queryTags } = require('../lib/query');
 const { parseParamsRestrictions, parseTripRestrictions } = require('../lib/restrictions');
 
 const { doRequest, ptModesRequest} = require('../lib/request');

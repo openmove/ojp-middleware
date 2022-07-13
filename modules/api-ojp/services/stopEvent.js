@@ -4,11 +4,11 @@ const _ = require('lodash');
 const moment = require('moment-timezone');
 const { v4: uuidv4 } = require('uuid');
 
-const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
-const {parseParamsRestrictions} = require('../lib/restrictions');
+const { queryNodes, queryText, queryTags } = require('../lib/query');
+const { parseParamsRestrictions } = require('../lib/restrictions');
 
-const {doRequest, ptModesRequest} = require('../lib/request');
-const {createErrorResponse, ptModesResponse, precisionMeters, stopText, lineText} = require('../lib/response');
+const { doRequest, ptModesRequest } = require('../lib/request');
+const { createErrorResponse, ptModesResponse, precisionMeters, stopText, lineText } = require('../lib/response');
 
 const serviceName = 'OJPStopEvent';
 
@@ -22,7 +22,7 @@ const createResponse = (config,
                         nextStop = false      /* IncludeOnwardCalls */
                       ) => {
 
-  const {location_digits} = config;
+  const { location_digits } = config;
 
   const positionPrecision = precisionMeters(config);
 

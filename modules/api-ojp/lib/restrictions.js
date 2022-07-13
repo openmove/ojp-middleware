@@ -1,7 +1,7 @@
 
 const _ = require('lodash');
 
-const {queryNode, queryNodes, queryText, queryTags} = require('./query');
+const {queryNodes, queryText, queryTags} = require('./query');
 
 module.exports = {
 
@@ -11,9 +11,9 @@ module.exports = {
 
 	'parseGeoRestriction': (doc, serviceTag, config) => {
 
-        const rect = queryNode(doc, [serviceTag, 'InitialInput','GeoRestriction','Rectangle']);
+        const rects = queryNodes(doc, [serviceTag, 'InitialInput','GeoRestriction','Rectangle']);
 
-        const circle = queryNode(doc, [serviceTag, 'InitialInput','GeoRestriction','Circle']);
+        const circles = queryNodes(doc, [serviceTag, 'InitialInput','GeoRestriction','Circle']);
 
 		const upperLat = queryTags(doc, [serviceTag, 'InitialInput','GeoRestriction','Rectangle','UpperLeft','Latitude']);
 		const upperLon = queryTags(doc, [serviceTag, 'InitialInput','GeoRestriction','Rectangle','UpperLeft','Longitude']);
@@ -24,13 +24,13 @@ module.exports = {
 		const radius = queryTags(doc, [serviceTag, 'InitialInput','GeoRestriction','Circle','Radius']);
 
 		return {
-			rect,
+			rect: rects[0] || null,
 			upperLat,
 			upperLon,
 			lowerLat,
 			lowerLon,
 			//
-			circle,
+			circle: circles[0] || null,
 			centerLat,
 			centerLon,
 			radius

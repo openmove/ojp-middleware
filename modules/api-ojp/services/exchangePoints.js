@@ -2,10 +2,10 @@ const xmlbuilder = require('xmlbuilder');
 const qstr = require('querystring');
 const _ = require('lodash');
 
-const {queryNode, queryNodes, queryText, queryTags} = require('../lib/query');
-const {doRequest} = require('../lib/request');
-const {parseParamsRestrictions, parseGeoRestriction} = require('../lib/restrictions');
-const {createErrorResponse, ptModesResponse, precisionMeters} = require('../lib/response');
+const { queryNodes, queryText, queryTags } = require('../lib/query');
+const { doRequest } = require('../lib/request');
+const { parseParamsRestrictions, parseGeoRestriction } = require('../lib/restrictions');
+const { createErrorResponse, ptModesResponse, precisionMeters } = require('../lib/response');
 
 const serviceName = 'OJPExchangePoints';
 
@@ -17,7 +17,7 @@ const createResponse = (config,
                         limit = null
                       ) => {
 
-  const {location_digits} = config;
+  const { location_digits } = config;
 
   const positionPrecision = precisionMeters(config);
 
@@ -107,23 +107,23 @@ module.exports = {
 
         const LocationName = queryTags(doc, [serviceTag,'InitialInput','LocationName']);
 
-        const geoRestriction = queryNode(doc, [serviceTag,'InitialInput','GeoRestriction']);
+        const geoRestriction = queryNodes(doc, [serviceTag,'InitialInput','GeoRestriction']);
 
         //if(LocationName) {
         path = `/searchByName/${encodeURIComponent(LocationName)}`;
 
-        if(geoRestriction) {
-          
-          logger.debug('GeoRestriction', geoRestriction);
+        if(Array.isArray(geoRestriction) && geoRestriction.length > 0) {
 
           const { rect, upperLon, upperLat, lowerLon, lowerLat
                 , circle, radius, centerLon, centerLat } = parseGeoRestriction(doc, serviceTag, config);
 
           if(rect) {
+            logger.debug('With GeoRestriction rect');
             params.restrictionType = 'bbox';
             params.restrictionValue = [upperLon, upperLat, lowerLon, lowerLat].join(',');
           }
           else if(circle) {
+            logger.debug('With GeoRestriction circle');
             params.restrictionType = 'circle';
             params.restrictionValue = [centerLon, centerLat, radius].join(',');
           }
@@ -132,8 +132,8 @@ module.exports = {
           }
         }
 
-        const geoPositionLat = queryTags(doc, [serviceTag,'InitialInput','GeoPosition','Latitude'])
-            , geoPositionLon = queryTags(doc, [serviceTag,'InitialInput','GeoPosition','Longitude']);
+        const geoPositionLat = queryTags(doc, [serviceTag, 'InitialInput','GeoPosition','Latitude'])
+            , geoPositionLon = queryTags(doc, [serviceTag, 'InitialInput','GeoPosition','Longitude']);
 
         if(geoPositionLat != null && geoPositionLon != null) {
           params.position = [geoPositionLon, geoPositionLat].join(',');

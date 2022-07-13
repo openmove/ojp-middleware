@@ -23,7 +23,7 @@ const dotenv = require('dotenv').config()
       },
     });
 
-const { queryNode, queryNodes, queryText } = require('./lib/query')
+const { queryNodes, queryText } = require('./lib/query')
     , { createErrorResponse } = require('./lib/response')
 
 const { exchangePointsExecution } = require('./services/exchangePoints')
@@ -205,7 +205,7 @@ app.post('/ojp/', async (req, result) => {
   xmlServiceDelivery.ele('siri:Status', true);
   //minimum response tags
 
-  if(queryNode(doc, "//*[local-name()='OJPExchangePointsRequest']")){
+  if(queryNodes(doc, "//*[local-name()='OJPExchangePointsRequest']").length > 0){
     if(!config.services.OJPExchangePointsRequest) {
       logger.warn('OJPExchangePointsRequest disabled by config');
     }
@@ -214,7 +214,7 @@ app.post('/ojp/', async (req, result) => {
     }
   }
 
-  if(queryNode(doc, "//*[local-name()='OJPLocationInformationRequest']")){
+  if(queryNodes(doc, "//*[local-name()='OJPLocationInformationRequest']").length > 0){
     if(!config.services.OJPLocationInformationRequest) {
       logger.warn('OJPLocationInformationRequest disabled by config')
     }
@@ -223,7 +223,7 @@ app.post('/ojp/', async (req, result) => {
     }
   }
 
-  if(queryNode(doc, "//*[local-name()='OJPMultiPointTripRequest']")){
+  if(queryNodes(doc, "//*[local-name()='OJPMultiPointTripRequest']").length > 0){
     if(!config.services.OJPMultiPointTripRequest) {
       logger.warn('OJPMultiPointTripRequest disabled by config');
     }
@@ -232,7 +232,7 @@ app.post('/ojp/', async (req, result) => {
     }
   }
 
-  if(queryNode(doc, "//*[local-name()='OJPStopEventRequest']")){
+  if(queryNodes(doc, "//*[local-name()='OJPStopEventRequest']").length > 0){
     if(!config.services.OJPStopEventRequest) {
       logger.warn('OJPStopEventRequest disabled by config');
     }
@@ -241,7 +241,7 @@ app.post('/ojp/', async (req, result) => {
     }
   }
 
-  if(queryNode(doc, "//*[local-name()='OJPTripInfoRequest']")){
+  if(queryNodes(doc, "//*[local-name()='OJPTripInfoRequest']").length > 0){
     if(!config.services.OJPTripInfoRequest) {
       logger.warn('OJPTripInfoRequest disabled by config');
     }
@@ -250,7 +250,7 @@ app.post('/ojp/', async (req, result) => {
     }
   }
 
-  if(queryNode(doc, "//*[local-name()='OJPTripRequest']")){
+  if(queryNodes(doc, "//*[local-name()='OJPTripRequest']").length > 0){
     if(!config.services.OJPTripRequest) {
       logger.warn('OJPTripRequest disabled by config');
     }
