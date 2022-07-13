@@ -336,7 +336,7 @@ const createResponse = (config,
 module.exports = {
   'tripsExecution' : async (doc, startTime, config) => {
 
-    const serviceTag = `ojp:${serviceName}Request`;
+    const serviceTag = `${serviceName}Request`;
     
     const {logger} = config;
 
@@ -347,19 +347,19 @@ module.exports = {
       const modes = ptModesRequest(ptModeFilter, ptModeExclude);  //convert siri to otp modes
 
       if(
-        queryNodes(doc, [serviceTag, 'ojp:Origin', 'ojp:PlaceRef']).length > 0 &&
-        queryNodes(doc, [serviceTag, 'ojp:Destination', 'ojp:PlaceRef']).length > 0
+        queryNodes(doc, [serviceTag, 'Origin','PlaceRef']).length > 0 &&
+        queryNodes(doc, [serviceTag, 'Destination','PlaceRef']).length > 0
         ) {
 
-        let originId = queryTags(doc, [serviceTag, 'ojp:Origin', 'ojp:PlaceRef', 'StopPointRef']);
-        let destinationId = queryTags(doc, [serviceTag, 'ojp:Destination', 'ojp:PlaceRef', 'StopPointRef']);
+        let originId = queryTags(doc, [serviceTag, 'Origin','PlaceRef','StopPointRef']);
+        let destinationId = queryTags(doc, [serviceTag, 'Destination','PlaceRef','StopPointRef']);
 
         if(originId == null) {
-          originId = queryTags(doc, [serviceTag, 'ojp:Origin', 'ojp:PlaceRef', 'ojp:StopPlaceRef']);
+          originId = queryTags(doc, [serviceTag, 'Origin','PlaceRef','StopPlaceRef']);
         }
 
         if(destinationId == null) {
-          destinationId = queryTags(doc, [serviceTag, 'ojp:Destination', 'ojp:PlaceRef', 'ojp:StopPlaceRef']);
+          destinationId = queryTags(doc, [serviceTag, 'Destination','PlaceRef','StopPlaceRef']);
         }
 
         const {
@@ -369,13 +369,13 @@ module.exports = {
           trackSections, legProjection,
           dateStart, dateEnd} = parseTripRestrictions(doc, serviceTag, config);
 
-        const originName = queryTags(doc, [serviceTag, 'ojp:Origin', 'ojp:PlaceRef', 'ojp:LocationName', 'ojp:Text']);
-        const originLat = queryTags(doc, [serviceTag, 'ojp:Origin', 'ojp:PlaceRef', 'ojp:GeoPosition', 'Latitude']);
-        const originLon = queryTags(doc, [serviceTag, 'ojp:Origin', 'ojp:PlaceRef', 'ojp:GeoPosition', 'Longitude']);
+        const originName = queryTags(doc, [serviceTag, 'Origin','PlaceRef','LocationName','Text']);
+        const originLat = queryTags(doc, [serviceTag, 'Origin','PlaceRef','GeoPosition','Latitude']);
+        const originLon = queryTags(doc, [serviceTag, 'Origin','PlaceRef','GeoPosition','Longitude']);
 
-        const destinationName = queryTags(doc, [serviceTag, 'ojp:Destination', 'ojp:PlaceRef', 'ojp:LocationName', 'ojp:Text']);
-        const destinationLat = queryTags(doc, [serviceTag, 'ojp:Destination', 'ojp:PlaceRef', 'ojp:GeoPosition', 'Latitude']);
-        const destinationLon = queryTags(doc, [serviceTag, 'ojp:Destination', 'ojp:PlaceRef', 'ojp:GeoPosition', 'Longitude']);
+        const destinationName = queryTags(doc, [serviceTag, 'Destination','PlaceRef','LocationName','Text']);
+        const destinationLat = queryTags(doc, [serviceTag, 'Destination','PlaceRef','GeoPosition','Latitude']);
+        const destinationLon = queryTags(doc, [serviceTag, 'Destination','PlaceRef','GeoPosition','Longitude']);
 
         //PATCH this https://github.com/openmove/ojp-middleware/issues/28
         let origin_type = originId ? 'PointRef' : 'PlaceRef';
@@ -386,7 +386,7 @@ module.exports = {
 
         const intermediatePlaces = [];
 
-        const vias = queryNodes(doc, [serviceTag, 'ojp:Via', 'ojp:ViaPoint']);
+        const vias = queryNodes(doc, [serviceTag, 'Via','ViaPoint']);
 
         if(Array.isArray(vias) && vias.length > 0) {
           for(const via of vias) {

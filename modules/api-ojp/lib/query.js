@@ -7,7 +7,7 @@ const mapNS = {
 };
 
 const queryNodesOld = (doc, path) => {
-  path = path.replace('ojp:','');     //PATCH
+  path = path.replace('ojp:','');     //PATCH (TODO REMOVE)
   const queryNS = xpath.useNamespaces(mapNS);
   const nodes = queryNS(path, doc);
   return nodes
@@ -27,7 +27,7 @@ const queryNodes = (doc, paths) => {
   }
 
   const tags = paths.map(path => {
-    path = path.replace('ojp:','');     //PATCH
+    path = path.replace('ojp:','');     //PATCH (TODO REMOVE)
 
     return `[local-name()='${path}']`;
   }).join('/*');
@@ -41,7 +41,7 @@ const queryNodes = (doc, paths) => {
 
 
 const queryText = (doc, path) => {
-  path = path.replace('ojp:','');     //PATCH
+  path = path.replace('ojp:','');     //PATCH (TODO REMOVE)
 
   const queryNS = xpath.useNamespaces(mapNS);
   const node = queryNS(path, doc, true);
@@ -57,7 +57,7 @@ const queryTags = (doc, paths) => {
   }
 
   const tags = paths.map(path => {
-    path = path.replace('ojp:','');     //PATCH
+    path = path.replace('ojp:','');     //PATCH (TODO REMOVE)
 
     return `[local-name()='${path}']`;
   }).join('/*');

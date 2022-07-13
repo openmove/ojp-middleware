@@ -291,7 +291,7 @@ module.exports = {
 
 				const intermediatePlaces = [];
 
-				const vias = queryNodes(doc, [serviceTag, 'Via', 'ViaPoint']);
+				const vias = queryNodes(doc, [serviceTag, 'Via','ViaPoint']);
 
 				if(Array.isArray(vias) && vias.length > 0) {
 					for(const via of vias){
