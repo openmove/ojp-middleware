@@ -21,6 +21,25 @@ const queryNode = (doc, path) => {
   return nodes[0]
 }
 
+const queryNodes = (doc, paths) => {
+  if (!Array.isArray(paths)) {
+    return queryNodesOld(doc, paths)
+  }
+
+  const tags = paths.map(path => {
+    path = path.replace('ojp:','');     //PATCH
+
+    return `[local-name()='${path}']`;
+  }).join('/*');
+
+  const query = `//*${tags}`;
+
+  const queryNS = xpath.useNamespaces(mapNS);
+  const nodes = queryNS(query, doc);
+  return nodes
+}
+
+
 const queryText = (doc, path) => {
   path = path.replace('ojp:','');     //PATCH
 
@@ -47,25 +66,6 @@ const queryTags = (doc, paths) => {
 
   return queryText(doc, query);
 }
-
-const queryNodes = (doc, paths) => {
-  if (!Array.isArray(paths)) {
-    return queryNodesOld(doc, paths)
-  }
-
-  const tags = paths.map(path => {
-    path = path.replace('ojp:','');     //PATCH
-
-    return `[local-name()='${path}']`;
-  }).join('/*');
-
-  const query = `//*${tags}`;
-
-  const queryNS = xpath.useNamespaces(mapNS);
-  const nodes = queryNS(query, doc);
-  return nodes
-}
-
 
 module.exports = {
 	'queryText': queryText,
