@@ -1,4 +1,5 @@
 
+
 const xpath = require('xpath');
 
 const mapNS = {
@@ -6,26 +7,22 @@ const mapNS = {
   'ojp': 'http://www.vdv.de/ojp',
 };
 
-const queryNodesOld = (doc, path) => {
+const queryXpath = (doc, path) => {
   const queryNS = xpath.useNamespaces(mapNS);
-  const nodes = queryNS(path, doc);
-  return nodes
+  return queryNS(path, doc);
 }
 
 const queryNodes = (doc, paths) => {
   if (!Array.isArray(paths)) {
-    return queryNodesOld(doc, paths)
+    return queryXpath(doc, paths)
   }
 
   const tags = paths.map(path => {
     return `[local-name()='${path}']`;
   }).join('/*');
 
-  const query = `//*${tags}`;
-
   const queryNS = xpath.useNamespaces(mapNS);
-  const nodes = queryNS(query, doc);
-  return nodes
+  return queryNS(`//*${tags}`, doc);
 }
 
 const queryText = (doc, path) => {
@@ -46,12 +43,11 @@ const queryTags = (doc, paths) => {
     return `[local-name()='${path}']`;
   }).join('/*');
 
-  const query = `//*${tags}`;
-
-  return queryText(doc, query);
+  return queryText(doc, `//*${tags}`);
 }
 
 module.exports = {
+  queryXpath,
 	queryText,
 	queryNodes,
   queryTags
