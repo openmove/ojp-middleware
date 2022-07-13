@@ -1,14 +1,14 @@
-
-
+/*
+  functions wrappers for xpath lib
+ */
 const xpath = require('xpath');
 
-const mapNS = {
+const queryNS = xpath.useNamespaces({
   'siri' : 'http://www.siri.org.uk/siri',
   'ojp': 'http://www.vdv.de/ojp',
-};
+});
 
 const queryXpath = (doc, path) => {
-  const queryNS = xpath.useNamespaces(mapNS);
   return queryNS(path, doc);
 }
 
@@ -21,12 +21,11 @@ const queryNodes = (doc, paths) => {
     return `[local-name()='${path}']`;
   }).join('/*');
 
-  const queryNS = xpath.useNamespaces(mapNS);
   return queryNS(`//*${tags}`, doc);
 }
 
 const queryText = (doc, path) => {
-  const queryNS = xpath.useNamespaces(mapNS);
+
   const node = queryNS(path, doc, true);
   if (!node) {
       return null;
