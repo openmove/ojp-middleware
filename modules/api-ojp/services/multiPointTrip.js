@@ -45,7 +45,7 @@ const createResponse = (config, results, startTime) => {
 
 		const {origin, destination, origin_type, destin_type} = question;
 
-		for(const itinerary of itineraries){
+		for(const itinerary of itineraries) {
 			const tripresponse = tag.ele(`ojp:MultiPointTripResult`);
 			const tripId = uuidv4();
 
@@ -72,7 +72,7 @@ const createResponse = (config, results, startTime) => {
 						});
 					}          
 				});
-			} catch (exc){
+			} catch (exc) {
 				logger.error(exc);
 			}
 			
@@ -89,7 +89,7 @@ const createResponse = (config, results, startTime) => {
 
 			let firstLeg;
 
-			for(const leg of itinerary.legs){
+			for(const leg of itinerary.legs) {
 				legId += 1
 				const tripLeg = trip.ele('ojp:TripLeg');
 				tripLeg.ele('ojp:LegId', legId);
@@ -159,7 +159,7 @@ const createResponse = (config, results, startTime) => {
 					const timedLeg = tripLeg.ele('ojp:TimedLeg');
 					const legBoard = timedLeg.ele('ojp:LegBoard');
 
-					if(leg.from.stop){
+					if(leg.from.stop) {
 						stops.push(leg.from.stop);
 						legBoard.ele('siri:StopPointRef', leg.from.stop.gtfsId);
 					}
@@ -172,12 +172,12 @@ const createResponse = (config, results, startTime) => {
 
 					legBoard.ele('ojp:Order', 1);
 
-					for(const intermediatePoint of leg.intermediatePlaces){
+					for(const intermediatePoint of leg.intermediatePlaces) {
 						sequence += 1;
 						if(intermediateStops) {
 							const intermediate = timedLeg.ele('ojp:LegIntermediates')
 
-							if(intermediatePoint.stop){
+							if(intermediatePoint.stop) {
 								stops.push(intermediatePoint.stop);
 								intermediate.ele('siri:StopPointRef', intermediatePoint.stop.gtfsId);
 							}
@@ -240,8 +240,8 @@ const createResponse = (config, results, startTime) => {
 
 	const places = context.ele('ojp:Places');
 	const ids = [];
-	for(const stop of stops){
-		if(ids.indexOf(stop.gtfsId) === -1){
+	for(const stop of stops) {
+		if(ids.indexOf(stop.gtfsId) === -1) {
 			ids.push(stop.gtfsId);
 			const place = places.ele('ojp:Location');
 			const stopPlace = place.ele('ojp:StopPlace');
@@ -294,18 +294,18 @@ module.exports = {
 				const vias = queryNodes(doc, [serviceTag, 'Via','ViaPoint']);
 
 				if(Array.isArray(vias) && vias.length > 0) {
-					for(const via of vias){
+					for(const via of vias) {
 						if( via.childNodes[1].localName === 'StopPointRef'||
 	              via.childNodes[1].localName === 'StopPlaceRef') {
 
 							intermediatePlaces.push(via.childNodes[1].firstChild.data);
-						} else if(via.childNodes[1].localName === 'GeoPosition'){
+						} else if(via.childNodes[1].localName === 'GeoPosition') {
 							let lat, lon = 0;
-							for (const key in via.childNodes[1].childNodes){
+							for (const key in via.childNodes[1].childNodes) {
 								const child = via.childNodes[1].childNodes[key];
-								if(child.localName === 'Longitude'){
+								if(child.localName === 'Longitude') {
 									lon = child.firstChild.data;
-								}else if (child.localName === 'Latitude'){
+								}else if (child.localName === 'Latitude') {
 									lat = child.firstChild.data;
 								}
 							}
@@ -318,10 +318,10 @@ module.exports = {
 
 				let arrivedBy = false;
 
-				if(dateStart != null){
+				if(dateStart != null) {
 					date = new Date(dateStart).getTime();
 				}
-				else if(dateEnd != null){
+				else if(dateEnd != null) {
 
 					arrivedBy = true;
 
@@ -346,13 +346,13 @@ module.exports = {
 
 						const child = originPlace.childNodes[childkey];
 
-						if(child.localName === 'StopPointRef' || child.localName === 'StopPlaceRef'){
+						if(child.localName === 'StopPointRef' || child.localName === 'StopPlaceRef') {
 
 							originId = child.firstChild.data;
 
 						}
 						else if (child.localName === 'GeoPosition') {
-							for (const key in child.childNodes){
+							for (const key in child.childNodes) {
 								const c = child.childNodes[key];
 								if (c.localName === 'Longitude') {
 									originLon = c.firstChild.data;
@@ -362,10 +362,10 @@ module.exports = {
 								}
 							}
 						}
-						else if (child.localName === 'LocationName'){
-							for (const key in child.childNodes){
+						else if (child.localName === 'LocationName') {
+							for (const key in child.childNodes) {
 								const c = child.childNodes[key];
-								if(c.localName === 'Text'){
+								if(c.localName === 'Text') {
 									originName = c.firstChild.data;
 								}
 							}
@@ -390,11 +390,11 @@ module.exports = {
 
 							const child = destinationPlace.childNodes[childkeyDst];
 
-							if(child.localName === 'StopPointRef' || child.localName === 'StopPlaceRef'){
+							if(child.localName === 'StopPointRef' || child.localName === 'StopPlaceRef') {
 								destinationId = child.firstChild.data;
 
 							}
-							else if(child.localName === 'GeoPosition'){
+							else if(child.localName === 'GeoPosition') {
 								for (const key in child.childNodes) {
 									const c = child.childNodes[key];
 									if (c.localName === 'Longitude') {
@@ -405,7 +405,7 @@ module.exports = {
 									}
 								}
 							}
-							else if (child.localName === 'LocationName'){
+							else if (child.localName === 'LocationName') {
 								for (const key in child.childNodes) {
 									const c = child.childNodes[key];
 									if (c.localName === 'Text') {

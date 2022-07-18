@@ -32,7 +32,7 @@ const createResponse = (config,
 
   tag.ele('ojp:CalcTime', now.getTime() - startTime);
 
-  if(stop === null || stop.stoptimesWithoutPatterns.length === 0){
+  if(stop === null || stop.stoptimesWithoutPatterns.length === 0) {
     tag.ele('siri:Status', false);
     const err = tag.ele('siri:ErrorCondition');
     err.ele('siri:OtherError')
@@ -54,16 +54,16 @@ const createResponse = (config,
 
     const stopsIds = [];
     stopsIds.push(stop.gtfsId);
-    for(const schedule of stop.stoptimesWithoutPatterns){
+    for(const schedule of stop.stoptimesWithoutPatterns) {
       const eventresponse = tag.ele('ojp:StopEventResult');
       eventresponse.ele('ojp:ResultId', uuidv4())
       const stopevent = eventresponse.ele('ojp:StopEvent');
 
-      for(const sequenceStop of schedule.trip.stoptimes){
+      for(const sequenceStop of schedule.trip.stoptimes) {
 
         if(previousStop && (sequenceStop.stopSequence < schedule.stopSequence)) {
 
-          if(stopsIds.indexOf(sequenceStop.stop.gtfsId) === -1){
+          if(stopsIds.indexOf(sequenceStop.stop.gtfsId) === -1) {
             stopsIds.push(sequenceStop.stop.gtfsId);
             const previousPlace = loc.ele('ojp:Location');
             const stopPlace = previousPlace.ele('ojp:StopPlace');
@@ -83,13 +83,13 @@ const createResponse = (config,
 
           const arr = previousCall.ele('ojp:ServiceArrival');
           arr.ele('ojp:TimetabledTime', moment((schedule.serviceDay + sequenceStop.scheduledArrival) * 1000).tz(schedule.trip.route.agency.timezone).toISOString());
-          if(realtimeData){
+          if(realtimeData) {
             arr.ele('ojp:EstimatedTime', moment((schedule.serviceDay + sequenceStop.realtimeArrival) * 1000).tz(schedule.trip.route.agency.timezone).toISOString());
           }
 
           const dep = previousCall.ele('ojp:ServiceDeparture');
           dep.ele('ojp:TimetabledTime', moment((schedule.serviceDay + sequenceStop.scheduledDeparture) * 1000).tz(schedule.trip.route.agency.timezone).toISOString());
-          if(realtimeData){
+          if(realtimeData) {
             dep.ele('ojp:EstimatedTime', moment((schedule.serviceDay + sequenceStop.realtimeDeparture) * 1000).tz(schedule.trip.route.agency.timezone).toISOString());
           }
 
@@ -108,7 +108,7 @@ const createResponse = (config,
           if(isDeparture) {
             const dep = call.ele('ojp:ServiceDeparture');
             dep.ele('ojp:TimetabledTime', moment((schedule.serviceDay + schedule.scheduledDeparture) * 1000).tz(schedule.trip.route.agency.timezone).toISOString());
-            if(realtimeData){
+            if(realtimeData) {
               dep.ele('ojp:EstimatedTime', moment((schedule.serviceDay + schedule.realtimeDeparture) * 1000).tz(schedule.trip.route.agency.timezone).toISOString());
             }
           }
@@ -116,7 +116,7 @@ const createResponse = (config,
           if(isArrival) {
             const arr = call.ele('ojp:ServiceArrival');
             arr.ele('ojp:TimetabledTime', moment((schedule.serviceDay + schedule.scheduledArrival) * 1000).tz(schedule.trip.route.agency.timezone).toISOString());
-            if(realtimeData){
+            if(realtimeData) {
               arr.ele('ojp:EstimatedTime', moment((schedule.serviceDay + schedule.realtimeArrival) * 1000).tz(schedule.trip.route.agency.timezone).toISOString());
             }
           }
@@ -126,8 +126,8 @@ const createResponse = (config,
         //END ThisCall
         //
 
-        if(nextStop && (sequenceStop.stopSequence > schedule.stopSequence)){
-          if(stopsIds.indexOf(sequenceStop.stop.gtfsId) === -1){
+        if(nextStop && (sequenceStop.stopSequence > schedule.stopSequence)) {
+          if(stopsIds.indexOf(sequenceStop.stop.gtfsId) === -1) {
             stopsIds.push(sequenceStop.stop.gtfsId);
             const onWardPlace = loc.ele('ojp:Location');
             const stopPlace = onWardPlace.ele('ojp:StopPlace');
@@ -147,13 +147,13 @@ const createResponse = (config,
 
           const arr = onWardCall.ele('ojp:ServiceArrival');
           arr.ele('ojp:TimetabledTime', moment((schedule.serviceDay + sequenceStop.scheduledArrival) * 1000).tz(schedule.trip.route.agency.timezone).toISOString());
-          if(realtimeData){
+          if(realtimeData) {
             arr.ele('ojp:EstimatedTime', moment((schedule.serviceDay + sequenceStop.realtimeArrival) * 1000).tz(schedule.trip.route.agency.timezone).toISOString());
           }
 
           const dep = onWardCall.ele('ojp:ServiceDeparture');
           dep.ele('ojp:TimetabledTime', moment((schedule.serviceDay + sequenceStop.scheduledDeparture) * 1000).tz(schedule.trip.route.agency.timezone).toISOString());
-          if(realtimeData){
+          if(realtimeData) {
             dep.ele('ojp:EstimatedTime', moment((schedule.serviceDay + sequenceStop.realtimeDeparture) * 1000).tz(schedule.trip.route.agency.timezone).toISOString());
           }
 
@@ -199,7 +199,7 @@ module.exports = {
 
         let stopId = queryTags(doc, [serviceTag, 'Location','PlaceRef','StopPlaceRef']);
 
-        if(stopId == null){
+        if(stopId == null) {
           stopId = queryTags(doc, [serviceTag, 'Location','PlaceRef','StopPointRef']);
           //don't add  in tag StopPointRef
         }
@@ -207,7 +207,7 @@ module.exports = {
         const date = queryTags(doc, [serviceTag, 'Location','DepArrTime']);
 
         let startDate = new Date().getTime();
-        if(date != null){
+        if(date != null) {
           startDate = new Date(date).getTime();
         }
 
@@ -267,7 +267,7 @@ module.exports = {
       else{
         return createErrorResponse(serviceName, config.errors.notagcondition, startTime);
       }
-    }catch(err){
+    }catch(err) {
       logger.info(err);
       return createErrorResponse(serviceName, config.errors.noparsing, startTime);
     }

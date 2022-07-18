@@ -73,7 +73,7 @@ const logrequest = (xml, status = 'OK', req) => {
         });
       }
     });
-  }catch (exc){
+  }catch (exc) {
     logger.error(exc);
   }
 
@@ -205,7 +205,7 @@ app.post('/ojp/', async (req, result) => {
   xmlServiceDelivery.ele('siri:Status', true);
   //minimum response tags
 
-  if(queryNodes(doc, ['OJPExchangePointsRequest']).length > 0){
+  if(queryNodes(doc, ['OJPExchangePointsRequest']).length > 0) {
     if(!config.services.OJPExchangePointsRequest) {
       logger.warn('OJPExchangePointsRequest disabled by config');
     }
@@ -214,7 +214,7 @@ app.post('/ojp/', async (req, result) => {
     }
   }
 
-  if(queryNodes(doc, ['OJPLocationInformationRequest']).length > 0){
+  if(queryNodes(doc, ['OJPLocationInformationRequest']).length > 0) {
     if(!config.services.OJPLocationInformationRequest) {
       logger.warn('OJPLocationInformationRequest disabled by config')
     }
@@ -223,7 +223,7 @@ app.post('/ojp/', async (req, result) => {
     }
   }
 
-  if(queryNodes(doc, ['OJPMultiPointTripRequest']).length > 0){
+  if(queryNodes(doc, ['OJPMultiPointTripRequest']).length > 0) {
     if(!config.services.OJPMultiPointTripRequest) {
       logger.warn('OJPMultiPointTripRequest disabled by config');
     }
@@ -232,7 +232,7 @@ app.post('/ojp/', async (req, result) => {
     }
   }
 
-  if(queryNodes(doc, ['OJPStopEventRequest']).length > 0){
+  if(queryNodes(doc, ['OJPStopEventRequest']).length > 0) {
     if(!config.services.OJPStopEventRequest) {
       logger.warn('OJPStopEventRequest disabled by config');
     }
@@ -241,7 +241,7 @@ app.post('/ojp/', async (req, result) => {
     }
   }
 
-  if(queryNodes(doc, ['OJPTripInfoRequest']).length > 0){
+  if(queryNodes(doc, ['OJPTripInfoRequest']).length > 0) {
     if(!config.services.OJPTripInfoRequest) {
       logger.warn('OJPTripInfoRequest disabled by config');
     }
@@ -250,7 +250,7 @@ app.post('/ojp/', async (req, result) => {
     }
   }
 
-  if(queryNodes(doc, ['OJPTripRequest']).length > 0){
+  if(queryNodes(doc, ['OJPTripRequest']).length > 0) {
     if(!config.services.OJPTripRequest) {
       logger.warn('OJPTripRequest disabled by config');
     }

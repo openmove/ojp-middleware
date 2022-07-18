@@ -32,7 +32,7 @@ const createResponse = (config,
     tag.ele('ojp:ContinueAt', skip + limit);
   }
 
-  for(const stop of stops){
+  for(const stop of stops) {
     const loc = tag.ele('ojp:Location')
     const place = loc.ele('ojp:Location');
     const stopPlace = place.ele('ojp:StopPlace');
@@ -58,7 +58,7 @@ const createResponse = (config,
     }
   }
 
-  if(stops.length === 0){
+  if(stops.length === 0) {
     const err = tag.ele('siri:ErrorCondition');
     err.ele('siri:OtherError');
     err.ele('siri:Description', 'LOCATION_NO_RESULTS');
@@ -86,7 +86,7 @@ module.exports = {
 
         let stopId = queryTags(doc, [serviceTag, 'PlaceRef','StopPlaceRef']);
 
-        if(stopId == null){
+        if(stopId == null) {
           stopId = queryTags(doc, [serviceTag, 'PlaceRef','StopPointRef']);
         }
 
@@ -205,7 +205,7 @@ module.exports = {
         return createErrorResponse(serviceName, config.errors.notagcondition, startTime);
       }
     }
-    catch(err){
+    catch(err) {
       logger.error(err);
       return createErrorResponse(serviceName, config.errors.noparsing, startTime);
     }

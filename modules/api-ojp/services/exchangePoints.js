@@ -58,7 +58,7 @@ const createResponse = (config,
     }
   }
 
-  if(stops.length === 0){
+  if(stops.length === 0) {
     const err = tag.ele('siri:ErrorCondition');
     err.ele('siri:OtherError')
     err.ele('siri:Description', 'EXCHANGEPOINTS_NO_RESULTS');
@@ -161,7 +161,7 @@ module.exports = {
       return createResponse(config, response, startTime, ptModes, skip, limit);
       
     }
-    catch(err){
+    catch(err) {
       logger.error(err);
       return createErrorResponse(serviceName, config.errors.noparsing, startTime);
     }
