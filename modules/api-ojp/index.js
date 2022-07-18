@@ -75,7 +75,7 @@ const logrequest = (xml, status = 'OK', req) => {
     });
   }
   catch (exc) {
-    logger.error(exc);
+    logger.warn(exc);
   }
 
 };
@@ -126,7 +126,7 @@ app.get('/ojp/logs', async (req, getres) => {
     });
   }
   catch (exc) {
-    logger.error(exc);
+    logger.warn(exc);
   }
 });
 

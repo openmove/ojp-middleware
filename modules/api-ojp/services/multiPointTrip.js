@@ -73,7 +73,7 @@ const createResponse = (config, results, startTime) => {
 					}          
 				});
 			} catch (exc) {
-				logger.error(exc);
+				logger.warn(exc);
 			}
 			
 			tripresponse.ele('ojp:ResultId', tripId)

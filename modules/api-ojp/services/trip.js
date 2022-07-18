@@ -74,7 +74,7 @@ const createResponse = (config,
           }          
         });
       }catch (exc) {
-        logger.error(exc);
+        logger.warn(exc);
       }
       
       tripresponse.ele('ojp:ResultId', tripId)
