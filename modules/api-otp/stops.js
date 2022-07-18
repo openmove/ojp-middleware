@@ -132,7 +132,7 @@ module.exports = {
                 }`
   
     logger.debug(query);
-    
+
     const data = await clientQL.request(query, {});
     
     if(data!= null && data.stopsByName){

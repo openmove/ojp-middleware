@@ -92,37 +92,42 @@ app.get('/ojp/logs', async (req, getres) => {
 
   const format = req.query.format || 'text';
 
-  MongoClient.connect(config.db.uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  }, (err, client) => {
-    if (err) throw err;
+  try{
+    MongoClient.connect(config.db.uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    }, (err, client) => {
+      if (err) throw err;
 
-    client
-    .db(config.db.name)
-    .collection('log-requests')
-    .find({})
-    .sort({'createdAt': -1})
-    .limit(limit)
-    .toArray(function(err, queryres) {
+      client
+      .db(config.db.name)
+      .collection('log-requests')
+      .find({})
+      .sort({'createdAt': -1})
+      .limit(limit)
+      .toArray(function(err, queryres) {
 
-      if(format==='json') {
-        getres.json(queryres);
-      }
-      else if(format==='text') {
+        if(format==='json') {
+          getres.json(queryres);
+        }
+        else if(format==='text') {
 
-        const resText = queryres.map( row => {
-          return `[${row.createdAt}]\n\n"${row.status}"\n\n` +
-                  row.request.join("\n")
-        }).join("\n\n----------------\n\n");
+          const resText = queryres.map( row => {
+            return `[${row.createdAt}]\n\n"${row.status}"\n\n` +
+                    row.request.join("\n")
+          }).join("\n\n----------------\n\n");
 
-        getres.setHeader('content-type', 'text/json');
-        getres.send(resText);
-      }
+          getres.setHeader('content-type', 'text/json');
+          getres.send(resText);
+        }
 
-      client.close();
+        client.close();
+      });
     });
-  });
+  }
+  catch (exc) {
+    logger.error(exc);
+  }
 });
 
 app.post('/ojp/', async (req, result) => {
