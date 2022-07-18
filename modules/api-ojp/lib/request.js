@@ -16,12 +16,20 @@ const doRequest = (options, json) => {
       res.setEncoding('utf8');
 
       res.on('data', (chunk) => {
-        responseBody += chunk;
+        responseBody += chunk+'#';
       });
 
       res.on('end', () => {
         console.log("doRequest, response time:",  (new Date().getTime()) - st, 'ms', 'length:', responseBody.length);
-        resolve(JSON.parse(responseBody));
+        try {
+          const jsonResp = JSON.parse(responseBody);
+          resolve(jsonResp);
+        }
+        catch(err) {
+          err.code = 'EJSONPARSE';
+          reject(err)
+        }
+
       });
     });
 

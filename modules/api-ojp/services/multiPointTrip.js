@@ -500,6 +500,9 @@ module.exports = {
       if (err.code === 'ECONNREFUSED') {
         return createErrorResponse(serviceName, config.errors.nootpservice, startTime, err);
       }
+      else if (err.code === 'EJSONPARSE') {
+        return createErrorResponse(serviceName, config.errors.noparseresponse, startTime, err);
+      }
       else {
         return createErrorResponse(serviceName, config.errors.noparsing, startTime, err);
       }

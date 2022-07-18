@@ -460,7 +460,10 @@ module.exports = {
         };
         logger.info(options);
 
-        const response = await doRequest(options, json);
+        const response = await doRequest(options, json).catch(err => {
+          throw err
+        });
+
 
         if (response.plan && response.plan.itineraries) {
           return createResponse(config,
@@ -479,6 +482,9 @@ module.exports = {
     catch(err) {
       if (err.code === 'ECONNREFUSED') {
         return createErrorResponse(serviceName, config.errors.nootpservice, startTime, err);
+      }
+      else if (err.code === 'EJSONPARSE') {
+        return createErrorResponse(serviceName, config.errors.noparseresponse, startTime, err);
       }
       else {
         return createErrorResponse(serviceName, config.errors.noparsing, startTime, err);

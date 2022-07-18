@@ -61,6 +61,7 @@ services:
 
 errors:
   nootpservice: NO_REACHABLE_SERVICE_OTP
+  noparseresponse: NO_PARSED_RESPONSE
   noepservice: NO_REACHABLE_SERVICE_EPMANAGER
   notagrequest: NO_TAG_REQUEST_FOUND
   notagcondition: NO_CONDITIONS_REQUEST_FOUND

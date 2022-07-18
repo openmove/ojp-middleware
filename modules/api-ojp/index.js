@@ -45,7 +45,7 @@ const logrequest = (xml, status = 'OK', req) => {
     return null;
   }
 
-  xml = _.isString(xml) && xml.length > 0 ? xml : '';
+  xml = _.isString(xml) && xml.length > 0 ? xml : '[EMPTY]';
 
   const obj = {
       'createdAt': new Date(),
@@ -75,7 +75,7 @@ const logrequest = (xml, status = 'OK', req) => {
     });
   }
   catch (exc) {
-    logger.warn(exc);
+    logger.warn('error db connection');
   }
 
 };
@@ -87,7 +87,8 @@ app.use(cors());
 app.use(xmlparser({strict:false}));
 
 app.get('/ojp/logs', async (req, getres) => {
-
+  getres.send('');
+return
   const limit = Number(req.query.limit) || 10;
 
   const format = req.query.format || 'text';
@@ -97,7 +98,11 @@ app.get('/ojp/logs', async (req, getres) => {
       useNewUrlParser: true,
       useUnifiedTopology: true
     }, (err, client) => {
-      if (err) throw err;
+      if (err) {
+        throw err;
+          getres.send('error db connection');
+        return
+      }
 
       client
       .db(config.db.name)
@@ -126,7 +131,8 @@ app.get('/ojp/logs', async (req, getres) => {
     });
   }
   catch (exc) {
-    logger.warn(exc);
+    logger.warn('error db connection');
+    getres.send('');
   }
 });
 
@@ -190,7 +196,6 @@ app.post('/ojp/', async (req, result) => {
   if(doc===undefined) {
     return
   }
-
   logrequest(xml,'OK',req);
 
   const startTime = new Date().getTime();

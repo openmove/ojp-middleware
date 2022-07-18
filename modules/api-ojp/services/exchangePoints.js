@@ -156,7 +156,9 @@ module.exports = {
             json: true
           };
       
-      const response = await doRequest(options);
+      const response = await doRequest(options).catch(err => {
+        throw err
+      });
 
       return createResponse(config, response, startTime, ptModes, skip, limit);
       
@@ -164,6 +166,9 @@ module.exports = {
     catch(err) {
       if (err.code === 'ECONNREFUSED') {
         return createErrorResponse(serviceName, config.errors.noepservice, startTime, err);
+      }
+      else if (err.code === 'EJSONPARSE') {
+        return createErrorResponse(serviceName, config.errors.noparseresponse, startTime, err);
       }
       else {
         return createErrorResponse(serviceName, config.errors.noparsing, startTime, err);

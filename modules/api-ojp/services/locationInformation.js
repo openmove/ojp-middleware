@@ -140,7 +140,9 @@ module.exports = {
           };
         }
 
-        const response = await doRequest(options, json);
+        const response = await doRequest(options, json).catch(err => {
+          throw err
+        });
 
         return createResponse(config, response.stops, startTime, ptModes, skip, limit);
       }
@@ -197,7 +199,9 @@ module.exports = {
           }
         };
 
-        const response = await doRequest(options, json);
+        const response = await doRequest(options, json).catch(err => {
+          throw err
+        });
 
         return createResponse(config, response.stops, startTime, ptModes, skip, limit);
       }
@@ -208,6 +212,9 @@ module.exports = {
     catch(err) {
       if (err.code === 'ECONNREFUSED') {
         return createErrorResponse(serviceName, config.errors.nootpservice, startTime, err);
+      }
+      else if (err.code === 'EJSONPARSE') {
+        return createErrorResponse(serviceName, config.errors.noparseresponse, startTime, err);
       }
       else {
         return createErrorResponse(serviceName, config.errors.noparsing, startTime, err);
