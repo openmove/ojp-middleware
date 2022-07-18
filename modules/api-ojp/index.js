@@ -27,10 +27,10 @@ const { queryNodes, queryText } = require('./lib/query')
     , { createErrorResponse } = require('./lib/response')
 
 const { exchangePointsExecution } = require('./services/exchangePoints')
-    , { locationExecution } = require('./services/locationInformation')
     , { multipointTripExecution } = require('./services/multiPointTrip')
-    , { eventExecution } = require('./services/stopEvent')
+    , { locationExecution } = require('./services/locationInformation')
     , { tripInfoExecution } = require('./services/tripInfo')
+    , { eventExecution } = require('./services/stopEvent')
     , { tripsExecution } = require('./services/trip');
 
 logger.debug(_.omit(config,['dev','prod','environments']));

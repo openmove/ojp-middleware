@@ -12,7 +12,7 @@ services:
     build:
       context: ./modules/api-ojp
     ports:
-      - "9091:9091"
+      - "8081:9091"
     environment:
       - LOG_REQUEST=true
       - OTP_MAX_PARALLEL_REQUESTS=10
