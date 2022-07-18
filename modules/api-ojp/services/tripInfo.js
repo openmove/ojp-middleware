@@ -155,9 +155,14 @@ module.exports = {
 				}else{
 					return createErrorResponse(serviceName, config.errors.notagcondition, startTime);
 				}
-		} catch (err) {
-      logger.error(err);
-      return createErrorResponse(serviceName, config.errors.noparsing, startTime);
+		}
+		catch(err) {
+      if (err.code === 'ECONNREFUSED') {
+        return createErrorResponse(serviceName, config.errors.nootpservice, startTime, err);
+      }
+      else {
+        return createErrorResponse(serviceName, config.errors.noparsing, startTime, err);
+      }
     }
 	}
 }

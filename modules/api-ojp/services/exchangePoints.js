@@ -162,8 +162,12 @@ module.exports = {
       
     }
     catch(err) {
-      logger.error(err);
-      return createErrorResponse(serviceName, config.errors.noparsing, startTime);
+      if (err.code === 'ECONNREFUSED') {
+        return createErrorResponse(serviceName, config.errors.noepservice, startTime, err);
+      }
+      else {
+        return createErrorResponse(serviceName, config.errors.noparsing, startTime, err);
+      }
     }
     
   }

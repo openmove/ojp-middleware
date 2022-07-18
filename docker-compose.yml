@@ -12,7 +12,7 @@ services:
     build:
       context: ./modules/api-ojp
     ports:
-      - "8081:9091"
+      - "9091:9091"
     environment:
       - LOG_REQUEST=true
       - OTP_MAX_PARALLEL_REQUESTS=10
@@ -61,6 +61,7 @@ services:
       - ./modules/db/data:/data/db
     environment:
       - MONGO_INITDB_DATABASE=ojp
+    restart: "always"
 
   tests:
     container_name: tests

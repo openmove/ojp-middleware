@@ -60,6 +60,8 @@ services:
   OJPMultiPointTripRequest: true
 
 errors:
+  nootpservice: NO_REACHABLE_SERVICE_OTP
+  noepservice: NO_REACHABLE_SERVICE_EPMANAGER
   notagrequest: NO_TAG_REQUEST_FOUND
   notagcondition: NO_CONDITIONS_REQUEST_FOUND
   noparsing: NO_PARSING_XML_REQUEST

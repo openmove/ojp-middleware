@@ -8,7 +8,7 @@ module.exports = {
   'createResponse': (stops, startTime, ptModes) => {
       //TODO
   },
-  'createErrorResponse': (serviceName, errorDesc = 'GENERIC_ERROR', startTime, continueAt = null ) => {
+  'createErrorResponse': (serviceName, errorDesc = 'GENERIC_ERROR', startTime, errObj, continueAt = null ) => {
 
     const now = new Date()
         , tag = xmlbuilder.create(`ojp:${serviceName}Delivery`);
@@ -22,9 +22,14 @@ module.exports = {
     }
 
     const err = tag.ele('siri:ErrorCondition');
-    err.ele('siri:OtherError')
+
     err.ele('siri:Description', `${serviceName}_${errorDesc}`);
-    //TODO siri:ErrorText
+
+    if (errObj && errObj.code) {
+      const oErr = err.ele('siri:OtherError');
+      oErr.ele('siri:ErrorText', errObj.code);
+    }
+
     return tag;
   },
 

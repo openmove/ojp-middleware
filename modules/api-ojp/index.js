@@ -73,7 +73,8 @@ const logrequest = (xml, status = 'OK', req) => {
         });
       }
     });
-  }catch (exc) {
+  }
+  catch (exc) {
     logger.error(exc);
   }
 
