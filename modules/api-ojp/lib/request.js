@@ -16,7 +16,7 @@ const doRequest = (options, json) => {
       res.setEncoding('utf8');
 
       res.on('data', (chunk) => {
-        responseBody += chunk+'#';
+        responseBody += chunk;
       });
 
       res.on('end', () => {

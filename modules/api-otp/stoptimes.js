@@ -4,6 +4,7 @@ const _ = require('lodash');
 
 module.exports = {
   'getStopTimesById': async (config, stopId, extra) => {
+
     const { logger } = config;
 
     const clientQL = new GraphQLClient(config.otp.baseUrl, { headers: config.otp.headers });
@@ -89,9 +90,10 @@ module.exports = {
                     stopSequence
                   }
                 }
-              }`
-  
-    //logger.debug(query);
+              }`;
+
+    logger.info('getTripsByIdAndDate');
+    logger.debug(query);
 
     if(process.env['QUERY_DEBUG']) {
       console.log(query);
@@ -106,8 +108,6 @@ module.exports = {
         return modes.includes(trip.trip.route.mode);
       });
     }
-
-    //console.log(data.stop.stoptimesWithoutPatterns)
 
     if(data!= null && data.stop){
       return {stop: data.stop};

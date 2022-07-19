@@ -4,6 +4,8 @@ const moment = require('moment-timezone');
 module.exports = {
   'planTrip': async(config, origin, destination, date, extra) => {
 
+    const { logger } = config;
+
     const clientQL = new GraphQLClient(config.otp.baseUrl, { headers: config.otp.headers });
 
     let from = null
@@ -184,7 +186,10 @@ module.exports = {
           }
         }
       }
-    }`
+    }`;
+
+    logger.info('planTrip');
+    logger.debug(query);
 
     if(process.env['QUERY_DEBUG']) {
       console.log(query);

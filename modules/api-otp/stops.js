@@ -10,6 +10,8 @@ const Cache = new NodeCache({
 module.exports = {
   'getStopById': async (config, stopId, extra) => {
 
+    const { logger } = config;
+
     const clientQL = new GraphQLClient(config.otp.baseUrl, { headers: config.otp.headers });
 
     let filter = `stops (ids : ["${stopId}"])`;
@@ -32,6 +34,9 @@ module.exports = {
                   vehicleMode
                 }
               }`
+
+    logger.info('getStopById');
+    logger.debug(query);
 
     const data = await clientQL.request(query, {})
 
@@ -69,7 +74,8 @@ module.exports = {
                     vehicleMode
                   }
                 }`
-  
+
+    logger.info('getAllStops');
     logger.debug(query);
 
     let data = null;
@@ -130,7 +136,8 @@ module.exports = {
                     vehicleMode
                   }
                 }`
-  
+
+    logger.info('searchByName');
     logger.debug(query);
 
     const data = await clientQL.request(query, {});
@@ -151,6 +158,7 @@ module.exports = {
   },
   'searchByRadius': async (config, params, extra) => {
 
+    const { logger } = config;
     const clientQL = new GraphQLClient(config.otp.baseUrl, { headers: config.otp.headers });
 
     //const limit = Number(extra.limit || config.default_limit);
@@ -175,8 +183,11 @@ module.exports = {
                         }
                       }
                     }
-                }`
-  
+                }`;
+
+    logger.info('searchByRadius');
+    logger.debug(query);
+
     const data = await clientQL.request(query, {});
 
     if(data!= null && data.stopsByRadius){
@@ -196,6 +207,7 @@ module.exports = {
   },
   'searchByBBox': async (config, params, extra) => {
 
+    const { logger } = config;
     const clientQL = new GraphQLClient(config.otp.baseUrl, { headers: config.otp.headers });
     
     const query = gql`
@@ -214,8 +226,11 @@ module.exports = {
                       lon
                       vehicleMode
                   }
-                }`
-  
+                }`;
+
+    logger.info('searchByBBox');
+    logger.debug(query);
+
     const data = await clientQL.request(query, {});
 
     if(data!= null && data.stopsByBbox){

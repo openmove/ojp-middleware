@@ -57,7 +57,8 @@ module.exports = {
                   }
                 }
               }`;
-  
+
+    logger.info('getTripsByIdAndDate');
     logger.debug(query);
 
     if(process.env['QUERY_DEBUG']) {
