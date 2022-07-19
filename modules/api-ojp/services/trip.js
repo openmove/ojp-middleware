@@ -371,7 +371,7 @@ module.exports = {
 
         const originName = queryTags(doc, [serviceTag, 'Origin','PlaceRef','LocationName','Text']);
         const originLat = queryTags(doc, [serviceTag, 'Origin','PlaceRef','GeoPosition','Latitude']);
-        const originLon = queryTags(doc, [serviceTag, 'Origin','PlaceRef GeoPosition','Longitude']);
+        const originLon = queryTags(doc, [serviceTag, 'Origin','PlaceRef','GeoPosition','Longitude']);
 
         const destinationName = queryTags(doc, [serviceTag, 'Destination','PlaceRef','LocationName','Text']);
         const destinationLat = queryTags(doc, [serviceTag, 'Destination','PlaceRef','GeoPosition','Latitude']);
