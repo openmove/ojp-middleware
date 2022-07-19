@@ -43,7 +43,7 @@ module.exports = {
 
 		let accessibility = queryTags(doc, [serviceTag, 'Params','IncludeAccessibility']);
 
-        let intermediateStops = queryTags(doc, [serviceTag, 'Params', 'IncludeIntermediateStops']);
+        let intermediateStops = queryTags(doc, [serviceTag, 'Params','IncludeIntermediateStops']);
 
 		let trackSections = queryTags(doc, [serviceTag, 'Params','IncludeTrackSections']);
 
