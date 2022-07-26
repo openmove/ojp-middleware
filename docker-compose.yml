@@ -6,6 +6,19 @@ networks:
 
 services:
 
+  db:
+    container_name: db
+    image: mongo:5.0.0
+    ports:
+      - "9095:27017"
+      - "8085:27017"
+      #used also by dev environment
+    volumes:
+      - ./modules/db/data:/data/db
+    environment:
+      - MONGO_INITDB_DATABASE=ojp
+    restart: "always"
+
   api-ojp:
     container_name: api-ojp
     image: ojp/api-ojp:latest
@@ -49,19 +62,6 @@ services:
     #   - ./csvs:/home/csvs
     depends_on:
       - db
-
-  db:
-    container_name: db
-    image: mongo:latest
-    ports:
-      - "9095:27017"
-      - "8085:27017"
-      #used also by dev environment
-    volumes:
-      - ./modules/db/data:/data/db
-    environment:
-      - MONGO_INITDB_DATABASE=ojp
-    restart: "always"
 
   tests:
     container_name: tests
