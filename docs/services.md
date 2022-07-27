@@ -11,8 +11,8 @@ base structure of any Docker service:
 
 default ports in production environment by services
 
-| service  | production |  development |
-|---|---|---|
+|  service  | production | development |
+|-----------|------------|-----------|
 | api-ojp | 9091 |  8081  |
 | api-otp | 9092  | 8082  |
 | ep-manager  | 9093  | 8083  |

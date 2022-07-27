@@ -12,6 +12,10 @@ implements this OJP entrypoints:
 - OJPExchangePoints
 - OJPMultiPointTrip
 
+## default environments variables
+
+`OTP_MAX_PARALLEL_REQUESTS` maximum number of parallel request to OpenTripPlanner
+
 ## default restrictions by config.yml
 
 - transfer_limit (default: 2, ojp:TransferLimit)
@@ -19,7 +23,3 @@ implements this OJP entrypoints:
 - include_intermediate_stops (default: false, ojp:IncludeIntermediateStops)
 - limit: 10000
 - skip: 0
-
-## default environments variables
-
-`OTP_MAX_PARALLEL_REQUESTS` maximum number of parallel request to OpenTripPlanner
