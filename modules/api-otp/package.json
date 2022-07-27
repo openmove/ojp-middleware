@@ -10,7 +10,7 @@
   "author": "Stefano Cudini stefano.cudini@gmail.com",
   "license": "MIT",
   "engines": {
-    "node": "16.14.0"
+    "node": "16.16.0"
   },
   "dependencies": {
     "@stefcud/configyml": "^0.0.3",
