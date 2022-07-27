@@ -76,12 +76,3 @@ services:
       #only for local docke-compose
     depends_on:
       - api-ojp
-
-  #TODO maybe un useful, used as library
-  #  xsd2json:
-  #   container_name: xsd2json
-  #   image: ojp/xsd2json:latest
-  #   build:
-  #     context: ./modules/xsd2json
-  #   ports:
-  #     - "9094:9094"

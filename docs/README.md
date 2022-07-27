@@ -68,15 +68,10 @@ The basic structure of code:
 │        │        ├── config.js
 │        │        ├── index.js
 │        │        └── package.json
-│        ├── db
-│        │        ├── export.sh
-│        │        ├── data/
-│        │        └── dumps/
-│        └── xsd2json
-│            ├── config.yml
-│            ├── Dockerfile
-│            ├── index.js
-│            └── package.json
+│        └── db
+│                 ├── export.sh
+│                 ├── data/
+│                 └── dumps/
 ├── lerna.json
 ├── docker-compose.yml
 └── package.json

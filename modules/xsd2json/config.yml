@@ -1,5 +1,0 @@
-server:
-  port: 8080
-  #TODO cache_ttl: 0
-
-# add any filters and blacklist od fields xsd to jsonschema

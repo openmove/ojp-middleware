@@ -5,8 +5,8 @@
 - api-otp
 - ep-manager
 - ojp-loader
+- tests
 - utils
-- xsd2json
 
 ### [api-ojp](api-ojp.md)
 
@@ -28,16 +28,13 @@ exchange point collect stops
 
 auto download official OJP xsd files and sync
 
-this module depends from module xsd2json
-
 - download OJP xsd defitions covert in json
 - import in shared Mongodb database OR node cache
 - notify other microservices to updated versions of ojp xsd and reload its
 
-### xsd2json
+### tests
 
-traductor of XSD schema definitions into JSONschema or JSON for nodejs
-
+simple web front-end to test OJP requests
 
 ### utils
 
@@ -46,4 +43,3 @@ modules nodejs shared with other modules:
 - shared convertion funcions
 - db connections
 - validators OJP request/response 
-
