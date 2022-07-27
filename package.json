@@ -1,6 +1,6 @@
 {
   "name": "ojp-middleware",
-  "version": "1.9.5",
+  "version": "1.9.6",
   "private": true,
   "devDependencies": {
     "lerna": "^4.0.0",
@@ -15,7 +15,7 @@
     "cleanver": "find ./modules -name package-lock.json -delete"
   },
   "engines": {
-    "node": "16.14.0"
+    "node": "16.16.0"
   },
   "author": "Stefano Cudini stefano.cudini@gmail.com",
   "license": "MIT"
