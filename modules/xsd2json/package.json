@@ -9,7 +9,7 @@
   "author": "Stefano Cudini stefano.cudini@gmail.com",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.18.1",
     "utils": "^1.0.0",
     "xsd2jsonschema": "^0.3.7",
     "xmldom": "^0.6.0",

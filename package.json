@@ -12,7 +12,7 @@
     "import": "lerna run import",
     "lernaclean": "lerna clean",
     "getversions": "grep version `find modules/ -maxdepth 3 -name package.json`",
-    "clean": "find ./modules -name package-lock.json -delete"
+    "cleanver": "find ./modules -name package-lock.json -delete"
   },
   "engines": {
     "node": "16.14.0"
