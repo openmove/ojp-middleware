@@ -7,6 +7,9 @@ const { doRequest } = require('../lib/request');
 const { parseParamsRestrictions, parseGeoRestriction } = require('../lib/restrictions');
 const { createErrorResponse, ptModesResponse, precisionMeters, stopText, lineText } = require('../lib/response');
 
+
+console.log('STOPDESC', stopText({code:'code', name:'name', desc:'ss'}))
+
 const serviceName = 'OJPLocationInformation';
 
 const createResponse = (config,

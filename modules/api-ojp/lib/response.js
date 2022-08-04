@@ -83,10 +83,13 @@ module.exports = {
   },
 
   lineText: route => {
-    return _.capitalize([route.shortName, route.longName/*, route.gtfsId*/].join(' '));
+    return _.capitalize([_.trim(route.shortName), _.trim(route.longName)/*, route.gtfsId*/].join(' '));
   },
 
   stopText: stop => {
-    return _.capitalize([stop.code, stop.name, '-', stop.desc].join(' '));
+    const sep = ' ';
+    let desc = _.trim(stop.desc);
+    desc = desc ? `- ${desc}` : '';
+    return _.capitalize([stop.code, _.trim(stop.name), _.trim(desc)].join(sep)).trim();
   }
 }
