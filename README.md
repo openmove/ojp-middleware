@@ -40,3 +40,9 @@ Inside ```/modules/tests``` a web application has been implemented which facilit
 ## System Architecture
 
 ![macro](docs/images/OJP_Architecture_macro.png)
+
+### Modules Details
+
+![details](docs/images/OJP_Architecture_detail.png)
+
+
