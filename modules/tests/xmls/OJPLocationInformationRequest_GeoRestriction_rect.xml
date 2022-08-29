@@ -1,0 +1,27 @@
+<OJPRequest>
+    <ServiceRequest>
+        <RequestTimestamp>2022-09-15T10:37:18.266Z</RequestTimestamp>
+        <RequestorRef>Projektionisten</RequestorRef>
+        <OJPLocationInformationRequest>
+            <RequestTimestamp>2022-09-15T10:37:18.265Z</RequestTimestamp>
+            <InitialInput>
+                <GeoRestriction>
+                    <Rectangle>
+                        <UpperLeft>
+                            <Longitude>7.617914399952326</Longitude>
+                            <Latitude>45.00827355548191</Latitude>
+                        </UpperLeft>
+                        <LowerRight>
+                            <Longitude>7.669939095843972</Longitude>
+                            <Latitude>44.97164435228899</Latitude>
+                        </LowerRight>
+                    </Rectangle>
+                </GeoRestriction>
+            </InitialInput>
+            <Restrictions>
+                <Type>stop</Type>
+                <IncludePtModes>true</IncludePtModes>
+            </Restrictions>
+        </OJPLocationInformationRequest>
+    </ServiceRequest>
+</OJPRequest>
