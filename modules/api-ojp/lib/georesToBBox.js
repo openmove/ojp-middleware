@@ -1,13 +1,16 @@
-
-const fs = require('fs');
+/*
+node georesToBBox.js ../../tests/xmls/OJPLocationInformationRequest_GeoRestriction_rect.xml
+ */
+const fs = require('fs')
+    , { DOMParser } = require('xmldom');
 
 const { parseGeoRestriction } = require('./restrictions');
 
 const serviceTag = 'OJPLocationInformationRequest';
 
-const xml = fs.readFileSync(0, 'utf-8');//stdin
+const xml = fs.readFileSync(process.argv[2],'utf-8');
 
-doc = new DOMParser({
+const doc = new DOMParser({
       errorHandler:{
         warning: err => {
           console.warn('WARNING XML PARSING', err);
@@ -20,9 +23,12 @@ doc = new DOMParser({
 
 const geores = parseGeoRestriction(doc, serviceTag);
 
-const { rect, upperLon, upperLat, lowerLon, lowerLat
-	, circle, radius, centerLon, centerLat } = geores;
+const { rect
+    , lowerLat, lowerLon, upperLat, upperLon
+    , circle, radius, centerLon, centerLat } = geores;
 
 console.log(geores);
 
-console.log(`http://bboxfinder.com/#${lowerLat},${lowerLon},${upperLat},${upperLon}`);
+console.log('bboxfinder $lowerLat, $lowerLon, $upperLat, $upperLon')
+//console.log(`http://bboxfinder.com/?#${lowerLat},${lowerLon},${upperLat},${upperLon}`);
+console.log(`http://localhost:90/maps/bbox/?#${lowerLat},${lowerLon},${upperLat},${upperLon}`);

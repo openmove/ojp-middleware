@@ -10,25 +10,32 @@ module.exports = {
 	},*/
 
 	'parseGeoRestriction': (doc, serviceTag, config) => {
+		const st = serviceTag;
 
-        const rects = queryNodes(doc, [serviceTag, 'InitialInput','GeoRestriction','Rectangle']);
+        const rects = queryNodes(doc, [st, 'InitialInput','GeoRestriction','Rectangle']);
 
-        const circles = queryNodes(doc, [serviceTag, 'InitialInput','GeoRestriction','Circle']);
+        const circles = queryNodes(doc, [st, 'InitialInput','GeoRestriction','Circle']);
 
-		const upperLat = queryTags(doc, [serviceTag, 'InitialInput','GeoRestriction','Rectangle','UpperLeft','Latitude']);
-		const upperLon = queryTags(doc, [serviceTag, 'InitialInput','GeoRestriction','Rectangle','UpperLeft','Longitude']);
-		const lowerLat = queryTags(doc, [serviceTag, 'InitialInput','GeoRestriction','Rectangle','LowerRight','Latitude']);
-		const lowerLon = queryTags(doc, [serviceTag, 'InitialInput','GeoRestriction','Rectangle','LowerRight','Longitude']);
-		const centerLat = queryTags(doc, [serviceTag, 'InitialInput','GeoRestriction','Circle','Center','Latitude']);
-		const centerLon = queryTags(doc, [serviceTag, 'InitialInput','GeoRestriction','Circle','Center','Longitude']);
-		const radius = queryTags(doc, [serviceTag, 'InitialInput','GeoRestriction','Circle','Radius']);
+/*		const upperLat = queryTags(doc, [st, 'InitialInput','GeoRestriction','Rectangle','UpperLeft','Latitude']);
+		const upperLon = queryTags(doc, [st, 'InitialInput','GeoRestriction','Rectangle','UpperLeft','Longitude']);
+		const lowerLat = queryTags(doc, [st, 'InitialInput','GeoRestriction','Rectangle','LowerRight','Latitude']);
+		const lowerLon = queryTags(doc, [st, 'InitialInput','GeoRestriction','Rectangle','LowerRight','Longitude']);*/
+
+		const upperLat = queryTags(doc, [st, 'InitialInput','GeoRestriction','Rectangle','UpperLeft','Latitude']);
+		const upperLon = queryTags(doc, [st, 'InitialInput','GeoRestriction','Rectangle','LowerRight','Longitude']);
+		const lowerLat = queryTags(doc, [st, 'InitialInput','GeoRestriction','Rectangle','LowerRight','Latitude']);
+		const lowerLon = queryTags(doc, [st, 'InitialInput','GeoRestriction','Rectangle','UpperLeft','Longitude']);
+
+		const centerLat = queryTags(doc, [st, 'InitialInput','GeoRestriction','Circle','Center','Latitude']);
+		const centerLon = queryTags(doc, [st, 'InitialInput','GeoRestriction','Circle','Center','Longitude']);
+		const radius = queryTags(doc, [st, 'InitialInput','GeoRestriction','Circle','Radius']);
 
 		return {
 			rect: rects[0] || null,
-			upperLat,
-			upperLon,
 			lowerLat,
 			lowerLon,
+			upperLat,
+			upperLon,
 			//
 			circle: circles[0] || null,
 			centerLat,

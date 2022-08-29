@@ -8,12 +8,12 @@
                 <GeoRestriction>
                     <Rectangle>
                         <UpperLeft>
-                            <Longitude>7.617914399952326</Longitude>
-                            <Latitude>45.00827355548191</Latitude>
+                            <Longitude>7.617914</Longitude>
+                            <Latitude>45.008274</Latitude>
                         </UpperLeft>
                         <LowerRight>
-                            <Longitude>7.669939095843972</Longitude>
-                            <Latitude>44.97164435228899</Latitude>
+                            <Longitude>7.669939</Longitude>
+                            <Latitude>44.971644</Latitude>
                         </LowerRight>
                     </Rectangle>
                 </GeoRestriction>
