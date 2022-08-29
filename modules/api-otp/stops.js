@@ -236,10 +236,6 @@ console.log('searchByBBox',bbox)
     logger.info('searchByBBox');
     logger.debug(query);
 
-    if(process.env['QUERY_DEBUG']) {
-      console.log(query);
-    }
-
     const data = await clientQL.request(query, {});
 
     if(data!= null && data.stopsByBbox){
