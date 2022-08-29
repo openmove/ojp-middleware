@@ -210,15 +210,18 @@ module.exports = {
     const { logger } = config;
     const clientQL = new GraphQLClient(config.otp.baseUrl, { headers: config.otp.headers });
     
-    const [upperLon, upperLat, lowerLon, lowerLat] = params.split(',');
+    const bbox = params.split(',').map(Number);
+    const [upperLon, upperLat, lowerLon, lowerLat] = bbox;
+
+console.log('searchByBBox',bbox)
 
     const query = gql`
                 {
                   stopsByBbox (
-                    minLat : ${params[1][1]},
-                    minLon : ${params[1][0]},
-                    maxLat: ${params[0][1]},
-                    maxLon: ${params[0][0]}) {
+                    minLat : ${lowerLat},
+                    minLon : ${upperLon},
+                    maxLat: ${upperLat},
+                    maxLon: ${lowerLon}) {
                       gtfsId
                       name
                       code
