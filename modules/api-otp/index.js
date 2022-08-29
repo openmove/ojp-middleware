@@ -1,34 +1,34 @@
 'use strict';
 
 const express = require('express')
-    , app = express()
-    , _ = require('lodash')
-    , { getStopById, getAllStops, searchByName, searchByBBox, searchByRadius } = require('./stops')
-    , { getStopTimesById } = require('./stoptimes')
-    , { planTrip } = require('./plan')
-    , { getTripsByIdAndDate } = require('./trips')
-    , { request } = require('express')
-    , pino = require('pino');
+, app = express()
+, _ = require('lodash')
+, { getStopById, getAllStops, searchByName, searchByBBox, searchByRadius } = require('./stops')
+, { getStopTimesById } = require('./stoptimes')
+, { planTrip } = require('./plan')
+, { getTripsByIdAndDate } = require('./trips')
+, { request } = require('express')
+, pino = require('pino');
 
 const { version,'name': serviceName } = require('./package.json');
 
 const dotenv = require('dotenv').config()
-    , config = require('@stefcud/configyml')
-    , logger = pino({
-      level: config.logs.level || "info",
-      prettyPrint: {
-        translateTime: "SYS:standard",
-        colorize: config.logs.colorize == null ? true : config.logs.colorize, 
-        ignore: config.logs.ignore,
-        messageFormat: `{msg}`
-      },
-    });
+, config = require('@stefcud/configyml')
+, logger = pino({
+  level: config.logs.level || "info",
+  prettyPrint: {
+    translateTime: "SYS:standard",
+    colorize: config.logs.colorize == null ? true : config.logs.colorize,
+    ignore: config.logs.ignore,
+    messageFormat: `{msg}`
+  },
+});
 
 config.logger = logger;
 
 if (!config.otp.baseUrl) {
   const port = Number(config.otp.port)
-     ,  proto = port===443 ? 'https' : 'http'
+  ,  proto = port===443 ? 'https' : 'http'
   config.otp.baseUrl = `${proto}://${config.otp.host}:${port}${config.otp.path}`;
 }
 
@@ -43,9 +43,9 @@ app.use(express.json());
 /**
  * OJPLocationInformationRequest
  */
-app.get('/stops/:id?', async (req, result) => {
+ app.get('/stops/:id?', async (req, result) => {
 
-  //search a stop by id in PlaceRef
+  // search a stop by id in PlaceRef
   //if id is undefined return all stops
   const extra = {
     'limit': Number(req.query.limit) || 0,
@@ -63,8 +63,8 @@ app.get('/stops/:id?', async (req, result) => {
   result.json(res);
 });
 
-app.post('/search/', async (req, result) => {
-  //search stops with given name 
+ app.post('/search/', async (req, result) => {
+  // search stops with given name
   //and filtered by:
   //1) bbox 2) circle 2) polygon
 
@@ -77,9 +77,9 @@ app.post('/search/', async (req, result) => {
    *  limit: integer
    * }
    */
-  const params = req.body;
-
-  const extra = {
+   const params = req.body;
+   console.log('SEARCH PARAMS', params)
+   const extra = {
     'limit': Number(params.limit) || 0,
     'skip': Number(params.skip) || 0,
     'arriveBy': params.arriveBy || false
@@ -90,31 +90,38 @@ app.post('/search/', async (req, result) => {
   if(!_.isEmpty(params.value)) {
 
     if(params.restrictionType && params.restrictionValue){
-      const resTmp = {stops: []};
-      switch(params.restrictionType){
-        case 'bbox':
+        const resTmp = {stops: []};
+        switch(params.restrictionType){
+          case 'bbox':
           resTmp = await searchByBBox(config, params.restrictionValue, extra);
           break;
-        case 'circle':
+          case 'circle':
           resTmp = await searchByRadius(config, params.restrictionValue, extra);
           break;
-      }
-      const reg = new RegExp(`(/?i)\b${value}\b`);
-      for(const tmpStop of resTmp.stops){
-        if(res.stops.length < params.limit){
-          if(tmpStop.name.test(reg)){
-            res.stops.push(tmpStop)
-          }
-        }else{
-          break;
         }
-      }
-    }else{
-      res = await searchByName(config, params.value, extra);
+        const reg = new RegExp(`(/?i)\b${value}\b`);
+        for(const tmpStop of resTmp.stops){
+          if(res.stops.length < params.limit){
+            if(tmpStop.name.test(reg)){
+              res.stops.push(tmpStop)
+            }
+          }else{
+            break;
+          }
+        }
+    }
+    else {
+        res = await searchByName(config, params.value, extra);
     }
   }
+  else if(params.restrictionType === 'bbox') {
+    res = await searchByBBox(config, params.restrictionValue, extra);
+  }
+  else if(params.restrictionType === 'circle') {
+    res = await searchByRadius(config, params.restrictionValue, extra);
+  }
   else if(params.position) {
-    //search at specific position (tricky: radius 10 meter)
+    // search at specific position (tricky: radius 10 meter)
     res = await searchByRadius(config, [...params.position,10], extra);
   }
   else
@@ -129,7 +136,7 @@ app.post('/search/', async (req, result) => {
  * OJPStopEventRequest
  */
 
-app.get('/stops/:id/details', async (req, result) => {
+ app.get('/stops/:id/details', async (req, result) => {
   //return stoptimes and other schedule details for stop
   const extra = {
     'limit': Number(req.query.limit) || 0,
@@ -150,7 +157,7 @@ app.get('/stops/:id/details', async (req, result) => {
  */
 
  app.post('/plan/', async (req, result) => {
-  //search a trip with given parameters:
+  // search a trip with given parameters:
   //origin, destination, waypoints, no transfers at, ...
   const params = req.body;
   logger.debug(params);
@@ -166,7 +173,7 @@ app.get('/stops/:id/details', async (req, result) => {
  */
 
  app.get('/trip/:id/:date', async (req, result) => {
-  //search a trip with given parameters:
+  // search a trip with given parameters:
   //origin, destination, waypoints, no transfers at, ...
   const params = req.params;
   logger.debug(params);
@@ -183,14 +190,14 @@ app.get('/stops/:id/details', async (req, result) => {
   //TODO: check if this is viable with otp
 });
 
-app.get(['/','/otp'], async (req, res) => {
+ app.get(['/','/otp'], async (req, res) => {
   res.send({
     status: 'OK',   //TODO check otp is reachable
     version
   });
 });
 
-app.listen(Number(config.server.port), () => {
+ app.listen(Number(config.server.port), () => {
   logger.info( app._router.stack.filter(r => r.route).map(r => `${Object.keys(r.route.methods)[0]} ${r.route.path}`) );
   logger.info(`service ${serviceName} listening at http://localhost:${config.server.port}`)
 })

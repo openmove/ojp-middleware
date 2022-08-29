@@ -210,6 +210,8 @@ module.exports = {
     const { logger } = config;
     const clientQL = new GraphQLClient(config.otp.baseUrl, { headers: config.otp.headers });
     
+    const [upperLon, upperLat, lowerLon, lowerLat] = params.split(',');
+
     const query = gql`
                 {
                   stopsByBbox (
@@ -230,6 +232,10 @@ module.exports = {
 
     logger.info('searchByBBox');
     logger.debug(query);
+
+    if(process.env['QUERY_DEBUG']) {
+      console.log(query);
+    }
 
     const data = await clientQL.request(query, {});
 
