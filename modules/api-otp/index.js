@@ -78,7 +78,7 @@ app.use(express.json());
    * }
    */
    const params = req.body;
-   console.log('SEARCH PARAMS', params)
+
    const extra = {
     'limit': Number(params.limit) || 0,
     'skip': Number(params.skip) || 0,

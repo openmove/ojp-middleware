@@ -2,9 +2,9 @@
 node georesToBBox.js ../../tests/xmls/OJPLocationInformationRequest_GeoRestriction_rect.xml
  */
 const fs = require('fs')
-    , { DOMParser } = require('xmldom');
+    , { DOMParser } = require('../node_modules/xmldom');
 
-const { parseGeoRestriction } = require('./restrictions');
+const { parseGeoRestriction } = require('./lib/restrictions');
 
 const serviceTag = 'OJPLocationInformationRequest';
 
