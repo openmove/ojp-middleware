@@ -1,5 +1,5 @@
 const { request, GraphQLClient, gql } = require('graphql-request');
-const fs = require('fs');
+
 const NodeCache = require('node-cache');
 
 const Cache = new NodeCache({
@@ -197,8 +197,6 @@ module.exports = {
 
     const data = await clientQL.request(query, {});
 
-console.log(data.stopsByRadius.edges);
-
     if(data?.stopsByRadius?.edges){
       const res = {stops: []}
       for(const edge of data.stopsByRadius.edges){
@@ -211,8 +209,6 @@ console.log(data.stopsByRadius.edges);
           break;
         }
       }
-
-      fs.writeFileSync('./stops.json', JSON.stringify(res.stops,null,4));
 
       return res;
     }
