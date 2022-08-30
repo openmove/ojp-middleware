@@ -1,10 +1,12 @@
 
 const fs = require('fs');
 
-const GeoJSON = require('geojson');
+const GeoJSON = require('../node_modules/geojson');
 
-const json = JSON.parse(fs.readFileSync('./stops_bbox.json'));
-const geo = GeoJSON.parse(json.data.stopsByBbox, {
+const fin = process.argv[2] || './stops_bbox.json';
+
+const json = JSON.parse(fs.readFileSync(fin));
+const geo = GeoJSON.parse(json, {
     Point: ['lat', 'lon']
 });
 

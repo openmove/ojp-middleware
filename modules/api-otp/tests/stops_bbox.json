@@ -1,2064 +1,2060 @@
-{
-  "data": {
-    "stopsByBbox": [
-      {
-        "gtfsId": "gtt:3331",
-        "name": "JUGLARIS N.51",
-        "code": "3331",
-        "zoneId": "3",
-        "desc": "V. JUGLARIS N. 51 MONCALIERI",
-        "lat": 44.99140167236328,
-        "lon": 7.665259838104248,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:3332",
-        "name": "SALUZZO",
-        "code": "3332",
-        "zoneId": "3",
-        "desc": "V. S. MARIA N. 39/1 MONCALIERI",
-        "lat": 44.99182891845703,
-        "lon": 7.663869857788086,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:1036",
-        "name": "PESCHIERA",
-        "code": "1036",
-        "zoneId": "3",
-        "desc": "C.ROMA N.20 MONCALIERI",
-        "lat": 45.00706100463867,
-        "lon": 7.6697998046875,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:3213",
-        "name": "VERDI",
-        "code": "3213",
-        "zoneId": "3",
-        "desc": "V. TRENTO N.11",
-        "lat": 44.99462890625,
-        "lon": 7.643610000610352,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "7:40237",
-        "name": "NICHELINO - VIA TORINO,47-VIA XXV APRILE",
-        "code": "40237",
-        "lat": 45.00254821777344,
-        "lon": 7.655735969543457
-      },
-      {
-        "gtfsId": "gtt:1290",
-        "name": "TORRICELLI",
-        "code": "1290",
-        "zoneId": "3",
-        "desc": "V.MIRAFLORES / V.TORRICELLI  NICHELINO",
-        "lat": 45.00505828857422,
-        "lon": 7.649789810180664,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "7:03098",
-        "name": "V.XXV APRILE 47   NICHELINO",
-        "code": "03098",
-        "lat": 45.00199890136719,
-        "lon": 7.651700019836426
-      },
-      {
-        "gtfsId": "gtt:919",
-        "name": "AMENDOLA",
-        "code": "919",
-        "zoneId": "3",
-        "desc": "V.NENNI FRONTE N.9   NICHELINO",
-        "lat": 44.997718811035156,
-        "lon": 7.637229919433594,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:918",
-        "name": "LA TORRE",
-        "code": "918",
-        "zoneId": "3",
-        "desc": "V.AMENDOLA / V.PIO LA TORRE NICHELINO",
-        "lat": 44.993160247802734,
-        "lon": 7.63431978225708,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "14:002555",
-        "name": "Nichelino-V.Xxv Aprile -Scuole",
-        "code": "002555",
-        "zoneId": "1164",
-        "lat": 45.00170135498047,
-        "lon": 7.636380195617676,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:1287",
-        "name": "XXV APRILE NORD",
-        "code": "1287",
-        "zoneId": "3",
-        "desc": "V.MIRAFLORES / V.XXV APRILE  NICHELINO",
-        "lat": 45.0023193359375,
-        "lon": 7.649630069732666,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:1288",
-        "name": "XXV APRILE NORD",
-        "code": "1288",
-        "zoneId": "3",
-        "desc": "V.MIRAFLORES DOPO V.XXV APRILE  NICHELINO",
-        "lat": 45.002288818359375,
-        "lon": 7.650010108947754,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:927",
-        "name": "BUFFA",
-        "code": "927",
-        "zoneId": "3",
-        "desc": "V.TORINO / STR.BUFFA NICHELINO",
-        "lat": 44.9840087890625,
-        "lon": 7.633490085601807,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "7:01097",
-        "name": "V.XXV APRILE / V.STUPINIGI  NICHELINO",
-        "code": "01097",
-        "lat": 45.0015983581543,
-        "lon": 7.64015007019043
-      },
-      {
-        "gtfsId": "7:03112",
-        "name": "V.XXV APRILE DOPO V.BERRUTI  NICHELINO",
-        "code": "03112",
-        "lat": 45.001800537109375,
-        "lon": 7.639800071716309
-      },
-      {
-        "gtfsId": "gtt:1070",
-        "name": "CESANA",
-        "code": "1070",
-        "zoneId": "3",
-        "desc": "STR DEI CACCIATORI N.111 NICHELINO",
-        "lat": 45.00754165649414,
-        "lon": 7.622799873352051,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "7:01093",
-        "name": "V.DEBOUCHE' / V.XXV APRILE   NICHELINO",
-        "code": "01093",
-        "lat": 45.00083923339844,
-        "lon": 7.632434844970703
-      },
-      {
-        "gtfsId": "gtt:923",
-        "name": "STAZIONE NICHELINO",
-        "code": "923",
-        "zoneId": "3",
-        "desc": "V.TORINO 212 NICHELINO",
-        "lat": 44.99108123779297,
-        "lon": 7.641930103302002,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:1071",
-        "name": "POLIAMBULATORI",
-        "code": "1071",
-        "zoneId": "3",
-        "desc": "V. DEBOUCHE DOPO ROTONDA DELLE ALPI",
-        "lat": 45.00046920776367,
-        "lon": 7.632070064544678,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "14:002565",
-        "name": "Vinovo - Fr Garino",
-        "code": "002565",
-        "zoneId": "1309",
-        "lat": 44.97721862792969,
-        "lon": 7.624959945678711,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "14:002564",
-        "name": "Vinovo - Fr Garino - Pz. I Maggio",
-        "code": "002564",
-        "zoneId": "1309",
-        "lat": 44.97734069824219,
-        "lon": 7.62529993057251,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "14:055669",
-        "name": "Sangone Fs",
-        "code": "055669",
-        "zoneId": "1156",
-        "lat": 45.00297164916992,
-        "lon": 7.6666998863220215,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:926",
-        "name": "SCARRONE",
-        "code": "926",
-        "zoneId": "3",
-        "desc": "V.TORINO / V.SCARRONE NICHELINO",
-        "lat": 44.9842414855957,
-        "lon": 7.633500099182129,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:1289",
-        "name": "TORRICELLI",
-        "code": "1289",
-        "zoneId": "3",
-        "desc": "V.MIRAFLORES DOPO V.TORRICELLI  NICHELINO",
-        "lat": 45.005001068115234,
-        "lon": 7.649519920349121,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:925",
-        "name": "TORINO N.278",
-        "code": "925",
-        "zoneId": "3",
-        "desc": "V.TORINO FRONTE N.278 NICHELINO",
-        "lat": 44.9881706237793,
-        "lon": 7.6387200355529785,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:922",
-        "name": "AMENDOLA CAP",
-        "code": "922",
-        "zoneId": "5",
-        "desc": "AMENDOLA",
-        "lat": 44.995399475097656,
-        "lon": 7.635310173034668,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:921",
-        "name": "BERLINGUER",
-        "code": "921",
-        "zoneId": "3",
-        "desc": "V. NENNI DOPO V. BERLINGUER",
-        "lat": 44.99824905395508,
-        "lon": 7.634490013122559,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:924",
-        "name": "TORINO N.282",
-        "code": "924",
-        "zoneId": "3",
-        "desc": "V.TORINO N.282 NICHELINO",
-        "lat": 44.98823165893555,
-        "lon": 7.638350009918213,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:1069",
-        "name": "CESANA",
-        "code": "1069",
-        "zoneId": "3",
-        "desc": "STR.CACCIATORI FRONTE N.111 NICHELINO",
-        "lat": 45.007728576660156,
-        "lon": 7.622960090637207,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:1067",
-        "name": "PRACAVALLO",
-        "code": "1067",
-        "zoneId": "3",
-        "desc": "PRAVACALLO",
-        "lat": 45.00495910644531,
-        "lon": 7.6295599937438965,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:1068",
-        "name": "PRACAVALLO",
-        "code": "1068",
-        "zoneId": "3",
-        "desc": "PRAVACALLO",
-        "lat": 45.00453186035156,
-        "lon": 7.630050182342529,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:26585",
-        "name": "NICHELINO (P.ZZALE ALPI)",
-        "code": "26585",
-        "zoneId": "6",
-        "desc": "NICHELINO (PIAZZALE ALPI)",
-        "lat": 45.00154113769531,
-        "lon": 7.629429817199707,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "14:001116",
-        "name": "Nichelino - Stazione Fs",
-        "code": "001116",
-        "zoneId": "1164",
-        "lat": 44.991031646728516,
-        "lon": 7.64208984375,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "vco:16:stp:1116",
-        "name": "V.TORINO N.209  NICHELINO",
-        "code": "1116",
-        "lat": 44.99100112915039,
-        "lon": 7.642300128936768
-      },
-      {
-        "gtfsId": "gtt:917",
-        "name": "PASCOLO",
-        "code": "917",
-        "zoneId": "3",
-        "desc": "V. TRENTO FRONTE N.35 NICHELINO",
-        "lat": 44.99681854248047,
-        "lon": 7.64100980758667,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:916",
-        "name": "CASTELLO DI NICHELINO",
-        "code": "916",
-        "zoneId": "3",
-        "desc": "V.LE MATTEOTTI FRONTE N.38 NICHELINO",
-        "lat": 44.99169158935547,
-        "lon": 7.63923978805542,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:941",
-        "name": "SOTTI",
-        "code": "941",
-        "zoneId": "3",
-        "desc": "V.ALBA FRONTE V.SOTTI VINOVO",
-        "lat": 44.97298049926758,
-        "lon": 7.633749961853027,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "7:16589",
-        "name": "NICHELINO - MUNICIPIO",
-        "code": "16589",
-        "lat": 44.995201110839844,
-        "lon": 7.64739990234375
-      },
-      {
-        "gtfsId": "vco:16:stp:140362",
-        "name": "Nichelino Via Torino Stazione F.S.",
-        "code": "70362",
-        "lat": 44.9910888671875,
-        "lon": 7.642029762268066
-      },
-      {
-        "gtfsId": "gtt:915",
-        "name": "TORINO - STAZIONE",
-        "code": "915",
-        "zoneId": "3",
-        "desc": "V.TRENTO FRONTE N.7  NICHELINO",
-        "lat": 44.9935302734375,
-        "lon": 7.643889904022217,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:1064",
-        "name": "XXV APRILE",
-        "code": "1064",
-        "zoneId": "3",
-        "desc": "V.STUPINIGI FRONTE V.I.MAGGIO NICHELINO",
-        "lat": 45.00114822387695,
-        "lon": 7.640160083770752,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:940",
-        "name": "TEANO",
-        "code": "940",
-        "zoneId": "3",
-        "desc": "V.CALATAFIMI / V.TEANO  NICHELINO",
-        "lat": 44.97488021850586,
-        "lon": 7.6356000900268555,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "7:16586",
-        "name": "NICHELINO - F.S.",
-        "code": "16586",
-        "lat": 44.99169921875,
-        "lon": 7.642499923706055
-      },
-      {
-        "gtfsId": "gtt:942",
-        "name": "SOTTI",
-        "code": "942",
-        "zoneId": "3",
-        "desc": "V.ALBA / V.SOTTI VINOVO",
-        "lat": 44.97303009033203,
-        "lon": 7.633590221405029,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:3551",
-        "name": "SAN MATTEO",
-        "code": "3551",
-        "zoneId": "3",
-        "desc": "VIA STUPINIGI N.29",
-        "lat": 44.996681213378906,
-        "lon": 7.644989967346191,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "vco:16:stp:140364",
-        "name": "Sangone St Stupinigi Stazione F.S.",
-        "code": "70364",
-        "lat": 45.00297927856445,
-        "lon": 7.666749954223633
-      },
-      {
-        "gtfsId": "10:21237",
-        "name": "MONCALIERI - Via peschiera(angc.roma)",
-        "code": "21237",
-        "zoneId": "1227",
-        "lat": 45.00688934326172,
-        "lon": 7.669079780578613,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:1066",
-        "name": "ISTITUTO MAXWELL",
-        "code": "1066",
-        "zoneId": "3",
-        "desc": "V.XXV APRILE FRONTE N.158  NICHELINO",
-        "lat": 45.00149917602539,
-        "lon": 7.635859966278076,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:947",
-        "name": "SESTRIERE",
-        "code": "947",
-        "zoneId": "3",
-        "desc": "STR DEL SESTRIERE FRONTE N.49 VINOVO",
-        "lat": 44.975059509277344,
-        "lon": 7.622119903564453,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:3552",
-        "name": "TRENTO CAP",
-        "code": "3552",
-        "zoneId": "5",
-        "desc": "TRENTO",
-        "lat": 44.99428939819336,
-        "lon": 7.643539905548096,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:1063",
-        "name": "XXV APRILE",
-        "code": "1063",
-        "zoneId": "3",
-        "desc": "V.STUPINIGI DOPO V.I.MAGGIO NICHELINO",
-        "lat": 45.00123977661133,
-        "lon": 7.640900135040283,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:949",
-        "name": "STUPINIGI",
-        "code": "949",
-        "zoneId": "3",
-        "desc": "STR DEL SESTRIERE/STR.PR.STUPINIGI-VINOVO VINOVO",
-        "lat": 44.97235107421875,
-        "lon": 7.6194000244140625,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "vco:16:stp:140365",
-        "name": "Sangone St Stupinigi Stazione F.S.",
-        "code": "70365",
-        "lat": 45.00299835205078,
-        "lon": 7.666910171508789
-      },
-      {
-        "gtfsId": "gtt:944",
-        "name": "ORBASSANO",
-        "code": "944",
-        "zoneId": "3",
-        "desc": "V.SOTTI / V.ORBASSANO  VINOVO",
-        "lat": 44.974300384521484,
-        "lon": 7.631040096282959,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:943",
-        "name": "ORBASSANO",
-        "code": "943",
-        "zoneId": "3",
-        "desc": "V.SOTTI / V.ORBASSANO VINOVO",
-        "lat": 44.97431945800781,
-        "lon": 7.631309986114502,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:946",
-        "name": "AIRASCA",
-        "code": "946",
-        "zoneId": "3",
-        "desc": "V.SOTTI N.20 VINOVO",
-        "lat": 44.975868225097656,
-        "lon": 7.628290176391602,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "vco:16:stp:140363",
-        "name": "Nichelino Via Torino Stazione F.S.",
-        "code": "70363",
-        "lat": 44.990909576416016,
-        "lon": 7.6419501304626465
-      },
-      {
-        "gtfsId": "gtt:1057",
-        "name": "TORINO",
-        "code": "1057",
-        "zoneId": "3",
-        "desc": "VIA GIUSTI N.6 NICHELINO",
-        "lat": 44.995201110839844,
-        "lon": 7.647649765014648,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:945",
-        "name": "AIRASCA",
-        "code": "945",
-        "zoneId": "3",
-        "desc": "V.SOTTI N.17 VINOVO",
-        "lat": 44.976318359375,
-        "lon": 7.628049850463867,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:1065",
-        "name": "PALLAVICINO",
-        "code": "1065",
-        "zoneId": "3",
-        "desc": "V.XXV APRILE / STR DEI CACCIATORI NICHELINO",
-        "lat": 45.00175857543945,
-        "lon": 7.633930206298828,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:948",
-        "name": "BARDONECCHIA",
-        "code": "948",
-        "zoneId": "3",
-        "desc": "STR DEL SESTRIERE / V.BARDONECCHIA VINOVO",
-        "lat": 44.9744987487793,
-        "lon": 7.621719837188721,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:931",
-        "name": "CALATAFIMI",
-        "code": "931",
-        "zoneId": "3",
-        "desc": "V. TORINODOPO V. CALATAFIMI NICHELINO",
-        "lat": 44.980098724365234,
-        "lon": 7.628689765930176,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "14:000923",
-        "name": "Nichelino - Stazione Fs",
-        "code": "000923",
-        "zoneId": "1164",
-        "lat": 44.991058349609375,
-        "lon": 7.642039775848389,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:930",
-        "name": "CONSOLATA",
-        "code": "930",
-        "zoneId": "3",
-        "desc": "V. TORINO DOPO V. CONSOLATA  NICHELINO",
-        "lat": 44.980018615722656,
-        "lon": 7.628339767456055,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:5101",
-        "name": "AMENDOLA CAP",
-        "code": "5101",
-        "zoneId": "3",
-        "desc": "AMENDOLA",
-        "lat": 44.99605178833008,
-        "lon": 7.6356000900268555,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:26562",
-        "name": "MONCALIERI (V. MARTIRI/V. ROMA)",
-        "code": "26562",
-        "zoneId": "6",
-        "desc": "MONCALIERI (VIA MARTIRI/VIA ROMA)",
-        "lat": 45.00223922729492,
-        "lon": 7.658420085906982,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:2607",
-        "name": "STUPINIGI",
-        "code": "2607",
-        "zoneId": "3",
-        "desc": "STR DEL SESTRIERE/STR.PROV.STUPINIGI-VINOVO VINOV",
-        "lat": 44.97211837768555,
-        "lon": 7.618500232696533,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:1091",
-        "name": "VESPUCCI",
-        "code": "1091",
-        "zoneId": "3",
-        "desc": "V.S.MATTEO DOPO V.VESPUCCI NICHELINO",
-        "lat": 45.000640869140625,
-        "lon": 7.649199962615967,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:1097",
-        "name": "STUPINIGI",
-        "code": "1097",
-        "zoneId": "3",
-        "desc": "V.XXV APRILE / V.STUPINIGI NICHELINO",
-        "lat": 45.001651763916016,
-        "lon": 7.640160083770752,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:936",
-        "name": "VOLTURNO",
-        "code": "936",
-        "zoneId": "3",
-        "desc": "V. VERNEA N.12 NICHELINO",
-        "lat": 44.98065185546875,
-        "lon": 7.634809970855713,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:939",
-        "name": "TEANO",
-        "code": "939",
-        "zoneId": "3",
-        "desc": "V.TEANO / V.CALATAFIMI NICHELINO",
-        "lat": 44.97465133666992,
-        "lon": 7.635799884796143,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:1093",
-        "name": "LARGO DELLE ALPI",
-        "code": "1093",
-        "zoneId": "3",
-        "desc": "V DEBOUCHE' / V.XXV APRILE  NICHELINO",
-        "lat": 45.00093078613281,
-        "lon": 7.6323699951171875,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:938",
-        "name": "PISACANE",
-        "code": "938",
-        "zoneId": "3",
-        "desc": "V.CALATAFIMI / V.PISACANE NICHELINO",
-        "lat": 44.97600173950195,
-        "lon": 7.6336798667907715,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:933",
-        "name": "TORINO",
-        "code": "933",
-        "zoneId": "3",
-        "desc": "V. VERNEA N.7  NICHELINO",
-        "lat": 44.98207092285156,
-        "lon": 7.6319499015808105,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:935",
-        "name": "VOLTURNO",
-        "code": "935",
-        "zoneId": "3",
-        "desc": "V. VERNEA FR. N.12 NICHELINO",
-        "lat": 44.98072814941406,
-        "lon": 7.63523006439209,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:934",
-        "name": "MILAZZO",
-        "code": "934",
-        "zoneId": "3",
-        "desc": "V. VERNEA/ V.MILAZZO  NICHELINO",
-        "lat": 44.98160171508789,
-        "lon": 7.632589817047119,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "14:000926",
-        "name": "Nic - Via Torino-Via Scarrone",
-        "code": "000926",
-        "zoneId": "1164",
-        "lat": 44.98426818847656,
-        "lon": 7.633639812469482,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:937",
-        "name": "PISACANE",
-        "code": "937",
-        "zoneId": "3",
-        "desc": "V.CALATAFIMI / V.PISACANE NICHELINO",
-        "lat": 44.97623825073242,
-        "lon": 7.633780002593994,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "14:000927",
-        "name": "Nic - Via Torino-Via Scarrone",
-        "code": "000927",
-        "zoneId": "1164",
-        "lat": 44.983951568603516,
-        "lon": 7.633339881896973,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "7:16568",
-        "name": "NICHELINO - VIA XXV APRILE - VIA FERRARIS",
-        "code": "16568",
-        "lat": 45.00199890136719,
-        "lon": 7.652500152587891
-      },
-      {
-        "gtfsId": "gtt:16585",
-        "name": "NICHELINO (P.ZZALE ALPI)",
-        "code": "16585",
-        "zoneId": "6",
-        "desc": "NICHELINO (PIAZZALE ALPI)",
-        "lat": 45.001461029052734,
-        "lon": 7.629570007324219,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:1086",
-        "name": "SAN MATTEO",
-        "code": "1086",
-        "zoneId": "3",
-        "desc": "V.S.MATTEO / V.STUPINIGI NICHELINO",
-        "lat": 44.99681091308594,
-        "lon": 7.64516019821167,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "7:16565",
-        "name": "NICHELINO - VIA TORINO - VIA PUCCINI",
-        "code": "16565",
-        "lat": 44.9994010925293,
-        "lon": 7.652500152587891
-      },
-      {
-        "gtfsId": "7:16562",
-        "name": "Moncalieri (v. Martiri/v. Roma)",
-        "code": "16562",
-        "lat": 45.00199890136719,
-        "lon": 7.658400058746338
-      },
-      {
-        "gtfsId": "gtt:1087",
-        "name": "SAN MATTEO",
-        "code": "1087",
-        "zoneId": "3",
-        "desc": "V.S.MATTEO FRONTE V.S.GIUSEPPE NICHELINO",
-        "lat": 44.99884033203125,
-        "lon": 7.647610187530518,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:3465",
-        "name": "MILANO N.5",
-        "code": "3465",
-        "zoneId": "3",
-        "desc": "V. MILANO N. 5 NICHELINO",
-        "lat": 45.001991271972656,
-        "lon": 7.658850193023682,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:3466",
-        "name": "GOITO",
-        "code": "3466",
-        "zoneId": "3",
-        "desc": "V. PISACANE / V. GOITO NICHELINO",
-        "lat": 44.978309631347656,
-        "lon": 7.635499954223633,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "7:05096",
-        "name": "V. XXV APRILE / V. PITAGORA",
-        "code": "05096",
-        "lat": 45.00175094604492,
-        "lon": 7.6466498374938965
-      },
-      {
-        "gtfsId": "10:1702",
-        "name": "NICHELINO - Via Giusti / Edicola",
-        "code": "1702",
-        "zoneId": "1227",
-        "lat": 44.99253845214844,
-        "lon": 7.655409812927246,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:3467",
-        "name": "GOITO",
-        "code": "3467",
-        "zoneId": "3",
-        "desc": "V. PISACANE / V. GOITO NICHELINO",
-        "lat": 44.97785949707031,
-        "lon": 7.635550022125244,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:3098",
-        "name": "GALVANI",
-        "code": "3098",
-        "zoneId": "3",
-        "desc": "V.XXV APRILE 47  NICHELINO",
-        "lat": 45.00196838378906,
-        "lon": 7.651710033416748
-      },
-      {
-        "gtfsId": "7:01065",
-        "name": "V.XXV APRILE / STR.DEI CACCIATORI  NICHELINO",
-        "code": "01065",
-        "lat": 45.00175094604492,
-        "lon": 7.633500099182129
-      },
-      {
-        "gtfsId": "10:1709",
-        "name": "NICHELINO - Via torino n° civ.8",
-        "code": "1709",
-        "zoneId": "1227",
-        "lat": 45.00130081176758,
-        "lon": 7.654759883880615,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:2681",
-        "name": "PARINI",
-        "code": "2681",
-        "zoneId": "3",
-        "desc": "V. GIUSTI / V. PARINI NICHELINO",
-        "lat": 44.99380874633789,
-        "lon": 7.652070045471191,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:3464",
-        "name": "ROMA",
-        "code": "3464",
-        "zoneId": "3",
-        "desc": "VIA PESCHIERA N.24",
-        "lat": 45.00648880004883,
-        "lon": 7.669449806213379,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "7:05093",
-        "name": "V. XXV APRILE DOPO V. BUONARROTI",
-        "code": "05093",
-        "lat": 45.00199890136719,
-        "lon": 7.647200107574463
-      },
-      {
-        "gtfsId": "trepie:ITRP-ST0011569002",
-        "name": "Stazione MONCALIERI SANGONE",
-        "lat": 45.00041961669922,
-        "lon": 7.667909145355225,
-        "vehicleMode": "RAIL"
-      },
-      {
-        "gtfsId": "gtt:6021",
-        "name": "CUNEO N.12",
-        "code": "6021",
-        "zoneId": "3",
-        "desc": "VIA CUNEO N. 12",
-        "lat": 45.00497817993164,
-        "lon": 7.65792989730835,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:6022",
-        "name": "PASTRENGO N.29",
-        "code": "6022",
-        "zoneId": "3",
-        "desc": "VIA PASTRENGO FRONTE N. 54",
-        "lat": 45.00307846069336,
-        "lon": 7.667250156402588,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "10:1701",
-        "name": "MONCALIERI - Borgo s.maria (tabaccaio)",
-        "code": "1701",
-        "zoneId": "1227",
-        "lat": 44.98918914794922,
-        "lon": 7.66195011138916,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "7:01066",
-        "name": "V.XXV APRILE FRONTE N.158    NICHELINO",
-        "code": "01066",
-        "lat": 45.00149917602539,
-        "lon": 7.635900020599365
-      },
-      {
-        "gtfsId": "9:21237",
-        "name": "MONCALIERI - Via peschiera(angc.roma)",
-        "code": "21237",
-        "zoneId": "1227",
-        "lat": 45.00688934326172,
-        "lon": 7.669079780578613,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:2682",
-        "name": "PETRARCA",
-        "code": "2682",
-        "zoneId": "3",
-        "desc": "V.GIUSTI FRONTE V.PASCOLI NICHELINO",
-        "lat": 44.99394989013672,
-        "lon": 7.652120113372803,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:16562",
-        "name": "MONCALIERI (V. MARTIRI/V. ROMA)",
-        "code": "16562",
-        "zoneId": "6",
-        "desc": "MONCALIERI (VIA MARTIRI/VIA ROMA)",
-        "lat": 45.00202178955078,
-        "lon": 7.65841007232666,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:3455",
-        "name": "ROMA",
-        "code": "3455",
-        "zoneId": "3",
-        "desc": "VIA PESCHIERA DOPO CORSO ROMA",
-        "lat": 45.006839752197266,
-        "lon": 7.6690897941589355,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "10:1710",
-        "name": "NICHELINO - Via Torino / Via Cuneo",
-        "code": "1710",
-        "zoneId": "1227",
-        "lat": 45.00468063354492,
-        "lon": 7.656630039215088,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "7:00889",
-        "name": "V.LE MATTEOTTI / V.LE SEGRE",
-        "code": "00889",
-        "lat": 44.9921989440918,
-        "lon": 7.641600131988525
-      },
-      {
-        "gtfsId": "gtt:2673",
-        "name": "COLOMBETTO",
-        "code": "2673",
-        "zoneId": "3",
-        "desc": "V.GIUSTI / V.COLOMBETTO NICHELINO",
-        "lat": 44.99279022216797,
-        "lon": 7.654990196228027,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:2674",
-        "name": "MAMELI",
-        "code": "2674",
-        "zoneId": "3",
-        "desc": "V.GIUSTI FRONTE V.L.ARIOSTO NICHELINO",
-        "lat": 44.99095916748047,
-        "lon": 7.658380031585693,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:3454",
-        "name": "ROMA N.8",
-        "code": "3454",
-        "zoneId": "3",
-        "desc": "VIA ROMA FRONTE N.C. 8",
-        "lat": 45.00421905517578,
-        "lon": 7.6598100662231445,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:2677",
-        "name": "SANTA MARIA SUD",
-        "code": "2677",
-        "zoneId": "3",
-        "desc": "BRETELLA COLLEGAMENTO A V.GIUSTI MONCALIERI",
-        "lat": 44.989341735839844,
-        "lon": 7.661809921264648,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "7:01071",
-        "name": "V. DEBOUCHE DOPO ROTONDA DELLE ALPI",
-        "code": "01071",
-        "lat": 45.000999450683594,
-        "lon": 7.632050514221191
-      },
-      {
-        "gtfsId": "gtt:2678",
-        "name": "SANTA MARIA",
-        "code": "2678",
-        "zoneId": "3",
-        "desc": "V. S. MARIA N. 29 MONCALIERI",
-        "lat": 44.99388885498047,
-        "lon": 7.665430068969727,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:2675",
-        "name": "MAMELI",
-        "code": "2675",
-        "zoneId": "3",
-        "desc": "V.GIUSTI FRONTE V.MAMELI NICHELINO",
-        "lat": 44.99073028564453,
-        "lon": 7.6592302322387695,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:2676",
-        "name": "SANTA MARIA SUD",
-        "code": "2676",
-        "zoneId": "3",
-        "desc": "V. S. MARIA DOPO V. GIUSTI",
-        "lat": 44.99020004272461,
-        "lon": 7.6621599197387695,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:2679",
-        "name": "SANTA MARIA",
-        "code": "2679",
-        "zoneId": "3",
-        "desc": "V.JUGLARIS / BRETELLA A V.S.MARIA MONCALIERI",
-        "lat": 44.99399185180664,
-        "lon": 7.666110038757324,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:2671",
-        "name": "TORINO",
-        "code": "2671",
-        "zoneId": "3",
-        "desc": "V.GIUSTI N.1 NICHELINO",
-        "lat": 44.99541091918945,
-        "lon": 7.647459983825684,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:2672",
-        "name": "COLOMBETTO",
-        "code": "2672",
-        "zoneId": "3",
-        "desc": "V.GIUSTI / L.GO GIUSTI NICHELINO",
-        "lat": 44.992488861083984,
-        "lon": 7.655139923095703,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "7:00899",
-        "name": "V.TORINO / V.SUPERGA",
-        "code": "00899",
-        "lat": 44.99879837036133,
-        "lon": 7.651599884033203
-      },
-      {
-        "gtfsId": "10:200333",
-        "name": "NICHELINO - Comune",
-        "code": "200333",
-        "zoneId": "1227",
-        "lat": 44.99509811401367,
-        "lon": 7.648220062255859,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "10:200332",
-        "name": "NICHELINO - Comune",
-        "code": "200332",
-        "zoneId": "1227",
-        "lat": 44.99501037597656,
-        "lon": 7.648250102996826,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "9:1709",
-        "name": "NICHELINO - Via torino n° civ.8",
-        "code": "1709",
-        "zoneId": "1227",
-        "lat": 45.00130081176758,
-        "lon": 7.654759883880615,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "7:00898",
-        "name": "V.TORINO DOPO  V.I?? MAGGIO  NICHELINO",
-        "code": "00898",
-        "lat": 44.99909973144531,
-        "lon": 7.651700019836426
-      },
-      {
-        "gtfsId": "7:54363",
-        "name": "NICHELINO - COMUNE - RITORNO",
-        "code": "54363",
-        "lat": 44.99501037597656,
-        "lon": 7.648250102996826
-      },
-      {
-        "gtfsId": "14:000902",
-        "name": "Bivio Moncalieri",
-        "code": "000902",
-        "zoneId": "1164",
-        "lat": 45.00471115112305,
-        "lon": 7.656489849090576,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "14:000903",
-        "name": "Bivio Moncalieri",
-        "code": "000903",
-        "zoneId": "1164",
-        "lat": 45.00490188598633,
-        "lon": 7.6567301750183105,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:3250",
-        "name": "CIMITERO NICHELINO CAP",
-        "code": "3250",
-        "zoneId": "5",
-        "desc": "CIMITERO",
-        "lat": 44.99034118652344,
-        "lon": 7.649059772491455,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:901",
-        "name": "CROCIERA (PROVVISORIA)",
-        "code": "901",
-        "zoneId": "3",
-        "desc": "CROCIERA - ANAGRAFE (P. CAMANDONA)",
-        "lat": 45.00101089477539,
-        "lon": 7.65438985824585,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "7:00893",
-        "name": "V.TORINO / V.VITTORIO VENETO   NICHELINO",
-        "code": "00893",
-        "lat": 44.995201110839844,
-        "lon": 7.647299766540527,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "9:1701",
-        "name": "MONCALIERI - Borgo s.maria (tabaccaio)",
-        "code": "1701",
-        "zoneId": "1227",
-        "lat": 44.98918914794922,
-        "lon": 7.66195011138916,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:3251",
-        "name": "PATERI N.17",
-        "code": "3251",
-        "zoneId": "3",
-        "desc": "STRADA PATERI PRIMA DEL N.17",
-        "lat": 44.99021911621094,
-        "lon": 7.644529819488525,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:903",
-        "name": "CUNEO",
-        "code": "903",
-        "zoneId": "3",
-        "desc": "V.TORINO/V. CUNEO NICHELINO",
-        "lat": 45.00502014160156,
-        "lon": 7.656750202178955,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "14:000948",
-        "name": "Vinovo - Loc. I Lauri. Via Sestriere. 49",
-        "code": "000948",
-        "zoneId": "1309",
-        "lat": 44.974998474121094,
-        "lon": 7.622179985046387,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "7:54364",
-        "name": "NICHELINO - COMUNE",
-        "code": "54364",
-        "lat": 44.99510192871094,
-        "lon": 7.648220062255859
-      },
-      {
-        "gtfsId": "9:1702",
-        "name": "NICHELINO - Via Giusti / Edicola",
-        "code": "1702",
-        "zoneId": "1227",
-        "lat": 44.99253845214844,
-        "lon": 7.655409812927246,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "7:00892",
-        "name": "V.TORINO DOPO  V.DE GASPERI  NICHELINO",
-        "code": "00892",
-        "lat": 44.99489974975586,
-        "lon": 7.646599769592285
-      },
-      {
-        "gtfsId": "gtt:3586",
-        "name": "CENTRO COMMERCIALE",
-        "code": "3586",
-        "zoneId": "3",
-        "desc": "CENTRO COMMERCIALE (MONDO JUVE)",
-        "lat": 44.98503875732422,
-        "lon": 7.6219401359558105,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:2666",
-        "name": "ROMITA",
-        "code": "2666",
-        "zoneId": "3",
-        "desc": "V.JUGLARIS FRONTE V.ROMITA   MONCALIERI",
-        "lat": 44.99599075317383,
-        "lon": 7.666319847106934,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:900",
-        "name": "CROCIERA",
-        "code": "900",
-        "zoneId": "3",
-        "desc": "CROCIERA - ANAGRAFE (P. CAMANDONA)",
-        "lat": 45.00143814086914,
-        "lon": 7.654809951782227,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "14:000947",
-        "name": "Vinovo - Loc. I Lauri. Via Sestriere. 49",
-        "code": "000947",
-        "zoneId": "1309",
-        "lat": 44.97513961791992,
-        "lon": 7.622459888458252,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:902",
-        "name": "CUNEO",
-        "code": "902",
-        "zoneId": "3",
-        "desc": "V. TORINO DOPO V. POLVERIERA NICHELINO",
-        "lat": 45.004638671875,
-        "lon": 7.656489849090576,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:1116",
-        "name": "STAZIONE NICHELINO",
-        "code": "1116",
-        "zoneId": "3",
-        "desc": "V.TORINO N.209 NICHELINO",
-        "lat": 44.99100112915039,
-        "lon": 7.642270088195801,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:3249",
-        "name": "KENNEDY",
-        "code": "3249",
-        "zoneId": "3",
-        "desc": "VIA PARINI FRONTE N.29",
-        "lat": 44.99089050292969,
-        "lon": 7.650619983673096,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "9:1710",
-        "name": "NICHELINO - Via Torino / Via Cuneo",
-        "code": "1710",
-        "zoneId": "1227",
-        "lat": 45.00468063354492,
-        "lon": 7.656630039215088,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:1117",
-        "name": "LAGRANGE",
-        "code": "1117",
-        "zoneId": "3",
-        "desc": "V.XXV APRILE DOPO V.PONCHIELLI  NICHELINO",
-        "lat": 45.00177001953125,
-        "lon": 7.64532995223999,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:889",
-        "name": "SEGRE - STAZIONE",
-        "code": "889",
-        "zoneId": "3",
-        "desc": "V.LE MATTEOTTI / V.LE SEGRE",
-        "lat": 44.99229049682617,
-        "lon": 7.641610145568848,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "10:1230",
-        "name": "MONCALIERI - Via Peschiera / Corso Roma",
-        "code": "1230",
-        "zoneId": "1227",
-        "lat": 45.0065803527832,
-        "lon": 7.669340133666992,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:2556",
-        "name": "DEL PASCOLO",
-        "code": "2556",
-        "zoneId": "3",
-        "desc": "V.STUPINIGI / V.LEONCAVALLO",
-        "lat": 44.997718811035156,
-        "lon": 7.643489837646484,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:2557",
-        "name": "SAN MATTEO",
-        "code": "2557",
-        "zoneId": "3",
-        "desc": "V.JUVARRA N.18 NICHELINO",
-        "lat": 44.997589111328125,
-        "lon": 7.646719932556152,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:6048",
-        "name": "RUSCA N.50",
-        "code": "6048",
-        "zoneId": "3",
-        "desc": "STR. RUSCA FRONTE N. 50",
-        "lat": 44.98577880859375,
-        "lon": 7.6595001220703125,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "14:001066",
-        "name": "Nichelino-V.Xxv Aprile -Scuole",
-        "code": "001066",
-        "zoneId": "1164",
-        "lat": 45.00157165527344,
-        "lon": 7.635580062866211,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:6049",
-        "name": "TAGLIAFERRO N.88",
-        "code": "6049",
-        "zoneId": "3",
-        "desc": "STR. TAGLIAFERRO N. 88",
-        "lat": 44.98173904418945,
-        "lon": 7.65654993057251,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:2555",
-        "name": "PRUNOTTO",
-        "code": "2555",
-        "zoneId": "3",
-        "desc": "V.XXV APRILE DOPO V DEI MUGHETTI NICHELINO",
-        "lat": 45.001800537109375,
-        "lon": 7.636929988861084,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "1:12167",
-        "name": "MONCALIERI - VIA PASTRENGO, 94",
-        "code": "0011560120",
-        "lat": 45.00315856933594,
-        "lon": 7.667330265045166,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:6046",
-        "name": "CARPICE N.17",
-        "code": "6046",
-        "zoneId": "3",
-        "desc": "V. CARPICE N. 17",
-        "lat": 44.98685073852539,
-        "lon": 7.665319919586182,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:6047",
-        "name": "RUSCA",
-        "code": "6047",
-        "zoneId": "3",
-        "desc": "STR. CARPICE N. 39  MONCALIERI",
-        "lat": 44.98765182495117,
-        "lon": 7.661459922790527,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "7:26562",
-        "name": "Moncalieri (v. Martiri/v. Roma)",
-        "code": "26562",
-        "lat": 45.002201080322266,
-        "lon": 7.658400058746338
-      },
-      {
-        "gtfsId": "gtt:6040",
-        "name": "PASTRENGO N.94",
-        "code": "6040",
-        "zoneId": "3",
-        "desc": "VIA PASTRENGO N. 94",
-        "lat": 45.00320053100586,
-        "lon": 7.667300224304199,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:6041",
-        "name": "CUNEO N.9",
-        "code": "6041",
-        "zoneId": "3",
-        "desc": "VIA CUNEO N. 9",
-        "lat": 45.005008697509766,
-        "lon": 7.65871000289917,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:2558",
-        "name": "PONCHIELLI",
-        "code": "2558",
-        "zoneId": "3",
-        "desc": "V.JUVARRA / V.PONCHIELLI NICHELINO",
-        "lat": 44.99959182739258,
-        "lon": 7.643610000610352,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:2541",
-        "name": "ROMITA",
-        "code": "2541",
-        "zoneId": "3",
-        "desc": "V.JUGLARIS / V.ROMITA   MONCALIERI",
-        "lat": 44.99607849121094,
-        "lon": 7.666590213775635,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "14:001071",
-        "name": "Nichelino- Strada Debouchã¨ 1-5",
-        "code": "001071",
-        "zoneId": "1164",
-        "lat": 45.00048065185547,
-        "lon": 7.632030010223389,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "14:001067",
-        "name": "Nic - Via Cacciatori Fr 73",
-        "code": "001067",
-        "zoneId": "1164",
-        "lat": 45.004940032958984,
-        "lon": 7.6296000480651855,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "7:26568",
-        "name": "NICHELINO - VIA XXV APRILE - VIA FERRARIS",
-        "code": "26568",
-        "lat": 45.00210189819336,
-        "lon": 7.652500152587891
-      },
-      {
-        "gtfsId": "gtt:3606",
-        "name": "GIUSTI",
-        "code": "3606",
-        "zoneId": "3",
-        "desc": "VIA PARINI / VIA GIUSTI",
-        "lat": 44.99380874633789,
-        "lon": 7.651919841766357,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:890",
-        "name": "BERLINGUER",
-        "code": "890",
-        "zoneId": "3",
-        "desc": "V. NENNI FRONTE N. 33",
-        "lat": 44.99848937988281,
-        "lon": 7.633649826049805,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:894",
-        "name": "TOTI",
-        "code": "894",
-        "zoneId": "3",
-        "desc": "V.TORINO / V.MONCENISIO NICHELINO",
-        "lat": 44.99673080444336,
-        "lon": 7.649010181427002,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:893",
-        "name": "VITTORIO VENETO",
-        "code": "893",
-        "zoneId": "3",
-        "desc": "VITTORIO VENETO - MUNICIPIO",
-        "lat": 44.994911193847656,
-        "lon": 7.646910190582275,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "14:006022",
-        "name": "Sangone Fs",
-        "code": "006022",
-        "zoneId": "1156",
-        "lat": 45.0029182434082,
-        "lon": 7.666800022125244,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:895",
-        "name": "DIAZ",
-        "code": "895",
-        "zoneId": "3",
-        "desc": "V.TORINO / V.DIAZ NICHELINO",
-        "lat": 44.9976692199707,
-        "lon": 7.650279998779297,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:898",
-        "name": "I MAGGIO",
-        "code": "898",
-        "zoneId": "3",
-        "desc": "V.TORINO DOPO V.I. MAGGIO NICHELINO",
-        "lat": 44.999019622802734,
-        "lon": 7.651810169219971,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:6153",
-        "name": "CUNEO N.51",
-        "code": "6153",
-        "zoneId": "3",
-        "desc": "VIA CUNEO N.51",
-        "lat": 45.00429916381836,
-        "lon": 7.662139892578125,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:899",
-        "name": "I MAGGIO",
-        "code": "899",
-        "zoneId": "3",
-        "desc": "V.TORINO / V.SUPERGA",
-        "lat": 44.99882125854492,
-        "lon": 7.65172004699707,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:6154",
-        "name": "CUNEO N.44",
-        "code": "6154",
-        "zoneId": "3",
-        "desc": "VIA CUNEO N.44",
-        "lat": 45.0042610168457,
-        "lon": 7.661439895629883,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:892",
-        "name": "VITTORIO VENETO",
-        "code": "892",
-        "zoneId": "3",
-        "desc": "VITTORIO VENETO - MUNICIPIO",
-        "lat": 44.994869232177734,
-        "lon": 7.646679878234863,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:891",
-        "name": "IV NOVEMBRE - STAZIONE",
-        "code": "891",
-        "zoneId": "3",
-        "desc": "V.TORINO DOPO V.IV NOVEMBRE NICHELINO",
-        "lat": 44.993309020996094,
-        "lon": 7.64484977722168,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "10:21702",
-        "name": "NICHELINO - Via Giusti / Edicola",
-        "code": "21702",
-        "zoneId": "1227",
-        "lat": 44.992469787597656,
-        "lon": 7.655330181121826,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "14:000898",
-        "name": "NIC - Via Torino 106",
-        "code": "000898",
-        "zoneId": "1164",
-        "lat": 44.99913024902344,
-        "lon": 7.65192985534668,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "14:000892",
-        "name": "Nic - Via Torino 190",
-        "code": "000892",
-        "zoneId": "1164",
-        "lat": 44.994850158691406,
-        "lon": 7.646639823913574,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "14:000893",
-        "name": "Nic - Via Torino 149",
-        "code": "000893",
-        "zoneId": "1164",
-        "lat": 44.99488067626953,
-        "lon": 7.646870136260986,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "10:21703",
-        "name": "MONCALIERI - Via giusti (via rusca)",
-        "code": "21703",
-        "zoneId": "1227",
-        "lat": 44.989810943603516,
-        "lon": 7.661829948425293,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "14:000899",
-        "name": "NIC - Via Torino 97",
-        "code": "000899",
-        "zoneId": "1164",
-        "lat": 44.99885177612305,
-        "lon": 7.651700019836426,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "10:21709",
-        "name": "NICHELINO - Via torino n° civ.8",
-        "code": "21709",
-        "zoneId": "1227",
-        "lat": 45.001548767089844,
-        "lon": 7.6550397872924805,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "9:1230",
-        "name": "MONCALIERI - Via Peschiera / Corso Roma",
-        "code": "1230",
-        "zoneId": "1227",
-        "lat": 45.0065803527832,
-        "lon": 7.669340133666992,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:2564",
-        "name": "SESTRIERE",
-        "code": "2564",
-        "zoneId": "3",
-        "desc": "V.SESTRIERE FRONTE V.S.ANNA VINOVO",
-        "lat": 44.977500915527344,
-        "lon": 7.625400066375732,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:2565",
-        "name": "SANT'ANNA",
-        "code": "2565",
-        "zoneId": "3",
-        "desc": "V.SESTRIERE / V.S.ANNA VINOVO",
-        "lat": 44.97713088989258,
-        "lon": 7.624750137329102,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "10:21710",
-        "name": "NICHELINO - Via Torino / Via Cuneo",
-        "code": "21710",
-        "zoneId": "1227",
-        "lat": 45.00484085083008,
-        "lon": 7.656630039215088,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "vco:16:stp:6040",
-        "name": "VIA PASTRENGO N. 94",
-        "code": "6040",
-        "lat": 45.00320053100586,
-        "lon": 7.667300224304199,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "14:001093",
-        "name": "Nichelino- Strada Debouchã¨ 1-5",
-        "code": "001093",
-        "zoneId": "1164",
-        "lat": 45.00094985961914,
-        "lon": 7.63238000869751,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:5096",
-        "name": "PITAGORA",
-        "code": "5096",
-        "zoneId": "3",
-        "desc": "V. XXV APRILE / V. PITAGORA",
-        "lat": 45.001800537109375,
-        "lon": 7.6466898918151855,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "vco:16:stp:923",
-        "name": "V.TORINO 212  NICHELINO",
-        "code": "923",
-        "lat": 44.9911003112793,
-        "lon": 7.641900062561035
-      },
-      {
-        "gtfsId": "gtt:5093",
-        "name": "BUONARROTI",
-        "code": "5093",
-        "zoneId": "3",
-        "desc": "V. XXV APRILE DOPO V. BUONARROTI",
-        "lat": 45.00196075439453,
-        "lon": 7.647170066833496,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "9:21709",
-        "name": "NICHELINO - Via torino n° civ.8",
-        "code": "21709",
-        "zoneId": "1227",
-        "lat": 45.001548767089844,
-        "lon": 7.6550397872924805,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "14:031047",
-        "name": "Nic - Via Cacciatori",
-        "code": "031047",
-        "zoneId": "1164",
-        "lat": 45.006900787353516,
-        "lon": 7.624390125274658,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "trepie:ITRP-ST0011649001",
-        "name": "Stazione NICHELINO",
-        "lat": 44.99134063720703,
-        "lon": 7.64208984375,
-        "vehicleMode": "RAIL"
-      },
-      {
-        "gtfsId": "9:200333",
-        "name": "NICHELINO - Comune",
-        "code": "200333",
-        "zoneId": "1227",
-        "lat": 44.99509811401367,
-        "lon": 7.648220062255859,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:3675",
-        "name": "AMENDOLA CAP",
-        "code": "3675",
-        "zoneId": "5",
-        "desc": "AMENDOLA",
-        "lat": 44.995811462402344,
-        "lon": 7.6354899406433105
-      },
-      {
-        "gtfsId": "9:200332",
-        "name": "NICHELINO - Comune",
-        "code": "200332",
-        "zoneId": "1227",
-        "lat": 44.99501037597656,
-        "lon": 7.648250102996826,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "9:21710",
-        "name": "NICHELINO - Via Torino / Via Cuneo",
-        "code": "21710",
-        "zoneId": "1227",
-        "lat": 45.00484085083008,
-        "lon": 7.656630039215088,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "9:21703",
-        "name": "MONCALIERI - Via giusti (via rusca)",
-        "code": "21703",
-        "zoneId": "1227",
-        "lat": 44.989810943603516,
-        "lon": 7.661829948425293,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "14:041047",
-        "name": "Nic - Via Cacciatori",
-        "code": "041047",
-        "zoneId": "1164",
-        "lat": 45.00693893432617,
-        "lon": 7.624420166015625,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "9:21702",
-        "name": "NICHELINO - Via Giusti / Edicola",
-        "code": "21702",
-        "zoneId": "1227",
-        "lat": 44.992469787597656,
-        "lon": 7.655330181121826,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:3105",
-        "name": "GALVANI",
-        "code": "3105",
-        "zoneId": "3",
-        "desc": "V.XXV APRILE DOPO V.GALVANI NICHELINO",
-        "lat": 45.00210952758789,
-        "lon": 7.6503801345825195,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:3103",
-        "name": "TOSCANINI",
-        "code": "3103",
-        "zoneId": "3",
-        "desc": "V.XXV APRILE / V. TOSCANINI NICHELINO",
-        "lat": 45.00188064575195,
-        "lon": 7.64532995223999,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "vco:16:stp:6022",
-        "name": "VIA PASTRENGO N. 29",
-        "code": "6022",
-        "lat": 45.00312042236328,
-        "lon": 7.6673197746276855
-      },
-      {
-        "gtfsId": "gtt:3112",
-        "name": "STUPINIGI",
-        "code": "3112",
-        "zoneId": "3",
-        "desc": "V.XXV APRILE DOPO V.BERRUTI NICHELINO",
-        "lat": 45.001800537109375,
-        "lon": 7.639639854431152,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:6051",
-        "name": "TETTI PIATTI N.82",
-        "code": "6051",
-        "zoneId": "3",
-        "desc": "STR. TETTI PIATTI N. 82",
-        "lat": 44.97850036621094,
-        "lon": 7.662799835205078,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:3108",
-        "name": "CAGLIARI",
-        "code": "3108",
-        "zoneId": "3",
-        "desc": "V.SUPERGA 26  NICHELINO",
-        "lat": 44.99850082397461,
-        "lon": 7.655749797821045,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:6052",
-        "name": "TETTI PIATTI N.72",
-        "code": "6052",
-        "zoneId": "3",
-        "desc": "V. TETTI PIATTI FRONTE N. 72",
-        "lat": 44.977909088134766,
-        "lon": 7.665629863739014,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:3106",
-        "name": "PACINOTTI",
-        "code": "3106",
-        "zoneId": "3",
-        "desc": "V. XXV APRILE DOPO V. TORINO NICHELINO",
-        "lat": 45.002140045166016,
-        "lon": 7.654600143432617,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:6053",
-        "name": "TETTI PIATTI N.8",
-        "code": "6053",
-        "zoneId": "3",
-        "desc": "STR. TETTI PIATTI N. 10",
-        "lat": 44.97990036010742,
-        "lon": 7.669559955596924,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:3107",
-        "name": "PALERMO",
-        "code": "3107",
-        "zoneId": "3",
-        "desc": "V.MILANO / V.PALERMO  NICHELINO",
-        "lat": 44.99851989746094,
-        "lon": 7.658919811248779,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "7:55604",
-        "name": "NICHELINO - VIA XX APRILE - CASE POPOLARI",
-        "code": "55604",
-        "lat": 45.00151062011719,
-        "lon": 7.631539821624756
-      },
-      {
-        "gtfsId": "7:02555",
-        "name": "V.XXV APRILE DOPO V.DEI MUGHETTI  NICHELINO",
-        "code": "02555",
-        "lat": 45.001800537109375,
-        "lon": 7.636899948120117
-      },
-      {
-        "gtfsId": "gtt:6050",
-        "name": "TAGLIAFERRO N.34",
-        "code": "6050",
-        "zoneId": "3",
-        "desc": "STR. TAGLIAFERRO FRONTE N. 34",
-        "lat": 44.979408264160156,
-        "lon": 7.660530090332031,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "7:00901",
-        "name": "V.TORINO / V.DEI MARTIRI    NICHELINO",
-        "code": "00901",
-        "lat": 45.00189971923828,
-        "lon": 7.655600070953369,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "7:55605",
-        "name": "NICHELINO - VIA XX APRILE - CASE POPOLARI",
-        "code": "55605",
-        "lat": 45.00157928466797,
-        "lon": 7.631539821624756
-      },
-      {
-        "gtfsId": "7:00900",
-        "name": "V.TORINO N.56  NICHELINO",
-        "code": "00900",
-        "lat": 45.00141906738281,
-        "lon": 7.65480375289917,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "vco:16:stp:141259",
-        "name": "Nichelino Via Cuneo n.12",
-        "code": "71259",
-        "lat": 45.00505828857422,
-        "lon": 7.65772008895874,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "vco:16:stp:141257",
-        "name": "Nichelino Via Cuneo n.44",
-        "code": "71257",
-        "lat": 45.004329681396484,
-        "lon": 7.661310195922852,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "vco:16:stp:141258",
-        "name": "Nichelino Via Cuneo n.11",
-        "code": "71258",
-        "lat": 45.00497817993164,
-        "lon": 7.658599853515625,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "vco:16:stp:141256",
-        "name": "Nichelino Via Cuneo n.55",
-        "code": "71256",
-        "lat": 45.004188537597656,
-        "lon": 7.6620001792907715,
-        "vehicleMode": "BUS"
-      },
-      {
-        "gtfsId": "gtt:1035",
-        "name": "PESCHIERA",
-        "code": "1035",
-        "zoneId": "3",
-        "desc": "C.ROMA N.27 MONCALIERI",
-        "lat": 45.006710052490234,
-        "lon": 7.6699299812316895,
-        "vehicleMode": "BUS"
-      }
-    ]
+[
+  {
+    "gtfsId": "gtt:3331",
+    "name": "JUGLARIS N.51",
+    "code": "3331",
+    "zoneId": "3",
+    "desc": "V. JUGLARIS N. 51 MONCALIERI",
+    "lat": 44.99140167236328,
+    "lon": 7.665259838104248,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:3332",
+    "name": "SALUZZO",
+    "code": "3332",
+    "zoneId": "3",
+    "desc": "V. S. MARIA N. 39/1 MONCALIERI",
+    "lat": 44.99182891845703,
+    "lon": 7.663869857788086,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:1036",
+    "name": "PESCHIERA",
+    "code": "1036",
+    "zoneId": "3",
+    "desc": "C.ROMA N.20 MONCALIERI",
+    "lat": 45.00706100463867,
+    "lon": 7.6697998046875,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:3213",
+    "name": "VERDI",
+    "code": "3213",
+    "zoneId": "3",
+    "desc": "V. TRENTO N.11",
+    "lat": 44.99462890625,
+    "lon": 7.643610000610352,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "7:40237",
+    "name": "NICHELINO - VIA TORINO,47-VIA XXV APRILE",
+    "code": "40237",
+    "lat": 45.00254821777344,
+    "lon": 7.655735969543457
+  },
+  {
+    "gtfsId": "gtt:1290",
+    "name": "TORRICELLI",
+    "code": "1290",
+    "zoneId": "3",
+    "desc": "V.MIRAFLORES / V.TORRICELLI  NICHELINO",
+    "lat": 45.00505828857422,
+    "lon": 7.649789810180664,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "7:03098",
+    "name": "V.XXV APRILE 47   NICHELINO",
+    "code": "03098",
+    "lat": 45.00199890136719,
+    "lon": 7.651700019836426
+  },
+  {
+    "gtfsId": "gtt:919",
+    "name": "AMENDOLA",
+    "code": "919",
+    "zoneId": "3",
+    "desc": "V.NENNI FRONTE N.9   NICHELINO",
+    "lat": 44.997718811035156,
+    "lon": 7.637229919433594,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:918",
+    "name": "LA TORRE",
+    "code": "918",
+    "zoneId": "3",
+    "desc": "V.AMENDOLA / V.PIO LA TORRE NICHELINO",
+    "lat": 44.993160247802734,
+    "lon": 7.63431978225708,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "14:002555",
+    "name": "Nichelino-V.Xxv Aprile -Scuole",
+    "code": "002555",
+    "zoneId": "1164",
+    "lat": 45.00170135498047,
+    "lon": 7.636380195617676,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:1287",
+    "name": "XXV APRILE NORD",
+    "code": "1287",
+    "zoneId": "3",
+    "desc": "V.MIRAFLORES / V.XXV APRILE  NICHELINO",
+    "lat": 45.0023193359375,
+    "lon": 7.649630069732666,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:1288",
+    "name": "XXV APRILE NORD",
+    "code": "1288",
+    "zoneId": "3",
+    "desc": "V.MIRAFLORES DOPO V.XXV APRILE  NICHELINO",
+    "lat": 45.002288818359375,
+    "lon": 7.650010108947754,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:927",
+    "name": "BUFFA",
+    "code": "927",
+    "zoneId": "3",
+    "desc": "V.TORINO / STR.BUFFA NICHELINO",
+    "lat": 44.9840087890625,
+    "lon": 7.633490085601807,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "7:01097",
+    "name": "V.XXV APRILE / V.STUPINIGI  NICHELINO",
+    "code": "01097",
+    "lat": 45.0015983581543,
+    "lon": 7.64015007019043
+  },
+  {
+    "gtfsId": "7:03112",
+    "name": "V.XXV APRILE DOPO V.BERRUTI  NICHELINO",
+    "code": "03112",
+    "lat": 45.001800537109375,
+    "lon": 7.639800071716309
+  },
+  {
+    "gtfsId": "gtt:1070",
+    "name": "CESANA",
+    "code": "1070",
+    "zoneId": "3",
+    "desc": "STR DEI CACCIATORI N.111 NICHELINO",
+    "lat": 45.00754165649414,
+    "lon": 7.622799873352051,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "7:01093",
+    "name": "V.DEBOUCHE' / V.XXV APRILE   NICHELINO",
+    "code": "01093",
+    "lat": 45.00083923339844,
+    "lon": 7.632434844970703
+  },
+  {
+    "gtfsId": "gtt:923",
+    "name": "STAZIONE NICHELINO",
+    "code": "923",
+    "zoneId": "3",
+    "desc": "V.TORINO 212 NICHELINO",
+    "lat": 44.99108123779297,
+    "lon": 7.641930103302002,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:1071",
+    "name": "POLIAMBULATORI",
+    "code": "1071",
+    "zoneId": "3",
+    "desc": "V. DEBOUCHE DOPO ROTONDA DELLE ALPI",
+    "lat": 45.00046920776367,
+    "lon": 7.632070064544678,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "14:002565",
+    "name": "Vinovo - Fr Garino",
+    "code": "002565",
+    "zoneId": "1309",
+    "lat": 44.97721862792969,
+    "lon": 7.624959945678711,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "14:002564",
+    "name": "Vinovo - Fr Garino - Pz. I Maggio",
+    "code": "002564",
+    "zoneId": "1309",
+    "lat": 44.97734069824219,
+    "lon": 7.62529993057251,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "14:055669",
+    "name": "Sangone Fs",
+    "code": "055669",
+    "zoneId": "1156",
+    "lat": 45.00297164916992,
+    "lon": 7.6666998863220215,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:926",
+    "name": "SCARRONE",
+    "code": "926",
+    "zoneId": "3",
+    "desc": "V.TORINO / V.SCARRONE NICHELINO",
+    "lat": 44.9842414855957,
+    "lon": 7.633500099182129,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:1289",
+    "name": "TORRICELLI",
+    "code": "1289",
+    "zoneId": "3",
+    "desc": "V.MIRAFLORES DOPO V.TORRICELLI  NICHELINO",
+    "lat": 45.005001068115234,
+    "lon": 7.649519920349121,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:925",
+    "name": "TORINO N.278",
+    "code": "925",
+    "zoneId": "3",
+    "desc": "V.TORINO FRONTE N.278 NICHELINO",
+    "lat": 44.9881706237793,
+    "lon": 7.6387200355529785,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:922",
+    "name": "AMENDOLA CAP",
+    "code": "922",
+    "zoneId": "5",
+    "desc": "AMENDOLA",
+    "lat": 44.995399475097656,
+    "lon": 7.635310173034668,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:921",
+    "name": "BERLINGUER",
+    "code": "921",
+    "zoneId": "3",
+    "desc": "V. NENNI DOPO V. BERLINGUER",
+    "lat": 44.99824905395508,
+    "lon": 7.634490013122559,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:924",
+    "name": "TORINO N.282",
+    "code": "924",
+    "zoneId": "3",
+    "desc": "V.TORINO N.282 NICHELINO",
+    "lat": 44.98823165893555,
+    "lon": 7.638350009918213,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:1069",
+    "name": "CESANA",
+    "code": "1069",
+    "zoneId": "3",
+    "desc": "STR.CACCIATORI FRONTE N.111 NICHELINO",
+    "lat": 45.007728576660156,
+    "lon": 7.622960090637207,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:1067",
+    "name": "PRACAVALLO",
+    "code": "1067",
+    "zoneId": "3",
+    "desc": "PRAVACALLO",
+    "lat": 45.00495910644531,
+    "lon": 7.6295599937438965,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:1068",
+    "name": "PRACAVALLO",
+    "code": "1068",
+    "zoneId": "3",
+    "desc": "PRAVACALLO",
+    "lat": 45.00453186035156,
+    "lon": 7.630050182342529,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:26585",
+    "name": "NICHELINO (P.ZZALE ALPI)",
+    "code": "26585",
+    "zoneId": "6",
+    "desc": "NICHELINO (PIAZZALE ALPI)",
+    "lat": 45.00154113769531,
+    "lon": 7.629429817199707,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "14:001116",
+    "name": "Nichelino - Stazione Fs",
+    "code": "001116",
+    "zoneId": "1164",
+    "lat": 44.991031646728516,
+    "lon": 7.64208984375,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "vco:16:stp:1116",
+    "name": "V.TORINO N.209  NICHELINO",
+    "code": "1116",
+    "lat": 44.99100112915039,
+    "lon": 7.642300128936768
+  },
+  {
+    "gtfsId": "gtt:917",
+    "name": "PASCOLO",
+    "code": "917",
+    "zoneId": "3",
+    "desc": "V. TRENTO FRONTE N.35 NICHELINO",
+    "lat": 44.99681854248047,
+    "lon": 7.64100980758667,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:916",
+    "name": "CASTELLO DI NICHELINO",
+    "code": "916",
+    "zoneId": "3",
+    "desc": "V.LE MATTEOTTI FRONTE N.38 NICHELINO",
+    "lat": 44.99169158935547,
+    "lon": 7.63923978805542,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:941",
+    "name": "SOTTI",
+    "code": "941",
+    "zoneId": "3",
+    "desc": "V.ALBA FRONTE V.SOTTI VINOVO",
+    "lat": 44.97298049926758,
+    "lon": 7.633749961853027,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "7:16589",
+    "name": "NICHELINO - MUNICIPIO",
+    "code": "16589",
+    "lat": 44.995201110839844,
+    "lon": 7.64739990234375
+  },
+  {
+    "gtfsId": "vco:16:stp:140362",
+    "name": "Nichelino Via Torino Stazione F.S.",
+    "code": "70362",
+    "lat": 44.9910888671875,
+    "lon": 7.642029762268066
+  },
+  {
+    "gtfsId": "gtt:915",
+    "name": "TORINO - STAZIONE",
+    "code": "915",
+    "zoneId": "3",
+    "desc": "V.TRENTO FRONTE N.7  NICHELINO",
+    "lat": 44.9935302734375,
+    "lon": 7.643889904022217,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:1064",
+    "name": "XXV APRILE",
+    "code": "1064",
+    "zoneId": "3",
+    "desc": "V.STUPINIGI FRONTE V.I.MAGGIO NICHELINO",
+    "lat": 45.00114822387695,
+    "lon": 7.640160083770752,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:940",
+    "name": "TEANO",
+    "code": "940",
+    "zoneId": "3",
+    "desc": "V.CALATAFIMI / V.TEANO  NICHELINO",
+    "lat": 44.97488021850586,
+    "lon": 7.6356000900268555,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "7:16586",
+    "name": "NICHELINO - F.S.",
+    "code": "16586",
+    "lat": 44.99169921875,
+    "lon": 7.642499923706055
+  },
+  {
+    "gtfsId": "gtt:942",
+    "name": "SOTTI",
+    "code": "942",
+    "zoneId": "3",
+    "desc": "V.ALBA / V.SOTTI VINOVO",
+    "lat": 44.97303009033203,
+    "lon": 7.633590221405029,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:3551",
+    "name": "SAN MATTEO",
+    "code": "3551",
+    "zoneId": "3",
+    "desc": "VIA STUPINIGI N.29",
+    "lat": 44.996681213378906,
+    "lon": 7.644989967346191,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "vco:16:stp:140364",
+    "name": "Sangone St Stupinigi Stazione F.S.",
+    "code": "70364",
+    "lat": 45.00297927856445,
+    "lon": 7.666749954223633
+  },
+  {
+    "gtfsId": "10:21237",
+    "name": "MONCALIERI - Via peschiera(angc.roma)",
+    "code": "21237",
+    "zoneId": "1227",
+    "lat": 45.00688934326172,
+    "lon": 7.669079780578613,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:1066",
+    "name": "ISTITUTO MAXWELL",
+    "code": "1066",
+    "zoneId": "3",
+    "desc": "V.XXV APRILE FRONTE N.158  NICHELINO",
+    "lat": 45.00149917602539,
+    "lon": 7.635859966278076,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:947",
+    "name": "SESTRIERE",
+    "code": "947",
+    "zoneId": "3",
+    "desc": "STR DEL SESTRIERE FRONTE N.49 VINOVO",
+    "lat": 44.975059509277344,
+    "lon": 7.622119903564453,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:3552",
+    "name": "TRENTO CAP",
+    "code": "3552",
+    "zoneId": "5",
+    "desc": "TRENTO",
+    "lat": 44.99428939819336,
+    "lon": 7.643539905548096,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:1063",
+    "name": "XXV APRILE",
+    "code": "1063",
+    "zoneId": "3",
+    "desc": "V.STUPINIGI DOPO V.I.MAGGIO NICHELINO",
+    "lat": 45.00123977661133,
+    "lon": 7.640900135040283,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:949",
+    "name": "STUPINIGI",
+    "code": "949",
+    "zoneId": "3",
+    "desc": "STR DEL SESTRIERE/STR.PR.STUPINIGI-VINOVO VINOVO",
+    "lat": 44.97235107421875,
+    "lon": 7.6194000244140625,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "vco:16:stp:140365",
+    "name": "Sangone St Stupinigi Stazione F.S.",
+    "code": "70365",
+    "lat": 45.00299835205078,
+    "lon": 7.666910171508789
+  },
+  {
+    "gtfsId": "gtt:944",
+    "name": "ORBASSANO",
+    "code": "944",
+    "zoneId": "3",
+    "desc": "V.SOTTI / V.ORBASSANO  VINOVO",
+    "lat": 44.974300384521484,
+    "lon": 7.631040096282959,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:943",
+    "name": "ORBASSANO",
+    "code": "943",
+    "zoneId": "3",
+    "desc": "V.SOTTI / V.ORBASSANO VINOVO",
+    "lat": 44.97431945800781,
+    "lon": 7.631309986114502,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:946",
+    "name": "AIRASCA",
+    "code": "946",
+    "zoneId": "3",
+    "desc": "V.SOTTI N.20 VINOVO",
+    "lat": 44.975868225097656,
+    "lon": 7.628290176391602,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "vco:16:stp:140363",
+    "name": "Nichelino Via Torino Stazione F.S.",
+    "code": "70363",
+    "lat": 44.990909576416016,
+    "lon": 7.6419501304626465
+  },
+  {
+    "gtfsId": "gtt:1057",
+    "name": "TORINO",
+    "code": "1057",
+    "zoneId": "3",
+    "desc": "VIA GIUSTI N.6 NICHELINO",
+    "lat": 44.995201110839844,
+    "lon": 7.647649765014648,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:945",
+    "name": "AIRASCA",
+    "code": "945",
+    "zoneId": "3",
+    "desc": "V.SOTTI N.17 VINOVO",
+    "lat": 44.976318359375,
+    "lon": 7.628049850463867,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:1065",
+    "name": "PALLAVICINO",
+    "code": "1065",
+    "zoneId": "3",
+    "desc": "V.XXV APRILE / STR DEI CACCIATORI NICHELINO",
+    "lat": 45.00175857543945,
+    "lon": 7.633930206298828,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:948",
+    "name": "BARDONECCHIA",
+    "code": "948",
+    "zoneId": "3",
+    "desc": "STR DEL SESTRIERE / V.BARDONECCHIA VINOVO",
+    "lat": 44.9744987487793,
+    "lon": 7.621719837188721,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:931",
+    "name": "CALATAFIMI",
+    "code": "931",
+    "zoneId": "3",
+    "desc": "V. TORINODOPO V. CALATAFIMI NICHELINO",
+    "lat": 44.980098724365234,
+    "lon": 7.628689765930176,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "14:000923",
+    "name": "Nichelino - Stazione Fs",
+    "code": "000923",
+    "zoneId": "1164",
+    "lat": 44.991058349609375,
+    "lon": 7.642039775848389,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:930",
+    "name": "CONSOLATA",
+    "code": "930",
+    "zoneId": "3",
+    "desc": "V. TORINO DOPO V. CONSOLATA  NICHELINO",
+    "lat": 44.980018615722656,
+    "lon": 7.628339767456055,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:5101",
+    "name": "AMENDOLA CAP",
+    "code": "5101",
+    "zoneId": "3",
+    "desc": "AMENDOLA",
+    "lat": 44.99605178833008,
+    "lon": 7.6356000900268555,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:26562",
+    "name": "MONCALIERI (V. MARTIRI/V. ROMA)",
+    "code": "26562",
+    "zoneId": "6",
+    "desc": "MONCALIERI (VIA MARTIRI/VIA ROMA)",
+    "lat": 45.00223922729492,
+    "lon": 7.658420085906982,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:2607",
+    "name": "STUPINIGI",
+    "code": "2607",
+    "zoneId": "3",
+    "desc": "STR DEL SESTRIERE/STR.PROV.STUPINIGI-VINOVO VINOV",
+    "lat": 44.97211837768555,
+    "lon": 7.618500232696533,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:1091",
+    "name": "VESPUCCI",
+    "code": "1091",
+    "zoneId": "3",
+    "desc": "V.S.MATTEO DOPO V.VESPUCCI NICHELINO",
+    "lat": 45.000640869140625,
+    "lon": 7.649199962615967,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:1097",
+    "name": "STUPINIGI",
+    "code": "1097",
+    "zoneId": "3",
+    "desc": "V.XXV APRILE / V.STUPINIGI NICHELINO",
+    "lat": 45.001651763916016,
+    "lon": 7.640160083770752,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:936",
+    "name": "VOLTURNO",
+    "code": "936",
+    "zoneId": "3",
+    "desc": "V. VERNEA N.12 NICHELINO",
+    "lat": 44.98065185546875,
+    "lon": 7.634809970855713,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:939",
+    "name": "TEANO",
+    "code": "939",
+    "zoneId": "3",
+    "desc": "V.TEANO / V.CALATAFIMI NICHELINO",
+    "lat": 44.97465133666992,
+    "lon": 7.635799884796143,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:1093",
+    "name": "LARGO DELLE ALPI",
+    "code": "1093",
+    "zoneId": "3",
+    "desc": "V DEBOUCHE' / V.XXV APRILE  NICHELINO",
+    "lat": 45.00093078613281,
+    "lon": 7.6323699951171875,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:938",
+    "name": "PISACANE",
+    "code": "938",
+    "zoneId": "3",
+    "desc": "V.CALATAFIMI / V.PISACANE NICHELINO",
+    "lat": 44.97600173950195,
+    "lon": 7.6336798667907715,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:933",
+    "name": "TORINO",
+    "code": "933",
+    "zoneId": "3",
+    "desc": "V. VERNEA N.7  NICHELINO",
+    "lat": 44.98207092285156,
+    "lon": 7.6319499015808105,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:935",
+    "name": "VOLTURNO",
+    "code": "935",
+    "zoneId": "3",
+    "desc": "V. VERNEA FR. N.12 NICHELINO",
+    "lat": 44.98072814941406,
+    "lon": 7.63523006439209,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:934",
+    "name": "MILAZZO",
+    "code": "934",
+    "zoneId": "3",
+    "desc": "V. VERNEA/ V.MILAZZO  NICHELINO",
+    "lat": 44.98160171508789,
+    "lon": 7.632589817047119,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "14:000926",
+    "name": "Nic - Via Torino-Via Scarrone",
+    "code": "000926",
+    "zoneId": "1164",
+    "lat": 44.98426818847656,
+    "lon": 7.633639812469482,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:937",
+    "name": "PISACANE",
+    "code": "937",
+    "zoneId": "3",
+    "desc": "V.CALATAFIMI / V.PISACANE NICHELINO",
+    "lat": 44.97623825073242,
+    "lon": 7.633780002593994,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "14:000927",
+    "name": "Nic - Via Torino-Via Scarrone",
+    "code": "000927",
+    "zoneId": "1164",
+    "lat": 44.983951568603516,
+    "lon": 7.633339881896973,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "7:16568",
+    "name": "NICHELINO - VIA XXV APRILE - VIA FERRARIS",
+    "code": "16568",
+    "lat": 45.00199890136719,
+    "lon": 7.652500152587891
+  },
+  {
+    "gtfsId": "gtt:16585",
+    "name": "NICHELINO (P.ZZALE ALPI)",
+    "code": "16585",
+    "zoneId": "6",
+    "desc": "NICHELINO (PIAZZALE ALPI)",
+    "lat": 45.001461029052734,
+    "lon": 7.629570007324219,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:1086",
+    "name": "SAN MATTEO",
+    "code": "1086",
+    "zoneId": "3",
+    "desc": "V.S.MATTEO / V.STUPINIGI NICHELINO",
+    "lat": 44.99681091308594,
+    "lon": 7.64516019821167,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "7:16565",
+    "name": "NICHELINO - VIA TORINO - VIA PUCCINI",
+    "code": "16565",
+    "lat": 44.9994010925293,
+    "lon": 7.652500152587891
+  },
+  {
+    "gtfsId": "7:16562",
+    "name": "Moncalieri (v. Martiri/v. Roma)",
+    "code": "16562",
+    "lat": 45.00199890136719,
+    "lon": 7.658400058746338
+  },
+  {
+    "gtfsId": "gtt:1087",
+    "name": "SAN MATTEO",
+    "code": "1087",
+    "zoneId": "3",
+    "desc": "V.S.MATTEO FRONTE V.S.GIUSEPPE NICHELINO",
+    "lat": 44.99884033203125,
+    "lon": 7.647610187530518,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:3465",
+    "name": "MILANO N.5",
+    "code": "3465",
+    "zoneId": "3",
+    "desc": "V. MILANO N. 5 NICHELINO",
+    "lat": 45.001991271972656,
+    "lon": 7.658850193023682,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:3466",
+    "name": "GOITO",
+    "code": "3466",
+    "zoneId": "3",
+    "desc": "V. PISACANE / V. GOITO NICHELINO",
+    "lat": 44.978309631347656,
+    "lon": 7.635499954223633,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "7:05096",
+    "name": "V. XXV APRILE / V. PITAGORA",
+    "code": "05096",
+    "lat": 45.00175094604492,
+    "lon": 7.6466498374938965
+  },
+  {
+    "gtfsId": "10:1702",
+    "name": "NICHELINO - Via Giusti / Edicola",
+    "code": "1702",
+    "zoneId": "1227",
+    "lat": 44.99253845214844,
+    "lon": 7.655409812927246,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:3467",
+    "name": "GOITO",
+    "code": "3467",
+    "zoneId": "3",
+    "desc": "V. PISACANE / V. GOITO NICHELINO",
+    "lat": 44.97785949707031,
+    "lon": 7.635550022125244,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:3098",
+    "name": "GALVANI",
+    "code": "3098",
+    "zoneId": "3",
+    "desc": "V.XXV APRILE 47  NICHELINO",
+    "lat": 45.00196838378906,
+    "lon": 7.651710033416748
+  },
+  {
+    "gtfsId": "7:01065",
+    "name": "V.XXV APRILE / STR.DEI CACCIATORI  NICHELINO",
+    "code": "01065",
+    "lat": 45.00175094604492,
+    "lon": 7.633500099182129
+  },
+  {
+    "gtfsId": "10:1709",
+    "name": "NICHELINO - Via torino n° civ.8",
+    "code": "1709",
+    "zoneId": "1227",
+    "lat": 45.00130081176758,
+    "lon": 7.654759883880615,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:2681",
+    "name": "PARINI",
+    "code": "2681",
+    "zoneId": "3",
+    "desc": "V. GIUSTI / V. PARINI NICHELINO",
+    "lat": 44.99380874633789,
+    "lon": 7.652070045471191,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:3464",
+    "name": "ROMA",
+    "code": "3464",
+    "zoneId": "3",
+    "desc": "VIA PESCHIERA N.24",
+    "lat": 45.00648880004883,
+    "lon": 7.669449806213379,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "7:05093",
+    "name": "V. XXV APRILE DOPO V. BUONARROTI",
+    "code": "05093",
+    "lat": 45.00199890136719,
+    "lon": 7.647200107574463
+  },
+  {
+    "gtfsId": "trepie:ITRP-ST0011569002",
+    "name": "Stazione MONCALIERI SANGONE",
+    "lat": 45.00041961669922,
+    "lon": 7.667909145355225,
+    "vehicleMode": "RAIL"
+  },
+  {
+    "gtfsId": "gtt:6021",
+    "name": "CUNEO N.12",
+    "code": "6021",
+    "zoneId": "3",
+    "desc": "VIA CUNEO N. 12",
+    "lat": 45.00497817993164,
+    "lon": 7.65792989730835,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:6022",
+    "name": "PASTRENGO N.29",
+    "code": "6022",
+    "zoneId": "3",
+    "desc": "VIA PASTRENGO FRONTE N. 54",
+    "lat": 45.00307846069336,
+    "lon": 7.667250156402588,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "10:1701",
+    "name": "MONCALIERI - Borgo s.maria (tabaccaio)",
+    "code": "1701",
+    "zoneId": "1227",
+    "lat": 44.98918914794922,
+    "lon": 7.66195011138916,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "7:01066",
+    "name": "V.XXV APRILE FRONTE N.158    NICHELINO",
+    "code": "01066",
+    "lat": 45.00149917602539,
+    "lon": 7.635900020599365
+  },
+  {
+    "gtfsId": "9:21237",
+    "name": "MONCALIERI - Via peschiera(angc.roma)",
+    "code": "21237",
+    "zoneId": "1227",
+    "lat": 45.00688934326172,
+    "lon": 7.669079780578613,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:2682",
+    "name": "PETRARCA",
+    "code": "2682",
+    "zoneId": "3",
+    "desc": "V.GIUSTI FRONTE V.PASCOLI NICHELINO",
+    "lat": 44.99394989013672,
+    "lon": 7.652120113372803,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:16562",
+    "name": "MONCALIERI (V. MARTIRI/V. ROMA)",
+    "code": "16562",
+    "zoneId": "6",
+    "desc": "MONCALIERI (VIA MARTIRI/VIA ROMA)",
+    "lat": 45.00202178955078,
+    "lon": 7.65841007232666,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:3455",
+    "name": "ROMA",
+    "code": "3455",
+    "zoneId": "3",
+    "desc": "VIA PESCHIERA DOPO CORSO ROMA",
+    "lat": 45.006839752197266,
+    "lon": 7.6690897941589355,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "10:1710",
+    "name": "NICHELINO - Via Torino / Via Cuneo",
+    "code": "1710",
+    "zoneId": "1227",
+    "lat": 45.00468063354492,
+    "lon": 7.656630039215088,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "7:00889",
+    "name": "V.LE MATTEOTTI / V.LE SEGRE",
+    "code": "00889",
+    "lat": 44.9921989440918,
+    "lon": 7.641600131988525
+  },
+  {
+    "gtfsId": "gtt:2673",
+    "name": "COLOMBETTO",
+    "code": "2673",
+    "zoneId": "3",
+    "desc": "V.GIUSTI / V.COLOMBETTO NICHELINO",
+    "lat": 44.99279022216797,
+    "lon": 7.654990196228027,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:2674",
+    "name": "MAMELI",
+    "code": "2674",
+    "zoneId": "3",
+    "desc": "V.GIUSTI FRONTE V.L.ARIOSTO NICHELINO",
+    "lat": 44.99095916748047,
+    "lon": 7.658380031585693,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:3454",
+    "name": "ROMA N.8",
+    "code": "3454",
+    "zoneId": "3",
+    "desc": "VIA ROMA FRONTE N.C. 8",
+    "lat": 45.00421905517578,
+    "lon": 7.6598100662231445,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:2677",
+    "name": "SANTA MARIA SUD",
+    "code": "2677",
+    "zoneId": "3",
+    "desc": "BRETELLA COLLEGAMENTO A V.GIUSTI MONCALIERI",
+    "lat": 44.989341735839844,
+    "lon": 7.661809921264648,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "7:01071",
+    "name": "V. DEBOUCHE DOPO ROTONDA DELLE ALPI",
+    "code": "01071",
+    "lat": 45.000999450683594,
+    "lon": 7.632050514221191
+  },
+  {
+    "gtfsId": "gtt:2678",
+    "name": "SANTA MARIA",
+    "code": "2678",
+    "zoneId": "3",
+    "desc": "V. S. MARIA N. 29 MONCALIERI",
+    "lat": 44.99388885498047,
+    "lon": 7.665430068969727,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:2675",
+    "name": "MAMELI",
+    "code": "2675",
+    "zoneId": "3",
+    "desc": "V.GIUSTI FRONTE V.MAMELI NICHELINO",
+    "lat": 44.99073028564453,
+    "lon": 7.6592302322387695,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:2676",
+    "name": "SANTA MARIA SUD",
+    "code": "2676",
+    "zoneId": "3",
+    "desc": "V. S. MARIA DOPO V. GIUSTI",
+    "lat": 44.99020004272461,
+    "lon": 7.6621599197387695,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:2679",
+    "name": "SANTA MARIA",
+    "code": "2679",
+    "zoneId": "3",
+    "desc": "V.JUGLARIS / BRETELLA A V.S.MARIA MONCALIERI",
+    "lat": 44.99399185180664,
+    "lon": 7.666110038757324,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:2671",
+    "name": "TORINO",
+    "code": "2671",
+    "zoneId": "3",
+    "desc": "V.GIUSTI N.1 NICHELINO",
+    "lat": 44.99541091918945,
+    "lon": 7.647459983825684,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:2672",
+    "name": "COLOMBETTO",
+    "code": "2672",
+    "zoneId": "3",
+    "desc": "V.GIUSTI / L.GO GIUSTI NICHELINO",
+    "lat": 44.992488861083984,
+    "lon": 7.655139923095703,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "7:00899",
+    "name": "V.TORINO / V.SUPERGA",
+    "code": "00899",
+    "lat": 44.99879837036133,
+    "lon": 7.651599884033203
+  },
+  {
+    "gtfsId": "10:200333",
+    "name": "NICHELINO - Comune",
+    "code": "200333",
+    "zoneId": "1227",
+    "lat": 44.99509811401367,
+    "lon": 7.648220062255859,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "10:200332",
+    "name": "NICHELINO - Comune",
+    "code": "200332",
+    "zoneId": "1227",
+    "lat": 44.99501037597656,
+    "lon": 7.648250102996826,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "9:1709",
+    "name": "NICHELINO - Via torino n° civ.8",
+    "code": "1709",
+    "zoneId": "1227",
+    "lat": 45.00130081176758,
+    "lon": 7.654759883880615,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "7:00898",
+    "name": "V.TORINO DOPO  V.I?? MAGGIO  NICHELINO",
+    "code": "00898",
+    "lat": 44.99909973144531,
+    "lon": 7.651700019836426
+  },
+  {
+    "gtfsId": "7:54363",
+    "name": "NICHELINO - COMUNE - RITORNO",
+    "code": "54363",
+    "lat": 44.99501037597656,
+    "lon": 7.648250102996826
+  },
+  {
+    "gtfsId": "14:000902",
+    "name": "Bivio Moncalieri",
+    "code": "000902",
+    "zoneId": "1164",
+    "lat": 45.00471115112305,
+    "lon": 7.656489849090576,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "14:000903",
+    "name": "Bivio Moncalieri",
+    "code": "000903",
+    "zoneId": "1164",
+    "lat": 45.00490188598633,
+    "lon": 7.6567301750183105,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:3250",
+    "name": "CIMITERO NICHELINO CAP",
+    "code": "3250",
+    "zoneId": "5",
+    "desc": "CIMITERO",
+    "lat": 44.99034118652344,
+    "lon": 7.649059772491455,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:901",
+    "name": "CROCIERA (PROVVISORIA)",
+    "code": "901",
+    "zoneId": "3",
+    "desc": "CROCIERA - ANAGRAFE (P. CAMANDONA)",
+    "lat": 45.00101089477539,
+    "lon": 7.65438985824585,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "7:00893",
+    "name": "V.TORINO / V.VITTORIO VENETO   NICHELINO",
+    "code": "00893",
+    "lat": 44.995201110839844,
+    "lon": 7.647299766540527,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "9:1701",
+    "name": "MONCALIERI - Borgo s.maria (tabaccaio)",
+    "code": "1701",
+    "zoneId": "1227",
+    "lat": 44.98918914794922,
+    "lon": 7.66195011138916,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:3251",
+    "name": "PATERI N.17",
+    "code": "3251",
+    "zoneId": "3",
+    "desc": "STRADA PATERI PRIMA DEL N.17",
+    "lat": 44.99021911621094,
+    "lon": 7.644529819488525,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:903",
+    "name": "CUNEO",
+    "code": "903",
+    "zoneId": "3",
+    "desc": "V.TORINO/V. CUNEO NICHELINO",
+    "lat": 45.00502014160156,
+    "lon": 7.656750202178955,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "14:000948",
+    "name": "Vinovo - Loc. I Lauri. Via Sestriere. 49",
+    "code": "000948",
+    "zoneId": "1309",
+    "lat": 44.974998474121094,
+    "lon": 7.622179985046387,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "7:54364",
+    "name": "NICHELINO - COMUNE",
+    "code": "54364",
+    "lat": 44.99510192871094,
+    "lon": 7.648220062255859
+  },
+  {
+    "gtfsId": "9:1702",
+    "name": "NICHELINO - Via Giusti / Edicola",
+    "code": "1702",
+    "zoneId": "1227",
+    "lat": 44.99253845214844,
+    "lon": 7.655409812927246,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "7:00892",
+    "name": "V.TORINO DOPO  V.DE GASPERI  NICHELINO",
+    "code": "00892",
+    "lat": 44.99489974975586,
+    "lon": 7.646599769592285
+  },
+  {
+    "gtfsId": "gtt:3586",
+    "name": "CENTRO COMMERCIALE",
+    "code": "3586",
+    "zoneId": "3",
+    "desc": "CENTRO COMMERCIALE (MONDO JUVE)",
+    "lat": 44.98503875732422,
+    "lon": 7.6219401359558105,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:2666",
+    "name": "ROMITA",
+    "code": "2666",
+    "zoneId": "3",
+    "desc": "V.JUGLARIS FRONTE V.ROMITA   MONCALIERI",
+    "lat": 44.99599075317383,
+    "lon": 7.666319847106934,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:900",
+    "name": "CROCIERA",
+    "code": "900",
+    "zoneId": "3",
+    "desc": "CROCIERA - ANAGRAFE (P. CAMANDONA)",
+    "lat": 45.00143814086914,
+    "lon": 7.654809951782227,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "14:000947",
+    "name": "Vinovo - Loc. I Lauri. Via Sestriere. 49",
+    "code": "000947",
+    "zoneId": "1309",
+    "lat": 44.97513961791992,
+    "lon": 7.622459888458252,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:902",
+    "name": "CUNEO",
+    "code": "902",
+    "zoneId": "3",
+    "desc": "V. TORINO DOPO V. POLVERIERA NICHELINO",
+    "lat": 45.004638671875,
+    "lon": 7.656489849090576,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:1116",
+    "name": "STAZIONE NICHELINO",
+    "code": "1116",
+    "zoneId": "3",
+    "desc": "V.TORINO N.209 NICHELINO",
+    "lat": 44.99100112915039,
+    "lon": 7.642270088195801,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:3249",
+    "name": "KENNEDY",
+    "code": "3249",
+    "zoneId": "3",
+    "desc": "VIA PARINI FRONTE N.29",
+    "lat": 44.99089050292969,
+    "lon": 7.650619983673096,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "9:1710",
+    "name": "NICHELINO - Via Torino / Via Cuneo",
+    "code": "1710",
+    "zoneId": "1227",
+    "lat": 45.00468063354492,
+    "lon": 7.656630039215088,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:1117",
+    "name": "LAGRANGE",
+    "code": "1117",
+    "zoneId": "3",
+    "desc": "V.XXV APRILE DOPO V.PONCHIELLI  NICHELINO",
+    "lat": 45.00177001953125,
+    "lon": 7.64532995223999,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:889",
+    "name": "SEGRE - STAZIONE",
+    "code": "889",
+    "zoneId": "3",
+    "desc": "V.LE MATTEOTTI / V.LE SEGRE",
+    "lat": 44.99229049682617,
+    "lon": 7.641610145568848,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "10:1230",
+    "name": "MONCALIERI - Via Peschiera / Corso Roma",
+    "code": "1230",
+    "zoneId": "1227",
+    "lat": 45.0065803527832,
+    "lon": 7.669340133666992,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:2556",
+    "name": "DEL PASCOLO",
+    "code": "2556",
+    "zoneId": "3",
+    "desc": "V.STUPINIGI / V.LEONCAVALLO",
+    "lat": 44.997718811035156,
+    "lon": 7.643489837646484,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:2557",
+    "name": "SAN MATTEO",
+    "code": "2557",
+    "zoneId": "3",
+    "desc": "V.JUVARRA N.18 NICHELINO",
+    "lat": 44.997589111328125,
+    "lon": 7.646719932556152,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:6048",
+    "name": "RUSCA N.50",
+    "code": "6048",
+    "zoneId": "3",
+    "desc": "STR. RUSCA FRONTE N. 50",
+    "lat": 44.98577880859375,
+    "lon": 7.6595001220703125,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "14:001066",
+    "name": "Nichelino-V.Xxv Aprile -Scuole",
+    "code": "001066",
+    "zoneId": "1164",
+    "lat": 45.00157165527344,
+    "lon": 7.635580062866211,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:6049",
+    "name": "TAGLIAFERRO N.88",
+    "code": "6049",
+    "zoneId": "3",
+    "desc": "STR. TAGLIAFERRO N. 88",
+    "lat": 44.98173904418945,
+    "lon": 7.65654993057251,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:2555",
+    "name": "PRUNOTTO",
+    "code": "2555",
+    "zoneId": "3",
+    "desc": "V.XXV APRILE DOPO V DEI MUGHETTI NICHELINO",
+    "lat": 45.001800537109375,
+    "lon": 7.636929988861084,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "1:12167",
+    "name": "MONCALIERI - VIA PASTRENGO, 94",
+    "code": "0011560120",
+    "lat": 45.00315856933594,
+    "lon": 7.667330265045166,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:6046",
+    "name": "CARPICE N.17",
+    "code": "6046",
+    "zoneId": "3",
+    "desc": "V. CARPICE N. 17",
+    "lat": 44.98685073852539,
+    "lon": 7.665319919586182,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:6047",
+    "name": "RUSCA",
+    "code": "6047",
+    "zoneId": "3",
+    "desc": "STR. CARPICE N. 39  MONCALIERI",
+    "lat": 44.98765182495117,
+    "lon": 7.661459922790527,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "7:26562",
+    "name": "Moncalieri (v. Martiri/v. Roma)",
+    "code": "26562",
+    "lat": 45.002201080322266,
+    "lon": 7.658400058746338
+  },
+  {
+    "gtfsId": "gtt:6040",
+    "name": "PASTRENGO N.94",
+    "code": "6040",
+    "zoneId": "3",
+    "desc": "VIA PASTRENGO N. 94",
+    "lat": 45.00320053100586,
+    "lon": 7.667300224304199,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:6041",
+    "name": "CUNEO N.9",
+    "code": "6041",
+    "zoneId": "3",
+    "desc": "VIA CUNEO N. 9",
+    "lat": 45.005008697509766,
+    "lon": 7.65871000289917,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:2558",
+    "name": "PONCHIELLI",
+    "code": "2558",
+    "zoneId": "3",
+    "desc": "V.JUVARRA / V.PONCHIELLI NICHELINO",
+    "lat": 44.99959182739258,
+    "lon": 7.643610000610352,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:2541",
+    "name": "ROMITA",
+    "code": "2541",
+    "zoneId": "3",
+    "desc": "V.JUGLARIS / V.ROMITA   MONCALIERI",
+    "lat": 44.99607849121094,
+    "lon": 7.666590213775635,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "14:001071",
+    "name": "Nichelino- Strada Debouchã¨ 1-5",
+    "code": "001071",
+    "zoneId": "1164",
+    "lat": 45.00048065185547,
+    "lon": 7.632030010223389,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "14:001067",
+    "name": "Nic - Via Cacciatori Fr 73",
+    "code": "001067",
+    "zoneId": "1164",
+    "lat": 45.004940032958984,
+    "lon": 7.6296000480651855,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "7:26568",
+    "name": "NICHELINO - VIA XXV APRILE - VIA FERRARIS",
+    "code": "26568",
+    "lat": 45.00210189819336,
+    "lon": 7.652500152587891
+  },
+  {
+    "gtfsId": "gtt:3606",
+    "name": "GIUSTI",
+    "code": "3606",
+    "zoneId": "3",
+    "desc": "VIA PARINI / VIA GIUSTI",
+    "lat": 44.99380874633789,
+    "lon": 7.651919841766357,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:890",
+    "name": "BERLINGUER",
+    "code": "890",
+    "zoneId": "3",
+    "desc": "V. NENNI FRONTE N. 33",
+    "lat": 44.99848937988281,
+    "lon": 7.633649826049805,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:894",
+    "name": "TOTI",
+    "code": "894",
+    "zoneId": "3",
+    "desc": "V.TORINO / V.MONCENISIO NICHELINO",
+    "lat": 44.99673080444336,
+    "lon": 7.649010181427002,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:893",
+    "name": "VITTORIO VENETO",
+    "code": "893",
+    "zoneId": "3",
+    "desc": "VITTORIO VENETO - MUNICIPIO",
+    "lat": 44.994911193847656,
+    "lon": 7.646910190582275,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "14:006022",
+    "name": "Sangone Fs",
+    "code": "006022",
+    "zoneId": "1156",
+    "lat": 45.0029182434082,
+    "lon": 7.666800022125244,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:895",
+    "name": "DIAZ",
+    "code": "895",
+    "zoneId": "3",
+    "desc": "V.TORINO / V.DIAZ NICHELINO",
+    "lat": 44.9976692199707,
+    "lon": 7.650279998779297,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:898",
+    "name": "I MAGGIO",
+    "code": "898",
+    "zoneId": "3",
+    "desc": "V.TORINO DOPO V.I. MAGGIO NICHELINO",
+    "lat": 44.999019622802734,
+    "lon": 7.651810169219971,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:6153",
+    "name": "CUNEO N.51",
+    "code": "6153",
+    "zoneId": "3",
+    "desc": "VIA CUNEO N.51",
+    "lat": 45.00429916381836,
+    "lon": 7.662139892578125,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:899",
+    "name": "I MAGGIO",
+    "code": "899",
+    "zoneId": "3",
+    "desc": "V.TORINO / V.SUPERGA",
+    "lat": 44.99882125854492,
+    "lon": 7.65172004699707,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:6154",
+    "name": "CUNEO N.44",
+    "code": "6154",
+    "zoneId": "3",
+    "desc": "VIA CUNEO N.44",
+    "lat": 45.0042610168457,
+    "lon": 7.661439895629883,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:892",
+    "name": "VITTORIO VENETO",
+    "code": "892",
+    "zoneId": "3",
+    "desc": "VITTORIO VENETO - MUNICIPIO",
+    "lat": 44.994869232177734,
+    "lon": 7.646679878234863,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:891",
+    "name": "IV NOVEMBRE - STAZIONE",
+    "code": "891",
+    "zoneId": "3",
+    "desc": "V.TORINO DOPO V.IV NOVEMBRE NICHELINO",
+    "lat": 44.993309020996094,
+    "lon": 7.64484977722168,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "10:21702",
+    "name": "NICHELINO - Via Giusti / Edicola",
+    "code": "21702",
+    "zoneId": "1227",
+    "lat": 44.992469787597656,
+    "lon": 7.655330181121826,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "14:000898",
+    "name": "NIC - Via Torino 106",
+    "code": "000898",
+    "zoneId": "1164",
+    "lat": 44.99913024902344,
+    "lon": 7.65192985534668,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "14:000892",
+    "name": "Nic - Via Torino 190",
+    "code": "000892",
+    "zoneId": "1164",
+    "lat": 44.994850158691406,
+    "lon": 7.646639823913574,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "14:000893",
+    "name": "Nic - Via Torino 149",
+    "code": "000893",
+    "zoneId": "1164",
+    "lat": 44.99488067626953,
+    "lon": 7.646870136260986,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "10:21703",
+    "name": "MONCALIERI - Via giusti (via rusca)",
+    "code": "21703",
+    "zoneId": "1227",
+    "lat": 44.989810943603516,
+    "lon": 7.661829948425293,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "14:000899",
+    "name": "NIC - Via Torino 97",
+    "code": "000899",
+    "zoneId": "1164",
+    "lat": 44.99885177612305,
+    "lon": 7.651700019836426,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "10:21709",
+    "name": "NICHELINO - Via torino n° civ.8",
+    "code": "21709",
+    "zoneId": "1227",
+    "lat": 45.001548767089844,
+    "lon": 7.6550397872924805,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "9:1230",
+    "name": "MONCALIERI - Via Peschiera / Corso Roma",
+    "code": "1230",
+    "zoneId": "1227",
+    "lat": 45.0065803527832,
+    "lon": 7.669340133666992,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:2564",
+    "name": "SESTRIERE",
+    "code": "2564",
+    "zoneId": "3",
+    "desc": "V.SESTRIERE FRONTE V.S.ANNA VINOVO",
+    "lat": 44.977500915527344,
+    "lon": 7.625400066375732,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:2565",
+    "name": "SANT'ANNA",
+    "code": "2565",
+    "zoneId": "3",
+    "desc": "V.SESTRIERE / V.S.ANNA VINOVO",
+    "lat": 44.97713088989258,
+    "lon": 7.624750137329102,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "10:21710",
+    "name": "NICHELINO - Via Torino / Via Cuneo",
+    "code": "21710",
+    "zoneId": "1227",
+    "lat": 45.00484085083008,
+    "lon": 7.656630039215088,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "vco:16:stp:6040",
+    "name": "VIA PASTRENGO N. 94",
+    "code": "6040",
+    "lat": 45.00320053100586,
+    "lon": 7.667300224304199,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "14:001093",
+    "name": "Nichelino- Strada Debouchã¨ 1-5",
+    "code": "001093",
+    "zoneId": "1164",
+    "lat": 45.00094985961914,
+    "lon": 7.63238000869751,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:5096",
+    "name": "PITAGORA",
+    "code": "5096",
+    "zoneId": "3",
+    "desc": "V. XXV APRILE / V. PITAGORA",
+    "lat": 45.001800537109375,
+    "lon": 7.6466898918151855,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "vco:16:stp:923",
+    "name": "V.TORINO 212  NICHELINO",
+    "code": "923",
+    "lat": 44.9911003112793,
+    "lon": 7.641900062561035
+  },
+  {
+    "gtfsId": "gtt:5093",
+    "name": "BUONARROTI",
+    "code": "5093",
+    "zoneId": "3",
+    "desc": "V. XXV APRILE DOPO V. BUONARROTI",
+    "lat": 45.00196075439453,
+    "lon": 7.647170066833496,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "9:21709",
+    "name": "NICHELINO - Via torino n° civ.8",
+    "code": "21709",
+    "zoneId": "1227",
+    "lat": 45.001548767089844,
+    "lon": 7.6550397872924805,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "14:031047",
+    "name": "Nic - Via Cacciatori",
+    "code": "031047",
+    "zoneId": "1164",
+    "lat": 45.006900787353516,
+    "lon": 7.624390125274658,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "trepie:ITRP-ST0011649001",
+    "name": "Stazione NICHELINO",
+    "lat": 44.99134063720703,
+    "lon": 7.64208984375,
+    "vehicleMode": "RAIL"
+  },
+  {
+    "gtfsId": "9:200333",
+    "name": "NICHELINO - Comune",
+    "code": "200333",
+    "zoneId": "1227",
+    "lat": 44.99509811401367,
+    "lon": 7.648220062255859,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:3675",
+    "name": "AMENDOLA CAP",
+    "code": "3675",
+    "zoneId": "5",
+    "desc": "AMENDOLA",
+    "lat": 44.995811462402344,
+    "lon": 7.6354899406433105
+  },
+  {
+    "gtfsId": "9:200332",
+    "name": "NICHELINO - Comune",
+    "code": "200332",
+    "zoneId": "1227",
+    "lat": 44.99501037597656,
+    "lon": 7.648250102996826,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "9:21710",
+    "name": "NICHELINO - Via Torino / Via Cuneo",
+    "code": "21710",
+    "zoneId": "1227",
+    "lat": 45.00484085083008,
+    "lon": 7.656630039215088,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "9:21703",
+    "name": "MONCALIERI - Via giusti (via rusca)",
+    "code": "21703",
+    "zoneId": "1227",
+    "lat": 44.989810943603516,
+    "lon": 7.661829948425293,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "14:041047",
+    "name": "Nic - Via Cacciatori",
+    "code": "041047",
+    "zoneId": "1164",
+    "lat": 45.00693893432617,
+    "lon": 7.624420166015625,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "9:21702",
+    "name": "NICHELINO - Via Giusti / Edicola",
+    "code": "21702",
+    "zoneId": "1227",
+    "lat": 44.992469787597656,
+    "lon": 7.655330181121826,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:3105",
+    "name": "GALVANI",
+    "code": "3105",
+    "zoneId": "3",
+    "desc": "V.XXV APRILE DOPO V.GALVANI NICHELINO",
+    "lat": 45.00210952758789,
+    "lon": 7.6503801345825195,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:3103",
+    "name": "TOSCANINI",
+    "code": "3103",
+    "zoneId": "3",
+    "desc": "V.XXV APRILE / V. TOSCANINI NICHELINO",
+    "lat": 45.00188064575195,
+    "lon": 7.64532995223999,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "vco:16:stp:6022",
+    "name": "VIA PASTRENGO N. 29",
+    "code": "6022",
+    "lat": 45.00312042236328,
+    "lon": 7.6673197746276855
+  },
+  {
+    "gtfsId": "gtt:3112",
+    "name": "STUPINIGI",
+    "code": "3112",
+    "zoneId": "3",
+    "desc": "V.XXV APRILE DOPO V.BERRUTI NICHELINO",
+    "lat": 45.001800537109375,
+    "lon": 7.639639854431152,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:6051",
+    "name": "TETTI PIATTI N.82",
+    "code": "6051",
+    "zoneId": "3",
+    "desc": "STR. TETTI PIATTI N. 82",
+    "lat": 44.97850036621094,
+    "lon": 7.662799835205078,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:3108",
+    "name": "CAGLIARI",
+    "code": "3108",
+    "zoneId": "3",
+    "desc": "V.SUPERGA 26  NICHELINO",
+    "lat": 44.99850082397461,
+    "lon": 7.655749797821045,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:6052",
+    "name": "TETTI PIATTI N.72",
+    "code": "6052",
+    "zoneId": "3",
+    "desc": "V. TETTI PIATTI FRONTE N. 72",
+    "lat": 44.977909088134766,
+    "lon": 7.665629863739014,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:3106",
+    "name": "PACINOTTI",
+    "code": "3106",
+    "zoneId": "3",
+    "desc": "V. XXV APRILE DOPO V. TORINO NICHELINO",
+    "lat": 45.002140045166016,
+    "lon": 7.654600143432617,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:6053",
+    "name": "TETTI PIATTI N.8",
+    "code": "6053",
+    "zoneId": "3",
+    "desc": "STR. TETTI PIATTI N. 10",
+    "lat": 44.97990036010742,
+    "lon": 7.669559955596924,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:3107",
+    "name": "PALERMO",
+    "code": "3107",
+    "zoneId": "3",
+    "desc": "V.MILANO / V.PALERMO  NICHELINO",
+    "lat": 44.99851989746094,
+    "lon": 7.658919811248779,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "7:55604",
+    "name": "NICHELINO - VIA XX APRILE - CASE POPOLARI",
+    "code": "55604",
+    "lat": 45.00151062011719,
+    "lon": 7.631539821624756
+  },
+  {
+    "gtfsId": "7:02555",
+    "name": "V.XXV APRILE DOPO V.DEI MUGHETTI  NICHELINO",
+    "code": "02555",
+    "lat": 45.001800537109375,
+    "lon": 7.636899948120117
+  },
+  {
+    "gtfsId": "gtt:6050",
+    "name": "TAGLIAFERRO N.34",
+    "code": "6050",
+    "zoneId": "3",
+    "desc": "STR. TAGLIAFERRO FRONTE N. 34",
+    "lat": 44.979408264160156,
+    "lon": 7.660530090332031,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "7:00901",
+    "name": "V.TORINO / V.DEI MARTIRI    NICHELINO",
+    "code": "00901",
+    "lat": 45.00189971923828,
+    "lon": 7.655600070953369,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "7:55605",
+    "name": "NICHELINO - VIA XX APRILE - CASE POPOLARI",
+    "code": "55605",
+    "lat": 45.00157928466797,
+    "lon": 7.631539821624756
+  },
+  {
+    "gtfsId": "7:00900",
+    "name": "V.TORINO N.56  NICHELINO",
+    "code": "00900",
+    "lat": 45.00141906738281,
+    "lon": 7.65480375289917,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "vco:16:stp:141259",
+    "name": "Nichelino Via Cuneo n.12",
+    "code": "71259",
+    "lat": 45.00505828857422,
+    "lon": 7.65772008895874,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "vco:16:stp:141257",
+    "name": "Nichelino Via Cuneo n.44",
+    "code": "71257",
+    "lat": 45.004329681396484,
+    "lon": 7.661310195922852,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "vco:16:stp:141258",
+    "name": "Nichelino Via Cuneo n.11",
+    "code": "71258",
+    "lat": 45.00497817993164,
+    "lon": 7.658599853515625,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "vco:16:stp:141256",
+    "name": "Nichelino Via Cuneo n.55",
+    "code": "71256",
+    "lat": 45.004188537597656,
+    "lon": 7.6620001792907715,
+    "vehicleMode": "BUS"
+  },
+  {
+    "gtfsId": "gtt:1035",
+    "name": "PESCHIERA",
+    "code": "1035",
+    "zoneId": "3",
+    "desc": "C.ROMA N.27 MONCALIERI",
+    "lat": 45.006710052490234,
+    "lon": 7.6699299812316895,
+    "vehicleMode": "BUS"
   }
-}
+]

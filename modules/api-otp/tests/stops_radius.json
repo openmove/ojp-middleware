@@ -1,0 +1,334 @@
+[
+    {
+        "gtfsId": "9:26028",
+        "name": "TORINO MIRAFIORI - C. Unione/Sangone",
+        "code": "26028",
+        "zoneId": "6041",
+        "lat": 45.01008987426758,
+        "lon": 7.620810031890869,
+        "vehicleMode": "BUS"
+    },
+    {
+        "gtfsId": "10:26028",
+        "name": "TORINO MIRAFIORI - C. Unione/Sangone",
+        "code": "26028",
+        "zoneId": "6041",
+        "lat": 45.01008987426758,
+        "lon": 7.620810031890869,
+        "vehicleMode": "BUS"
+    },
+    {
+        "gtfsId": "gtt:1101",
+        "name": "SANGONE",
+        "code": "1101",
+        "zoneId": "0",
+        "desc": "C.UNIONE SOVIETICA / PONTE SANGONE",
+        "lat": 45.01015853881836,
+        "lon": 7.6208600997924805,
+        "vehicleMode": "BUS"
+    },
+    {
+        "gtfsId": "gtt:1100",
+        "name": "SANGONE",
+        "code": "1100",
+        "zoneId": "0",
+        "desc": "C.UNIONE SOVIETICA DOPO PONTE SANGONE",
+        "lat": 45.00986862182617,
+        "lon": 7.621180057525635,
+        "vehicleMode": "BUS"
+    },
+    {
+        "gtfsId": "9:26027",
+        "name": "STUPINIGI - Viale Torino / Bivio",
+        "code": "26027",
+        "zoneId": "1019",
+        "lat": 45.00564956665039,
+        "lon": 7.616049766540527,
+        "vehicleMode": "BUS"
+    },
+    {
+        "gtfsId": "10:26027",
+        "name": "STUPINIGI - Viale Torino / Bivio",
+        "code": "26027",
+        "zoneId": "1019",
+        "lat": 45.00564956665039,
+        "lon": 7.616049766540527,
+        "vehicleMode": "BUS"
+    },
+    {
+        "gtfsId": "10:6028",
+        "name": "TORINO MIRAFIORI - C. Unione / Sangone",
+        "code": "6028",
+        "zoneId": "6041",
+        "lat": 45.00999069213867,
+        "lon": 7.621200084686279,
+        "vehicleMode": "BUS"
+    },
+    {
+        "gtfsId": "9:6028",
+        "name": "TORINO MIRAFIORI - C. Unione / Sangone",
+        "code": "6028",
+        "zoneId": "6041",
+        "lat": 45.00999069213867,
+        "lon": 7.621200084686279,
+        "vehicleMode": "BUS"
+    },
+    {
+        "gtfsId": "gtt:1099",
+        "name": "RONDÒ BERNARDO",
+        "code": "1099",
+        "zoneId": "3",
+        "desc": "RONDO' BERNARDO",
+        "lat": 45.00553894042969,
+        "lon": 7.615920066833496,
+        "vehicleMode": "BUS"
+    },
+    {
+        "gtfsId": "14:001099",
+        "name": "Nic - Ss 23-Rondã² Bernardo",
+        "code": "001099",
+        "zoneId": "1164",
+        "lat": 45.005531311035156,
+        "lon": 7.615920066833496,
+        "vehicleMode": "BUS"
+    },
+    {
+        "gtfsId": "14:030258",
+        "name": "Nic - Ss 23-Rondã² Bernardo",
+        "code": "030258",
+        "zoneId": "1164",
+        "lat": 45.00539016723633,
+        "lon": 7.61545991897583,
+        "vehicleMode": "BUS"
+    },
+    {
+        "gtfsId": "10:6027",
+        "name": "STUPINIGI - Viale Torino / Bivio",
+        "code": "6027",
+        "zoneId": "1019",
+        "lat": 45.00497817993164,
+        "lon": 7.615409851074219,
+        "vehicleMode": "BUS"
+    },
+    {
+        "gtfsId": "9:6027",
+        "name": "STUPINIGI - Viale Torino / Bivio",
+        "code": "6027",
+        "zoneId": "1019",
+        "lat": 45.00497817993164,
+        "lon": 7.615409851074219,
+        "vehicleMode": "BUS"
+    },
+    {
+        "gtfsId": "gtt:1069",
+        "name": "CESANA",
+        "code": "1069",
+        "zoneId": "3",
+        "desc": "STR.CACCIATORI FRONTE N.111 NICHELINO",
+        "lat": 45.007728576660156,
+        "lon": 7.622960090637207,
+        "vehicleMode": "BUS"
+    },
+    {
+        "gtfsId": "gtt:1098",
+        "name": "TORINO",
+        "code": "1098",
+        "zoneId": "3",
+        "desc": "V.R.BERNARDO N.1 NICHELINO",
+        "lat": 45.00585174560547,
+        "lon": 7.6143598556518555,
+        "vehicleMode": "BUS"
+    },
+    {
+        "gtfsId": "14:031047",
+        "name": "Nic - Via Cacciatori",
+        "code": "031047",
+        "zoneId": "1164",
+        "lat": 45.006900787353516,
+        "lon": 7.624390125274658,
+        "vehicleMode": "BUS"
+    },
+    {
+        "gtfsId": "14:041047",
+        "name": "Nic - Via Cacciatori",
+        "code": "041047",
+        "zoneId": "1164",
+        "lat": 45.00693893432617,
+        "lon": 7.624420166015625,
+        "vehicleMode": "BUS"
+    },
+    {
+        "gtfsId": "gtt:1070",
+        "name": "CESANA",
+        "code": "1070",
+        "zoneId": "3",
+        "desc": "STR DEI CACCIATORI N.111 NICHELINO",
+        "lat": 45.00754165649414,
+        "lon": 7.622799873352051,
+        "vehicleMode": "BUS"
+    },
+    {
+        "gtfsId": "14:030907",
+        "name": "To - Str Castello Di Mirafiori",
+        "code": "030907",
+        "zoneId": "1272",
+        "lat": 45.012779235839844,
+        "lon": 7.625080108642578,
+        "vehicleMode": "BUS"
+    },
+    {
+        "gtfsId": "gtt:1074",
+        "name": "CASTELLO DI MIRAFIORI",
+        "code": "1074",
+        "zoneId": "0",
+        "desc": "C.UNIONE SOVIETICA / STR DEL DROSSO",
+        "lat": 45.0135612487793,
+        "lon": 7.624619960784912,
+        "vehicleMode": "BUS"
+    },
+    {
+        "gtfsId": "gtt:3452",
+        "name": "CABRINI",
+        "code": "3452",
+        "zoneId": "0",
+        "desc": "STRADA DEL DROSSO N.10",
+        "lat": 45.01361846923828,
+        "lon": 7.623700141906738,
+        "vehicleMode": "BUS"
+    },
+    {
+        "gtfsId": "7:01074",
+        "name": "C.UNIONE SOVIETICA / STR.DEL DROSSO",
+        "code": "01074",
+        "lat": 45.01359939575195,
+        "lon": 7.624599933624268
+    },
+    {
+        "gtfsId": "gtt:1096",
+        "name": "RONDÒ BERNARDO N.16",
+        "code": "1096",
+        "zoneId": "3",
+        "desc": "RONDO' BERNARDO N.16",
+        "lat": 45.00720977783203,
+        "lon": 7.610919952392578,
+        "vehicleMode": "BUS"
+    },
+    {
+        "gtfsId": "14:000285",
+        "name": "Torino - Strada Del Drosso",
+        "code": "000285",
+        "zoneId": "1272",
+        "lat": 45.01335144042969,
+        "lon": 7.6250200271606445,
+        "vehicleMode": "BUS"
+    },
+    {
+        "gtfsId": "gtt:3357",
+        "name": "UNIONE SOVIETICA",
+        "code": "3357",
+        "zoneId": "0",
+        "desc": "STR. CASTELLO DI MIRAFIORI / C. UNIONE SOVIETICA",
+        "lat": 45.01285171508789,
+        "lon": 7.625470161437988,
+        "vehicleMode": "BUS"
+    },
+    {
+        "gtfsId": "gtt:3358",
+        "name": "CASTELLO DI MIRAFIORI",
+        "code": "3358",
+        "zoneId": "0",
+        "desc": "CASTELLO DI MIRAFIORI [DISCESA OBBLIGATORIA]",
+        "lat": 45.01346969604492,
+        "lon": 7.624849796295166,
+        "vehicleMode": "TRAM"
+    },
+    {
+        "gtfsId": "7:00210",
+        "name": "STR.DEL DROSSO  N??10",
+        "code": "00210",
+        "lat": 45.01359939575195,
+        "lon": 7.6230998039245605
+    },
+    {
+        "gtfsId": "gtt:210",
+        "name": "CABRINI",
+        "code": "210",
+        "zoneId": "0",
+        "desc": "STR DEL DROSSO N.10",
+        "lat": 45.01359939575195,
+        "lon": 7.623050212860107,
+        "vehicleMode": "BUS"
+    },
+    {
+        "gtfsId": "9:26029",
+        "name": "TORINO MIRAFIORI - C.so Unione/Drosso",
+        "code": "26029",
+        "zoneId": "6041",
+        "lat": 45.013771057128906,
+        "lon": 7.624889850616455,
+        "vehicleMode": "BUS"
+    },
+    {
+        "gtfsId": "10:26029",
+        "name": "TORINO MIRAFIORI - C.so Unione/Drosso",
+        "code": "26029",
+        "zoneId": "6041",
+        "lat": 45.013771057128906,
+        "lon": 7.624889850616455,
+        "vehicleMode": "BUS"
+    },
+    {
+        "gtfsId": "14:003358",
+        "name": "To - Cso Unione Sovietica 592",
+        "code": "003358",
+        "zoneId": "1272",
+        "lat": 45.013771057128906,
+        "lon": 7.6249098777771,
+        "vehicleMode": "BUS"
+    },
+    {
+        "gtfsId": "gtt:1073",
+        "name": "CASTELLO DI MIRAFIORI",
+        "code": "1073",
+        "zoneId": "0",
+        "desc": "C.UNIONE SOVIETICA DOPO STR.CASTELLO MIRAFIORI",
+        "lat": 45.01359939575195,
+        "lon": 7.625329971313477,
+        "vehicleMode": "BUS"
+    },
+    {
+        "gtfsId": "10:6029",
+        "name": "TORINO MIRAFIORI - C.so Unione / Drosso",
+        "code": "6029",
+        "zoneId": "6041",
+        "lat": 45.01359939575195,
+        "lon": 7.625249862670898,
+        "vehicleMode": "BUS"
+    },
+    {
+        "gtfsId": "9:6029",
+        "name": "TORINO MIRAFIORI - C.so Unione / Drosso",
+        "code": "6029",
+        "zoneId": "6041",
+        "lat": 45.01359939575195,
+        "lon": 7.625249862670898,
+        "vehicleMode": "BUS"
+    },
+    {
+        "gtfsId": "gtt:285",
+        "name": "DROSSO CAP",
+        "code": "285",
+        "zoneId": "2",
+        "desc": "DROSSO",
+        "lat": 45.01369857788086,
+        "lon": 7.625179767608643,
+        "vehicleMode": "TRAM"
+    },
+    {
+        "gtfsId": "7:01073",
+        "name": "C.UNIONE SOVIETICA DOPO STR.CASTELLO MIRAFIORI",
+        "code": "01073",
+        "lat": 45.01380157470703,
+        "lon": 7.6255998611450195
+    }
+]

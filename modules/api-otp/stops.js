@@ -1,5 +1,5 @@
 const { request, GraphQLClient, gql } = require('graphql-request');
-
+const fs = require('fs');
 const NodeCache = require('node-cache');
 
 const Cache = new NodeCache({
@@ -158,7 +158,7 @@ module.exports = {
   },
   'searchByRadius': async (config, params, extra) => {
 
-    const { logger, default_radius } = config;
+    const { logger, default_radius, default_limit } = config;
     const clientQL = new GraphQLClient(config.otp.baseUrl, { headers: config.otp.headers });
 
     //const limit = Number(extra.limit || config.default_limit);
@@ -166,26 +166,30 @@ module.exports = {
     const circle = params.split(',').map(Number);
     const [centerLon, centerLat, radius] = circle;
 
+    const radi = Number(radius) || default_radius;
+
     const query = gql`
                 {
                   stopsByRadius (
                       lat: ${centerLat},
                       lon: ${centerLon},
-                      radius: ${rad || default_radius}) {
-                    edges {
-                      node {
-                        stop {
-                          gtfsId
-                          name
-                          code
-                          zoneId
-                          desc
-                          lat
-                          lon
-                          vehicleMode
+                      radius: ${radi}) {
+                      edges {
+                        node {
+                          stop {
+                            gtfsId
+                            name
+                            code
+                            zoneId
+                            desc
+                            lat
+                            lon
+                            vehicleMode
+                          }
                         }
                       }
                     }
+                  }
                 }`;
 
     logger.info('searchByRadius');
@@ -193,15 +197,23 @@ module.exports = {
 
     const data = await clientQL.request(query, {});
 
-    if(data!= null && data.stopsByRadius){
+console.log(data.stopsByRadius.edges);
+
+    if(data?.stopsByRadius?.edges){
       const res = {stops: []}
-      for(const stop of data.stopsByRadius){
+      for(const edge of data.stopsByRadius.edges){
+
+        const {stop} = edge.node;
+
         if(stop){
           res.stops.push(stop);
         }else{
           break;
         }
       }
+
+      fs.writeFileSync('./stops.json', JSON.stringify(res.stops,null,4));
+
       return res;
     }
     return {
