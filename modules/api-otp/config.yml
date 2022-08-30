@@ -33,6 +33,7 @@ otp:
 
 default_limit: 10000
 default_skip: 0
+default_radius: 1000
 
 caching: false
 #caching OTP graphql query results

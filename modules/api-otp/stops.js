@@ -158,17 +158,20 @@ module.exports = {
   },
   'searchByRadius': async (config, params, extra) => {
 
-    const { logger } = config;
+    const { logger, default_radius } = config;
     const clientQL = new GraphQLClient(config.otp.baseUrl, { headers: config.otp.headers });
 
     //const limit = Number(extra.limit || config.default_limit);
 
+    const circle = params.split(',').map(Number);
+    const [centerLon, centerLat, radius] = circle;
+
     const query = gql`
                 {
                   stopsByRadius (
-                      lat : ${params[1]},
-                      lon : ${params[0]},
-                      radius: ${params[2] || 1000}) {
+                      lat: ${centerLat},
+                      lon: ${centerLon},
+                      radius: ${rad || default_radius}) {
                     edges {
                       node {
                         stop {
@@ -212,8 +215,6 @@ module.exports = {
     
     const bbox = params.split(',').map(Number);
     const [upperLon, upperLat, lowerLon, lowerLat] = bbox;
-
-console.log('searchByBBox',bbox)
 
     const query = gql`
                 {
