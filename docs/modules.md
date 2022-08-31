@@ -8,7 +8,7 @@
 
 ### [api-ojp](api-ojp.md)
 
-OJP entrypoint, implements OJP requests
+OJP entrypoint, implements OJP responses
 
 
 ### [api-otp](api-otp.md)
