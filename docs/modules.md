@@ -4,9 +4,7 @@
 - api-ojp
 - api-otp
 - ep-manager
-- ojp-loader
 - tests
-- utils
 
 ### [api-ojp](api-ojp.md)
 
