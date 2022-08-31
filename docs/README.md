@@ -8,7 +8,7 @@ all modules are single npm packages some are dependent on each other
 - api-ojp
 - api-otp
 - ep-manager
-- utils
+- tests
 
 [learn more](modules.md)
 
