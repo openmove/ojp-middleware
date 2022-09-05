@@ -275,7 +275,18 @@ app.post('/ojp/', async (req, result) => {
     xmlServiceDelivery.importXMLBuilder(createErrorResponse('OJP', config.errors.notagrequest, startTime));
   }
 
-  const resXml = ojpXML.end({pretty: true});
+  const resXml = ojpXML.end({
+    writer: {
+      element: (node, options, level) => {
+
+        console.log('XML WRITER', level, options)
+        console.log(node)
+
+        return node
+      }
+    },
+    pretty: true
+  });
 
   result.set({
     'Content-Type': 'application/xml',
