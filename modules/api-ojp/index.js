@@ -275,18 +275,25 @@ app.post('/ojp/', async (req, result) => {
     xmlServiceDelivery.importXMLBuilder(createErrorResponse('OJP', config.errors.notagrequest, startTime));
   }
 
-  const resXml = ojpXML.end({
-    writer: {
-      element: (node, options, level) => {
+  //custom writer https://github.com/oozcitak/xmlbuilder-js/issues/195
 
-        console.log('XML WRITER', level, options)
-        console.log(node)
-
-        return node
-      }
-    },
+  const optsWriter = {
     pretty: true
-  });
+  };
+
+  if( config.ojptag_in_response === false ) {
+    optsWriter.writer = {
+      element: function(node, options, level) {
+        if(`${node.name}`.indexOf('ojp:')!=-1) {
+          node.name = `${node.name}`.replace('ojp:','')
+        }
+        console.log(`${options.indent.repeat(level)} <${node.name}>`)
+        return this._element(node, options, level);
+      }
+    }
+  }
+
+  const resXml = ojpXML.end(xmlbuilder.stringWriter(optsWriter));
 
   result.set({
     'Content-Type': 'application/xml',

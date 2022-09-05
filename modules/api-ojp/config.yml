@@ -49,6 +49,7 @@ default_restrictions:
 
 include_precision: false
 location_digits: 5
+ojptag_in_response: true
 
 #enable disable services
 services:
