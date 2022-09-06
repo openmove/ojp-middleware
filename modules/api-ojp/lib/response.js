@@ -51,8 +51,6 @@ module.exports = {
     //
     //SIRI MODES
     //  lib/siri_modes.txt
-    //
-    //MIP
 
     const modes = {
       ' ': 'unknown',

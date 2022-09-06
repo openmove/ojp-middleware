@@ -205,11 +205,14 @@ app.post('/ojp/', async (req, result) => {
     encoding: 'utf-8',
   });
 
+  let xmlnsOjp = 'xmlns:ojp';
+
+  if( config.ojptag_in_response === false ){
+    xmlnsOjp = 'xmlns';
+  }
+
+  ojpXML.att(xmlnsOjp, 'http://www.vdv.de/ojp');
   ojpXML.att('xmlns:siri', 'http://www.siri.org.uk/siri');
-
-  const xmlnsDef = 'xmlns:ojp';
-
-  ojpXML.att(xmlnsDef, 'http://www.vdv.de/ojp');
 
   ojpXML.att('version', '1.0');
 
