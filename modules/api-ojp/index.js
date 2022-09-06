@@ -156,7 +156,9 @@ app.post('/ojp/', async (req, result) => {
 
           const ojpErr = xmlbuilder.create('siri:OJP', {encoding: 'utf-8'});
           ojpErr.att('xmlns:siri', 'http://www.siri.org.uk/siri');
+
           ojpErr.att('xmlns:ojp', 'http://www.vdv.de/ojp');
+
           ojpErr.att('version', '1.0');
 
           //TODO use createErrorResponse()
@@ -175,7 +177,6 @@ app.post('/ojp/', async (req, result) => {
           
           result.set({
             'Content-Type': 'application/xml',
-            //'Content-Type': 'text/json'
             'Content-Length': resXml.length
           });
 
@@ -205,7 +206,11 @@ app.post('/ojp/', async (req, result) => {
   });
 
   ojpXML.att('xmlns:siri', 'http://www.siri.org.uk/siri');
-  ojpXML.att('xmlns:ojp', 'http://www.vdv.de/ojp');
+
+  const xmlnsDef = 'xmlns:ojp';
+
+  ojpXML.att(xmlnsDef, 'http://www.vdv.de/ojp');
+
   ojpXML.att('version', '1.0');
 
   const xmlServiceDelivery = ojpXML.ele('siri:OJPResponse').ele('siri:ServiceDelivery');

@@ -25,7 +25,7 @@ dev:
     logrequest: true
   api-otp:
     host: localhost
-    port: 8082
+    port: 9092
   ep-manager:
     host: localhost
     port: 8083
@@ -49,7 +49,7 @@ default_restrictions:
 
 include_precision: false
 location_digits: 5
-ojptag_in_response: true
+ojptag_in_response: false
 
 #enable disable services
 services:

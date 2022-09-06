@@ -42,7 +42,7 @@ services:
     ports:
       - "9092:9092"
     environment:
-      - OTP_HOST=mip-r-loadb-14949k90kol75-1272452334.eu-south-1.elb.amazonaws.com
+      - OTP_HOST=${OTP_HOST}
       - OTP_PATH=/otp/routers/default/index/graphql
       - OTP_PORT=8080
       #- QUERY_DEBUG=true
