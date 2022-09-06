@@ -21,5 +21,8 @@ implements this OJP entrypoints:
 - transfer_limit (default: 2, ojp:TransferLimit)
 - include_accessibility (default: false, ojp:IncludeAccessibility)
 - include_intermediate_stops (default: false, ojp:IncludeIntermediateStops)
-- limit: 10000
-- skip: 0
+- include_precision (default: false)
+- location_digits (default:5)
+- ojptag_in_response: include namespace ':ojp' in all tags in results (default: true)
+- limit limits of results (default: 10000)
+- skip results starting from (default: 0)
