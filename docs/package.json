@@ -1,0 +1,14 @@
+{
+  "name": "docs",
+  "version": "1.0.0",
+  "description": "## Modules",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Stefano Cudini stefano.cudini@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "md-to-pdf": "^5.1.0"
+  }
+}
