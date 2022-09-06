@@ -48,31 +48,32 @@ The basic structure of code:
 .
 ├── modules
 │        ├── api-ojp
-│        │        ├── config.yml
+│        │        ├── services/
 │        │        ├── Dockerfile
 │        │        ├── index.js
-│        │        ├── package.json
-│        │        └── services/
+│        │        ├── config.yml
+│        │        └── package.json
 │        ├── api-otp
 │        │        ├── config.yml
 │        │        ├── Dockerfile
 │        │        └── package.json
 │        ├── ep-manager
-│        │        ├── config.yml
-│        │        ├── Dockerfile
 │        │        ├── download/
 │        │        ├── csvs/
+│        │        ├── config.yml
+│        │        ├── Dockerfile
 │        │        ├── import.js
 │        │        └── package.json
-│        ├── utils
-│        │        ├── config.js
+│        ├── tests
+│        │        ├── xmls/
+│        │        ├── config.yml
 │        │        ├── index.js
 │        │        └── package.json
 │        └── db
-│                 ├── export.sh
+│                 ├── dumps/
 │                 ├── data/
-│                 └── dumps/
-├── lerna.json
+│                 └── export.sh
+│
 ├── docker-compose.yml
 └── package.json
 ```

@@ -7,7 +7,7 @@
     "start": "node index.js"
   },
   "author": "Stefano Cudini stefano.cudini@gmail.com",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "markdown-pdf": "^11.0.0"
   }
