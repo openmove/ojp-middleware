@@ -18,11 +18,11 @@ implements this OJP entrypoints:
 
 ## default restrictions by config.yml
 
-- transfer_limit (default: 2, ojp:TransferLimit)
-- include_accessibility (default: false, ojp:IncludeAccessibility)
-- include_intermediate_stops (default: false, ojp:IncludeIntermediateStops)
-- include_precision (default: false)
-- location_digits (default:5)
-- ojptag_in_response: include namespace ':ojp' in all tags in results (default: true)
-- limit limits of results (default: 10000)
-- skip results starting from (default: 0)
+- _include_intermediate_stops:_ value of `ojp:IncludeIntermediateStops` (default: false)
+- _include_accessibility:_ 		value of `ojp:IncludeAccessibility` (default: false)
+- _ojptag_in_response:_ 	include namespace ':ojp' in all tags in results (default: true)
+- _include_precision:_ 		include `ojp:Precision` tag in reponses (default: false)
+- _location_digits:_ 		precision for all coordinates in reponses (default:5)
+- _transfer_limit:_ 	value of `ojp:TransferLimit` in reponses (default: 2)
+- _limit:_ 				limits of results (default: 10000)
+- _skip:_ 				results starting from (default: 0)

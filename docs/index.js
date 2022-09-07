@@ -11,7 +11,7 @@ const mdDocs = [
 'api-otp.md',
 'ep-manager.md',
 ]
-, outPath = "../docs.pdf"
+, outPath = "../Documentation.pdf"
 
 markdownpdf().concat.from(mdDocs).to(outPath, function () {
   console.log("Created", outPath)
