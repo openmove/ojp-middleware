@@ -1,5 +1,5 @@
 
-## Config
+## CONFIGURATION
 
 each module of project contains a single **config.yml** file
 it define service configurations(example PORT).

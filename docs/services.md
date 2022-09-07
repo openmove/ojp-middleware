@@ -1,5 +1,5 @@
 
-## Services
+## SERVICES
 
 base structure of any Docker service:
 

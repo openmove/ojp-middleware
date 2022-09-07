@@ -1,5 +1,5 @@
 
-# api-otp
+# API OTP
 
 maintain connection to OpenTripPlanner instance
 

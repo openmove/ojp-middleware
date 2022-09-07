@@ -1,5 +1,5 @@
 
-# exchangepoint manager
+# EXCHANGEPOINT MANAGER
 
 mongodb models to store ojp exchangepoints
 
